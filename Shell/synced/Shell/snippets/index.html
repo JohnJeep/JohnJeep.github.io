@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Snippets | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. Influxdb 2. find 3. mysql 4. shell 5. docker  1. Influxdb1234567891011121314151617181920212223242526272829303132&#x2F;&#x2F; 启动service influxdb start&#x2F;&#x2F; 远程登录influx -host 172.26.165.132 -port 8086 -username">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Snippets">
+<meta property="og:url" content="https://johnjeep.github.io/Shell/synced/Shell/snippets/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="1. Influxdb 2. find 3. mysql 4. shell 5. docker  1. Influxdb1234567891011121314151617181920212223242526272829303132&#x2F;&#x2F; 启动service influxdb start&#x2F;&#x2F; 远程登录influx -host 172.26.165.132 -port 8086 -username">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2024-09-25T19:08:24.000Z">
+<meta property="article:modified_time" content="2026-01-29T03:08:58.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="shell">
+<meta property="article:tag" content="snippets">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Snippets",
+  "url": "https://johnjeep.github.io/Shell/synced/Shell/snippets/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2024-09-25T19:08:24.000Z",
+  "dateModified": "2026-01-29T03:08:58.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Shell/synced/Shell/snippets/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Snippets',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../index.html"></a><a class="nav-page-title" href="../../../../index.html"><span class="site-name">Snippets</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Snippets</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-25T19:08:24.000Z" title="发表于 2024-09-26 03:08:24">2024-09-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-29T03:08:58.000Z" title="更新于 2026-01-29 11:08:58">2026-01-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../categories/Shell/">Shell</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2024-10-10 15:31:52
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2025-11-20 12:43:49
+ * @Description: 常用代码片段 
+ * Copyright (c) 2025 by John Jeep, All Rights Reserved. 
+-->
+<ul>
+<li><a href="#1-influxdb">1. Influxdb</a></li>
+<li><a href="#2-find">2. find</a></li>
+<li><a href="#3-mysql">3. mysql</a></li>
+<li><a href="#4-shell">4. shell</a></li>
+<li><a href="#5-docker">5. docker</a></li>
+</ul>
+<h1 id="1-Influxdb"><a href="#1-Influxdb" class="headerlink" title="1. Influxdb"></a>1. Influxdb</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span> 启动</span><br><span class="line">service influxdb <span class="keyword">start</span></span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 远程登录</span><br><span class="line">influx <span class="operator">-</span>host <span class="number">172.26</span><span class="number">.165</span><span class="number">.132</span> <span class="operator">-</span>port <span class="number">8086</span> <span class="operator">-</span>username admin <span class="operator">-</span>password <span class="number">123456</span> <span class="operator">-</span><span class="keyword">precision</span> rfc3339</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> UTC时间戳显示 本地登录</span><br><span class="line">influx <span class="operator">-</span><span class="keyword">precision</span> rfc3339 <span class="operator">-</span>username iottest <span class="operator">-</span>password Lanyou<span class="variable">@2020</span></span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 查询表</span><br><span class="line"><span class="keyword">show</span> measurements;</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 删除名为 cpu_usage 的测量表及其所有数据</span><br><span class="line"><span class="keyword">DROP</span> MEASUREMENT &quot;cpu_usage&quot;</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 查最新多少条；升序：<span class="keyword">ASC</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> &quot;RT-D-ZX-214&quot; <span class="keyword">order</span> <span class="keyword">by</span> <span class="type">time</span> <span class="keyword">DESC</span> limit <span class="number">500</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 按照时间段查询</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> &quot;RT-D-ZX-214&quot; <span class="keyword">where</span> <span class="type">time</span> <span class="operator">&gt;=</span> <span class="string">&#x27;2024-07-19T15:07:00Z&#x27;</span> <span class="keyword">and</span> <span class="type">time</span> <span class="operator">&lt;</span> <span class="string">&#x27;2024-07-22T08:00:00Z&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 导出</span><br><span class="line">influx_inspect export <span class="operator">-</span>datadir &quot;/home/iot-services/influxdb/data&quot; <span class="operator">-</span>waldir &quot;/home/iot-services/influxdb/wal&quot; <span class="operator">-</span><span class="keyword">out</span> &quot;influxdb_foundry_out&quot; <span class="operator">-</span>database &quot;iotdata&quot; <span class="operator">-</span><span class="keyword">start</span> &quot;2024-05-03T00:00:00Z&quot;</span><br><span class="line"></span><br><span class="line"># 导入</span><br><span class="line">influx <span class="operator">-</span>import <span class="operator">-</span>path<span class="operator">=</span><span class="operator">/</span>root<span class="operator">/</span>influxdb_dump_out <span class="operator">-</span><span class="keyword">precision</span><span class="operator">=</span>ns</span><br><span class="line"></span><br><span class="line">其中：</span><br><span class="line">  import: 标识导入</span><br><span class="line">  path: 导入文件</span><br><span class="line">  <span class="keyword">precision</span>: 导入的数据时间精度</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="2-find"><a href="#2-find" class="headerlink" title="2. find"></a>2. find</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除最近一小时外的日志</span></span><br><span class="line">find ./*.log -type f -mmin +60 -exec rm -rf &#123;&#125; \;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除超过七天的日志</span></span><br><span class="line">find ./*.log -type f -mtime +7 -exec rm -rf &#123;&#125; \;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="3-mysql"><a href="#3-mysql" class="headerlink" title="3. mysql"></a>3. mysql</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">// dump database</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">导出整个库，导出时不包含 GTID 信息</span></span><br><span class="line">mysqldump --set-gtid-purged=OFF -u username -p source_db &gt; source_db.sql</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看所有数据库的排序规则</span> </span><br><span class="line">SELECT </span><br><span class="line">    SCHEMA_NAME, </span><br><span class="line">    DEFAULT_CHARACTER_SET_NAME, </span><br><span class="line">    DEFAULT_COLLATION_NAME</span><br><span class="line">FROM </span><br><span class="line">    information_schema.SCHEMATA;</span><br><span class="line">    </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前数据库的排序规则</span></span><br><span class="line">SELECT </span><br><span class="line">    SCHEMA_NAME, </span><br><span class="line">    DEFAULT_CHARACTER_SET_NAME, </span><br><span class="line">    DEFAULT_COLLATION_NAME</span><br><span class="line">FROM </span><br><span class="line">    information_schema.SCHEMATA</span><br><span class="line">WHERE </span><br><span class="line">    SCHEMA_NAME = &#x27;your_database_name&#x27;;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看某个库中所有表的排序规则</span></span><br><span class="line">SELECT </span><br><span class="line">    TABLE_NAME,</span><br><span class="line">    TABLE_COLLATION</span><br><span class="line">FROM </span><br><span class="line">    information_schema.TABLES</span><br><span class="line">WHERE </span><br><span class="line">    TABLE_SCHEMA = &#x27;database_name&#x27;;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看某个表的排序规则</span></span><br><span class="line">SHOW TABLE STATUS WHERE Name = &#x27;your_table_name&#x27;;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看某张表中所有字段的排序方式</span></span><br><span class="line">SHOW FULL COLUMNS FROM table_name;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改某个库排序规则</span></span><br><span class="line">ALTER DATABASE thingcross CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改表中字段排序规则</span></span><br><span class="line">ALTER TABLE table_name CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="4-shell"><a href="#4-shell" class="headerlink" title="4. shell"></a>4. shell</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">取当前系统中状态为“UP”的网络接口的IP地址</span></span><br><span class="line">ip addr | grep &#x27;state UP&#x27; -A2 | tail -n1 | awk &#x27;&#123;print $2&#125;&#x27; | cut -f1 -d &#x27;/&#x27;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">批量杀死进程</span></span><br><span class="line">ps aux | grep xxx | grep -v grep | awk &#x27;&#123;print &quot;kill -9 &quot; $2&#125;&#x27; | sh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除除 xxx.log 最新10个以外的所有日志文件</span></span><br><span class="line">ls -t xxx.log | tail -n +11 | xargs rm -f</span><br></pre></td></tr></table></figure>
+
+<h1 id="5-docker"><a href="#5-docker" class="headerlink" title="5. docker"></a>5. docker</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">镜像导出</span></span><br><span class="line">docker save -o images.tar images:tag</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">镜像导入</span></span><br><span class="line">docker load images.tar</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Shell/synced/Shell/snippets/">https://johnjeep.github.io/Shell/synced/Shell/snippets/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../tags/shell/">shell</a><a class="post-meta__tags" href="../../../../tags/snippets/">snippets</a></div><div class="post-share"><div class="social-share" data-image="../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../../../../Linux/synced/Linux/clock/" title="Clock"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Clock</div></div><div class="info-2"><div class="info-item-1">   1. introduction 2. date 3. hwclock 4. ntpd 5. public time servers 6. references  1. introductionLinux 系统提供了多种方法来查看和设置系统时间，包括 date 命令、硬件时钟（hwclock）以及网络时间协议（NTP）服务。本文将介绍这些方法的使用。 2. datedate 命令可以用来查看和手动设置日期、时间。命令格式如下： 12345678# 查看日期[root@zz-scf-iot-api02 log]# dateThu Sep 26 10:32:11 CST 2024# 修改时间[root@node1 ~]# date -s &quot;20240225 20:16:00&quot;  #yyyymmdd hh:mm:ssTue Feb 25 20:16:00 CST 2024   MM：月份（两位数，01-12） DD：日期（两位数，01-31） hh：小时（两位数，00-23，24小时制） mm：分钟（两位数，00-59） YYYY：年份（四位数）  3. hwc...</div></div></div></a><a class="pagination-related" href="../../../../Windows/synced/Windows/VisualStudio/" title="VisualStudio 版本对比"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">VisualStudio 版本对比</div></div><div class="info-2"><div class="info-item-1">VisualStudio 版本对比因为微软的版本比较乱，所以要理清版本，首先需要区分 VS 和 VC 的含义：  VS（Visual Studio）: 针对多语言（C++、C#、F#、J#、Asp、Web 等）的 IDE 集成开发环境 VC（Visual C++）: 针对 C++ 语言的 IDE 集成开发环境，也称为 MSVC  换言之，VS 包含 VC， VC 只是 VS 的其中一个工具集。 微软历年发布的 IDE 版本如下：    IDE 名称 发布时间 IDE 版本 工具集版本 MSC_VER MSVC++ 系统支持    Visual C++6.0 1998 6 V60 1200 MSVC++ 6.0 WinXP、Win7   Visual Studio 2002 2002 7 V70 1300 MSVC++ 7.0 WinXP、Win7   Visual Studio 2003 2003 8 V71 1310 MSVC++ 7.1 WinXP、Win7   Visual Studio 2005 2005 9 V80 1400 MSVC++ 8.0 WinXP、Win7 ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="../ccat/" title="自带语法高亮的 Cat – Ccat"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-16</div><div class="info-item-2">自带语法高亮的 Cat – Ccat</div></div><div class="info-2"><div class="info-item-1">自带语法高亮的 cat – ccat让 cat 源代码时如果带上语法高亮，会不会让工作效率更高一些呢？ 把下面的代码放在 .bashrc 终端后面 12345678910function ccat() &#123;    local style=&quot;monokai&quot;    if [ $# -eq 0 ]; then        pygmentize -P style=$style -P tabsize=4 -f terminal256 -g    else        for NAME in $@; do            pygmentize -P style=$style -P tabsize=4 -f terminal256 -g &quot;$NAME&quot;        done    fi&#125;  然后安装依赖 1sudo pip install pygments 安装完成后，重启终端让脚本生效。 让我们来看看执行的效果，这是新 cat 的效果  我们再对比下老的 cat 现实的效果 ! Referenceshttps://sky...</div></div></div></a><a class="pagination-related" href="../tmux/" title="Tmux Cheat Sheet"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-31</div><div class="info-item-2">Tmux Cheat Sheet</div></div><div class="info-2"><div class="info-item-1">Tmux cheat sheettmux sessions   _ new sessions    tmux   tmux new   tmux new-session   tmux new -s sessionname      _ attach sessions    tmux a   tmux att   tmux attach   tmux attach-session   tmux a -t session-name      _ remove sessions    tmux kill-ses   tmux kill-session -t session-name      _ key bindings description    CTRL + B $ rename session   CTRL + B d detach session   CTRL + B ) next session   CTRL + B ( previous session   tmux windows_ windows are like tabs in a browser. Windows ...</div></div></div></a><a class="pagination-related" href="../crontab/" title="Crontab"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-10</div><div class="info-item-2">Crontab</div></div><div class="info-2"><div class="info-item-1">  crontab 使用  1. 简介 2. 用法 2.1. 示例 2.2. 特殊符号   3. 示例 4. References  1. 简介crontab 命令主要用于设置命令行或者脚本周期性的执行。该命令从标准输入设备读取指令，并将其存放于文件中，以供之后读取和执行。本文主要讲述crontb命令的基本语法和配置方法。 2. 用法crontab 是一个用于管理用户的 cron 任务的命令行工具。它允许你创建、编辑、查看和删除 cron 任务。以下是 crontab 命令的一些常用用法： 命令格式 1crontab [-u user] -e -l -r   -u 用户名，不加 -u 参数默认为当前用户。 -e 编辑 crontab 文件。 -l 列出 crontab 文件中的内容。取值来源为 /var/spool/cron下对应的文件 -r 删除 crontab 文件。   查看当前用户的 cron 任务：  1crontab -l    该命令将显示当前用户的 cron 任务列表。  编辑当前用户的 cron 任务：  1crontab -e    该命令将打开一个文本编辑器...</div></div></div></a><a class="pagination-related" href="../shell/" title="Shell"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-30</div><div class="info-item-2">Shell</div></div><div class="info-2"><div class="info-item-1">  1. Introduction 2. Bash Terminal Shortcuts 2.1. Terminal 2.2. 大小写 2.3. 光标移动 2.4. 删除 2.5. 粘贴 2.6. 字符交换 2.7. 历史记录 2.8. 其它命令   3. Shell 启动 4. 基本命令 4.1. 引号 4.2. 变量 4.2.1. 环境变量 4.2.2. 用户变量   4.3. 命令替换 4.4. 命令行参数 4.5. basename 4.6. 执行数学运算   5. 重定向 6. 结构化命令 6.1. if 语句 6.1.1. 高级特性   6.2. case 语句 6.3. for 语句 6.4. while 语句 6.5. test 条件测试 6.5.1. 数值比较 6.5.2. 字符串比较 6.5.3. 文件比较 6.5.4. 逻辑比较     7. 函数 8. 阻止命令输出 9. shell调试 10. 用户输入处理 11. 正则表达式 11.1. 字符串限定符 11.2. 数量限定符 11.3. 位置限定符 11.4. 其他特殊字符   12. tee 13. ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Influxdb"><span class="toc-number">1.</span> <span class="toc-text">1. Influxdb</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-find"><span class="toc-number">2.</span> <span class="toc-text">2. find</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-mysql"><span class="toc-number">3.</span> <span class="toc-text">3. mysql</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-shell"><span class="toc-number">4.</span> <span class="toc-text">4. shell</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-docker"><span class="toc-number">5.</span> <span class="toc-text">5. docker</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../js/utils.js"></script><script src="../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

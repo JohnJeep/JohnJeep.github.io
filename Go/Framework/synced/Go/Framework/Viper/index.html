@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Viper | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. IntroductionViper 是适用于 Go 应用程序的完整配置解决方案。它被设计用于在应用程序中工作，并且可以处理所有类型的配置需求和格式。 它支持以下特性：  设置默认值 从JSON、TOML、YAML、HCL、envfile和Java properties格式的配置文件读取配置信息 实时监控和重新读取配置文件（可选） 从环境变量中读取 从远程配置系统（etcd或Consul）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Viper">
+<meta property="og:url" content="https://johnjeep.github.io/Go/Framework/synced/Go/Framework/Viper/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="1. IntroductionViper 是适用于 Go 应用程序的完整配置解决方案。它被设计用于在应用程序中工作，并且可以处理所有类型的配置需求和格式。 它支持以下特性：  设置默认值 从JSON、TOML、YAML、HCL、envfile和Java properties格式的配置文件读取配置信息 实时监控和重新读取配置文件（可选） 从环境变量中读取 从远程配置系统（etcd或Consul）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-04-18T01:50:22.000Z">
+<meta property="article:modified_time" content="2025-04-18T01:50:22.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="framework">
+<meta property="article:tag" content="viper">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Viper",
+  "url": "https://johnjeep.github.io/Go/Framework/synced/Go/Framework/Viper/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-04-18T01:50:22.000Z",
+  "dateModified": "2025-04-18T01:50:22.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Go/Framework/synced/Go/Framework/Viper/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Viper',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../../../index.html"></a><a class="nav-page-title" href="../../../../../../index.html"><span class="site-name">Viper</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Viper</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-18T01:50:22.000Z" title="发表于 2025-04-18 09:50:22">2025-04-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-18T01:50:22.000Z" title="更新于 2025-04-18 09:50:22">2025-04-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../../../categories/Go/">Go</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../../../categories/Go/Framework/">Framework</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2025-04-18 15:26:40
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2025-04-18 15:28:18
+ * @Description: viper framework usage
+ * Copyright (c) 2025 by John Jeep, All Rights Reserved. 
+-->
+
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>Viper 是适用于 Go 应用程序的完整配置解决方案。它被设计用于在应用程序中工作，并且可以处理所有类型的配置需求和格式。</p>
+<p>它支持以下特性：</p>
+<ul>
+<li>设置默认值</li>
+<li>从<code>JSON</code>、<code>TOML</code>、<code>YAML</code>、<code>HCL</code>、<code>envfile</code>和<code>Java properties</code>格式的配置文件读取配置信息</li>
+<li>实时监控和重新读取配置文件（可选）</li>
+<li>从环境变量中读取</li>
+<li>从远程配置系统（etcd或Consul）读取并监控配置变化</li>
+<li>从命令行参数读取配置</li>
+<li>从buffer读取配置</li>
+<li>显式配置值</li>
+</ul>
+<h1 id="2-Why-Choose-Viper"><a href="#2-Why-Choose-Viper" class="headerlink" title="2. Why Choose Viper?"></a>2. Why Choose Viper?</h1><p>在构建现代应用程序时，你无需担心配置文件格式；你想要专注于构建出色的软件。Viper的出现就是为了在这方面帮助你的。</p>
+<p>Viper能够为你执行下列操作：</p>
+<ol>
+<li>查找、加载和反序列化<code>JSON</code>、<code>TOML</code>、<code>YAML</code>、<code>HCL</code>、<code>INI</code>、<code>envfile</code>和<code>Java properties</code>格式的配置文件。</li>
+<li>提供一种机制为你的不同配置选项设置默认值。</li>
+<li>提供一种机制来通过命令行参数覆盖指定选项的值。</li>
+<li>提供别名系统，以便在不破坏现有代码的情况下轻松重命名参数。</li>
+<li>当用户提供了与默认值相同的命令行或配置文件时，可以很容易地分辨出它们之间的区别。</li>
+</ol>
+<p>Viper会按照下面的优先级。每个项目的优先级都高于它下面的项目:</p>
+<ul>
+<li>显示调用<code>Set</code>设置值</li>
+<li>命令行参数（flag）</li>
+<li>环境变量</li>
+<li>配置文件</li>
+<li>key&#x2F;value存储</li>
+<li>默认值</li>
+</ul>
+<p><strong>重要：</strong> 目前 Viper 配置的键（Key）是大小写不敏感的。目前正在讨论是否将这一选项设为可选。</p>
+<h1 id="3-References"><a href="#3-References" class="headerlink" title="3. References"></a>3. References</h1><ul>
+<li>Github：<a target="_blank" rel="noopener" href="https://github.com/spf13/viper">https://github.com/spf13/viper</a></li>
+<li>Go语言配置管理神器——Viper中文教程：<a target="_blank" rel="noopener" href="https://www.liwenzhou.com/posts/Go/viper/">https://www.liwenzhou.com/posts/Go/viper/</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Go/Framework/synced/Go/Framework/Viper/">https://johnjeep.github.io/Go/Framework/synced/Go/Framework/Viper/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../../../tags/go/">go</a><a class="post-meta__tags" href="../../../../../../tags/framework/">framework</a><a class="post-meta__tags" href="../../../../../../tags/viper/">viper</a></div><div class="post-share"><div class="social-share" data-image="../../../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../../../../../../Network/synced/Network/Socket/" title="Socket"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Socket</div></div><div class="info-2"><div class="info-item-1">  1. socket 套接字 NAT映射  作用对象 公网—私网 私网—公网     打洞机制  作用对象 私网—私网     大端法(Big-Endians)：高地址存低字节数据，低地址存储高字节数据  小端法(Small-Endins)：高地址存高字节数据，低地址存储低字节数据  inet_pton和inet_ntop函数  inet_pton() 将点分十进制字符串类型的IP地址转化为网络二进制字节序 inet_ntop() 将网络二进制字节序转化为点分十进制字符串类型的IP地址 注意缩写：p presentation：表达式； n numeric：数值     htons、ntohs、htonl和ntohl函数  主机字节序(本地)与网络字节序之间相互转换的几组API函数，本地套接字一般按照 小端法 存储，网络字节序一般按照 大端法 存储。  注意缩写：h：host，n：net，l：long，s：short12345#include &lt;netinet/in.h&gt;uint16_t htons(uint16_t host16 bitvalue);uint32_t...</div></div></div></a><a class="pagination-related" href="../Gin/" title="Gin"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Gin</div></div><div class="info-2"><div class="info-item-1">  1. IntroductionGin 是一个用 Go (Golang) 编写的 Web 框架。 它具有类似 martini 的 API，性能要好得多，多亏了 httprouter，速度提高了 40 倍。 如果您需要性能和良好的生产力，您一定会喜欢 Gin。 基于官方 net&#x2F;http 内建标准库封装的。  2. FundamentalGin是一个高性能的HTTP框架，核心可能包括路由、中间件、请求处理、响应处理这些。 路由(route)中间件(middleware) logger Logger 中间件用于记录每个 HTTP 请求的相关信息，如请求方法、请求路径、响应状态码、响应时间等。示例代码如下： 123456789101112131415package mainimport (    &quot;github.com/gin-gonic/gin&quot;)func main() &#123;    r := gin.Default() // 默认使用 Logger 和 Recovery 中间件    r.GET(&quot;/&quot;, func(c *g...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="../Gin/" title="Gin"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-18</div><div class="info-item-2">Gin</div></div><div class="info-2"><div class="info-item-1">  1. IntroductionGin 是一个用 Go (Golang) 编写的 Web 框架。 它具有类似 martini 的 API，性能要好得多，多亏了 httprouter，速度提高了 40 倍。 如果您需要性能和良好的生产力，您一定会喜欢 Gin。 基于官方 net&#x2F;http 内建标准库封装的。  2. FundamentalGin是一个高性能的HTTP框架，核心可能包括路由、中间件、请求处理、响应处理这些。 路由(route)中间件(middleware) logger Logger 中间件用于记录每个 HTTP 请求的相关信息，如请求方法、请求路径、响应状态码、响应时间等。示例代码如下： 123456789101112131415package mainimport (    &quot;github.com/gin-gonic/gin&quot;)func main() &#123;    r := gin.Default() // 默认使用 Logger 和 Recovery 中间件    r.GET(&quot;/&quot;, func(c *g...</div></div></div></a><a class="pagination-related" href="../../../../../synced/Go/GoStandardLibrary/" title="GoStandardLibrary"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">GoStandardLibrary</div></div><div class="info-2"><div class="info-item-1">  1. IntroductionGo 语言的标准库（通常被称为语言自带的电池），提供了清晰的构建模块和公共接口，包含 I&#x2F;O 操作、文本处理、图像、密码学、网络和分布式应用程序等，并支持许多标准化的文件格式和编解码协议。 学习标准库达到三个层面：  会使用标准库提供的 API 接口。用这些接口熟练的去写业务代码。 熟悉标准库的源码，理解库作者设计的思路和优秀的编码习惯。 在第二步的基础上，自己去扩充标准库，自己尝试去写、封装一些库，然后开源，让更多的人了解到，去使用自己写的库，在别人用的过程中加深理解。  优质的内容  源码结构清晰，架构、布局合理。 完整的文档。 社区广泛。  2. IO2.1. MultiWriter1func MultiWriter(writers ...Writer) Writer  MultiWriter 函数是一个变参函数，可以接受任意个实现了 io.Writer 接口的值。这个函数会返回一个 io.Writer 值，这个值会把所有传入的 io.Writer 的值绑在一起。当对这个返回值进行写入时，会向所有绑在一起的 io.Writer 值...</div></div></div></a><a class="pagination-related" href="../../../../../synced/Go/Go/" title="Go"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-06</div><div class="info-item-2">Go</div></div><div class="info-2"><div class="info-item-1">  1. How to learn go(学习方法) 先知道怎么做，再知道为什么？ 对知识有一个整体的框架概念，然后再学习具体的内容。 学习一门新的语言，需要掌握语言的变量、常量、表达式、控制流和函数等基本语法，这些都是每门语言通用的特性。 快速先学习一遍，然后再回过头来，去针对具体的用法或章节做补充、归纳。成为一个高手，必须在项目中去做具体的实战。  GO 程序员的五个进化阶段:  第一个阶段 (菜逼): 刚刚学习了这门语言。 已经通过一些教程或者培训班了解基本的语法，可以写短的代码片段。 第二个阶段 (探索者): 可以写一个完整的程序，但不懂一些更高级的语言特征，比如 “channels”。还没有使用 GO 写一个大项目。 第三个阶段 (大手): 你能熟练的使用 Go, 能够用 GO 去解决，生产环境中一个具体和完整的问题。已经形成了一套自己的惯用法和常用代码库。在你的编码方案中 Go 是一个非常好用的工具。 第四阶段 (大神): 绝逼清楚 Go 语言的设计选择和背后的动机。能理解的简洁和可组合性哲学。 布道师: 积极地与他人分享关于 Go 语言知识和你对 Go 语言的理解。...</div></div></div></a><a class="pagination-related" href="../../../../../synced/Go/GolangCodeConduct/" title="个人 Golang 语言命名风格"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">个人 Golang 语言命名风格</div></div><div class="info-2"><div class="info-item-1">个人 Golang 语言命名风格原则：遵循官方 Golang 命令规范。  文件名：字母加下划线组合。例如：tool_cmd.go 不能导出（私有）的函数、方法、接口、变量均按照小驼峰式命名，单词的首字母小写。若是能导出（公开）的函数、方法、接口、变量均按照大驼峰式命名，每个单词的首字母均大写。 测试用例文件均已 _test.go 后缀结尾。  </div></div></div></a><a class="pagination-related" href="../../../../../synced/Go/SlicesByte/" title="[] Byte 字节切片"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">[] Byte 字节切片</div></div><div class="info-2"><div class="info-item-1">[] byte 字节切片日常工作中，[]byte 会经常遇到，但对这个知识点总是模模糊糊的，有些地方不是特别的清楚，因此把自己对 []byte 的理解梳理出来，供大家分享。 在 Go 语言中，[]byte 是一个 字节切片 类型，用于表示二进制数据或字节序列。它常用于处理文件、网络传输和加密等场景。用作变量、函数的参数、函数的返回值以及结构体、接口中都很常用。 在这里要理解两个概念：一个是字节（byte），另一个是切片（Slice）。  byte：就是 []byte 右边的部分，表示元素类型是 byte，一个字节的数据，是一个无符号的 8 位整数类型。在 Go 语言中，byte 类型实际上是 uint8 的别名，所以 byte 的取值范围是 0 到 255。Go 标准库中的 byte 实现： 12345678// uint8 is the set of all unsigned 8-bit integers.// Range: 0 through 255.type uint8 uint8// byte is an alias for uint8 and is equivalent...</div></div></div></a><a class="pagination-related" href="../../../../../synced/Go/Compiler/" title="Compiler"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-09</div><div class="info-item-2">Compiler</div></div><div class="info-2"><div class="info-item-1">  1. IntroductionGolang 编译器底层源码分析。 2. 预编译指令在 Go 语言中，虽然没有像 C&#x2F;C++ 那样的传统预处理器，但提供了一些特殊的注释指令（称为编译指示或编译器指令），用于控制编译、构建、代码生成等行为。以下是 Go 中常见的预编译指令和相关功能： 1. 构建约束(Build Constraints)用于控制文件是否参与编译，通常基于操作系统、架构或自定义标签。 格式： 新语法（Go 1.17+） 1//go:build linux &amp;&amp; amd64  旧语法（兼容性保留） 1// +build linux,amd64  示例：1234//go:build linux// +build linuxpackage main  该文件仅在 Linux 系统下编译。  2. cgo用于在 Go 中调用 C 代码，设置 C 编译器和链接器参数。 常见指令： **#cgo CFLAGS**：设置 C 编译器标志。 **#cgo LDFLAGS**：设置链接器标志。 **#cgo pkg-config**：通过 pkg-confi...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Introduction"><span class="toc-number">1.</span> <span class="toc-text">1. Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Why-Choose-Viper"><span class="toc-number">2.</span> <span class="toc-text">2. Why Choose Viper?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-References"><span class="toc-number">3.</span> <span class="toc-text">3. References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../../../js/utils.js"></script><script src="../../../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>NodeComposition | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. ROS2 Node Composition（节点组合） 1.1. 为什么需要 Node Composition？ 1.1.1. 默认方式：独立进程（非组合） 1.1.2. 组合方式：单进程内协作   1.2. Node Composition 的三种实现方式 1.3. 如何选择？总结与对比 1.4. 结论    1. ROS2 Node Composition（节点组合）Node Co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NodeComposition">
+<meta property="og:url" content="https://johnjeep.github.io/Robotics/synced/Robotics/NodeComposition/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="1. ROS2 Node Composition（节点组合） 1.1. 为什么需要 Node Composition？ 1.1.1. 默认方式：独立进程（非组合） 1.1.2. 组合方式：单进程内协作   1.2. Node Composition 的三种实现方式 1.3. 如何选择？总结与对比 1.4. 结论    1. ROS2 Node Composition（节点组合）Node Co">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-11-07T18:26:12.000Z">
+<meta property="article:modified_time" content="2026-03-06T23:27:26.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="robotics">
+<meta property="article:tag" content="nodecomposition">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "NodeComposition",
+  "url": "https://johnjeep.github.io/Robotics/synced/Robotics/NodeComposition/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-11-07T18:26:12.000Z",
+  "dateModified": "2026-03-06T23:27:26.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Robotics/synced/Robotics/NodeComposition/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'NodeComposition',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../index.html"></a><a class="nav-page-title" href="../../../../index.html"><span class="site-name">NodeComposition</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">NodeComposition</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-07T18:26:12.000Z" title="发表于 2025-11-08 02:26:12">2025-11-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-06T23:27:26.000Z" title="更新于 2026-03-07 07:27:26">2026-03-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../categories/Robotics/">Robotics</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2025-12-01 11:04:14
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2026-03-07 15:15:48
+ * @Description: ROS2 Node Composition
+ * Copyright (c) 2026 by John Jeep, All Rights Reserved. 
+-->
+
+<ul>
+<li><a href="#1-ros2-node-composition%E8%8A%82%E7%82%B9%E7%BB%84%E5%90%88">1. ROS2 Node Composition（节点组合）</a><ul>
+<li><a href="#11-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-node-composition">1.1. 为什么需要 Node Composition？</a><ul>
+<li><a href="#111-%E9%BB%98%E8%AE%A4%E6%96%B9%E5%BC%8F%E7%8B%AC%E7%AB%8B%E8%BF%9B%E7%A8%8B%E9%9D%9E%E7%BB%84%E5%90%88">1.1.1. 默认方式：独立进程（非组合）</a></li>
+<li><a href="#112-%E7%BB%84%E5%90%88%E6%96%B9%E5%BC%8F%E5%8D%95%E8%BF%9B%E7%A8%8B%E5%86%85%E5%8D%8F%E4%BD%9C">1.1.2. 组合方式：单进程内协作</a></li>
+</ul>
+</li>
+<li><a href="#12-node-composition-%E7%9A%84%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F">1.2. Node Composition 的三种实现方式</a></li>
+<li><a href="#13-%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E6%80%BB%E7%BB%93%E4%B8%8E%E5%AF%B9%E6%AF%94">1.3. 如何选择？总结与对比</a></li>
+<li><a href="#14-%E7%BB%93%E8%AE%BA">1.4. 结论</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="1-ROS2-Node-Composition（节点组合）"><a href="#1-ROS2-Node-Composition（节点组合）" class="headerlink" title="1. ROS2 Node Composition（节点组合）"></a>1. ROS2 Node Composition（节点组合）</h1><p><strong>Node Composition（节点组合）</strong> 是一种将多个节点（Nodes）运行在同一个进程中的技术，旨在<strong>提升节点间通信的性能和效率</strong>。</p>
+<h2 id="1-1-为什么需要-Node-Composition？"><a href="#1-1-为什么需要-Node-Composition？" class="headerlink" title="1.1. 为什么需要 Node Composition？"></a>1.1. 为什么需要 Node Composition？</h2><p>要理解它的好处，我们首先要看看默认的、非组合式的方式是如何工作的。</p>
+<h3 id="1-1-1-默认方式：独立进程（非组合）"><a href="#1-1-1-默认方式：独立进程（非组合）" class="headerlink" title="1.1.1. 默认方式：独立进程（非组合）"></a>1.1.1. 默认方式：独立进程（非组合）</h3><p>在默认情况下，每个 ROS2 节点都是一个独立的操作系统进程。</p>
+<ul>
+<li><p><strong>通信机制</strong>：当一个节点（发布者）想要向另一个节点（订阅者）发送消息时，它们通过 <strong>DDS（数据分发服务）中间件</strong> 进行通信。这意味着数据需要经过以下流程：</p>
+  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">发布者节点进程 → DDS库 → 操作系统内核 → 网络/共享内存 → 操作系统内核 → DDS库 → 订阅者节点进程</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>优点</strong>：</p>
+<ul>
+<li><strong>隔离性好</strong>：一个节点崩溃不会影响其他节点。</li>
+<li><strong>开发简单</strong>：每个节点可以独立开发、编译和启动。</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>：</p>
+<ul>
+<li><strong>性能开销大</strong>：数据需要经过进程间通信和完整的 DDS 序列化&#x2F;反序列化，引入了显著的延迟和 CPU 开销。</li>
+</ul>
+</li>
+</ul>
+<p>这种开销在数据量大或对实时性要求高的场景（如机器人控制、传感器数据处理）中是不可接受的。</p>
+<h3 id="1-1-2-组合方式：单进程内协作"><a href="#1-1-2-组合方式：单进程内协作" class="headerlink" title="1.1.2. 组合方式：单进程内协作"></a>1.1.2. 组合方式：单进程内协作</h3><p>通过 Node Composition，你可以将多个有通信关系的节点编译成一个<strong>共享库</strong>，然后在一个主进程中动态加载和运行它们。</p>
+<ul>
+<li><strong>通信机制</strong>：当组合节点在同一个进程内通信时，它们可以直接进行<strong>函数调用</strong>。<br><code>发布者组件</code> -&gt; <strong>函数调用</strong> -&gt; <code>订阅者组件</code></li>
+<li><strong>优点</strong>：<ul>
+<li><strong>极低的延迟</strong>：避免了进程间切换和 DDS 的开销，通信延迟大幅降低。</li>
+<li><strong>高吞吐量</strong>：数据可以直接在内存中传递，无需序列化&#x2F;反序列化。</li>
+<li><strong>资源占用少</strong>：减少了对操作系统资源的占用（如 PID、内存页）。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li><strong>隔离性差</strong>：如果一个节点出现严重错误（如段错误），会导致整个进程崩溃，所有组合在内的节点都会停止工作。</li>
+<li><strong>灵活性降低</strong>：节点的启动和关闭是绑定在一起的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-2-Node-Composition-的三种实现方式"><a href="#1-2-Node-Composition-的三种实现方式" class="headerlink" title="1.2. Node Composition 的三种实现方式"></a>1.2. Node Composition 的三种实现方式</h2><p>ROS2 提供了三种主要的方法来实现节点组合：</p>
+<ol>
+<li><p><strong>手动组合（Manual Composition）</strong></p>
+<ul>
+<li><strong>描述</strong>：程序员编写一个 C++ 主函数，在函数中显式地创建所有节点并执行它们。</li>
+<li><strong>适用场景</strong>：适用于节点数量和结构固定的简单应用。</li>
+<li><strong>特点</strong>：最直接，但灵活性最差。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;rclcpp/rclcpp.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;node1.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;node2.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  rclcpp::<span class="built_in">init</span>(argc, argv);</span><br><span class="line">  <span class="comment">// 在同一个线程中创建并运行两个节点</span></span><br><span class="line">  <span class="keyword">auto</span> node1 = std::<span class="built_in">make_shared</span>&lt;Node1&gt;();</span><br><span class="line">  <span class="keyword">auto</span> node2 = std::<span class="built_in">make_shared</span>&lt;Node2&gt;();</span><br><span class="line">  rclcpp::<span class="built_in">spin</span>(node1);</span><br><span class="line">  rclcpp::<span class="built_in">spin</span>(node2);</span><br><span class="line">  rclcpp::<span class="built_in">shutdown</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用 ComposableNode 容器</strong></p>
+<ul>
+<li><strong>描述</strong>：这是最常用和推荐的方式。你将每个节点定义为一个 <strong><code>ComposableNode</code></strong> 类。然后，使用一个 <strong>组件容器（Component Container）</strong> 来加载这些节点。</li>
+<li><strong>实现</strong>：在你的节点类中，使用 <code>rclcpp_components</code> 库的宏 <code>RCLCPP_COMPONENTS_REGISTER_NODE</code> 进行注册。</li>
+<li><strong>启动方式</strong>：<ul>
+<li><strong>命令行加载</strong>：先启动一个通用的组件容器进程，然后通过命令行指令动态加载指定的节点库。  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 终端1：启动容器</span></span><br><span class="line">ros2 run rclcpp_components component_container</span><br><span class="line"><span class="comment"># 终端2：加载名为 my_package 中的组件节点 MyNode</span></span><br><span class="line">ros2 component load /ComponentManager my_package MyNode</span><br></pre></td></tr></table></figure></li>
+<li><strong>启动文件加载</strong>：在 Python 启动文件中描述加载逻辑，这是最实用和强大的方式。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>进程内通信（Intra-Process Communication）</strong></p>
+<ul>
+<li><strong>注意</strong>：这是一个相关但不同的概念。即使节点是独立的进程，只要它们由同一个启动文件启动，并且使用 <strong>唯一名地址（Unique Network Flow Endpoints）</strong>，ROS2 可以尝试在它们之间启用零拷贝的进程内通信。然而，最可靠、最高效地启用进程内通信的方式，仍然是使用 Node Composition。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="1-3-如何选择？总结与对比"><a href="#1-3-如何选择？总结与对比" class="headerlink" title="1.3. 如何选择？总结与对比"></a>1.3. 如何选择？总结与对比</h2><table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">独立进程（默认）</th>
+<th align="left">节点组合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>性能</strong></td>
+<td align="left">较低（进程间通信 + DDS）</td>
+<td align="left"><strong>极高</strong>（函数调用，零拷贝）</td>
+</tr>
+<tr>
+<td align="left"><strong>资源占用</strong></td>
+<td align="left">较高</td>
+<td align="left"><strong>较低</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>隔离性&#x2F;可靠性</strong></td>
+<td align="left"><strong>高</strong>（一个节点崩溃不影响系统）</td>
+<td align="left">低（一个节点崩溃导致整个容器崩溃）</td>
+</tr>
+<tr>
+<td align="left"><strong>灵活性</strong></td>
+<td align="left"><strong>高</strong>（可独立启停）</td>
+<td align="left">低（通常一起启停）</td>
+</tr>
+<tr>
+<td align="left"><strong>适用场景</strong></td>
+<td align="left">大部分常规应用，调试阶段</td>
+<td align="left"><strong>高性能计算</strong>、<strong>实时控制</strong>、<strong>资源受限设备</strong>、紧密耦合的节点组</td>
+</tr>
+</tbody></table>
+<h2 id="1-4-结论"><a href="#1-4-结论" class="headerlink" title="1.4. 结论"></a>1.4. 结论</h2><p><strong>ROS2 Node Composition</strong> 是一种通过牺牲部分隔离性和灵活性来换取极致通信性能的优化技术。它通过将多个节点合并到同一进程，使它们能够像普通的函数和对象一样直接、高效地交互。对于构建高性能、低延迟的机器人系统（如处理相机数据、控制电机等），它是至关重要的工具。在设计和开发 ROS2 系统时，应根据节点的功能、耦合度和性能要求，合理选择是否使用组合节点。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Robotics/synced/Robotics/NodeComposition/">https://johnjeep.github.io/Robotics/synced/Robotics/NodeComposition/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../tags/robotics/">robotics</a><a class="post-meta__tags" href="../../../../tags/nodecomposition/">nodecomposition</a></div><div class="post-share"><div class="social-share" data-image="../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../NodeLifecycle/" title="NodeLifecycle"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">NodeLifecycle</div></div><div class="info-2"><div class="info-item-1">   1. 为什么需要 Node Lifecycle？ 2. 关键状态与转换 3. 状态转换的管理 4. 一个典型的生命周期场景 5. 如何实现一个 Lifecycle Node？ 6. 优势总结 7. 结论 8. References   核心思想：状态机  ROS2 的 Node Lifecycle 将节点的生命周期建模为一个有限状态机。这意味着节点在任何时刻都处于一个明确定义的状态，并且只能在特定条件下从一个状态转换到另一个状态。 好的，作为一名专业的机器人开发工程师，我很乐意为你深入解释 ROS2 的 Node Lifecycle。这是一个在 ROS2 中提升系统可靠性和健壮性的核心概念。 1. 为什么需要 Node Lifecycle？想象一下在复杂的机器人系统中：  硬件依赖：一个节点可能需要等待某个传感器初始化完成才能开始工作。 系统启动顺序：某些节点（如定位）必须在其他节点（如路径规划）之前准备好。 错误恢复：如果一个节点出现故障或配置错误，我们可能希望在不重启整个系统的情况下将其重置并重新激活。 资源管理：在节点不工作时，可以释放其占用的资源（如端口、计算资源）...</div></div></div></a><a class="pagination-related" href="../Gazebo/" title="Gazebo"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Gazebo</div></div><div class="info-2"><div class="info-item-1">   1. Gazebo 1.1. 版本 1.2. Install 1.3. Plugins   2. 用法 2.1. 模型 2.2. 为什么只能有一个 world？   3. References  1. GazeboGazebo 是一个仿真工具，提供逼真的仿真环境。 1.1. 版本   Platform Gazebo Versions    Ubuntu 24.04 Noble Gazebo Jetty (recommended), Gazebo Harmonic (recommended if using ROS 2 Jazzy) and Gazebo Ionic   Ubuntu 22.04 Jammy Gazebo Harmonic (recommended) and Gazebo Fortress (recommended if using ROS 2 Humble)   Mac Ventura Gazebo Harmonic (recommended) and Gazebo Fortress   Mac Monterey Gazebo Harmonic (recom...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="../Embodied/" title="Embodied"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Embodied</div></div><div class="info-2"><div class="info-item-1">   1. Embodied Intelligence(具身智能) 2. Terms 3. 线性代数在机器人领域的应用 4. 机器人学习 4.1. 理论基础 4.2. 人形机器人技术 4.3. 核心环节 4.4. Simulation Tools(仿真工具)   5. Robotic System(机器人系统) 5.1. 大小脑一体化 5.2. System Composition(系统组成)   6. Structure Design(结构设计) 7. Joint Module(关节模组) 8. Kinematics(运动学) 8.1. Prerequisites(先决条件) 8.1.1. task space(任务空间) 8.1.2. coordinate frame(坐标系) 8.1.3. End Effector(末端执行器) 8.1.4. Cartesian Space(笛卡尔空间) 8.1.5. Jacobian Matrix(雅可比矩阵) 8.1.6. pose(位姿)   8.2. Forward Kinematics(正向运动学) 8.3. Inverse Ki...</div></div></div></a><a class="pagination-related" href="../ROS2Packages/" title="ROS2Packages"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-03-09</div><div class="info-item-2">ROS2Packages</div></div><div class="info-2"><div class="info-item-1">   1. Introduction 2. rcl 3. rclcpp 3.1. rclcpp::spin(node) 3.2. internal fundamental 3.3. 什么时候 spin 会结束？ 3.4. spin 的几种用法 3.5. spin 选择建议   4. rclpy 5. rmw 6. node 7. timer 8. parameter 9. publisher 10. sub 12. rosidl 13. urdf 14. References  1. Introduction在 ROS 2（Robot Operating System 2）中，“标准包”通常指由官方维护、为机器人开发提供基础功能的 核心功能包（Core Packages） 或 标准接口包（Common Interfaces）。 标准消息接口包 (Common Interfaces) 这些包定义了通用的数据结构，使不同开发者的节点能够无缝通信。  std_msgs: 提供基础数据类型，如 String, Int32, Float64, Bool 等。 geometry_msgs: ...</div></div></div></a><a class="pagination-related" href="../SerializeDeserialize/" title="SerializeDeserialize"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-19</div><div class="info-item-2">SerializeDeserialize</div></div><div class="info-2"><div class="info-item-1">   1. 为什么ROS 2需要序列化&#x2F;反序列化？ 2. ROS 2序列化&#x2F;反序列化机制详解 2.1. 基于IDL和代码生成 2.2. CDR格式 2.3. 序列化过程（以C++为例） 2.4. 反序列化过程（以C++为例）   3. 优化序列化&#x2F;反序列化的方法 3.1. 进程内通信(Intra-Process Communication) 3.2. 应用场景 3.3. 零拷贝传输(Zero-Copy Transports) 3.4. 应用场景 3.5. 数据传输优化 - 减少传输次数 3.6. 通信方式对比总结    1. 为什么ROS 2需要序列化&#x2F;反序列化？ROS 2是一个基于匿名发布&#x2F;订阅模型的分布式系统。节点可能运行在不同的机器（不同的CPU架构）、不同的操作系统、甚至由不同编程语言（如C++、Python）编写。它们之间需要通过共享内存或网络（最常见）进行通信。 网络套接字和共享内存只能传输原始的字节序列，它们不理解std_msgs::msg::String或sensor_msgs::msg::Image这样的复杂数据...</div></div></div></a><a class="pagination-related" href="../Sensor/" title="Sensor"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-19</div><div class="info-item-2">Sensor</div></div><div class="info-2"><div class="info-item-1">   Sensor 常见传感器   References  Sensor传感器 是机器人系统中用于感知环境和自身状态的关键组件。它们将物理世界的信息转换为数字信号，供机器人处理和决策使用。 常见传感器 激光雷达 超声波传感器 深度相机、3D相机、鱼眼相机、双目RGB相机 摄像头 PMSM BLDC 步进电机 舵机 IMU（惯性测量单元） 扫描器 灵巧手：指尖搭载传感器  References humble sensor_msgs: https://docs.ros.org/en/humble/p/sensor_msgs/ humble std_msgs: https://docs.ros.org/en/humble/p/std_msgs/  </div></div></div></a><a class="pagination-related" href="../Colcon/" title="Colcon"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-07</div><div class="info-item-2">Colcon</div></div><div class="info-2"><div class="info-item-1">   1. Introduction 2. create 3. build 4. test 5. Env 6. References  1. IntroductionColcon 是一个用于构建和管理多个软件包的命令行工具，广泛应用于 ROS 2（Robot Operating System 2）生态系统中。它旨在简化复杂项目的构建过程，支持多种编程语言和构建系统，如 CMake 和 Python。 Colcon 提供了一种统一的方式来处理依赖关系、构建顺序和安装过程，使开发者能够更高效地管理大型代码库。 2. create1234567# 创建新包（Python）ros2 pkg create my_python_pkg --build-type ament_python# 创建新包（C++）ros2 pkg create my_cpp_pkg --build-type ament_cmake  3. build123456789101112131415161718192021# 构建新包colcon build --packages-select my_python_pkg#...</div></div></div></a><a class="pagination-related" href="../Rqt/" title="Rqt"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-13</div><div class="info-item-2">Rqt</div></div><div class="info-2"><div class="info-item-1">  RqtRqt 是 ROS（机器人操作系统）生态系统中的一款强大且灵活的可视化工具。它基于 Qt 框架，提供了一个插件式的架构，使用户能够通过各种插件来监控和调试 ROS 系统中的节点、话题、参数等。 用途：  显示 2D 图表（如 rqt_plot 显示传感器数值随时间变化） 查看 话题列表&#x2F;消息内容（rqt_topic） 查看 节点图（rqt_graph） 动态调整 参数服务器（rqt_reconfigure） 发布测试消息（rqt_publisher） 是一个 模块化工具集合，通过插件扩展功能。  </div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-ROS2-Node-Composition%EF%BC%88%E8%8A%82%E7%82%B9%E7%BB%84%E5%90%88%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">1. ROS2 Node Composition（节点组合）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-Node-Composition%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 为什么需要 Node Composition？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-1-%E9%BB%98%E8%AE%A4%E6%96%B9%E5%BC%8F%EF%BC%9A%E7%8B%AC%E7%AB%8B%E8%BF%9B%E7%A8%8B%EF%BC%88%E9%9D%9E%E7%BB%84%E5%90%88%EF%BC%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1.1. 默认方式：独立进程（非组合）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-2-%E7%BB%84%E5%90%88%E6%96%B9%E5%BC%8F%EF%BC%9A%E5%8D%95%E8%BF%9B%E7%A8%8B%E5%86%85%E5%8D%8F%E4%BD%9C"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.1.2. 组合方式：单进程内协作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Node-Composition-%E7%9A%84%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. Node Composition 的三种实现方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F%E6%80%BB%E7%BB%93%E4%B8%8E%E5%AF%B9%E6%AF%94"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. 如何选择？总结与对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E7%BB%93%E8%AE%BA"><span class="toc-number">1.4.</span> <span class="toc-text">1.4. 结论</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../js/utils.js"></script><script src="../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

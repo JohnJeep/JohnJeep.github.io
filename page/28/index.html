@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="This is a blog about my leaning computer science journey.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Leaning Computer Science Journey">
+<meta property="og:url" content="https://johnjeep.github.io/page/28/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="This is a blog about my leaning computer science journey.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="computer, journey">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/page/28/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Leaning Computer Science Journey',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page fixed" id="page-header" style="background-image: url(../../img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../index.html"></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Leaning Computer Science Journey</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="../../Windows/synced/Windows/API/" title="Win32 API 后缀">Win32 API 后缀</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-24T02:32:48.000Z" title="发表于 2022-11-24 10:32:48">2022-11-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="../../categories/Windows/">Windows</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/api/">api</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/windows/">windows</a></span></div><div class="content">Win32 API 后缀 A 表示使用ANSI编码作为标准输入与输出流的文本编码 W 表示使用Unicode作为编码 Ex 表示拓展, 标注了Ex的winapi函数会比没有标Ex的函数多一些参数什么的, 可以说拓展了一些功能 ExA 与 ExW 就是 A,W与Ex的结合了  _beginthreadex函数原型 1234567891011unsigned long _beginthreadex(    void *security,    // 安全属性， 为NULL时表示默认安全性    unsigned stack_size,    // 线程的堆栈大小， 一般默认为0    unsigned(_stdcall *start_address)(void *),    // 所要启动的线程函数    void *argilist, // 线程函数的参数， 是一个void*类型， 传递多个参数时用结构体    unsigned initflag, // 新线程的初始状态，0表示立即执行，CREATE_SUSPENDED表示创建之后挂起    unsigned *threaddr ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="../../Distributed/synced/Distributed/API-Gateway/" title="API Gateway">API Gateway</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-02T08:20:02.000Z" title="发表于 2022-11-02 16:20:02">2022-11-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="../../categories/Distributed/">Distributed</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/distributed/">distributed</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/api-gateway/">api-gateway</a></span></div><div class="content">  API 网关教程什么是API网关原理怎么使用ReferenceGoogle Cloud：https://cloud.google.com/api-gateway/docs/about-api-gateway?hl=zh-cn </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="../../Linux/synced/Linux/perf/" title="Perf">Perf</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-13T08:06:28.000Z" title="发表于 2022-07-13 16:06:28">2022-07-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="../../categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/linux/">linux</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/perf/">perf</a></span></div><div class="content">  1. perfperf 有时叫 perf_events 或 perf tools，最初的名字是 PCL(Performance Counters for Linux)，是 Linux 下的一个性能分析的工具(Performance analysis tools for Linux)，从 2009 年发行的 Linux 内核 2.6.31 版本开始支持。 1.1. Subcommandsperf  使用时支持多个子命令。  stat: measure total event count for single program or for system for some time top: top-like dynamic view of hottest functions record: measure and save sampling data for single program[13] report: analyze file generated by perf record; can generate flat, or graph profile.[13] annot...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="../../Protocol/synced/Protocol/SMTP/" title="1. 简介">1. 简介</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-04T01:51:22.000Z" title="发表于 2022-07-04 09:51:22">2022-07-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="../../categories/Protocol/">Protocol</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/protocol/">protocol</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/smtp/">smtp</a></span></div><div class="content">1. 简介SMTP（Simple Mail Transfer Protocol）即简单邮件传输协议，尽管邮件服务器可以用SMTP发送、接收邮件，但是邮件客户端只能用 SMTP 发送邮件，接收邮件一般用 IMAP 或者 POP3。邮件客户端使用 TCP 的 25 号端口与服务器通信。 SMTP在1982年首次被定义在  RFC 821 ，在2008它被更新为扩展的SMTP协议，补充在文件 RFC 5321 ，扩展的协议是目前使用最广泛的协议。 2. 命令SMTP命令由 4 个不区分大小写的字母组成，如果命令带参数，则用空格与参数隔开，每条命令用回车换行结尾 CRLF。 2.1. EHLO（Extended hello）or  HELO（hello）这个命令用于说明自己是SMTP客户端身份，参数包含客户端的域名(domain)。其中EHLO是SMTP补充协议（ RFC 5321 ）中用于替换HELO命令的新命令，协议规定服务器支持EHLO命令的时候，尽量使用EHLO命令，为了兼容以前的版本，要求服务器继续支持HELO命令。如果收到回复OK，说明发送者和接收者处于初始状态，所有的状态表...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="../../Linux/synced/Linux/cgroups/" title="Cgroups">Cgroups</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-08T07:13:01.000Z" title="发表于 2022-06-08 15:13:01">2022-06-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="../../categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/cgroups/">cgroups</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/linux/">linux</a></span></div><div class="content">   1. Introduce 2. 概念 3. user space interfaces 4. The Mounted Hierarchy 4.1. 注意点   5. Reference  1. Introducecgroup 是 control group 的缩写，cgroups 是 control groups 的缩写，是 Linux 内核提供的一种可以限制、记录、隔离进程组（process groups）所使用物理资源（如： cpu,memory,IO 等等）的机制。最初由 google 的  工程师提出，后来被整合进 Linux 内核。内核版本 2.6.24 开始引入，在 3.15 和 3.16 的内核版本中得到了加强。 2. 概念 hierarchy：cgroups 从用户态看，提供了一种叫cgroup类型的文件系统(Filesystem)，这是一种虚拟的文件系统，并不真正保存文件，类似/proc。通过对这个文件系统的操作（读，写，创建子目录），告诉内核，你希望内核如何控制进程对资源的使用。文件系统本身是层级的，所以构成了hierarchy。 task：进程(pro...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="../../MySQL/synced/MySQL/ConnectPool/" title="连接池">连接池</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-05-20T08:25:11.000Z" title="发表于 2022-05-20 16:25:11">2022-05-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="../../categories/MySQL/">MySQL</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/connectpool/">connectpool</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/mysql/">mysql</a></span></div><div class="content">连接池为什么要连接池？ 一个数据库连接对象均对应一个物理数据库连接，每次操作都打开一个物理连接，使用完都关闭连接，这样造成系统的性能低下。使用数据库连接池可以节约资源，程序更加高效。 数据库连接池的解决方案是在应用程序启动时建立足够的数据库连接，并将这些连接组成一个连接池(简单说：在一个“池”里放了好多半成品的数据库连接对象)，由应用程序动态地对池中的连接进行申请、使用和释放。对于多于连接池中连接数的并发请求，应该在请求队列中排队等待。并且应用程序可以根据池中连接的使用率，动态增加或减少池中的连接数。连接池技术尽可能多地重用了消耗内存地资源，大大节省了内存，提高了服务器地服务效率，能够支持更多的客户服务。通过使用连接池，将大大提高程序运行效率，同时，我们可以通过其自身的管理机制来监视数据库连接的数量、使用情况等。 原理连接池基本的思想：在系统初始化的时候，将数据库连接作为对象存储在内存中，当用户需要访问数据库时，并非建立一个新的连接，而是从连接池中取出一个已建立的空闲连接对象。使用完毕后，用户也并非将连接关闭，而是将连接放回连接池中，以供下一个请求访问使用。而连接的建立、断开都由...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="../../Linux/synced/Linux/systemd/" title="Systemd">Systemd</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-05-20T08:24:01.000Z" title="发表于 2022-05-20 16:24:01">2022-05-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="../../categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/linux/">linux</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/systemd/">systemd</a></span></div><div class="content">   systemd Unit 配置 Uinit 地址  systemdSystemd（系统管理守护进程），最开始以GNU GPL协议授权开发，现在已转为使用GNU LGPL协议。字母d是daemon的缩写它取替并兼容传统的SysV init。事实上，CentOS和Debian，现在默认都是使用Systemd：  CentOS 7开始预设并使用Systemd Ubuntu 15.04开始并预设使用Systemd  使用Systemd的优点：  按需启动进程，减少系统资源消耗 并行启动进程，提高系统启动速度  UnitSystemd引入了一个核心配置：Unit（单元配置）。事实上，Systemd管理的每个进程，都是一个Unit。相当于任务块。一个有12种模式： Service unit：系统服务Target unit：多个Unit构成的一个组Device Unit：硬件设备Mount Unit：文件系统的挂载点Automount Unit：自动挂载点Path Unit：文件或路径Scope Unit：不是由 Systemd 启动的外部进程Slice Unit：进程组Snapshot...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="../../Linux/synced/Linux/curl/" title="Curl">Curl</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-05-12T02:18:25.000Z" title="发表于 2022-05-12 10:18:25">2022-05-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="../../categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/linux/">linux</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/curl/">curl</a></span></div><div class="content">   1. Curl 2. API 2.1. CURLcode curl_global_init(long flags); 2.2. void curl_global_cleanup(void); 2.3. char *curl_version( );   3. The Easy interface 3.1. CURL *curl_easy_init( ); 3.2. void curl_easy_cleanup(CURL *handle); 3.3. CURLcode curl_easy_setopt(CURL *handle, CURLoption option, parameter)   4. CURLcode curl_easy_perform(CURL *handle); 4.1. Multi interface 4.2. multi-socket interface   5. The primary structs 5.1. 命令参数   6. References  1. Curllinux curl 是一个利用 URL 规则在命令行下工作的文件传输工具。它支持文件...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="../../Linux/synced/Linux/valgrind/" title="Valgrind">Valgrind</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-01-27T01:23:52.000Z" title="发表于 2022-01-27 09:23:52">2022-01-27</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="../../categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/linux/">linux</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/valgrind/">valgrind</a></span></div><div class="content">   1. 简介 2. 用法 2.1. Valgrind 工具详解   3. Options 4. References  1. 简介Valgrind 是 Linux 下进行内存泄露检测和性能分析的工具。 2. 用法 Valgrind包含下列工具  Memcheck：是一个内存错误检测器(detector)，检查程序中的内存问题，如泄漏、越界、非法指针等，让你的程序更正确。 Cachegrind：是一Cache和分支预测分析器(branch-prediction profiler)，分析CPU的cache命中率、丢失率，用于进行代码优化，让你的程序运行的更快。 Callgrind：是一个图形化调用生成Cache的分析器(profiler)，检测程序代码的运行时间和调用过程，以及分析程序性能。 Helgrind：是一个线程错误检测器(detector)，用于检查多线程程序的竞态条件。 DRD：是一个线程错误检测器(detector)，跟 Helgrind 工具是相似的，但是它是使用不用的分析技术去找到很多不同的问题。 Massif：是一个堆(heap)分析器(profiler)，分...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="../../Linux/synced/Linux/curses/" title="Curses">Curses</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-01-21T07:59:12.000Z" title="发表于 2022-01-21 15:59:12">2022-01-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="../../categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/linux/">linux</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="../../tags/curses/">curses</a></span></div><div class="content">   1. 介绍 2. 安装 2.1. Ubuntu 中安装 curses 2.2. centos 中安装 curses 2.3. 源码安装 ncurse 库   3. 案例 4. References  1. 介绍ncurses(new curses)是一套编程库，它提供了一系列的函数以便使用者调用它们去生成基于文本的用户界面。ncurses名字中的n意味着“new”，因为它是curses的自由软件版本。由于AT&amp;T“臭名昭著”的版权政策，人们不得不在后来用ncurses去代替它。ncurses是GNU计划的一部分，但它却是少数几个不使用GNU GPL或LGPL授权的GNU软件之一。 其实我们对ncurses本身并不陌生，以下几款大名鼎鼎的软件都用到过ncurses：  vim emacs lynx screen  2. 安装2.1. Ubuntu 中安装 curses1sudo apt-get install libncurses5-dev  2.2. centos 中安装 curses1yum install ncurses-devel  2.3. 源码安装 ncu...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="../27/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="../../">1</a><span class="space">&hellip;</span><a class="page-number" href="../27/#content-inner">27</a><span class="page-number current">28</span><a class="page-number" href="../29/#content-inner">29</a><span class="space">&hellip;</span><a class="page-number" href="../33/#content-inner">33</a><a class="extend next" rel="next" href="../29/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="../categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="../categories/AI/"><span class="card-category-list-name">AI</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="../categories/Architecture/"><span class="card-category-list-name">Architecture</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="../categories/Architecture/CPU/"><span class="card-category-list-name">CPU</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="../categories/Architecture/Chip/"><span class="card-category-list-name">Chip</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="../categories/Assembly/"><span class="card-category-list-name">Assembly</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="../categories/AutoDrive/"><span class="card-category-list-name">AutoDrive</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="../categories/C/"><span class="card-category-list-name">C</span><span class="card-category-list-count">44</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="../categories/C/"><span class="card-category-list-name">C++</span><span class="card-category-list-count">22</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="../tags/6-volatile/" style="font-size: 1.1em; color: #999">6-volatile</a> <a href="../tags/visualstudio/" style="font-size: 1.1em; color: #999">visualstudio</a> <a href="../tags/coredump/" style="font-size: 1.1em; color: #999">coredump</a> <a href="../tags/thirdpackages/" style="font-size: 1.1em; color: #999">thirdpackages</a> <a href="../tags/typoramarkdown/" style="font-size: 1.1em; color: #999">typoramarkdown</a> <a href="../tags/softdesign/" style="font-size: 1.1em; color: #999">softdesign</a> <a href="../tags/viper/" style="font-size: 1.1em; color: #999">viper</a> <a href="../tags/42-declaration-defination/" style="font-size: 1.1em; color: #999">42-declaration-defination</a> <a href="../tags/c-11/" style="font-size: 1.1em; color: #999">c-11</a> <a href="../tags/customtcpprotocol/" style="font-size: 1.1em; color: #999">customtcpprotocol</a> <a href="../tags/keepalived/" style="font-size: 1.1em; color: #999">keepalived</a> <a href="../tags/glibc/" style="font-size: 1.1em; color: #999">glibc</a> <a href="../tags/36-operate/" style="font-size: 1.1em; color: #999">36-operate</a> <a href="../tags/rqt/" style="font-size: 1.1em; color: #999">rqt</a> <a href="../tags/53/" style="font-size: 1.1em; color: #999">53</a> <a href="../tags/virtualnetwork/" style="font-size: 1.1em; color: #999">virtualnetwork</a> <a href="../tags/map/" style="font-size: 1.1em; color: #999">map</a> <a href="../tags/mqtt/" style="font-size: 1.2em; color: #999da3">mqtt</a> <a href="../tags/nodejs/" style="font-size: 1.1em; color: #999">nodejs</a> <a href="../tags/layout/" style="font-size: 1.1em; color: #999">layout</a> <a href="../tags/metadata/" style="font-size: 1.1em; color: #999">metadata</a> <a href="../tags/linux/" style="font-size: 1.5em; color: #99a9bf">linux</a> <a href="../tags/ubuntu-shortcuts/" style="font-size: 1.1em; color: #999">ubuntu-shortcuts</a> <a href="../tags/jenkins/" style="font-size: 1.1em; color: #999">jenkins</a> <a href="../tags/grpcfoundation/" style="font-size: 1.1em; color: #999">grpcfoundation</a> <a href="../tags/redis/" style="font-size: 1.4em; color: #99a5b6">redis</a> <a href="../tags/algorithms/" style="font-size: 1.1em; color: #999">algorithms</a> <a href="../tags/3-byte-order/" style="font-size: 1.1em; color: #999">3-byte-order</a> <a href="../tags/shell/" style="font-size: 1.3em; color: #99a1ac">shell</a> <a href="../tags/probobuf/" style="font-size: 1.1em; color: #999">probobuf</a> <a href="../tags/actor/" style="font-size: 1.1em; color: #999">actor</a> <a href="../tags/references/" style="font-size: 1.1em; color: #999">references</a> <a href="../tags/jdk-configure/" style="font-size: 1.1em; color: #999">jdk-configure</a> <a href="../tags/svn/" style="font-size: 1.1em; color: #999">svn</a> <a href="../tags/singal/" style="font-size: 1.1em; color: #999">singal</a> <a href="../tags/redis-install/" style="font-size: 1.1em; color: #999">redis-install</a> <a href="../tags/framework/" style="font-size: 1.2em; color: #999da3">framework</a> <a href="../tags/gin/" style="font-size: 1.1em; color: #999">gin</a> <a href="../tags/gazebo/" style="font-size: 1.1em; color: #999">gazebo</a> <a href="../tags/page-tables/" style="font-size: 1.1em; color: #999">page-tables</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="2026/04/">
+            <span class="card-archive-list-date">
+              四月 2026
+            </span>
+            <span class="card-archive-list-count">125</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="2026/03/">
+            <span class="card-archive-list-date">
+              三月 2026
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="2026/02/">
+            <span class="card-archive-list-date">
+              二月 2026
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="2026/01/">
+            <span class="card-archive-list-date">
+              一月 2026
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="2025/12/">
+            <span class="card-archive-list-date">
+              十二月 2025
+            </span>
+            <span class="card-archive-list-count">11</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="2025/11/">
+            <span class="card-archive-list-date">
+              十一月 2025
+            </span>
+            <span class="card-archive-list-count">40</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="2025/04/">
+            <span class="card-archive-list-date">
+              四月 2025
+            </span>
+            <span class="card-archive-list-count">13</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="2025/03/">
+            <span class="card-archive-list-date">
+              三月 2025
+            </span>
+            <span class="card-archive-list-count">12</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">321</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-04-19T10:41:50.144Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../js/utils.js"></script><script src="../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  },
+  processSubtitle: (content, extraContents = []) => {
+    if (true) {
+      const sub = [].slice()
+
+      if (extraContents.length > 0) {
+        sub.unshift(...extraContents)
+      }
+
+      if (typeof content === 'string') {
+        sub.unshift(content)
+      } else if (Array.isArray(content)) {
+        sub.unshift(...content)
+      }
+
+      sub.length > 0 && typedJSFn.init(sub)
+    } else {
+      document.getElementById('subtitle').textContent = typeof content === 'string' ? content :
+        (Array.isArray(content) && content.length > 0 ? content[0] : '')
+    }
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
+  btf.getScript('https://sdk.jinrishici.com/v2/browser/jinrishici.js')
+    .then(() => {
+      jinrishici.load(result => {
+        if (result && result.data && result.data.content) {
+          typedJSFn.processSubtitle(result.data.content)
+        } else {
+          throw new Error('Failed to parse the return value of Jinrishici API')
+        }
+      })
+    })
+    .catch(err => {
+      console.error('Failed to get the Jinrishici API:', err)
+      typedJSFn.processSubtitle(0)
+    })
+}
+typedJSFn.run(subtitleType)
+</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

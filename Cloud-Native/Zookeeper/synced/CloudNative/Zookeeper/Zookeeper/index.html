@@ -1,0 +1,308 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Zookeeper | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. 概念ZooKeeper 是一个分布式的，开放源码的分布式应用程序协同服务。ZooKeeper 的设计目标是将那些复杂且容易出错的分布式一致性服务封装起来，构成一个高效可靠的原语集，并以一系列简单易用的接口提供给用户使用。 Zookeeper&#x3D;文件系统+监控通知机制 2. ZooKeeper 应用场景很多分布式协调服务都可以用 ZooKeeper 来做，其中典型应用场景如下：  配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeper">
+<meta property="og:url" content="https://johnjeep.github.io/Cloud-Native/Zookeeper/synced/CloudNative/Zookeeper/Zookeeper/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="1. 概念ZooKeeper 是一个分布式的，开放源码的分布式应用程序协同服务。ZooKeeper 的设计目标是将那些复杂且容易出错的分布式一致性服务封装起来，构成一个高效可靠的原语集，并以一系列简单易用的接口提供给用户使用。 Zookeeper&#x3D;文件系统+监控通知机制 2. ZooKeeper 应用场景很多分布式协调服务都可以用 ZooKeeper 来做，其中典型应用场景如下：  配">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2023-04-14T01:44:55.000Z">
+<meta property="article:modified_time" content="2025-04-04T04:10:47.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="cloudnative">
+<meta property="article:tag" content="zookeeper">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Zookeeper",
+  "url": "https://johnjeep.github.io/Cloud-Native/Zookeeper/synced/CloudNative/Zookeeper/Zookeeper/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2023-04-14T01:44:55.000Z",
+  "dateModified": "2025-04-04T04:10:47.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Cloud-Native/Zookeeper/synced/CloudNative/Zookeeper/Zookeeper/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Zookeeper',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../../../index.html"></a><a class="nav-page-title" href="../../../../../../index.html"><span class="site-name">Zookeeper</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Zookeeper</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-14T01:44:55.000Z" title="发表于 2023-04-14 09:44:55">2023-04-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-04T04:10:47.000Z" title="更新于 2025-04-04 12:10:47">2025-04-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../../../categories/Cloud-Native/">Cloud Native</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../../../categories/Cloud-Native/Zookeeper/">Zookeeper</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2023-09-15 11:03:37
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2025-04-04 19:26:59
+ * @Description: zookeeper learning
+ * Copyright (c) 2025 by John Jeep, All Rights Reserved. 
+-->
+<h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h1><p>ZooKeeper 是一个分布式的，开放源码的分布式应用程序协同服务。ZooKeeper 的设计目标是将那些复杂且容易出错的分布式一致性服务封装起来，构成一个高效可靠的原语集，并以一系列简单易用的接口提供给用户使用。</p>
+<p>Zookeeper&#x3D;文件系统+监控通知机制</p>
+<h1 id="2-ZooKeeper-应用场景"><a href="#2-ZooKeeper-应用场景" class="headerlink" title="2. ZooKeeper 应用场景"></a>2. ZooKeeper 应用场景</h1><p>很多分布式协调服务都可以用 ZooKeeper 来做，其中典型应用场景如下：</p>
+<ul>
+<li>配置管理（configuration management）：如果我们做普通的 Java 应用，一般配置项就是一个本地的配置文件，如果是微服务系统，各个独立服务都要使用集中化的配置管理，这个时候就需要 ZooKeeper。</li>
+<li>DNS 服务</li>
+<li>组成员管理（group membership）：比如上面讲到的 HBase 其实就是用来做集群的组成员管理。</li>
+<li>各种分布式锁</li>
+</ul>
+<p>ZooKeeper 适用于存储和协同相关的关键数据，不适合用于大数据量存储。如果要存 KV 或者大量的业务数据，还是要用数据库或者其他 NoSql 来做。</p>
+<h1 id="3-缺点"><a href="#3-缺点" class="headerlink" title="3. 缺点"></a>3. 缺点</h1><p>为什么 ZooKeeper 不适合大数据量存储呢？主要有以下两个原因：</p>
+<ol>
+<li>设计方面：ZooKeeper 需要把所有的数据（它的 data tree）加载到内存中。这就决定了ZooKeeper 存储的数据量受内存的限制。这一点 ZooKeeper 和 Redis 比较像。一般的数据库系统例如 MySQL（使用 InnoDB 存储引擎的话）可以存储大于内存的数据，这是因为 InnoDB 是基于 B-Tree 的存储引擎。B-tree 存储引擎和 LSM 存储引擎都可以存储大于内存的数据量。</li>
+<li>工程方面：ZooKeeper 的设计目标是为协同服务提供数据存储，数据的高可用性和性能是最重要的系统指标，处理大数量不是 ZooKeeper 的首要目标。因此，ZooKeeper 不会对大数量存储做太多工程上的优化。</li>
+</ol>
+<h1 id="4-特点"><a href="#4-特点" class="headerlink" title="4. 特点"></a>4. 特点</h1><p>1）Zookeeper：一个领导者（ Leader） ， 多个跟随者（ Follower） 组成的集群。<br>2） <strong>集群中只要有半数以上节点存活， Zookeeper集群就能正常服务。 所以Zookeeper适合安装奇数台服务器。</strong><br>3） 全局数据一致：每个Server保存一份相同的数据副本， Client无论连接到哪个Server， 数据都是一致的。<br>4） 更新请求顺序执行， 来自同一个Client的更新请求按其发送顺序依次执行。<br>5） 数据更新原子性， 一次数据更新要么成功， 要么失败。<br>6） 实时性， 在一定时间范围内， Client能读到最新数据。  </p>
+<h1 id="5-数据模型（Data-Model）"><a href="#5-数据模型（Data-Model）" class="headerlink" title="5. 数据模型（Data Model）"></a>5. 数据模型（Data Model）</h1><p><img src="https://zookeeper.readthedocs.io/zh/latest/_images/zkservice.jpg" alt="img"></p>
+<p>ZooKeeper 数据模型的结构与 Unix 文件系统很类似，整体上可以看作是一棵树，每个节点称做一个 ZNode。每一个 ZNode 默认能够存储 <strong>1MB</strong> 的数据，每个 ZNode 都可以通过其路径唯一标识。  </p>
+<p>ZooKeeper 的数据模型是层次模型。层次模型常见于文件系统。层次模型和 key-value 模型是两种主流的数据模型。ZooKeeper 使用文件系统模型主要基于以下两点考虑：</p>
+<ol>
+<li>文件系统的树形结构便于表达数据之间的层次关系。</li>
+<li>文件系统的树形结构便于为不同的应用分配独立的命名空间（namespace）。</li>
+</ol>
+<p>ZooKeeper 的层次模型称作 data tree。Data tree 的每个节点叫做 znode。不同于文件系统，每个节点都可以保存数据。每个节点都有一个版本(version)，版本从 0 开始计数。</p>
+<h1 id="6-data-tree-接口"><a href="#6-data-tree-接口" class="headerlink" title="6. data tree 接口"></a>6. data tree 接口</h1><p>ZooKeeper 对外提供一个用来访问 data tree的简化文件系统 API：</p>
+<ul>
+<li>使用 UNIX 风格的路径名来定位 znode,例如 &#x2F;A&#x2F;X 表示 znode A 的子节点 X。</li>
+<li>znode 的数据只支持全量写入和读取，没有像通用文件系统那样支持部分写入和读取。</li>
+<li>data tree 的所有 API 都是 wait-free 的，正在执行中的 API 调用不会影响其他 API 的完成。</li>
+<li>data tree 的 API都是对文件系统的 wait-free 操作，不直接提供锁这样的分布式协同机制。但是 data tree 的 API 非常强大，可以用来实现多种分布式协同机制。</li>
+</ul>
+<h1 id="7-Znode-分类"><a href="#7-Znode-分类" class="headerlink" title="7. Znode 分类"></a>7. Znode 分类</h1><p>一个 znode 可以是持久性的，也可以是临时性的，znode 节点也可以是顺序性的。每一个顺序性的 znode 关联一个唯一的单调递增整数，因此 ZooKeeper 主要有以下 4 种 znode：</p>
+<ol>
+<li>持久性的 znode (PERSISTENT): ZooKeeper 宕机，或者 client 宕机，这个 znode 一旦创建就不会丢失。</li>
+<li>临时性的 znode (EPHEMERAL): ZooKeeper 宕机了，或者 client 在指定的 timeout 时间内没有连接 server，都会被认为丢失。</li>
+<li>持久顺序性的 znode (PERSISTENT_SEQUENTIAL): znode 除了具备持久性 znode 的特点之外，znode 的名字具备顺序性。</li>
+<li>临时顺序性的 znode (EPHEMERAL_SEQUENTIAL): znode 除了具备临时性 znode 的特点之外，znode 的名字具备顺序性。</li>
+</ol>
+<h1 id="8-事务-ID"><a href="#8-事务-ID" class="headerlink" title="8. 事务 ID"></a>8. 事务 ID</h1><p>为了保证事务的顺序一致性，Zookeeper 采用了递增的事务 ID 号(zxid)来标识事务，所有的操作(proposal)都会在被提出时加上 zxid，zxid 是一个 64 位的数字，他高 32 位是 epoch 用来标识 leader 关系是否发生变化，每当有新的 leader 被选举出来，都会有一个新的 epoch，标识当前属于哪个 leader 的领导。</p>
+<p>对于 Zookeeper 来说，每次的变化都会产生一个唯一的事务 id，zxid（ZooKeeper Transaction Id）通过 zxid ，可以确定更新操作的先后顺序，如果说 zxid1 小于 zxid2，说明 zxid1 比 zxid 先发生。</p>
+<ol>
+<li>SID： 服务器ID。 用来唯一标识一台ZooKeeper集群中的机器，每台机器不能重复， 和myid一致。  </li>
+<li>ZXID：事务ID。 ZXID是一个事务ID，用来标识一次服务器状态的变更。 在某一时刻，集群中的每台机器的ZXID值不一定完全一致，这和ZooKeeper服务器对于客户端“更新请求”的处理逻辑有关。  </li>
+<li>Epoch： 每个Leader任期的代号。没有Leader时同一轮投票过程中的逻辑时钟值是相同的。每投完一次票这个数据就会增加</li>
+</ol>
+<h1 id="9-Zookeeper-的角色"><a href="#9-Zookeeper-的角色" class="headerlink" title="9. Zookeeper 的角色"></a>9. Zookeeper 的角色</h1><ul>
+<li><strong>领导者（leader）</strong> ：负责进行投票的发起和决议，更新系统状态</li>
+<li><strong>学习者（learner）</strong> ：包括跟随者（follower）和观察者（observer），follower 用于接受客户端请求并想客户端返回结果，在选主过程中参与投票</li>
+<li><strong>Observer</strong> ：可以接受客户端连接，将写请求转发给 leader，但 observer 不参加投票过程，只同步 leader 的状态，observer 的目的是为了扩展系统，提高读取速度</li>
+<li><strong>客户端（client）</strong> ：请求发起方</li>
+</ul>
+<h1 id="10-基本命令"><a href="#10-基本命令" class="headerlink" title="10. 基本命令"></a>10. 基本命令</h1><ul>
+<li><strong>create :</strong> 在树中的某个位置创建一个节点</li>
+<li><strong>delete :</strong> 删除一个节点存在：测试节点是否存在于某个位置</li>
+<li><strong>deleteall</strong>：删除所有节点</li>
+<li><strong>get data :</strong> 从节点读取数据</li>
+<li><strong>set data：</strong> 将数据写入节点</li>
+<li><strong>get children :</strong> 检索节点的子节点列表</li>
+<li><strong>sync :</strong> 等待数据被传播</li>
+</ul>
+<ol>
+<li><p>查看 Zookeeper 中包含的 key</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>创建一个新的 Znode 创建成功以后我们可以使用 <code>ls /</code>查看我们创建的内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create /zkMxn muxiaonong</span><br><span class="line"></span><br><span class="line"> <span class="built_in">ls</span> /</span><br><span class="line">[zkMxn, zookeeper]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取创建 Znode 的内容</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">get</span> /zkMxn</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对 zk 所关联的字符串进行设置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> /zkMxn mxn666</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除 Znode</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> /zkMxn</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="11-监听（Watch）"><a href="#11-监听（Watch）" class="headerlink" title="11. 监听（Watch）"></a>11. 监听（Watch）</h1><p>监听原理</p>
+<p>1） 首先要有一个main()线程<br>2） 在main线程中创建Zookeeper客户端， 这时就会创建两个线程， 一个负责网络连接通信（connet） ， 一个负责监听（listener） 。<br>3） 通过connect线程将注册的监听事件发送给Zookeeper。<br>4） 在Zookeeper的注册监听器列表中将注册的监听事件添加到列表中。<br>5） Zookeeper监听到有数据或路径变化， 就会将这个消息发送给listener线程。<br>6） listener线程内部调用了process()方法。  </p>
+<p><img src="figures/zk-client-server.png" alt="image-20211121214454971"></p>
+<p>常见监听点</p>
+<ol>
+<li>监听节点上值得变化情况</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 一台机器上改变节点</span><br><span class="line">[zk: 192.168.0.191(CONNECTED) 10] <span class="built_in">set</span> /Yongheng/Dan <span class="string">&quot;Yao&quot;</span></span><br><span class="line"></span><br><span class="line">// 另一台机器上监听</span><br><span class="line">[zk: localhost:2181(CONNECTED) 9] get -w /Yongheng/Dan</span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected <span class="built_in">type</span>:NodeDataChanged path:/Yongheng/Dan</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>监听节点的子节点变化情况（增加、删除节点）</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 192.168.0.191 机器上增加节点</span><br><span class="line">[zk: 192.168.0.191(CONNECTED) 12] create /Yongheng/Qi <span class="string">&quot;GuiFu&quot;</span></span><br><span class="line">Created /Yongheng/Qi</span><br><span class="line"></span><br><span class="line">// localhost 机器上监听变化</span><br><span class="line">[zk: localhost:2181(CONNECTED) 1] <span class="built_in">ls</span> -w /Yongheng</span><br><span class="line">[Dan, Lin, Xue, Yao]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 2]</span><br><span class="line">WATCHER::</span><br><span class="line"></span><br><span class="line">WatchedEvent state:SyncConnected <span class="built_in">type</span>:NodeChildrenChanged path:/Yongheng</span><br></pre></td></tr></table></figure>
+
+<p><font color=red>注意：</font> 无论是节点中的数据还是节点的变化，注册一次，只能监听一次。想再次监听，需要再次注册。  </p>
+<h1 id="Ensemble"><a href="#Ensemble" class="headerlink" title="Ensemble"></a>Ensemble</h1><p>Zookeeper 中的集群不叫 cluster，而是叫 ensemble。</p>
+<p>Zookeeper 使用的是一致性协议（consensus protocol），所以推荐每个 ensemble 里应该包含奇数（odd）个节点（比如 3 个、 5 个等），因为只有当 ensemble 里的大多数节点处于可用状态， Zookeeper 才能处理外部的请求。也就是说，如果有一个包含 3 个节点的 ensemble，那么它允许一个节点失效。如果 ensemble 包含 5 个节点，那么它允许 2 个节点失效。  </p>
+<h2 id="集群中节点个数的选择"><a href="#集群中节点个数的选择" class="headerlink" title="集群中节点个数的选择"></a>集群中节点个数的选择</h2><p>假设有一个包含 5 个节点的集群（ensemble），为了将修改的配置（包括交换节点）文件写入到集群，你需要重启每一个节点。如果你的集群无法容忍多个节点失效，那么在进行集群维护时就会存在风险。不过，也不建议一个集群包含超过 7 个节点，因为 Zookeeper 使用了一致性协议，节点过多会降低整个集群的性能。  </p>
+<h2 id="集群配置"><a href="#集群配置" class="headerlink" title="集群配置"></a>集群配置</h2><p>为了将 zookeeper 的服务器配置成集群（ensemble），需要一个公共的配置，列出所有的服务器。每台服务器在数据目录（data directory）中创建一个 myid 文件，用 于指明自己的 ID。  如果集群里服务器的 hostnames  是 <code>zoo!.example.com, zoo2.example.com, zoo3 .example.com</code> ，那么配置文件可能是下面这样的：  </p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tickTime</span>=<span class="number">2000</span></span><br><span class="line"><span class="attr">dataDir</span>=/var/lib/zookeeper</span><br><span class="line"><span class="attr">clientPort</span>=<span class="number">2181</span></span><br><span class="line"><span class="attr">initLimit</span>=<span class="number">20</span></span><br><span class="line"><span class="attr">syncLimit</span>=<span class="number">5</span></span><br><span class="line"><span class="attr">server.1</span>=zoo1.example.com:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line"><span class="attr">server.2</span>=zoo2.example.com:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line"><span class="attr">server.3</span>=zoo3.example.com:<span class="number">2888</span>:<span class="number">3888</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>clientPort：客户端端口号</p>
+</li>
+<li><p>initLimit：表示 followers  连接到 leader 之间建立初始化连接的时间上限。</p>
+</li>
+<li><p>syncLimit：表示允许从节点（followers）与主节点（leader）处于不同步状态的时间上限。  </p>
+<blockquote>
+<p>initLimit 和 syncLimit 单位时间是 tickTime。比如：initLimit 的值为20，表示的时间为：20*2000ms&#x3D;40s</p>
+</blockquote>
+</li>
+</ul>
+<p>配置里还列出了集群中所有服务器的地址，服务器地址遵循的格式 <code>server.X=hostname:peerPort:leaderPort</code>各个参数说明如下：  </p>
+<ul>
+<li>X：服务的 ID 号，必须是一个整数（integer），不需要从 0 开始或不要求是连续的。</li>
+<li>hostname：服务器的主机名（hostname）或 IP 地址。</li>
+<li>peerPort：集群中的服务器彼此之间通信的端口号。</li>
+<li>leaderPort：leader 选择执行的 TCP 端口号。</li>
+</ul>
+<p>客户端只需要通过 clientPort 就能连接到集群，而集群节点间的通信则需要同时用到这 3 个<br>端口（ peerPort 、 leaderPort 、 clientPort ）。  </p>
+<p>除了公共的配置文件外，每个服务器都必须在 <code>data Dir</code> 目录中创建一个叫作 <code>myid</code> 的文件，文件里要包含服务器 ID ， 这个 ID 要与配置文件里配置的 ID 保持一致。完成这些步骤后，就可以启动服务器，让它们彼此间进行通信了。  </p>
+<h1 id="12-面试"><a href="#12-面试" class="headerlink" title="12. 面试"></a>12. 面试</h1><h2 id="12-1-选举机制"><a href="#12-1-选举机制" class="headerlink" title="12.1. 选举机制"></a>12.1. 选举机制</h2><p>半数机制，超过半数的投票通过，即通过。<br>（1）第一次启动选举规则：投票过半数时， 服务器 id 大的胜出<br>（2）第二次启动选举规则：</p>
+<ul>
+<li>EPOCH 大的直接胜出</li>
+<li>EPOCH 相同，事务 id 大的胜出</li>
+<li>事务 id 相同，服务器 id 大的胜出</li>
+</ul>
+<h2 id="12-2-生产集群安装多少-zk-合适？"><a href="#12-2-生产集群安装多少-zk-合适？" class="headerlink" title="12.2. 生产集群安装多少 zk 合适？"></a>12.2. 生产集群安装多少 zk 合适？</h2><p>安装奇数台。<br>生产经验：</p>
+<ul>
+<li>10 台服务器： 3 台 zk；</li>
+<li>20 台服务器： 5 台 zk；</li>
+<li>100 台服务器： 11 台 zk；</li>
+<li>200 台服务器： 11 台 zk</li>
+</ul>
+<p>服务器台数多：好处，提高可靠性；坏处：提高通信延时  </p>
+<h1 id="13-References"><a href="#13-References" class="headerlink" title="13. References"></a>13. References</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://xie.infoq.cn/article/edd698410f30cf4b8113e228d">Zookeeper 入门介绍</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1913682">Centos7 离线安装 zookeeper 并设置服务开机自启 实践笔记</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Cloud-Native/Zookeeper/synced/CloudNative/Zookeeper/Zookeeper/">https://johnjeep.github.io/Cloud-Native/Zookeeper/synced/CloudNative/Zookeeper/Zookeeper/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../../../tags/cloudnative/">cloudnative</a><a class="post-meta__tags" href="../../../../../../tags/zookeeper/">zookeeper</a></div><div class="post-share"><div class="social-share" data-image="../../../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../../../../../gRPC/synced/CloudNative/gRPC/SourceCode/" title="1. 目标"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">1. 目标</div></div><div class="info-2"><div class="info-item-1">1. 目标gRPC C++ 源码的质量很高，学习 Google 工程师门优秀的抽象和设计能力。 2. 特色2.1. 大量高级抽象结构gRPC 的源码为了简化异步代码的编写，同时为了更好的代码复用。设计了许多高级的数据结构。如  grpc_closure grpc_closure_scheduler ExecCtx grpc_combiner grpc_completion_queue  2.2. 大量设计模式为了提供跨平台能力，grpc核心代码采用了bridge设计模式，因此可以看到各种vtable,这也为阅读源代码增加了困难。 2.3. 异步编程grpc核心库采用reactor设计模式，如grpc_closure就是为了方便异步编程而设计的数据结构。 2.4. 高性能出于性能考虑，gRPC还使用了无锁队列这种高级数据结构，不熟悉其原理的读者可能会陷入各种原子操作的细节中。 2.5. grpc_closure 闭包closure就是闭包的英文名称。简单的理解，闭包函数将创建闭包时的上下文中的变量与自己绑定在一起，将变量的生存期和作用域延长到闭包函数结束。 2.6. 源码2.6.1...</div></div></div></a><a class="pagination-related" href="../../../../../RocketMQ/synced/CloudNative/RocketMQ/RocketMQ/" title="RocketMQ"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">RocketMQ</div></div><div class="info-2"><div class="info-item-1">Broker 每隔 30s 向 Name Server 发送心跳，Name Server 如果 120s 没有收到心跳，就会判断 Broker 宕机了。 ConsumeQueue 中的元素内容  前 8 个 bytes 记录消息在 CommitLog 中的偏移量。 中间 4 个 bytes 记录消息消息大小。 最后 8 个 bytes 记录消息中 tag 的 hashcode。  </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="../Install/" title="Install"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-22</div><div class="info-item-2">Install</div></div><div class="info-2"><div class="info-item-1"> zookeeper的安装部署安装zookeeper有两种运行模式：集群模式和单机模式。 下载zookeeper安装包：http://apache.fayea.com/zookeeper/ 下载完成，通过 tar -zxvf 解压。 单机环境安装一般情况下，在开发测试环境，没有这么多资源的情况，而且也不需要特别好的稳定性的前提下，我们可以使用单机部署。 初次使用zookeeper，需要将conf目录下的zoo_sample.cfg文件copy一份重命名为zoo.cfg修改dataDir目录，dataDir表示日志文件存放的路径。 集群环境安装在zookeeper集群中，各个节点总共有三种角色，分别是：leader\follower\observer集群模式，采用模拟3台机器来搭建zookeeper集群。分别复制安装包到三台机器上并解压，同时copy一份zoo.cfg。  修改配置文件 server.1&#x3D;IP1:2888:3888【2888:访问zookeeper的端口，3888:重新选举leader的端口】 server.2&#x3D;IP2:2888:3888 ser...</div></div></div></a><a class="pagination-related" href="../../../../../synced/CloudNative/Mqtt/" title="Mqtt"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-22</div><div class="info-item-2">Mqtt</div></div><div class="info-2"><div class="info-item-1">   1. EMQX 1.1. Port 1.1.1. 开放防火墙端口 1.1.2. 检查防火墙端口是否开放   1.2. env 1.2.1. 查找 EMQX 安装目录 1.2.2. 编辑环境变量 1.2.3. 验证是否生效 1.2.4. 系统级环境变量（可选）   1.3. ClientID 1.4. 介绍 1.5. 冲突的 MQTT 客户端 ID 1.6. 参数配置 1.6.1. retain 1.6.2. retainHandling     2. mosquitto 2.1. install 2.2. run   3. References  1. EMQXEMQX 是一个高性能的 MQTT 消息中间件，通常用于物联网和实时消息应用。为了确保 EMQX 可以正常运行并允许客户端连接，你需要在防火墙上开放一些特定的端口。 1.1. PortEMQX 使用多个端口来处理不同类型的通信。以下是 EMQX 需要开放的主要端口：  MQTT 协议端口 **默认端口：1883 (TCP)**：这是 MQTT 协议的默认端口，用于客户端与服务器之间的非加密通信。 **加密 MQTT（...</div></div></div></a><a class="pagination-related" href="../../../../../gRPC/synced/CloudNative/gRPC/Middleware/" title="容器中间件部署"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-22</div><div class="info-item-2">容器中间件部署</div></div><div class="info-2"><div class="info-item-1">容器中间件部署MySQLRedis</div></div></div></a><a class="pagination-related" href="../../../../../Kubernetes/synced/CloudNative/Kubernetes/Internals/" title="Internals"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-09</div><div class="info-item-2">Internals</div></div><div class="info-2"><div class="info-item-1">  源码分析References 云计算K8s系列—- K8s controller：https://kingjcy.github.io/post/cloud/paas/base/kubernetes/k8s-controller  </div></div></div></a><a class="pagination-related" href="../../../../../synced/CloudNative/Actor/" title="Actor"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-15</div><div class="info-item-2">Actor</div></div><div class="info-2"><div class="info-item-1">  1. Actor Model1.1. 带着问题思考1.1.1. Actors是如何发送和接收消息的？在Actor模型中，消息是唯一的通信机制。Actors通过消息进行相互通信，它们不直接共享内存。以下是Actors如何发送和接收消息的基本概念：  发送消息：  Actors可以发送消息给其他Actors，也可以发送消息给自己。当一个Actor想要与另一个Actor通信时，它创建一个消息并将其发送给目标Actor的地址（通常称为PID，即Process ID）。 在发送消息时，Actor系统负责将消息传递给正确的接收者。发送消息通常是异步的，这意味着发送者Actor不会等待接收者Actor处理消息。发送消息的过程通常是非阻塞的，这样可以提高系统的并发性能。  接收消息：  当一个Actor接收到消息时，它会将消息放入自己的邮箱（Mailbox）中。邮箱是一个消息队列，用于存储Actor接收到的消息。接收者Actor从邮箱中获取消息，并根据消息的内容执行相应的操作。 接收消息的过程通常是同步的，即当Actor正在处理一个消息时，它会等待该消息处理完成，然后再处理下一个消息。这确保...</div></div></div></a><a class="pagination-related" href="../../../../../Docker/synced/CloudNative/Docker/Internal/" title="Internal"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Internal</div></div><div class="info-2"><div class="info-item-1">  1. 理解 Docker 内部原理 Docke 容器本质上是宿主机的进程。 namespace 实现了资源隔离。 cgroups 实现了资源限制。 写时复制机制(copy-on-write)实现了高效的文件操作。  1.1. namespace资源隔离linux 内核提拱了 6 种 namespace 隔离的系统调用，如下图所示，但是真正的容器还需要处理许多其他工作。    namespace 系统调用参数 隔离内容    UTS CLONE_NEWUTS 主机名或域名   IPC CLONE_NEWIPC 信号量、消息队列和共享内存   PID CLONE_NEWPID 进程编号   Network CLONE_NEWNET 网络设备、网络战、端口等   Mount CLONE_NEWNS 挂载点（文件系统）   User CLONE_NEWUSER 用户组和用户组   实际上，linux 内核实现 namespace 的主要目的，就是为了实现轻量级虚拟化技术服务。在同一个 namespace下的进程合一感知彼此的变化，而对外界的进程一无所知。这样就可以让容器中的进程产生错...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">1. 概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-ZooKeeper-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">2. ZooKeeper 应用场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E7%BC%BA%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">3. 缺点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E7%89%B9%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text">4. 特点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%EF%BC%88Data-Model%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">5. 数据模型（Data Model）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-data-tree-%E6%8E%A5%E5%8F%A3"><span class="toc-number">6.</span> <span class="toc-text">6. data tree 接口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-Znode-%E5%88%86%E7%B1%BB"><span class="toc-number">7.</span> <span class="toc-text">7. Znode 分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E4%BA%8B%E5%8A%A1-ID"><span class="toc-number">8.</span> <span class="toc-text">8. 事务 ID</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-Zookeeper-%E7%9A%84%E8%A7%92%E8%89%B2"><span class="toc-number">9.</span> <span class="toc-text">9. Zookeeper 的角色</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="toc-number">10.</span> <span class="toc-text">10. 基本命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-%E7%9B%91%E5%90%AC%EF%BC%88Watch%EF%BC%89"><span class="toc-number">11.</span> <span class="toc-text">11. 监听（Watch）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ensemble"><span class="toc-number">12.</span> <span class="toc-text">Ensemble</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E4%B8%AD%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">12.1.</span> <span class="toc-text">集群中节点个数的选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE"><span class="toc-number">12.2.</span> <span class="toc-text">集群配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12-%E9%9D%A2%E8%AF%95"><span class="toc-number">13.</span> <span class="toc-text">12. 面试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#12-1-%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6"><span class="toc-number">13.1.</span> <span class="toc-text">12.1. 选举机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-2-%E7%94%9F%E4%BA%A7%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%A4%9A%E5%B0%91-zk-%E5%90%88%E9%80%82%EF%BC%9F"><span class="toc-number">13.2.</span> <span class="toc-text">12.2. 生产集群安装多少 zk 合适？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13-References"><span class="toc-number">14.</span> <span class="toc-text">13. References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../../../js/utils.js"></script><script src="../../../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

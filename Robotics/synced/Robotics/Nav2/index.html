@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Nav2 | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. Nav2 简介 2. Navigation2 介绍与安装 2.1. Nav2 介绍 2.2. Nav2 构建与安装   3. Nav2 基础概念 3.1. ROS2 基础之 Action 、 Node 与 Bond 3.2. 行为树 3.3. 导航服务器 3.4. 环境表达   4. Nav2 实战基础 4.1. Nav2 如何配置 TF 4.2. Nav2 如何配置 URDF 模型 4">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nav2">
+<meta property="og:url" content="https://johnjeep.github.io/Robotics/synced/Robotics/Nav2/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="1. Nav2 简介 2. Navigation2 介绍与安装 2.1. Nav2 介绍 2.2. Nav2 构建与安装   3. Nav2 基础概念 3.1. ROS2 基础之 Action 、 Node 与 Bond 3.2. 行为树 3.3. 导航服务器 3.4. 环境表达   4. Nav2 实战基础 4.1. Nav2 如何配置 TF 4.2. Nav2 如何配置 URDF 模型 4">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-11-01T00:45:36.000Z">
+<meta property="article:modified_time" content="2026-03-06T23:27:26.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="robotics">
+<meta property="article:tag" content="nav2">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Nav2",
+  "url": "https://johnjeep.github.io/Robotics/synced/Robotics/Nav2/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-11-01T00:45:36.000Z",
+  "dateModified": "2026-03-06T23:27:26.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Robotics/synced/Robotics/Nav2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Nav2',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../index.html"></a><a class="nav-page-title" href="../../../../index.html"><span class="site-name">Nav2</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Nav2</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-01T00:45:36.000Z" title="发表于 2025-11-01 08:45:36">2025-11-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-06T23:27:26.000Z" title="更新于 2026-03-07 07:27:26">2026-03-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../categories/Robotics/">Robotics</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2025-11-01 16:46:49
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2026-03-07 15:09:13
+ * @Description: Nav2 Usage
+ * Copyright (c) 2026 by John Jeep, All Rights Reserved. 
+-->
+<ul>
+<li><a href="#1-nav2-%E7%AE%80%E4%BB%8B">1. Nav2 简介</a></li>
+<li><a href="#2-navigation2-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85">2. Navigation2 介绍与安装</a><ul>
+<li><a href="#21-nav2-%E4%BB%8B%E7%BB%8D">2.1. Nav2 介绍</a></li>
+<li><a href="#22-nav2-%E6%9E%84%E5%BB%BA%E4%B8%8E%E5%AE%89%E8%A3%85">2.2. Nav2 构建与安装</a></li>
+</ul>
+</li>
+<li><a href="#3-nav2-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5">3. Nav2 基础概念</a><ul>
+<li><a href="#31-ros2-%E5%9F%BA%E7%A1%80%E4%B9%8B-action--node-%E4%B8%8E-bond">3.1. ROS2 基础之 Action 、 Node 与 Bond</a></li>
+<li><a href="#32-%E8%A1%8C%E4%B8%BA%E6%A0%91">3.2. 行为树</a></li>
+<li><a href="#33-%E5%AF%BC%E8%88%AA%E6%9C%8D%E5%8A%A1%E5%99%A8">3.3. 导航服务器</a></li>
+<li><a href="#34-%E7%8E%AF%E5%A2%83%E8%A1%A8%E8%BE%BE">3.4. 环境表达</a></li>
+</ul>
+</li>
+<li><a href="#4-nav2-%E5%AE%9E%E6%88%98%E5%9F%BA%E7%A1%80">4. Nav2 实战基础</a><ul>
+<li><a href="#41-nav2-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE-tf">4.1. Nav2 如何配置 TF</a></li>
+<li><a href="#42-nav2-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE-urdf-%E6%A8%A1%E5%9E%8B">4.2. Nav2 如何配置 URDF 模型</a></li>
+<li><a href="#43-nav2-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E9%87%8C%E7%A8%8B%E8%AE%A1">4.3. Nav2 如何配置里程计</a></li>
+<li><a href="#44-nav2-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E4%BC%A0%E6%84%9F%E5%99%A8">4.4. Nav2 如何配置传感器</a></li>
+<li><a href="#45-nav2-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE-footprint">4.5. Nav2 如何配置 Footprint</a></li>
+<li><a href="#46-nav2-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE-planner-%E5%92%8C-controller">4.6. Nav2 如何配置 Planner 和 Controller</a></li>
+</ul>
+</li>
+<li><a href="#5-nav2-%E5%AE%9E%E6%88%98%E4%B9%8B-slam-%E5%88%B6%E5%9B%BE%E4%B8%8E%E5%AF%BC%E8%88%AA">5. Nav2 实战之 SLAM 制图与导航</a><ul>
+<li><a href="#51-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D">5.1. 基础介绍</a></li>
+<li><a href="#52-%E5%A6%82%E4%BD%95%E5%90%AF%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8E%A5%E5%8F%A3">5.2. 如何启动机器人接口</a></li>
+<li><a href="#53-%E5%A6%82%E4%BD%95%E5%90%AF%E5%8A%A8-nav2-%E6%A1%86%E6%9E%B6">5.3. 如何启动 Nav2 框架</a></li>
+<li><a href="#54-slam-%E8%BF%9B%E8%A1%8C%E5%88%B6%E5%9B%BE%E4%B8%8E%E5%AF%BC%E8%88%AA%E4%BB%BF%E7%9C%9F">5.4. SLAM 进行制图与导航仿真</a></li>
+</ul>
+</li>
+<li><a href="#6-references">6. References</a></li>
+</ul>
+<h1 id="1-Nav2-简介"><a href="#1-Nav2-简介" class="headerlink" title="1. Nav2 简介"></a>1. Nav2 简介</h1><ol>
+<li>定位</li>
+<li>全局路径规划</li>
+<li>局部路径规划</li>
+<li>避障</li>
+<li>多点导航</li>
+<li>插件式地图管理</li>
+</ol>
+<h1 id="2-Navigation2-介绍与安装"><a href="#2-Navigation2-介绍与安装" class="headerlink" title="2. Navigation2 介绍与安装"></a>2. Navigation2 介绍与安装</h1><h2 id="2-1-Nav2-介绍"><a href="#2-1-Nav2-介绍" class="headerlink" title="2.1. Nav2 介绍"></a>2.1. Nav2 介绍</h2><h2 id="2-2-Nav2-构建与安装"><a href="#2-2-Nav2-构建与安装" class="headerlink" title="2.2. Nav2 构建与安装"></a>2.2. Nav2 构建与安装</h2><h1 id="3-Nav2-基础概念"><a href="#3-Nav2-基础概念" class="headerlink" title="3. Nav2 基础概念"></a>3. Nav2 基础概念</h1><h2 id="3-1-ROS2-基础之-Action-、-Node-与-Bond"><a href="#3-1-ROS2-基础之-Action-、-Node-与-Bond" class="headerlink" title="3.1. ROS2 基础之 Action 、 Node 与 Bond"></a>3.1. ROS2 基础之 Action 、 Node 与 Bond</h2><h2 id="3-2-行为树"><a href="#3-2-行为树" class="headerlink" title="3.2. 行为树"></a>3.2. 行为树</h2><h2 id="3-3-导航服务器"><a href="#3-3-导航服务器" class="headerlink" title="3.3. 导航服务器"></a>3.3. 导航服务器</h2><h2 id="3-4-环境表达"><a href="#3-4-环境表达" class="headerlink" title="3.4. 环境表达"></a>3.4. 环境表达</h2><h1 id="4-Nav2-实战基础"><a href="#4-Nav2-实战基础" class="headerlink" title="4. Nav2 实战基础"></a>4. Nav2 实战基础</h1><h2 id="4-1-Nav2-如何配置-TF"><a href="#4-1-Nav2-如何配置-TF" class="headerlink" title="4.1. Nav2 如何配置 TF"></a>4.1. Nav2 如何配置 TF</h2><h2 id="4-2-Nav2-如何配置-URDF-模型"><a href="#4-2-Nav2-如何配置-URDF-模型" class="headerlink" title="4.2. Nav2 如何配置 URDF 模型"></a>4.2. Nav2 如何配置 URDF 模型</h2><h2 id="4-3-Nav2-如何配置里程计"><a href="#4-3-Nav2-如何配置里程计" class="headerlink" title="4.3. Nav2 如何配置里程计"></a>4.3. Nav2 如何配置里程计</h2><h2 id="4-4-Nav2-如何配置传感器"><a href="#4-4-Nav2-如何配置传感器" class="headerlink" title="4.4. Nav2 如何配置传感器"></a>4.4. Nav2 如何配置传感器</h2><h2 id="4-5-Nav2-如何配置-Footprint"><a href="#4-5-Nav2-如何配置-Footprint" class="headerlink" title="4.5. Nav2 如何配置 Footprint"></a>4.5. Nav2 如何配置 Footprint</h2><h2 id="4-6-Nav2-如何配置-Planner-和-Controller"><a href="#4-6-Nav2-如何配置-Planner-和-Controller" class="headerlink" title="4.6. Nav2 如何配置 Planner 和 Controller"></a>4.6. Nav2 如何配置 Planner 和 Controller</h2><h1 id="5-Nav2-实战之-SLAM-制图与导航"><a href="#5-Nav2-实战之-SLAM-制图与导航" class="headerlink" title="5. Nav2 实战之 SLAM 制图与导航"></a>5. Nav2 实战之 SLAM 制图与导航</h1><h2 id="5-1-基础介绍"><a href="#5-1-基础介绍" class="headerlink" title="5.1. 基础介绍"></a>5.1. 基础介绍</h2><h2 id="5-2-如何启动机器人接口"><a href="#5-2-如何启动机器人接口" class="headerlink" title="5.2. 如何启动机器人接口"></a>5.2. 如何启动机器人接口</h2><h2 id="5-3-如何启动-Nav2-框架"><a href="#5-3-如何启动-Nav2-框架" class="headerlink" title="5.3. 如何启动 Nav2 框架"></a>5.3. 如何启动 Nav2 框架</h2><h2 id="5-4-SLAM-进行制图与导航仿真"><a href="#5-4-SLAM-进行制图与导航仿真" class="headerlink" title="5.4. SLAM 进行制图与导航仿真"></a>5.4. SLAM 进行制图与导航仿真</h2><h1 id="6-References"><a href="#6-References" class="headerlink" title="6. References"></a>6. References</h1><ul>
+<li>Github Navigation 2: <a target="_blank" rel="noopener" href="https://github.com/ros-navigation/navigation2/">https://github.com/ros-navigation/navigation2\</a></li>
+<li>Nav2 Document: <a target="_blank" rel="noopener" href="https://docs.nav2.org/">https://docs.nav2.org/</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Robotics/synced/Robotics/Nav2/">https://johnjeep.github.io/Robotics/synced/Robotics/Nav2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../tags/robotics/">robotics</a><a class="post-meta__tags" href="../../../../tags/nav2/">nav2</a></div><div class="post-share"><div class="social-share" data-image="../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../ROS2/" title="ROS2"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">ROS2</div></div><div class="info-2"><div class="info-item-1">   1. ROS2 Introduction 2. Terms 3. ROS1 ROS Compare 4. Basic Concepts 4.1. Node 4.2. Parameter 4.3. Executor 4.3.1. 核心思想：事件循环 4.3.2. 为什么需要执行器？   4.4. Callback Group   5. ROS2 Communication 5.1. Topic 5.2. Service 5.3. Action   6. Workflow 7. Tools 7.1. ament 7.2. launch   8. ROS2 Command 8.1. run 8.2. package   9. Hardware 10. References  1. ROS2 Introduction机器人已经广泛应用于各种领域，例如自动驾驶、移动机器人、操作机器人、信息机器人等。 机器人系统是很多复杂算法模块的集合，如障碍物检测、行为决策、智能控制、环境识别等。 任何机器人平台的软件堆栈都需要多种软件工具，如硬件驱动程序、网络模块、通信架构和多种机器人算法。 RO...</div></div></div></a><a class="pagination-related" href="../Moveit/" title="Moveit"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Moveit</div></div><div class="info-2"><div class="info-item-1">   1. Introduction 2. MoveIt 的主要组件 3. MoveIt 的工作流程 4. MoveIt 的优势 5. 适用场景 6. references  1. IntroductionMoveIt 是 ROS 中最高层、最强大的机器人“运动规划与操作”框架。它负责“想”，让机器人知道如何去完成一个复杂的动作。  详细解释：  角色定位： 它是机器人的 “大脑” 和 “导航系统” 。你告诉它一个高级目标，比如“把那个红色的积木抓起来放到盒子里”，MoveIt 会为你解决一系列复杂问题： 运动规划： 计算出机械臂从A点移动到B点而不发生碰撞的路径。 逆运动学： 将末端执行器（如夹爪）的目标位姿，转换为每个关节需要转动的角度。 碰撞检测： 在规划路径时，实时检查机器人与自身、与环境中的其他物体是否会发生碰撞。 抓取规划： 专门为抓取任务提供支持。   核心功能： 运动学求解（KDL, IKFast等插件）。 基于OMPL等库的路径规划算法。 三维环境感知与碰撞检测（使用FCL库）。 提供RViz可视化插件，方便用户交互和调试。   工作层面： 它工作在 高层次的任...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="../ROS2/" title="ROS2"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-01</div><div class="info-item-2">ROS2</div></div><div class="info-2"><div class="info-item-1">   1. ROS2 Introduction 2. Terms 3. ROS1 ROS Compare 4. Basic Concepts 4.1. Node 4.2. Parameter 4.3. Executor 4.3.1. 核心思想：事件循环 4.3.2. 为什么需要执行器？   4.4. Callback Group   5. ROS2 Communication 5.1. Topic 5.2. Service 5.3. Action   6. Workflow 7. Tools 7.1. ament 7.2. launch   8. ROS2 Command 8.1. run 8.2. package   9. Hardware 10. References  1. ROS2 Introduction机器人已经广泛应用于各种领域，例如自动驾驶、移动机器人、操作机器人、信息机器人等。 机器人系统是很多复杂算法模块的集合，如障碍物检测、行为决策、智能控制、环境识别等。 任何机器人平台的软件堆栈都需要多种软件工具，如硬件驱动程序、网络模块、通信架构和多种机器人算法。 RO...</div></div></div></a><a class="pagination-related" href="../URDF/" title="URDF"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-08</div><div class="info-item-2">URDF</div></div><div class="info-2"><div class="info-item-1">   1. Introduction to URDF 2. 标签 2.1. &lt;link&gt; 2.2. &lt;joint&gt; 2.3. link 与 joint 的关系是什么？ 2.3.0.1. 树状结构：父子关系   2.4. &lt;transmission&gt; 2.4.1. 为什么需要 &lt;transmission&gt;？ 2.4.1.1. 基本语法（ROS 2 &#x2F; ros2_control 兼容格式）   2.4.2. 关键子元素说明 2.4.2.1. ROS 2 中的现代替代方案：&lt;ros2_control&gt; 2.4.2.1.1. 示例（ROS 2 推荐方式）：     2.4.3. 何时使用 &lt;transmission&gt;？ 2.4.3.1. 对比     2.5. 注意点   3. Xarco 4. packages 4.1. ros-humble-urdf-tutorial 4.1.0.1. 安装   4.2. 启动示例模型 4.3. check_urdf   5. 利用 URDF 创建静态机器人模型 6. ...</div></div></div></a><a class="pagination-related" href="../Gazebo/" title="Gazebo"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-08</div><div class="info-item-2">Gazebo</div></div><div class="info-2"><div class="info-item-1">   1. Gazebo 1.1. 版本 1.2. Install 1.3. Plugins   2. 用法 2.1. 模型 2.2. 为什么只能有一个 world？   3. References  1. GazeboGazebo 是一个仿真工具，提供逼真的仿真环境。 1.1. 版本   Platform Gazebo Versions    Ubuntu 24.04 Noble Gazebo Jetty (recommended), Gazebo Harmonic (recommended if using ROS 2 Jazzy) and Gazebo Ionic   Ubuntu 22.04 Jammy Gazebo Harmonic (recommended) and Gazebo Fortress (recommended if using ROS 2 Humble)   Mac Ventura Gazebo Harmonic (recommended) and Gazebo Fortress   Mac Monterey Gazebo Harmonic (recom...</div></div></div></a><a class="pagination-related" href="../Sensor/" title="Sensor"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-19</div><div class="info-item-2">Sensor</div></div><div class="info-2"><div class="info-item-1">   Sensor 常见传感器   References  Sensor传感器 是机器人系统中用于感知环境和自身状态的关键组件。它们将物理世界的信息转换为数字信号，供机器人处理和决策使用。 常见传感器 激光雷达 超声波传感器 深度相机、3D相机、鱼眼相机、双目RGB相机 摄像头 PMSM BLDC 步进电机 舵机 IMU（惯性测量单元） 扫描器 灵巧手：指尖搭载传感器  References humble sensor_msgs: https://docs.ros.org/en/humble/p/sensor_msgs/ humble std_msgs: https://docs.ros.org/en/humble/p/std_msgs/  </div></div></div></a><a class="pagination-related" href="../ROS2Interfaces/" title="ROS2Interfaces"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-03-09</div><div class="info-item-2">ROS2Interfaces</div></div><div class="info-2"><div class="info-item-1">   1. Introduction 2. std_msgs References  1. Introduction在 ROS 2 中，消息（Messages）、服务（Services）和动作（Actions）是节点之间通信的基本机制。ROS 2 提供了丰富的标准消息类型，同时也支持用户定义自定义消息、服务和动作接口，以满足特定应用需求。 查看本地已安装的所有 interfaces 1ros2 interface list   2. std_msgs在工程中使用std_msgs的典型场景和示例：  导入消息类型：在编写节点时，首先需要导入所需的std_msgs消息类型。 发布消息：创建一个发布者，用于发布某种std_msgs类型的消息。 订阅消息：创建一个订阅者，接收并处理某种std_msgs类型的消息。 自定义消息组合：在自定义消息中，可以使用std_msgs中的基本类型作为组成部分。  标准消息类型  std_msgs sensor_msgs geometry_msgs nav_msgs actionlib_msgs  自定义消息类型 3. References Interf...</div></div></div></a><a class="pagination-related" href="../VCS/" title="VCS"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-07</div><div class="info-item-2">VCS</div></div><div class="info-2"><div class="info-item-1">   1. VCS 1.1. VCS 工具概述 1.2. 主要功能 1.2.1. 批量仓库管理 1.2.2. 支持多种VCS 1.2.3. 仓库状态检查   1.3. 典型使用场景 1.3.1. YAML 配置文件示例 (depend_repos.yml) 1.3.2. 常用命令   1.4. 在你的脚本中的应用 1.5. 为什么 ROS 项目使用 VCS？ 1.6. 与 Git 子模块的对比 1.7. 安装 VCS 1.8. 实际示例   2. Google repo 2.1. 核心概念 2.1.1. 解决什么问题 2.1.2. 基本工作原理   2.2. 主要功能 2.2.1. 初始化工作区 2.2.2. 同步所有仓库 2.2.3. 常用命令   2.3. Manifest 文件示例 2.4. Repo 工作流程示例 2.5. Repo vs Git 子模块 vs VCS 2.6. Repo 的高级特性 2.6.1. 分层 manifest 2.6.2. 工作区管理 2.6.3. Gerrit 集成   2.7. 实际使用案例 2.7.1. AOSP (Android Ope...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Nav2-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">1. Nav2 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Navigation2-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">2. Navigation2 介绍与安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Nav2-%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. Nav2 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Nav2-%E6%9E%84%E5%BB%BA%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. Nav2 构建与安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Nav2-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">3.</span> <span class="toc-text">3. Nav2 基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-ROS2-%E5%9F%BA%E7%A1%80%E4%B9%8B-Action-%E3%80%81-Node-%E4%B8%8E-Bond"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. ROS2 基础之 Action 、 Node 与 Bond</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E8%A1%8C%E4%B8%BA%E6%A0%91"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. 行为树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%AF%BC%E8%88%AA%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">3.3.</span> <span class="toc-text">3.3. 导航服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E7%8E%AF%E5%A2%83%E8%A1%A8%E8%BE%BE"><span class="toc-number">3.4.</span> <span class="toc-text">3.4. 环境表达</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Nav2-%E5%AE%9E%E6%88%98%E5%9F%BA%E7%A1%80"><span class="toc-number">4.</span> <span class="toc-text">4. Nav2 实战基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-Nav2-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE-TF"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. Nav2 如何配置 TF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-Nav2-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE-URDF-%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. Nav2 如何配置 URDF 模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-Nav2-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E9%87%8C%E7%A8%8B%E8%AE%A1"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. Nav2 如何配置里程计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-Nav2-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E4%BC%A0%E6%84%9F%E5%99%A8"><span class="toc-number">4.4.</span> <span class="toc-text">4.4. Nav2 如何配置传感器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-Nav2-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE-Footprint"><span class="toc-number">4.5.</span> <span class="toc-text">4.5. Nav2 如何配置 Footprint</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-Nav2-%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE-Planner-%E5%92%8C-Controller"><span class="toc-number">4.6.</span> <span class="toc-text">4.6. Nav2 如何配置 Planner 和 Controller</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-Nav2-%E5%AE%9E%E6%88%98%E4%B9%8B-SLAM-%E5%88%B6%E5%9B%BE%E4%B8%8E%E5%AF%BC%E8%88%AA"><span class="toc-number">5.</span> <span class="toc-text">5. Nav2 实战之 SLAM 制图与导航</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D"><span class="toc-number">5.1.</span> <span class="toc-text">5.1. 基础介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E5%A6%82%E4%BD%95%E5%90%AF%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8E%A5%E5%8F%A3"><span class="toc-number">5.2.</span> <span class="toc-text">5.2. 如何启动机器人接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E5%A6%82%E4%BD%95%E5%90%AF%E5%8A%A8-Nav2-%E6%A1%86%E6%9E%B6"><span class="toc-number">5.3.</span> <span class="toc-text">5.3. 如何启动 Nav2 框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-SLAM-%E8%BF%9B%E8%A1%8C%E5%88%B6%E5%9B%BE%E4%B8%8E%E5%AF%BC%E8%88%AA%E4%BB%BF%E7%9C%9F"><span class="toc-number">5.4.</span> <span class="toc-text">5.4. SLAM 进行制图与导航仿真</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-References"><span class="toc-number">6.</span> <span class="toc-text">6. References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../js/utils.js"></script><script src="../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

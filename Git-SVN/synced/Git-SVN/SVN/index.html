@@ -1,0 +1,420 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SVN | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. Introduction什么是Subversion?  Subversion的版本库是一种特别的文件版本库，它会记录每一次改变：每个文件的改变，甚至是目录树本身的改变。  文件共享  一般的文件共享采用的是 lock-modify-unlock 的方式 Subversion、VS和一些版本控制系统使用  copy-modify-merge模型。 在这种模型里，每一个客户联系项目版本库建立">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVN">
+<meta property="og:url" content="https://johnjeep.github.io/Git-SVN/synced/Git-SVN/SVN/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="1. Introduction什么是Subversion?  Subversion的版本库是一种特别的文件版本库，它会记录每一次改变：每个文件的改变，甚至是目录树本身的改变。  文件共享  一般的文件共享采用的是 lock-modify-unlock 的方式 Subversion、VS和一些版本控制系统使用  copy-modify-merge模型。 在这种模型里，每一个客户联系项目版本库建立">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2021-01-27T05:38:22.000Z">
+<meta property="article:modified_time" content="2025-12-17T20:01:41.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="git-svn">
+<meta property="article:tag" content="svn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SVN",
+  "url": "https://johnjeep.github.io/Git-SVN/synced/Git-SVN/SVN/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2021-01-27T05:38:22.000Z",
+  "dateModified": "2025-12-17T20:01:41.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Git-SVN/synced/Git-SVN/SVN/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SVN',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../index.html"></a><a class="nav-page-title" href="../../../../index.html"><span class="site-name">SVN</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">SVN</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-27T05:38:22.000Z" title="发表于 2021-01-27 13:38:22">2021-01-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-17T20:01:41.000Z" title="更新于 2025-12-18 04:01:41">2025-12-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../categories/Git-SVN/">Git &amp; SVN</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2020-11-20 10:59:05
+ * @LastEditTime: 2025-04-04 19:19:59
+ * @LastEditors: JohnJeep
+ * @Description: SVN学习笔记
+-->
+
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>什么是Subversion?</p>
+<blockquote>
+<p>Subversion的版本库是一种特别的文件版本库，它会记录每一次改变：每个文件的改变，甚至是目<br>录树本身的改变。</p>
+</blockquote>
+<p>文件共享</p>
+<ul>
+<li>一般的文件共享采用的是 <code>lock-modify-unlock</code> 的方式</li>
+<li>Subversion、VS和一些版本控制系统使用  <code>copy-modify-merge</code>模型。<blockquote>
+<p>在这种模型里，每一个客户联系项目版本库建立一个个人工作拷贝—版本库中文件和目录的本地映射。用户并行工作，修改各自的工作拷贝，最终，各个私有的拷贝合并在一起，成为最终的版本，这种系统通常可以辅助合并操作，但是最终要靠人工去确定正误。</p>
+</blockquote>
+</li>
+</ul>
+<p>工作副本</p>
+<blockquote>
+<p> <code>.svn </code>为名的文件夹，也被叫做工作副本的管理目录，这个目录里的文件能够帮助 Subversion 识别哪些文件做过修改，哪些文件相对于别人的工作已经过期。</p>
+</blockquote>
+<p>修订版本</p>
+<blockquote>
+<p>每当版本库接受了一个提交，文件系统进入了一个新的状态，叫做一次修订<code>(revision)</code>，每一个修订版本被赋予一个独一无二的自然数，一个比一个大，初始修订号是0，只创建了一个空目录，没有任何内容。版本库每一次的提交，保存的是工作副本中改变的快照，并不是整个工作副本的快照。<br><img src="./figure/svn版本库.png"></p>
+</blockquote>
+<p>工作副本怎样跟踪版本库？</p>
+<ul>
+<li>工作副本基于的修订版本</li>
+<li>时间戳：记录了工作副本从版本库中最后一次的拷贝。   </li>
+<li>工作副本中的四中状态<ul>
+<li>未修改且是当前的。文件在工作目录里没有修改，在工作修订版本之后没有修改提交到版本库。</li>
+<li>本地已修改且是当前的。文件在工作目录里已经修改，在工作修订版本之后没有修改提交到版本库。</li>
+<li>Unchanged, and out of date。这个文件在工作目录没有修改，但在版本库中已经修了。这个文件最终将更新到最新版本，成为当时的公共修订版本。</li>
+<li>Locally changed, and out of date。这个文件在工作目录和版本库都得到修改。一个svn commit将会失败，这个文件必须首先更新，svn update命令会合并公共和本地修改，如果Subversion不可以自动完成，将会让用户解决冲突。</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-目录约定"><a href="#2-目录约定" class="headerlink" title="2. 目录约定"></a>2. 目录约定</h1><ul>
+<li>&#x2F;trunk：开发主线</li>
+<li>&#x2F;branches：支线副本</li>
+<li>&#x2F;tags：标签副本，一旦创建，不允许修改。</li>
+</ul>
+<h1 id="3-图标"><a href="#3-图标" class="headerlink" title="3. 图标"></a>3. 图标</h1><ul>
+<li>normal：状态正常</li>
+<li>modified：对本地的副本做了修改，需要提交到服务器</li>
+<li>conflicted：有冲突</li>
+<li>readonly：文件是只读的，要修改必须先获取锁</li>
+<li>locked：获得锁</li>
+<li>deleted：计划从版本库中删除</li>
+<li>added：已被计划纳入版本控制</li>
+<li>non-versioned：未纳入版本控制</li>
+</ul>
+<p>图形化版本中各个图标表示含义</p>
+<ul>
+<li>绿色：当前文件没有被修改过</li>
+<li>红色：已修改，没有提交</li>
+<li>蓝色：不属于版本库的未知文件，未知文件不能提交</li>
+<li>蓝色加号：新增加的版本库文件</li>
+<li>蓝色：提交一个修改。</li>
+<li>紫色：提交一个新增项。</li>
+<li>深红：提交一个删除或是替换。</li>
+<li>黑色：所有其他项。<img src="./figure/svn图标.png"></li>
+</ul>
+<h1 id="4-svn冲突"><a href="#4-svn冲突" class="headerlink" title="4. svn冲突"></a>4. svn冲突</h1><p>解决冲突有三种选择：</p>
+<ul>
+<li>A、放弃自己的更新，使用svn revert（回滚），然后提交。在这种方式下不需要使用svn resolved（解决）</li>
+<li>B、放弃自己的更新，使用别人的更新。使用最新获取的版本覆盖目标文件，执行resolved filename并提交(选择文件—右键—解决)。</li>
+<li>C、手动解决：冲突发生时，通过和其他用户沟通之后，手动更新目标文件。然后执行resolved filename来解除冲突，最后提交。</li>
+</ul>
+<p>如何降低冲突解决的复杂度？</p>
+<ul>
+<li>1、当文档编辑完成后，尽快提交，频繁的提交&#x2F;更新可以降低在冲突发生的概率，以及发生时解决冲突的复杂度。</li>
+<li>2、在提交时，写上明确的message，方便以后查找用户更新的原因，毕竟随着时间的推移，对当初更新的原因有可能会遗忘</li>
+<li>3、养成良好的使用习惯，使用SVN时每次都是先提交，后更新。每天早上打开后，首先要从版本库获取最新版本。每天下班前必须将已经编辑过的文档都提交到版本库。</li>
+</ul>
+<h1 id="5-Git与SVN的区别"><a href="#5-Git与SVN的区别" class="headerlink" title="5. Git与SVN的区别"></a>5. Git与SVN的区别</h1><ul>
+<li>Git是分布式，svn是集中式</li>
+<li>svn只有一个中央版本库，而git有无限个</li>
+<li>svn有全局的版本号，git没有</li>
+<li>git不必联网就可以看到所有的log，svn必须联网</li>
+<li>git保存的是元数据，svn是复制整个文档</li>
+<li>git强调分支，svn只是不同的文件目录，就是copy</li>
+</ul>
+<h1 id="6-subversion-常用流程"><a href="#6-subversion-常用流程" class="headerlink" title="6. subversion 常用流程"></a>6. subversion 常用流程</h1><ol>
+<li>拷贝版本库中的项目到本地工作环境中<ul>
+<li><code>svn checkout xxxx</code></li>
+</ul>
+</li>
+<li>更新你的工作拷贝<ul>
+<li><code>svn update</code></li>
+</ul>
+</li>
+<li>做出修改<ul>
+<li><code>svn add</code></li>
+<li><code>svn delete</code></li>
+<li><code>svn copy</code></li>
+<li><code>svn move</code></li>
+</ul>
+</li>
+<li>检查修改</li>
+</ol>
+<ul>
+<li><code>svn status</code></li>
+<li><code>svn diff</code></li>
+</ul>
+<ol start="5">
+<li>撤销一些修改<ul>
+<li><code>svn revert</code></li>
+</ul>
+</li>
+<li>解决冲突(合并别人的修改)<ul>
+<li><code>svn update</code></li>
+<li><code>svn resolved</code></li>
+</ul>
+</li>
+<li>提交你的修改<ul>
+<li><code>svn commit</code></li>
+</ul>
+</li>
+</ol>
+<h1 id="7-Commands"><a href="#7-Commands" class="headerlink" title="7. Commands"></a>7. Commands</h1><p>最重要的是帮助命令，遇见不会的命令，需要自己查看帮助文档：<code>svn help subcommand</code>，其中 subcommand 为 subversion 的内建命令。</p>
+<h2 id="7-1-add"><a href="#7-1-add" class="headerlink" title="7.1. add"></a>7.1. add</h2><ul>
+<li>往版本库中添加新的文件 </li>
+<li><code>svn add *.php</code> 添加当前目录下所有后缀名为 <code>.php</code> 的文件。</li>
+</ul>
+<h2 id="7-2-checkout"><a href="#7-2-checkout" class="headerlink" title="7.2. checkout"></a>7.2. checkout</h2><ul>
+<li>将从SVN版本库中拷贝项目到本地工作目录中，得到一个本地拷贝，这个拷贝包括了命令行指定版本库中的HEAD(最新的)版本。</li>
+<li>例如：<code>svn checkout svn://192.168.1.131/45dian/brand</code></li>
+</ul>
+<h2 id="7-3-commit"><a href="#7-3-commit" class="headerlink" title="7.3. commit"></a>7.3. commit</h2><ul>
+<li>将本地版本库中改变的文件提交到SVN版本库中</li>
+<li><code>svn commit -m “LogMessage“ [-N] [--no-unlock] PATH</code> (如果选择了保持锁，就使用–no-unlock开关)</li>
+<li>例如：<code>svn commit -m “add test file for my test“ test.php</code></li>
+</ul>
+<h2 id="7-4-lock-unlock"><a href="#7-4-lock-unlock" class="headerlink" title="7.4. lock&#x2F;unlock"></a>7.4. lock&#x2F;unlock</h2><p>lock&#x2F;unlock 表示 加锁  与解锁。</p>
+<ul>
+<li><code>svn lock -m “LockMessage“ [--force] PATH</code></li>
+<li>例如：<code>svn lock -m “lock test file“ test.php</code></li>
+</ul>
+<h2 id="7-5-update"><a href="#7-5-update" class="headerlink" title="7.5. update"></a>7.5. update</h2><p>更新你的工作拷贝 </p>
+<ul>
+<li><code>svn update</code>： 会把版本库的修改带到工作拷贝,如果没有给定修订版本,它会把你的工作拷贝更新到 HEAD 修订版本,否则,它会把工作拷贝更新到你用 <code>--revision</code> 指定的修订版本。为了保持同步, <code>svn update</code> 也会删除所有在工作拷贝发现的无效锁定</li>
+<li>每个更新的项目开头都有一个表示所做动作的字符<ul>
+<li>A: add</li>
+<li>B: Broken lock (third column only)</li>
+<li>D: delete</li>
+<li>U: update</li>
+<li>C: conflict</li>
+<li>G: merge</li>
+<li>E: existed</li>
+<li>R: replace</li>
+<li>M: modified</li>
+<li><code>?</code>: 未添加到工程中的文件。</li>
+<li><code>!</code>: 工程中没有该文件，但并没有从版本库中删除。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p> <code>.svn</code> 目录记录着文件的修改日期和原始内容。</p>
+</blockquote>
+<ul>
+<li><p>用法</p>
+<ul>
+<li><code>svn update</code> 后面没有加目录，表示默认更新当前目录及子目录的所有文件到最新版本。</li>
+<li><code>svn update -r 200 test.php</code> 将版本库中的 test.php 文件还原到 200 版本。</li>
+</ul>
+</li>
+<li><p>update命令还可以进行文件恢复。</p>
+<ul>
+<li>不小心写错了很多东西，想撤销所写的东西（已经把修改提交到服务器）<code>svn update -r 版本号</code></li>
+<li>不小心删错了文件，想把文件恢复回来（已经把删除提交到服务器）<code>svn update -r 版本号</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="7-6-status"><a href="#7-6-status" class="headerlink" title="7.6. status"></a>7.6. status</h2><ul>
+<li><code>svn status</code>: 打印所有本地修改的文件，默认情况下，不会联系版本库.</li>
+<li><code>svn status -v</code>: 显示所有版本控制下的文件。</li>
+</ul>
+<h2 id="7-7-delete"><a href="#7-7-delete" class="headerlink" title="7.7. delete"></a>7.7. delete</h2><ul>
+<li><code>svn delete aa.txt</code> 删除工作区远程库中的 aa.txt 文件；若只是在工程中删除 <code>aa.txt</code> 文件，不使用 <code>svn delete</code> 指令，则远程版本库中还存在 <code>aa.txt</code> 文件，使用 <code>svn update</code> 命令后，原先已存在 <code>aa.txt</code> 文件会再次更新到工作区中。</li>
+</ul>
+<h2 id="7-8-cat"><a href="#7-8-cat" class="headerlink" title="7.8. cat"></a>7.8. cat</h2><ul>
+<li><code>svn cat</code>: 检查一个过去的版本而不希望察看它们的区别<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ svn cat -r <span class="number">2</span> rules.txt</span><br><span class="line">Be kind <span class="keyword">to</span> <span class="keyword">others</span></span><br><span class="line">Freedom = Chocolate Ice Cream</span><br><span class="line">Everything <span class="keyword">in</span> moderation</span><br><span class="line">Chew <span class="keyword">with</span> your mouth <span class="keyword">open</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="7-9-list"><a href="#7-9-list" class="headerlink" title="7.9. list"></a>7.9. list</h2><p><code>svn list</code>  可以在不下载文件到本地目录的情况下来察看服务器远程库目录中的文件</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ svn list http:<span class="symbol">//svn.collab.net/repos/svn</span></span><br><span class="line">README</span><br><span class="line">branches<span class="symbol">/</span></span><br><span class="line">clients<span class="symbol">/</span></span><br><span class="line">tags<span class="symbol">/</span></span><br><span class="line">trunk<span class="operator">/</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="7-10-diff"><a href="#7-10-diff" class="headerlink" title="7.10. diff"></a>7.10. diff</h2><ul>
+<li><p><code>svn diff file</code> 将修改的 file 文件与基础版本比较。</p>
+<ul>
+<li>例如：<code>svn diff test.php</code></li>
+</ul>
+</li>
+<li><p><code>svn diff -r m:n path</code>: 对版本m和版本n比较差异</p>
+<ul>
+<li>例如：<code>svn diff -r 200:201 test.php</code></li>
+<li>简写：svn di</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-11-copy"><a href="#7-11-copy" class="headerlink" title="7.11. copy"></a>7.11. copy</h2><ul>
+<li>从主干上创建分支: <code>svn cp -m &quot;create branch&quot;  http://svn_server/xxx_repository/trunk  http://svn_server/xxx_repository/branches/br_feature001 </code></li>
+<li>获得分支: <code>svn checkout http://svn_server/xxx_repository/branches/br_feature001</code></li>
+</ul>
+<h2 id="7-12-merge"><a href="#7-12-merge" class="headerlink" title="7.12. merge"></a>7.12. merge</h2><ul>
+<li><code>svn merge -r m:n path</code></li>
+<li>例如：<code>svn merge -r 200:205 test.cpp</code>（将版本200与205之间的差异合并到当前文件，但是一般都会产生冲突，需要处理一下）</li>
+</ul>
+<h2 id="7-13-log"><a href="#7-13-log" class="headerlink" title="7.13. log"></a>7.13. log</h2><ul>
+<li><code>svn log -l 10</code>: 查看最近提交的10条记录</li>
+<li><code>svn log test.cpp</code>: 显示这个文件的所有修改记录，及其版本号的变化。</li>
+<li><code>svn log -r &#123;2018-07-03&#125;:&#123;2018-07-09&#125;</code>: 查看一段时间的日志</li>
+<li><code>svn log -r r196674 -v</code>: 查看某一版本所修改的文件列表及说明</li>
+</ul>
+<h2 id="7-14-info"><a href="#7-14-info" class="headerlink" title="7.14. info"></a>7.14. info</h2><ul>
+<li><code>svn info test.cpp</code>：查看test.cpp文件的详细信息。<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Path</span>: xxx.cpp</span><br><span class="line"><span class="attribute">Name</span>: xxx.cpp</span><br><span class="line"><span class="attribute">Working</span> Copy Root Path: /home/john/development/GMP2000</span><br><span class="line"><span class="attribute">URL</span>: https://<span class="number">112.17.80.221</span>/svn/xxx.cpp</span><br><span class="line"><span class="attribute">Relative</span> URL: ^/branches/xxx.cpp</span><br><span class="line"><span class="attribute">Repository</span> Root: https://<span class="number">112.17.80.221</span>/svn/xxx</span><br><span class="line"><span class="attribute">Repository</span> UUID: d9902de0-<span class="number">23</span>ea-<span class="number">1</span>e4c-b6e9-eed385be7707</span><br><span class="line"><span class="attribute">Revision</span>: <span class="number">3485</span></span><br><span class="line"><span class="attribute">Node</span> Kind: file</span><br><span class="line"><span class="attribute">Schedule</span>: normal</span><br><span class="line"><span class="attribute">Last</span> Changed Author: xxxx</span><br><span class="line"><span class="attribute">Last</span> Changed Rev: <span class="number">3482</span></span><br><span class="line"><span class="attribute">Last</span> Changed Date: <span class="number">2021</span>-<span class="number">02</span>-<span class="number">25</span> <span class="number">10</span>:<span class="number">52</span>:<span class="number">10</span> +<span class="number">0800</span> (Thu, <span class="number">25</span> Feb <span class="number">2021</span>)</span><br><span class="line"><span class="attribute">Text</span> Last Updated: <span class="number">2021</span>-<span class="number">02</span>-<span class="number">23</span> <span class="number">11</span>:<span class="number">46</span>:<span class="number">24</span> +<span class="number">0800</span> (Tue, <span class="number">23</span> Feb <span class="number">2021</span>)</span><br><span class="line"><span class="attribute">Checksum</span>: fa59dd9a5472e6ad5cdd17968c9b8952dcf107c5</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="7-15-resolved"><a href="#7-15-resolved" class="headerlink" title="7.15. resolved"></a>7.15. resolved</h2><ul>
+<li><code>svn resolved</code>: 移除工作副本的目录或文件的“冲突”状态。</li>
+<li>用法: <code>svn resolved PAT</code></li>
+<li>注意: 本命令不会依语法来解决冲突或是移除冲突标记，它只是移除冲突的相关文件，然后让 PATH 可以再次提交。</li>
+</ul>
+<h2 id="7-16-switch"><a href="#7-16-switch" class="headerlink" title="7.16. switch"></a>7.16. switch</h2><ul>
+<li><code>svn switch (sw)</code>: 更新工作副本至不同的URL。<ul>
+<li>1、更新你的工作副本，映射到一个新的URL，其行为跟“svn update”很像，也会将服务器上文件与本地文件合并。这是将工作副本对应到同一仓库中某个分支或者标记的方法。</li>
+<li>2、改写工作副本的URL元数据，以反映单纯的URL上的改变。当仓库的根URL变动(比主机名称变动)，但是工作副本仍旧对映到同一仓库的同一目录时使用这个命令更新工作副本与仓库的对应关系</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-17-revert"><a href="#7-17-revert" class="headerlink" title="7.17. revert"></a>7.17. revert</h2><ul>
+<li>本地文件发生改变后，想要恢复到未改变之前的状态，可以用 <code>svn revert</code> 命令。</li>
+<li><code>svn revert files</code> 将 files 恢复到未改变之前的状态。</li>
+<li><code>svn revert --recursive build/xxx/file</code> 将 build&#x2F;xxx&#x2F; 路径下的多个 file 恢复到未改变之前的状态。</li>
+<li>注意: 此命令只改变本地工作区的内容，对远程库不行，文件已被 <code>svn delete</code> 指令删除，则不会被恢复。</li>
+</ul>
+<h1 id="8-Git-SVN"><a href="#8-Git-SVN" class="headerlink" title="8. Git-SVN"></a>8. Git-SVN</h1><p>服务器使用的是 SVN，但是想本地使用 Git 的 local branch 或者离线编辑代码等，这时 <code>Git-SVN</code> 就是最好的。</p>
+<p>下面是 <code>Git-SVN</code> 通用的操作</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Download an SVN project and its entire code history and initialize it as a git code base</span></span><br><span class="line">$ git svn <span class="built_in">clone</span> -s [repository]</span><br><span class="line"></span><br><span class="line"><span class="comment">#View the current version Library</span></span><br><span class="line">$ git svn info</span><br><span class="line"></span><br><span class="line"><span class="comment">#Retrieve changes from all branches of the remote warehouse</span></span><br><span class="line">$ git svn fetch</span><br><span class="line"></span><br><span class="line"><span class="comment">#Retrieve the changes of the current branch of the remote warehouse and merge it with the local branch</span></span><br><span class="line">$ git svn rebase </span><br><span class="line"></span><br><span class="line"><span class="comment">#Upload the local warehouse of the current branch to the remote warehouse</span></span><br><span class="line">$ git svn dcommit</span><br><span class="line"></span><br><span class="line"><span class="comment">#Pull new branch and submit to remote warehouse</span></span><br><span class="line">$ git svn copy [remote_branch] [new_remote_branch] -m [message]</span><br><span class="line"></span><br><span class="line"><span class="comment">#Create local branch corresponding to remote branch</span></span><br><span class="line">$ git checkout -b [local_branch] [remote_branch]</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="9-References"><a href="#9-References" class="headerlink" title="9. References"></a>9. References</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-svn">官方英文文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://developpaper.com/compared-with-git-and-svn-this-article-is-easy-to-understand/">Compared with GIT and SVN, this article is easy to understand</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.taringamberini.com/en/blog/howto/the-best-of-git-working-with-subversion/">The Best of Git working with Subversion</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.tfnico.com/2011/03/dream-of-bi-directional-git-svn-mirror.html">The Dream of a Bi-directional Git-SVN mirror</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.chinaunix.net/uid-22566367-id-1965771.html">linux下svn命令使用大全</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jaspersong/p/9277720.html">Linux下常用svn命令</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_37812785/article/details/80243207">SVN的安装和使用手册</a>    </li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_37654790/article/details/85367741">SVN简介</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ysk123/p/9910461.html">windows下使用SVN命令行</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.flyne.org/article/851">版本控制器：SVN教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://easydoc.top/s/78711005/uSJD1CDg/60815798">SVN教程</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Git-SVN/synced/Git-SVN/SVN/">https://johnjeep.github.io/Git-SVN/synced/Git-SVN/SVN/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../tags/git-svn/">git-svn</a><a class="post-meta__tags" href="../../../../tags/svn/">svn</a></div><div class="post-share"><div class="social-share" data-image="../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../../../../Nginx/synced/Nginx/Nginx/" title="Nginx"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Nginx</div></div><div class="info-2"><div class="info-item-1">  1. Introducenginx (“engine x“) is an HTTP web server, reverse proxy, content cache, load balancer, TCP&#x2F;UDP proxy server, and mail proxy server. Originally written by Igor Sysoev and distributed under the 2-clause BSD License. Nginx 优点  高并发、高性能 可扩展性好 高可靠性 热部署 BSD许可证  2. Install2.1. Source code install123456789101112131415161718192021222324252627282930311. 准备编译环境，自动安装 Nginx 对应的依赖环境  yum update  yum -y install gcc pcre pcre-devel zlib zlib-devel openssl openssl-devel2. 获取源码  wget http://n...</div></div></div></a><a class="pagination-related" href="../../../../Shell/synced/Shell/shell/" title="Shell"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Shell</div></div><div class="info-2"><div class="info-item-1">  1. Introduction 2. Bash Terminal Shortcuts 2.1. Terminal 2.2. 大小写 2.3. 光标移动 2.4. 删除 2.5. 粘贴 2.6. 字符交换 2.7. 历史记录 2.8. 其它命令   3. Shell 启动 4. 基本命令 4.1. 引号 4.2. 变量 4.2.1. 环境变量 4.2.2. 用户变量   4.3. 命令替换 4.4. 命令行参数 4.5. basename 4.6. 执行数学运算   5. 重定向 6. 结构化命令 6.1. if 语句 6.1.1. 高级特性   6.2. case 语句 6.3. for 语句 6.4. while 语句 6.5. test 条件测试 6.5.1. 数值比较 6.5.2. 字符串比较 6.5.3. 文件比较 6.5.4. 逻辑比较     7. 函数 8. 阻止命令输出 9. shell调试 10. 用户输入处理 11. 正则表达式 11.1. 字符串限定符 11.2. 数量限定符 11.3. 位置限定符 11.4. 其他特殊字符   12. tee 13. ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="../Pipeline/" title="Git Pipeline"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-18</div><div class="info-item-2">Git Pipeline</div></div><div class="info-2"><div class="info-item-1">Git PipelineGitlab Pipeline Rules “Pipeline must succeed”：合并前 Pipeline 必须通过 “Require approvals before merging”：合并需要审批 一旦 MR 有审批记录，后续修改可自由触发 Pipeline。修改后提交 → 自动触发 Pipeline → 无需重新审批 </div></div></div></a><a class="pagination-related" href="../FAQ/" title="FAQ"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">FAQ</div></div><div class="info-2"><div class="info-item-1">  1. FAQ1.1. git 远程仓库更换名称，本地如何修改？ 适用于本地和远程的代码没得任何问题，就是远程仓库改了个名称，直接在本地修改远程仓库地址即可： git remote set-url origin new_address 另外还可以先删除，然后添加地址：12git remote rm origingit remote add origin new_address    1.2. Git 中文乱码 解决 Git 在 windows 下中文乱码的问题  1.3. LF or CRLFGit 多平台换行符问题 (LF or CRLF)。文本文件所使用的换行符，在不同的系统平台上是不一样的。UNIX&#x2F;Linux 使用的是 0x0A（LF），早期的 Mac OS 使用的是 0x0D（CR），后来的 OS X 在更换内核后与 UNIX 保持一致了。但 DOS&#x2F;Windows 一直使用 0x0D0A（CRLF） 作为换行符。 跨平台协作开发是常有的，不统一的换行符确实对跨平台的文件交换带来了麻烦。最大的问题是，在不同平台上，换行符发生改变时，Git 会认为整...</div></div></div></a><a class="pagination-related" href="../Install/" title="Git 安装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Git 安装</div></div><div class="info-2"><div class="info-item-1">Git 安装Git 是一个开源跨平台的版本管理软件，可以运行在 Windows、Linux&#x2F;Unix、macOS 等不同的操作系统上。下面讲解在不同平台上的安装。 WindowsLinux电脑连接了网络，安装操作步骤很简单。比如在 Ubuntu 平台下，只需要执行 sudo apt install git 就可以；但在 Centos 系统中，使用 yum 源安装的 git 版本是1.7.1，太老了，Github 需要的 Git 版本最低都不能低于1.7.2 。 所以我们一般不用上面的方法。而是下载 git 源码，编译安装，或者因环境的保密性，工作电脑没有连接外网，需要采用源码的形式安装 Git。 源码的安装一般分为三部：配置(configure)、编译(make)、安装(make install)  卸载 CentOS 系统中老的 Git。 1yum remove git  首先下载 Git 相应的依赖环境，可以在一台有网的电脑中执行下面的命令，将下载好的依赖通过 ftp 工具上传到要安装的服务器中。 1yum install curl-devel expat-deve...</div></div></div></a><a class="pagination-related" href="../Git/" title="Git"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Git</div></div><div class="info-2"><div class="info-item-1">   1. Git Command 1.1. Git init 1.2. Git add 1.3. Git log 1.4. Git tag 1.5. Git alias 1.6. Git checkout 1.7. Git commit 1.8. Git diff 1.9. Git push 1.10. Git pull 1.11. Git stash 1.12. Git blame 1.13. Git cherry-pick 1.14. Git bisect 1.15. Git revert 1.16. Git Reset 1.17. Remove or Restore 1.17.1. remove 1.17.2. restore   1.18. other command   2. Git Branch 2.1. Local repo branch 2.2. Remote repo branch 2.3. Branches Principle 2.4. Branches conflict 2.4.1. Git rebase 2.4.2. Git merge   2.5.  ...</div></div></div></a><a class="pagination-related" href="../Internals/" title="Internals"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Internals</div></div><div class="info-2"><div class="info-item-1">  1. Git协议Git 支持四种协议传输  本地(Local)协议 Git协议 HTTP协议 SSH(Secure Shell)协议  1.1. SSH(Secure Shell)协议SSH 协议支持口令与密钥两种安全验证模式，但无论那种模式，最终都需要使用密钥来加密数据以确保安全，而 SSH 密钥通常使用的算法为 RSA 和 DSA。 命令　  SSH1：只支持RSAS算法 SSH2：支持RSA和DSA算法   ssh -T git@github.com 查看SSHkey sssh-keygen -t rsa 使用RSA算法创建密钥 id_rsa 密钥 和 id_rsa.pub 公钥  为什么要用SSH？  是保证本机(当前电脑)与GitHub服务器连接的有效凭证 因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，而Git支持SSH协议，所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。 GitHub允许你添加多个Key，只要把每台电脑的Key都添加到GitHub，就可以在每台电脑上往GitHub推送了。 Git支持多种协议，包括ht...</div></div></div></a><a class="pagination-related" href="../commit-convention/" title="Commit Convention"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Commit Convention</div></div><div class="info-2"><div class="info-item-1"> 1. Git Commit 规范约定1.1. 背景Git 每次提交代码都需要写 commit message，否则就不允许提交。一般来说，commit message 应该清晰明了，说明本次提交的目的，具体做了什么操作，但是在日常开发中，大家的 commit message 千奇百怪，中英文混合使用、fix bug 等各种笼统的 message 司空见怪，这就导致后续代码维护成本特别大，有时自己都不知道自己的 fix bug 修改的是什么问题。基于以上这些问题，我们希望通过某种方式来监控用户的 git commit message，让规范更好的服务于质量，提高大家的研发效率。 1.2. Commit message 结构提交信息应该遵循下面的结构： 12345&lt;type&gt;[optional scope]: &lt;description&gt;[optional body][optional footer(s)]  type: 是必选项，表示类型。用于说明 git commit 的类别，只允许使用下面的标识。  feat：新功能（a new feature）。 fi...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Introduction"><span class="toc-number">1.</span> <span class="toc-text">1. Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E7%9B%AE%E5%BD%95%E7%BA%A6%E5%AE%9A"><span class="toc-number">2.</span> <span class="toc-text">2. 目录约定</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%9B%BE%E6%A0%87"><span class="toc-number">3.</span> <span class="toc-text">3. 图标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-svn%E5%86%B2%E7%AA%81"><span class="toc-number">4.</span> <span class="toc-text">4. svn冲突</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-Git%E4%B8%8ESVN%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">5.</span> <span class="toc-text">5. Git与SVN的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-subversion-%E5%B8%B8%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">6.</span> <span class="toc-text">6. subversion 常用流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-Commands"><span class="toc-number">7.</span> <span class="toc-text">7. Commands</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-add"><span class="toc-number">7.1.</span> <span class="toc-text">7.1. add</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-checkout"><span class="toc-number">7.2.</span> <span class="toc-text">7.2. checkout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-commit"><span class="toc-number">7.3.</span> <span class="toc-text">7.3. commit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-4-lock-unlock"><span class="toc-number">7.4.</span> <span class="toc-text">7.4. lock&#x2F;unlock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-5-update"><span class="toc-number">7.5.</span> <span class="toc-text">7.5. update</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-6-status"><span class="toc-number">7.6.</span> <span class="toc-text">7.6. status</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-7-delete"><span class="toc-number">7.7.</span> <span class="toc-text">7.7. delete</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-8-cat"><span class="toc-number">7.8.</span> <span class="toc-text">7.8. cat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-9-list"><span class="toc-number">7.9.</span> <span class="toc-text">7.9. list</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-10-diff"><span class="toc-number">7.10.</span> <span class="toc-text">7.10. diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-11-copy"><span class="toc-number">7.11.</span> <span class="toc-text">7.11. copy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-12-merge"><span class="toc-number">7.12.</span> <span class="toc-text">7.12. merge</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-13-log"><span class="toc-number">7.13.</span> <span class="toc-text">7.13. log</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-14-info"><span class="toc-number">7.14.</span> <span class="toc-text">7.14. info</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-15-resolved"><span class="toc-number">7.15.</span> <span class="toc-text">7.15. resolved</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-16-switch"><span class="toc-number">7.16.</span> <span class="toc-text">7.16. switch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-17-revert"><span class="toc-number">7.17.</span> <span class="toc-text">7.17. revert</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-Git-SVN"><span class="toc-number">8.</span> <span class="toc-text">8. Git-SVN</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-References"><span class="toc-number">9.</span> <span class="toc-text">9. References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../js/utils.js"></script><script src="../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

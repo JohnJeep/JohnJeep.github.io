@@ -1,0 +1,705 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Gdb | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. 简介 2. 安装 GDB 2.1. 在线安装 2.2. 源码安装   3. Invoking GDB 4. Shell Commands 5. Logging Output 6. 常用命令 6.1. run 6.1.1. arguments 6.1.2. environment 6.1.3. working directory 6.1.4. standard input and ou">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gdb">
+<meta property="og:url" content="https://johnjeep.github.io/Linux/synced/Linux/gdb/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="1. 简介 2. 安装 GDB 2.1. 在线安装 2.2. 源码安装   3. Invoking GDB 4. Shell Commands 5. Logging Output 6. 常用命令 6.1. run 6.1.1. arguments 6.1.2. environment 6.1.3. working directory 6.1.4. standard input and ou">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2021-04-07T08:25:42.000Z">
+<meta property="article:modified_time" content="2025-11-19T20:49:17.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="gdb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Gdb",
+  "url": "https://johnjeep.github.io/Linux/synced/Linux/gdb/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2021-04-07T08:25:42.000Z",
+  "dateModified": "2025-11-19T20:49:17.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Linux/synced/Linux/gdb/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Gdb',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../index.html"></a><a class="nav-page-title" href="../../../../index.html"><span class="site-name">Gdb</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Gdb</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-07T08:25:42.000Z" title="发表于 2021-04-07 16:25:42">2021-04-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-19T20:49:17.000Z" title="更新于 2025-11-20 04:49:17">2025-11-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2020-04-23 20:37:04
+ * @LastEditTime: 2025-11-20 11:59:30
+ * @LastEditors: JohnJeep
+ * @Description: GDB Usage
+--> 
+
+<ul>
+<li><a href="#1-%E7%AE%80%E4%BB%8B">1. 简介</a></li>
+<li><a href="#2-%E5%AE%89%E8%A3%85-gdb">2. 安装 GDB</a><ul>
+<li><a href="#21-%E5%9C%A8%E7%BA%BF%E5%AE%89%E8%A3%85">2.1. 在线安装</a></li>
+<li><a href="#22-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85">2.2. 源码安装</a></li>
+</ul>
+</li>
+<li><a href="#3-invoking-gdb">3. Invoking GDB</a></li>
+<li><a href="#4-shell-commands">4. Shell Commands</a></li>
+<li><a href="#5-logging-output">5. Logging Output</a></li>
+<li><a href="#6-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4">6. 常用命令</a><ul>
+<li><a href="#61-run">6.1. run</a><ul>
+<li><a href="#611-arguments">6.1.1. arguments</a></li>
+<li><a href="#612-environment">6.1.2. environment</a></li>
+<li><a href="#613-working-directory">6.1.3. working directory</a></li>
+<li><a href="#614-standard-input-and-output">6.1.4. standard input and output</a></li>
+</ul>
+</li>
+<li><a href="#62-start">6.2. start</a></li>
+<li><a href="#63-starti">6.3. starti</a></li>
+<li><a href="#64-continue">6.4. continue</a></li>
+<li><a href="#65-quit">6.5. quit</a></li>
+<li><a href="#66-list">6.6. list</a></li>
+<li><a href="#67-break">6.7. break</a></li>
+<li><a href="#68-delete">6.8. delete</a></li>
+<li><a href="#69-next">6.9. next</a></li>
+<li><a href="#610-next-into">6.10. next into</a></li>
+<li><a href="#611-step">6.11. step</a></li>
+<li><a href="#612-step-into">6.12. step into</a></li>
+<li><a href="#613-finish">6.13. finish</a></li>
+<li><a href="#614-until">6.14. until</a></li>
+<li><a href="#615-print">6.15. print</a></li>
+<li><a href="#616-ptype">6.16. ptype</a></li>
+<li><a href="#617-display">6.17. display</a></li>
+<li><a href="#618-undisplay">6.18. undisplay</a></li>
+<li><a href="#619-whatis">6.19. whatis</a></li>
+<li><a href="#620-set">6.20. set</a></li>
+<li><a href="#621-call">6.21. call</a></li>
+<li><a href="#622-clear">6.22. clear</a></li>
+<li><a href="#623-dir">6.23. dir</a></li>
+<li><a href="#624-info">6.24. info</a></li>
+<li><a href="#625-show">6.25. show</a></li>
+<li><a href="#626-command">6.26. command</a></li>
+<li><a href="#627-help">6.27. help</a></li>
+<li><a href="#628-others">6.28. Others</a></li>
+</ul>
+</li>
+<li><a href="#7-tui">7. TUI</a><ul>
+<li><a href="#71-tui-%E4%B8%AD%E7%9A%84%E6%96%AD%E7%82%B9">7.1. TUI 中的断点</a></li>
+<li><a href="#72-%E5%BF%AB%E6%8D%B7%E9%94%AE">7.2. 快捷键</a></li>
+</ul>
+</li>
+<li><a href="#8-examining-source-files">8. Examining Source Files</a><ul>
+<li><a href="#81-%E6%9F%A5%E7%9C%8B%E6%BA%90%E7%A0%81">8.1. 查看源码</a></li>
+<li><a href="#82-%E7%BC%96%E8%BE%91%E6%BA%90%E7%A0%81">8.2. 编辑源码</a></li>
+<li><a href="#83-%E6%94%B9%E5%8F%98%E6%BA%90%E7%A0%81%E8%B7%AF%E5%BE%84">8.3. 改变源码路径</a></li>
+</ul>
+</li>
+<li><a href="#9-%E8%B0%83%E8%AF%95%E5%A4%9A%E8%BF%9B%E7%A8%8B">9. 调试多进程</a></li>
+<li><a href="#10-%E8%B0%83%E8%AF%95%E5%A4%9A%E7%BA%BF%E7%A8%8B">10. 调试多线程</a></li>
+<li><a href="#11-%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AD%98">11. 查看内存</a><ul>
+<li><a href="#111-backtrace">11.1. backtrace</a></li>
+<li><a href="#112-examine">11.2. examine</a></li>
+</ul>
+</li>
+<li><a href="#12-watchpoints">12. Watchpoints</a></li>
+<li><a href="#13-catchpoints">13. Catchpoints</a></li>
+<li><a href="#14-%E8%B0%83%E8%AF%95%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E7%A8%8B%E5%BA%8F">14. 调试正在运行的程序</a></li>
+<li><a href="#15-%E8%AE%BE%E7%BD%AE%E5%8A%A8%E6%80%81%E5%BA%93">15. 设置动态库</a></li>
+<li><a href="#16-reverse">16. Reverse</a></li>
+<li><a href="#17-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86">17. 底层原理</a></li>
+<li><a href="#18-references">18. References</a></li>
+</ul>
+<h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><p>GDB 是什么？</p>
+<p>GDB 全称“GNU symbolic debugger”，从名称上不难看出，它诞生于 GNU 计划（同时诞生的还有 GCC、Emacs 等），是 Linux 下常用的程序调试器。发展至今，GDB 已经迭代了诸多个版本，当下的 GDB 支持调试多种编程语言编写的程序，包括 C、C++、Go、Objective-C、OpenCL、Ada 等。实际场景中，GDB 更常用来调试 C 和 C++ 程序。一般来说，GDB主要帮助我们完成以下四个方面的功能：</p>
+<ol>
+<li>启动你的程序，可以按照你的自定义的要求随心所欲的运行程序。</li>
+<li>在某个指定的地方或条件下暂停程序。</li>
+<li>当程序被停住时，可以检查此时你的程序中所发生的事。</li>
+<li>在程序执行过程中修改程序中的变量或条件，将一个bug产生的影响修正从而测试其他bug。</li>
+</ol>
+<p><strong>简单的讲，GDB 就是一个程序，只不过这个程序通过一些手段可以去调试其它的程序。</strong> </p>
+<h1 id="2-安装-GDB"><a href="#2-安装-GDB" class="headerlink" title="2. 安装 GDB"></a>2. 安装 GDB</h1><h2 id="2-1-在线安装"><a href="#2-1-在线安装" class="headerlink" title="2.1. 在线安装"></a>2.1. 在线安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> gdb</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-2-源码安装"><a href="#2-2-源码安装" class="headerlink" title="2.2. 源码安装"></a>2.2. 源码安装</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 源码解压</span><br><span class="line">  [root<span class="meta">@KF</span><span class="operator">-</span><span class="type">CFT</span><span class="operator">-</span><span class="type">AP2</span> <span class="operator">~</span>]# tar <span class="operator">-</span>zcvf gdb<span class="operator">-</span><span class="number">10.2</span>.tar.gz</span><br><span class="line"><span class="number">2</span>. 进入解压目录</span><br><span class="line">  [root<span class="meta">@KF</span><span class="operator">-</span><span class="type">CFT</span><span class="operator">-</span><span class="type">AP2</span> <span class="operator">~</span>]# cd gdb<span class="operator">-</span><span class="number">10.2</span></span><br><span class="line"><span class="number">3</span>. 设置配置，configure 后面可设置参数和安装路径，</span><br><span class="line">  [root<span class="meta">@KF</span><span class="operator">-</span><span class="type">CFT</span><span class="operator">-</span><span class="type">AP2</span> gdb<span class="operator">-</span><span class="number">10.2</span>]# <span class="operator">./</span>configure</span><br><span class="line">  </span><br><span class="line">  配置参数项</span><br><span class="line">  configure [<span class="operator">--</span>help]</span><br><span class="line">            [<span class="operator">--</span><span class="keyword">prefix</span><span class="operator">=</span>dir]  自定义配置路径</span><br><span class="line">            [<span class="operator">--</span>exec<span class="operator">-</span><span class="keyword">prefix</span><span class="operator">=</span>dir]</span><br><span class="line">            [<span class="operator">--</span>srcdir<span class="operator">=</span>dirname]</span><br><span class="line">            [<span class="operator">--</span>target<span class="operator">=</span>target]</span><br><span class="line">            <span class="operator">--</span>enable<span class="operator">-</span>tui<span class="operator">=</span>yes  配置 <span class="type">TUI模式</span></span><br><span class="line">            <span class="operator">--</span>with<span class="operator">-</span>ncurses    带 ncurses 库</span><br><span class="line">            <span class="operator">--</span>with<span class="operator">-</span>python<span class="operator">=</span>yes 带 python 脚本</span><br><span class="line">            </span><br><span class="line"><span class="number">4</span>. 编译，执行make</span><br><span class="line">  [root<span class="meta">@KF</span><span class="operator">-</span><span class="type">CFT</span><span class="operator">-</span><span class="type">AP2</span> gdb<span class="operator">-</span><span class="number">10.2</span>]# make</span><br><span class="line"><span class="number">5</span>. 安装</span><br><span class="line">   [root<span class="meta">@KF</span><span class="operator">-</span><span class="type">CFT</span><span class="operator">-</span><span class="type">AP2</span> gdb<span class="operator">-</span><span class="number">10.2</span>]# make install</span><br><span class="line"><span class="number">6</span>. 将编译生成的 gdb 可执行文件考到 <span class="regexp">/usr/</span>bin<span class="operator">/</span></span><br><span class="line">   [root<span class="meta">@KF</span><span class="operator">-</span><span class="type">CFT</span><span class="operator">-</span><span class="type">AP2</span> gdb<span class="operator">-</span><span class="number">10.2</span>]# cp gdb<span class="regexp">/gdb /</span>usr<span class="regexp">/bin/</span>gdb</span><br><span class="line"><span class="number">6</span>. 检查是否安装成功，终端下执行</span><br><span class="line">  [root<span class="meta">@KF</span><span class="operator">-</span><span class="type">CFT</span><span class="operator">-</span><span class="type">AP2</span> <span class="operator">~</span>]$ gdb <span class="operator">-</span>v</span><br><span class="line">  <span class="type">GNU</span> gdb (<span class="type">GDB</span>) <span class="number">10.2</span></span><br><span class="line">  <span class="type">Copyright</span> (<span class="type">C</span>) <span class="number">2021</span> <span class="type">Free</span> <span class="type">Software</span> <span class="type">Foundation</span>, <span class="type">Inc</span>.</span><br><span class="line">  <span class="type">License</span> <span class="type">GPLv3</span><span class="operator">+</span>: <span class="type">GNU</span> <span class="type">GPL</span> version <span class="number">3</span> or later <span class="operator">&lt;</span>http:<span class="comment">//gnu.org/licenses/gpl.html&gt;</span></span><br><span class="line">  <span class="type">This</span> <span class="keyword">is</span> free software: you are free to change and redistribute it.</span><br><span class="line">  <span class="type">There</span> <span class="keyword">is</span> <span class="type">NO</span> <span class="type">WARRANTY</span>, to the extent permitted by law.</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-Invoking-GDB"><a href="#3-Invoking-GDB" class="headerlink" title="3. Invoking GDB"></a>3. Invoking GDB</h1><p>GDB 是一个非常重要的调试工具，要用 GDB，首先要知道如何去启动 GDB。</p>
+<p>通过运行 gdb 程序来调用 GDB，一旦开始了，GDB 读来自 terminal 的命令，直到你告诉它要退出，它才退出。</p>
+<p>下面是几种启动 GDB 的方式：</p>
+<p>启动前提：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用 gdb 调试程序之前，必须使用 -<span class="selector-tag">g</span> 或 –ggdb 编译选项编译源文件：gcc xxx<span class="selector-class">.c</span> -<span class="selector-tag">g</span> -o xxx<span class="selector-class">.out</span> </span><br></pre></td></tr></table></figure>
+
+<p>第一种：直接启动可执行文件，gdb 后面跟一个参数：可执行文件。其中 a.out 是带有调试信息的可执行文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@KF-CFT-AP2 SrcCompile]$ gdb a.out</span><br><span class="line">GNU gdb (GDB) 10.2</span><br><span class="line">Copyright (C) 2021 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line">Type <span class="string">&quot;show copying&quot;</span> and <span class="string">&quot;show warranty&quot;</span> <span class="keyword">for</span> details.</span><br><span class="line">This GDB was configured as <span class="string">&quot;x86_64-pc-linux-gnu&quot;</span>.</span><br><span class="line">Type <span class="string">&quot;show configuration&quot;</span> <span class="keyword">for</span> configuration details.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;https://www.gnu.org/software/gdb/bugs/&gt;.</span><br><span class="line">Find the GDB manual and other documentation resources online at:</span><br><span class="line">    &lt;http://www.gnu.org/software/gdb/documentation/&gt;.</span><br><span class="line"></span><br><span class="line">For <span class="built_in">help</span>, <span class="built_in">type</span> <span class="string">&quot;help&quot;</span>.</span><br><span class="line">Type <span class="string">&quot;apropos word&quot;</span> to search <span class="keyword">for</span> commands related to <span class="string">&quot;word&quot;</span>...</span><br><span class="line">Reading symbols from a.out...</span><br></pre></td></tr></table></figure>
+
+<p>gdb 后面不跟选项字段时，启动后默认会打印 gdb 的描述信息，比如：著作权、法律、证书等。每次启动都打印这些有点啰嗦，让启动时不打印这些信息，后面跟 <code>--silent</code> 或 <code>--quiet/-q</code> 等选项。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@KF-CFT-AP2 SrcCompile]$ gdb a.out  --silent</span><br><span class="line">Reading symbols from a.out...</span><br><span class="line">(gdb)</span><br><span class="line"></span><br><span class="line">[root@KF-CFT-AP2 SrcCompile]$ gdb a.out  --quiet</span><br><span class="line">Reading symbols from a.out...</span><br><span class="line">(gdb)</span><br><span class="line"></span><br><span class="line">[root@KF-CFT-AP2 SrcCompile]$ gdb a.out -q</span><br><span class="line">Reading symbols from a.out...</span><br><span class="line">(gdb)</span><br></pre></td></tr></table></figure>
+
+<p>第二种：启动调试程序名后带参数的程序</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb <span class="attr">--args</span> <span class="selector-tag">a</span><span class="selector-class">.out</span>  ini/hello.ini</span><br></pre></td></tr></table></figure>
+
+<p>第三种：先启动可执行文件，后面不带参数，然后再 GDB 里面设置参数项</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb) gdb a.out</span><br><span class="line">(gdb) <span class="built_in">set</span> args  ini/hello.ini</span><br></pre></td></tr></table></figure>
+
+<p>第四种：启动可执行文件和指定一个 core 文件</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) gdb <span class="selector-tag">a</span><span class="selector-class">.out</span> core.<span class="number">3256</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="4-Shell-Commands"><a href="#4-Shell-Commands" class="headerlink" title="4. Shell Commands"></a>4. Shell Commands</h1><p>在 GDB 调试的过程中，需要执行外部的 shell 命令，但同时又不想退出当前 GDB 或悬挂当前GDB 的情况下，要怎么去执行 Shell 命令。</p>
+<p>有 2 种方式去实现。一种在命令前添加 shell 关键字即可；另一种在命令前加 <code>!</code>，表示去执行外部的 shell 命令。 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(gdb) shell <span class="built_in">pwd</span></span><br><span class="line">/home/John/SrcCompile</span><br><span class="line"></span><br><span class="line">(gdb) !<span class="built_in">pwd</span></span><br><span class="line">/home/John/SrcCompile</span><br></pre></td></tr></table></figure>
+
+<p>make</p>
+<p>GDB 程序中可以直接执行 make 命令，不需要用 <code>shell make</code> 这样的格式。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">格式：</span><br><span class="line">  <span class="keyword">make</span> <span class="keyword">make</span>-<span class="keyword">args</span>   执行 <span class="keyword">make</span> 程序，后面指定个参数，参数为可选项。</span><br><span class="line">  </span><br><span class="line"> (gdb) <span class="keyword">make</span></span><br><span class="line"> gdb) <span class="keyword">make</span> clean</span><br></pre></td></tr></table></figure>
+
+<h1 id="5-Logging-Output"><a href="#5-Logging-Output" class="headerlink" title="5. Logging Output"></a>5. Logging Output</h1><p>将 GDB的命令保存到文件中，可用 GDB 的 logging 命令。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// <span class="keyword">Enable</span> <span class="keyword">or</span> <span class="keyword">disable</span> logging.</span><br><span class="line"><span class="keyword">set</span> logging enabled [<span class="keyword">on</span>|<span class="keyword">off</span>]</span><br><span class="line"></span><br><span class="line">// Change the <span class="type">name</span> <span class="keyword">of</span> the <span class="keyword">current</span> logfile. The <span class="keyword">default</span> logfile <span class="keyword">is</span> gdb.txt.</span><br><span class="line"><span class="keyword">set</span> logging file file</span><br><span class="line"></span><br><span class="line">// <span class="keyword">By</span> <span class="keyword">default</span>, gdb will append <span class="keyword">to</span> the logfile. <span class="keyword">Set</span> overwrite <span class="keyword">if</span> you want <span class="keyword">set</span> logging enabled <span class="keyword">on</span> <span class="keyword">to</span> overwrite the logfile <span class="keyword">instead</span>.</span><br><span class="line"><span class="keyword">set</span> logging overwrite [<span class="keyword">on</span>|<span class="keyword">off</span>]</span><br><span class="line"></span><br><span class="line">// <span class="keyword">By</span> <span class="keyword">default</span>, gdb output will go <span class="keyword">to</span> <span class="keyword">both</span> the terminal <span class="keyword">and</span> the logfile. Setredirect <span class="keyword">if</span> you want output <span class="keyword">to</span> go <span class="keyword">only</span> <span class="keyword">to</span> the <span class="keyword">log</span> file.</span><br><span class="line"><span class="keyword">set</span> logging redirect [<span class="keyword">on</span>|<span class="keyword">off</span>]</span><br><span class="line"></span><br><span class="line">// <span class="keyword">By</span> <span class="keyword">default</span>, gdb <span class="keyword">debug</span> output will go <span class="keyword">to</span> <span class="keyword">both</span> the terminal <span class="keyword">and</span> the logfile. Setdebugredirect <span class="keyword">if</span> you want <span class="keyword">debug</span> output <span class="keyword">to</span> go <span class="keyword">only</span> <span class="keyword">to</span> the <span class="keyword">log</span> file.</span><br><span class="line"><span class="keyword">set</span> logging debugredirect [<span class="keyword">on</span>|<span class="keyword">off</span>]</span><br><span class="line"></span><br><span class="line">// <span class="keyword">Show</span> the <span class="keyword">current</span> <span class="keyword">values</span> <span class="keyword">of</span> the logging settings</span><br><span class="line"><span class="keyword">show</span> logging</span><br></pre></td></tr></table></figure>
+
+<h1 id="6-常用命令"><a href="#6-常用命令" class="headerlink" title="6. 常用命令"></a>6. 常用命令</h1><h2 id="6-1-run"><a href="#6-1-run" class="headerlink" title="6.1. run"></a>6.1. run</h2><p><code>run</code> 命令表示启动程序，简写 <code>r</code>。若程序没有打断点，执行命令后程序运行完了就直接退出调试过程。</p>
+<p>运行 <code>run</code> 的前提确：确保你的操作系统环境支持<strong>进程的执行环境</strong>，通常情况下，操作系统都支持，但也有特例。</p>
+<p>GDB 程序中执行 <code>run</code> 命令，GDB 会创建一个子进程，让创建的子进程运行你的程序。</p>
+<p>开始执行 <code>run</code> 命令之前，需要在 GDB 中加载你要调试的程序信息，这些信息也可在程序运行后进修改，但是修改后的信息只在下次程序开始后生效。因为你要调试程序的执行受到它从父进程（GDB程序）那里接收到的某些信息的影响。而这些信息被划分为下面的 4 大类：</p>
+<h3 id="6-1-1-arguments"><a href="#6-1-1-arguments" class="headerlink" title="6.1.1. arguments"></a>6.1.1. arguments</h3><p>调试程序的参数。有些程序运行带有参数项，在执行 <code>run</code> 命令开始前，需要指定参数项才能让程序运行起来。</p>
+<p><code>set args</code> 命令用来设置被调试程序的参数。有三种方式来指定。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指定运行时的参数</span></span><br><span class="line">(gdb) <span class="keyword">set</span> <span class="keyword">args</span> 参数</span><br></pre></td></tr></table></figure>
+
+<p>第一种：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在启动GDB时，程序后面直接参数。</span><br><span class="line"> gdb <span class="attr">--args</span> <span class="selector-tag">a</span><span class="selector-class">.out</span>  ini/hello.ini</span><br></pre></td></tr></table></figure>
+
+<p>第二种</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">先启动可执行文件，后面不带参数，然后再 GDB 里面设置参数项</span><br><span class="line">gdb b.<span class="keyword">out</span></span><br><span class="line">(gdb) <span class="keyword">set</span> <span class="keyword">args</span>  ini/hello.ini</span><br></pre></td></tr></table></figure>
+
+<p>第三种</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在运行程序时，直接指定</span><br><span class="line">(gdb) <span class="keyword">run</span><span class="language-bash">  ini/hello.ini</span></span><br></pre></td></tr></table></figure>
+
+<p>显示被调试程序设置的参数。</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(gdb) show args</span><br><span class="line">Argument <span class="keyword">list</span> <span class="keyword">to</span> give program being debugged <span class="keyword">when</span> <span class="literal">it</span> <span class="keyword">is</span> started <span class="keyword">is</span> <span class="string">&quot;ini/hello.ini&quot;</span>.</span><br><span class="line">(gdb)</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-1-2-environment"><a href="#6-1-2-environment" class="headerlink" title="6.1.2. environment"></a>6.1.2. environment</h3><p>调试程序的环境变量。你要调试程序的环境通常继承自 GDB 程序。你也可以用 <code>set environmen </code>和 <code>unset environmen</code> 命令来改变你要调试程序的环境。</p>
+<ul>
+<li><p>path directory  </p>
+<p>将目录名 <code>directory</code> 添加到 PATH 环境变量（可执行文件的搜索路径）的前面，环境变量将值传递给你要调试的程序，而 gdb 程序使用的 PATH 值不会更改。你也可以同时指定多个目录名（directory  ），用空格或操作系统依赖的分隔符（‘:’ on Unix, ‘;’on MS-DOS and MS-Windows  ）分割开。 </p>
+</li>
+<li><p>show paths  </p>
+<p>显示可执行文件的搜索路径列表。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(gdb) show paths</span><br><span class="line">Executable and object file path: /usr/local/git/bin:/usr/local/gcc-4.9.4/bin:/usr/jdk1.8.0_102/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/puppetlabs/bin:/home/John/bin</span><br><span class="line">(gdb)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>show environment [varname]  </p>
+<p>打印你给调试程序设置的环境变量值<code>varname</code> 。若没有给设定的值 <code>varname</code>，将会打印你的调试程序中所有的环境变量和名字。<code>environment</code> 可简写为 <code>env</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) show <span class="built_in">env</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>set environment varname [&#x3D;value]  </p>
+<p>设置环境变量的名字等于某个值 <code>value</code>。这个值会改变你要调试程序的环境变量，但不会改变 GDB 程序自身的环境变量。若 <code>value</code> 值被忽略，则变量名将被设置为 <code>null</code>。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 告诉被调试的程序，当运行 run 命令时，环境变量 kk 的值为 foo</span></span><br><span class="line">(gdb) <span class="keyword">set</span> env <span class="comment">kk=foo</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>unset environment varname  </p>
+<p>从被调试程序的环境变量表中移除环境变量 <code>varname</code>。</p>
+</li>
+</ul>
+<h3 id="6-1-3-working-directory"><a href="#6-1-3-working-directory" class="headerlink" title="6.1.3. working directory"></a>6.1.3. working directory</h3><p>调试程序的工作目录。用 <code>set cwd</code> 命令设置你要调试程序的工作路径。没有设置工作路径，若用正向调试（native debugging），你调试的程序继承自 GDB 程序的工作路径；若用远程调试，你调试的程序继承自远程服务器的工作路径。</p>
+<ul>
+<li><p>set cwd [directory]  </p>
+<p>设置子程序的工作路径为 <code>directory</code>。若没有指定参数<code>directory</code>，该命令将重置以前设置的路径，并将路径设置一个空的状态。设置的路径不会影响 GDB 程序的工作路径，只会影响下次你启动的子进程（inferior）。</p>
+<blockquote>
+<p>~ 表示 <code>home</code> 目录。</p>
+</blockquote>
+</li>
+<li><p>show cwd   </p>
+<p>current working directory，简写为 cwd。<code>show cwd</code> 命令表示显示子进程（inferior）的工作路径。若没有指定子进程的工作路径，子进程默认继承自 GDB 程序的工作路径。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(gdb) <span class="keyword">set</span> cwd ~</span><br><span class="line">(gdb) <span class="keyword">show</span> cwd</span><br><span class="line"><span class="keyword">Current</span> working directory that will be used <span class="keyword">when</span> starting the inferior <span class="keyword">is</span> &quot;~&quot;.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>cd [directory]  </p>
+<p>设置 GDB 程序的工作路径为某个目录 <code>directory</code>。若没有指定参数 <code>directory</code> 值，则 <code>directory</code> 参数默认使用 <code>~</code> 路径。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">//</span> gdb 中切换到 xxx 目录</span><br><span class="line"><span class="params">(gdb)</span> <span class="keyword">pwd</span></span><br><span class="line">Working directory <span class="string">/home/John/SrcCompile.</span></span><br><span class="line"><span class="params">(gdb)</span> <span class="keyword">cd</span></span><br><span class="line">Working directory <span class="string">/home/John.</span></span><br><span class="line"><span class="params">(gdb)</span> <span class="keyword">pwd</span></span><br><span class="line">Working directory <span class="string">/home/John.</span></span><br><span class="line"><span class="params">(gdb)</span> <span class="keyword">cd</span> IOV/Server/</span><br><span class="line">Working directory <span class="string">/home/John/IOV/Server.</span></span><br><span class="line"><span class="params">(gdb)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pwd  </p>
+<p>打印 GDB 程序的工作目录。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">//</span> 显示当前所在目录</span><br><span class="line"><span class="params">(gdb)</span> <span class="keyword">pwd</span></span><br><span class="line">Working directory <span class="string">/home/John/SrcCompile.</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>注意：调试的程序在 debug 的过程中，很难找到程序当前的工作路径，因为调试程序的工作路径在改变。若操作系统的 GDB 支持 <code>info proc</code> 命令，则用该命令去找到被调试者（debuggee）的当前工作路径。</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(gdb) <span class="keyword">info</span> <span class="keyword">proc</span><span class="title"></span></span><br><span class="line"><span class="title">process</span> 22593<span class="title"></span></span><br><span class="line"><span class="title">cmdline</span> = &#x27;/home/zhoush/SrcCompile/a.out&#x27;<span class="title"></span></span><br><span class="line"><span class="title">cwd</span> = &#x27;/home/zhoush/SrcCompile&#x27;<span class="title"></span></span><br><span class="line"><span class="title">exe</span> = &#x27;/home/zhoush/SrcCompile/a.out&#x27;</span><br><span class="line">(gdb)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="6-1-4-standard-input-and-output"><a href="#6-1-4-standard-input-and-output" class="headerlink" title="6.1.4. standard input and output"></a>6.1.4. standard input and output</h3><p>调试程序的 input&#x2F;output。你要调试的程序通常用相同的标准输入和标准输出。你也可以在 <code>run</code> 命令行中重定向输入和输出，也可以使用 <code>tty</code> 命令为程序设置其他的设备。</p>
+<p>执行 GDB 程序中执行 <code>run</code> 命令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) run</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-2-start"><a href="#6-2-start" class="headerlink" title="6.2. start"></a>6.2. start</h2><p><code>start</code> 命令表示启动程序时，在程序的 <code>main</code> 函数处设置一个临时断点，然后再调用 <code>run</code> 命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(gdb) start</span><br><span class="line">Temporary breakpoint 1 at 0x400877: file test.cpp, line 10.</span><br><span class="line">Starting program: /home/John/SrcCompile/a.out</span><br><span class="line"></span><br><span class="line">Temporary breakpoint 1, main (argc=1, argv=0x7fffffffe4c8) at test.cpp:10</span><br><span class="line">10          int a = 10;xxxxxxxxxx (gdb)  start (gdb) startTemporary breakpoint 1 at 0x400877: file test.cpp, line 10.Starting program: /home/John/SrcCompile/a.outTemporary breakpoint 1, main (argc=1, argv=0x7fffffffe4c8) at test.cpp:1010          int a = 10;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-3-starti"><a href="#6-3-starti" class="headerlink" title="6.3. starti"></a>6.3. starti</h2><p><code>starti</code> 表示在程序开始执行的第一条指令处设置一个临时断点，然后调用 <code>run</code>命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(gdb) starti</span><br><span class="line">Starting program: /home/John/SrcCompile/a.out</span><br><span class="line"></span><br><span class="line">Program stopped.</span><br><span class="line">0x000000304c001420 <span class="keyword">in</span> _start () from /lib64/ld-linux-x86-64.so.2</span><br><span class="line">(gdb)</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-4-continue"><a href="#6-4-continue" class="headerlink" title="6.4. continue"></a>6.4. continue</h2><p> 继续执行程序，简写 <code>c</code>。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) <span class="keyword">continue</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-5-quit"><a href="#6-5-quit" class="headerlink" title="6.5. quit"></a>6.5. quit</h2><p><code>quit</code> 表示从 GDB 调试程序中退出，简写 <code>q</code>。执行快捷键 <code>Ctrl-d</code> 也能退出 GDB 程序。</p>
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) <span class="keyword">quit</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-6-list"><a href="#6-6-list" class="headerlink" title="6.6. list"></a>6.6. list</h2><p><code>list</code> 查看源码中指定的行和函数，默认查看<code>10 行</code> 程序代码，缩写为 <code>l</code>。命令后面可跟参数，指定查看的范围。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">list</span> 从当前位置开始处，打印 <span class="number">10</span> 行源码</span><br><span class="line"></span><br><span class="line"><span class="type">list</span> linenum   以 linenum 行为中心行，开始打印源码</span><br><span class="line">  </span><br><span class="line"><span class="type">list</span> function  以 function 函数处为中心行，开始打印源码</span><br><span class="line"></span><br><span class="line"><span class="type">list</span> -  在上一次打印行的最后一行处，往前面开始打印源码，- 后面可跟行号或函数名</span><br><span class="line"></span><br><span class="line"><span class="type">list</span> +  在上次打印行之后开始打印源码，- 后面可跟行号或函数名</span><br><span class="line"></span><br><span class="line"><span class="type">list</span> num1,num2  指定位置，打印 num1 到 num2 之间的源码 </span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+<p>用 <code>set listsize</code> 命令改变默认打印源码的行数。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> listsize <span class="comment">count</span>      设置默认打印 <span class="comment">count</span> 行</span><br><span class="line">		<span class="keyword">set</span> <span class="comment">listsize 20</span>     改为默认打印 <span class="comment">20</span> 行</span><br><span class="line">		</span><br><span class="line"><span class="keyword">set</span> <span class="comment">listsize unlimited</span>  默认打印的行数没有限制</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> listsize   显示 list 命令默认打印的行数</span><br><span class="line"></span><br><span class="line">(gdb) <span class="keyword">show</span> listsize</span><br><span class="line">Number <span class="keyword">of</span> source lines gdb will list <span class="keyword">by</span> <span class="keyword">default</span> <span class="keyword">is</span> <span class="number">10.</span></span><br></pre></td></tr></table></figure>
+
+<p>指定行的具体位置去打印源码，源文件名与源码位置之间使用冒号（:）分隔</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">list -<span class="attribute">offset</span>   参数 offset 为偏移量，表明是向前还是向后打印，从上一次打印的最后一行处开始算</span><br><span class="line">list +<span class="attribute">offset</span>  </span><br><span class="line"></span><br><span class="line">list filename:function</span><br><span class="line">	list xxx<span class="selector-class">.c</span>:func 查看 xxx<span class="selector-class">.c</span> 文件中的 func 函数</span><br><span class="line">	</span><br><span class="line">filename:linenum	</span><br><span class="line">  list xxx<span class="selector-class">.c</span>:<span class="number">100</span> 从第 <span class="number">100</span> 行开始查看 xxx<span class="selector-class">.c</span> 文件中内容</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="6-7-break"><a href="#6-7-break" class="headerlink" title="6.7. break"></a>6.7. break</h2><p>break 命令用来设置断点，缩写为 <code>b</code> 。</p>
+<p>在进行GDB调试之前需要先打断点。GDB中的断点分为：普通断点、观察断点、捕捉断点，一般使用 <code>break</code> 打的断点称为普通断点，使用 <code>watch</code> 打的断点称为硬件断点，使用 <code>catch</code> 打的断点称为捕捉断点。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例</span></span><br><span class="line"><span class="keyword">break</span> mian 在 main 函数处设置断点。  </span><br><span class="line"><span class="keyword">break</span> <span class="number">20</span>   在 <span class="number">20</span>行 处设置断点。</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置条件断点</span></span><br><span class="line">b <span class="number">22</span> <span class="keyword">if</span> i==<span class="number">10</span>   在<span class="number">22</span>行处，当 i==<span class="number">10</span> 时设置一个断点。可以直接在某个文件的某个函数打断点，然后运行查看，多文件可以设置断点。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>注意: 有循环体的时候，断点应设置在循环体的内部。在循环体(for、while等语句)的时候程序不会停。</p>
+<h2 id="6-8-delete"><a href="#6-8-delete" class="headerlink" title="6.8. delete"></a>6.8. delete</h2><p>删除指点的断点，参数必须是断点编号，若不指定编号，删除所有的断点。简写为 <code>del</code>。</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 删除当前编号为 <span class="built_in">N</span> 的断点，<span class="built_in">N</span>为数字</span><br><span class="line">(gdb) del <span class="built_in">N</span></span><br></pre></td></tr></table></figure>
+
+<p>其它相关的命令</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb)disable 断点号<span class="built_in">n</span>：暂停第<span class="built_in">n</span>个断点</span><br><span class="line">(gdb)enable 断点号<span class="built_in">n</span>：开启第<span class="built_in">n</span>个断点</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-9-next"><a href="#6-9-next" class="headerlink" title="6.9. next"></a>6.9. next</h2><p>单步执行命令，简写为 <code>n</code>。单步执行到有函数的位置时，<strong>不进入到函数内部</strong>，直接跳过去执行下条指令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">用法</span><br><span class="line">  1. 单步执行一次：n </span><br><span class="line">  2. 单步执行多次，N表示重复的次数：n [N]</span><br><span class="line">  </span><br><span class="line">(gdb)</span><br><span class="line">(gdb) l</span><br><span class="line">1       <span class="comment">#include &lt;iostream&gt;</span></span><br><span class="line">2       <span class="comment">#include &lt;stdlib.h&gt;</span></span><br><span class="line">3</span><br><span class="line">4       <span class="comment">#include &lt;unistd.h&gt;</span></span><br><span class="line">5</span><br><span class="line">6       using namespace std;</span><br><span class="line">7</span><br><span class="line">8       int main(int argc, char *argv[])</span><br><span class="line">9       &#123;</span><br><span class="line">10          int a = 10;</span><br><span class="line">(gdb)</span><br><span class="line">11          int b = 20;</span><br><span class="line">12          int x = a + b;</span><br><span class="line">13          cout &lt;&lt; <span class="string">x &lt;&lt; endl;</span></span><br><span class="line"><span class="string">14</span></span><br><span class="line"><span class="string">15          return 0;</span></span><br><span class="line"><span class="string">16      &#125;</span></span><br><span class="line"><span class="string">(gdb)</span></span><br><span class="line"><span class="string">Line number 17 out of range; test.cpp has 16 lines.</span></span><br><span class="line"><span class="string">(gdb) b 10</span></span><br><span class="line"><span class="string">Breakpoint 1 at 0x400877: file test.cpp, line 10.</span></span><br><span class="line"><span class="string">(gdb) r</span></span><br><span class="line"><span class="string">Starting program: /home/John/SrcCompile/a.out</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Breakpoint 1, main (argc=1, argv=0x7fffffffe4c8) at test.cpp:10</span></span><br><span class="line"><span class="string">10          int a = 10;</span></span><br><span class="line"><span class="string">(gdb) p a</span></span><br><span class="line"><span class="string">$1 = 0</span></span><br><span class="line"><span class="string">(gdb) n</span></span><br><span class="line"><span class="string">11          int b = 20;</span></span><br><span class="line"><span class="string">(gdb) p a</span></span><br><span class="line"><span class="string">$2 = 10</span></span><br><span class="line"><span class="string">(gdb) n 2</span></span><br><span class="line"><span class="string">13          cout &lt;&lt; x</span> &lt;&lt; <span class="string">endl;</span></span><br><span class="line"><span class="string">(gdb) p x</span></span><br><span class="line"><span class="string">$3 = 30</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-10-next-into"><a href="#6-10-next-into" class="headerlink" title="6.10. next into"></a>6.10. next into</h2><p><code>nexti</code> 全名为 <code>next into</code> ，表示单步汇编调试指令，简写为 <code>ni</code>。单步执行到有函数的位置时，<strong>跳过函数内部</strong>，然后再继续一步一步的执行指令。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用法</span><br><span class="line"><span class="bullet">  1.</span> 单步执行一次汇编指令：ni</span><br><span class="line"><span class="bullet">  2.</span> 单步执行多次汇编指令：ni [N]</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="6-11-step"><a href="#6-11-step" class="headerlink" title="6.11. step"></a>6.11. step</h2><p>单步调试命令，简写为 <code>s</code>。单步执行到有函数的位置时，<strong>进入函数内部</strong>继续一步一步的执行指令。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用法：</span><br><span class="line"><span class="bullet">  1.</span> 单步执行一次：s</span><br><span class="line"><span class="bullet">  2.</span> 单步执行多次 N 条指令：s [N]</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-12-step-into"><a href="#6-12-step-into" class="headerlink" title="6.12. step into"></a>6.12. step into</h2><p><code>stepi</code> 全名为 <code>step into</code> ，表示单步汇编调试指令，简写为 <code>si</code>。单步执行到有函数的位置时，<strong>进入函数内部</strong>继续一步一步的执行指令。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用法</span><br><span class="line"><span class="bullet">  1.</span> 单步执行一次汇编指令：si</span><br><span class="line"><span class="bullet">  2.</span> 单步执行多次汇编指令：si [N]</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-13-finish"><a href="#6-13-finish" class="headerlink" title="6.13. finish"></a>6.13. finish</h2><p><code>finish</code> 表示从函数体内部跳出去，简写 <code>fin</code> 。如果该函数体内部打的有断点，首先需要把断点删除，然后再跳出函数体。</p>
+<h2 id="6-14-until"><a href="#6-14-until" class="headerlink" title="6.14. until"></a>6.14. until</h2><p><code>until</code> 跳出单次循环，然后跳到循环后面的语句，简写 <code>u</code>。</p>
+<h2 id="6-15-print"><a href="#6-15-print" class="headerlink" title="6.15. print"></a>6.15. print</h2><p>查看指定变量值</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">print</span><span class="params">(p)</span></span> 变量名 </span><br></pre></td></tr></table></figure>
+
+<p>查看和设置GDB中的显示项，查看用 <code>show</code> 命令，设置用 <code>set</code> 命令。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">(gdb) <span class="built_in">set</span> <span class="built_in">print</span> object on   GDB会自动按照虚方法调用的规则显示输出</span><br><span class="line">(gdb) <span class="built_in">set</span> <span class="built_in">print</span> vtbl on     GDB将用比较规整的格式来显示虚函数表时，默认是关闭的</span><br><span class="line">(gdb) <span class="built_in">set</span> <span class="built_in">print</span> pretty on   每一行显示结构体</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查看虚函数显示格式</span><br><span class="line">(gdb) show <span class="built_in">print</span> vtbl</span><br><span class="line">Printing of C++ virtual function tables is on.</span><br><span class="line"></span><br><span class="line">查看静态数据成员选项</span><br><span class="line">(gdb) show <span class="built_in">print</span> static-members</span><br><span class="line">Printing of C++ static members is on.</span><br><span class="line"></span><br><span class="line">查看联合体数据的显示方式</span><br><span class="line">(gdb) show <span class="built_in">print</span> union</span><br><span class="line">Printing of unions interior <span class="keyword">to</span> structures is on.</span><br><span class="line"></span><br><span class="line">打开数组显示，打开后当数组显示时，每个元素占一行，如果不打开的话，每个元素则以逗号分隔。这个选项默认是关闭的。</span><br><span class="line">(gdb) <span class="built_in">set</span> <span class="built_in">print</span> array on</span><br><span class="line"></span><br><span class="line">显示数组显示方式</span><br><span class="line">(gdb) show <span class="built_in">print</span> array</span><br><span class="line">Pretty formatting of arrays is off.</span><br><span class="line"></span><br><span class="line">打开地址输出，GDB会显出函数的参数地址，系统默认为打开的</span><br><span class="line">(gdb) <span class="built_in">set</span> <span class="built_in">print</span><span class="built_in"> address </span>on</span><br><span class="line"></span><br><span class="line">显示地址输出方式</span><br><span class="line">(gdb) show <span class="built_in">print</span><span class="built_in"> address</span></span><br><span class="line"><span class="built_in"></span>Printing of addresses is on.</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-16-ptype"><a href="#6-16-ptype" class="headerlink" title="6.16. ptype"></a>6.16. ptype</h2><p>查看变量的类型</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ptype</span> 变量名 </span><br></pre></td></tr></table></figure>
+
+<h2 id="6-17-display"><a href="#6-17-display" class="headerlink" title="6.17. display"></a>6.17. display</h2><p><code>display 变量名</code> 在循环的时候实时追踪变量的值。 <code>display i</code> 追踪变量 <code>i</code> 的值</p>
+<h2 id="6-18-undisplay"><a href="#6-18-undisplay" class="headerlink" title="6.18. undisplay"></a>6.18. undisplay</h2><p><code>undisplay 变量名的编号</code>  不追踪某个变量的值。首先查看不需要追踪变量的编号 <code>i(info) display</code> ，然后使用 <code>undisplay 变量名的编号</code> 去掉不用追踪的变量。</p>
+<h2 id="6-19-whatis"><a href="#6-19-whatis" class="headerlink" title="6.19. whatis"></a>6.19. whatis</h2><p>显示变量或函数类型</p>
+<h2 id="6-20-set"><a href="#6-20-set" class="headerlink" title="6.20. set"></a>6.20. set</h2><p>设置变量的值</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="attribute">var</span>=value </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-21-call"><a href="#6-21-call" class="headerlink" title="6.21. call"></a>6.21. call</h2><p>调用和执行一个函数。</p>
+<h2 id="6-22-clear"><a href="#6-22-clear" class="headerlink" title="6.22. clear"></a>6.22. clear</h2><p>清除断点。</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb)clear 行号<span class="built_in">n</span>：清除第<span class="built_in">n</span>行的断点</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-23-dir"><a href="#6-23-dir" class="headerlink" title="6.23. dir"></a>6.23. dir</h2><p>使用<code>directory</code>（或<code>dir</code>)命令设置源文件的查找目录。如果希望在gdb启动时，加载code的位置，避免每次在gdb中再次输入命令，可以使用gdb的<code>-d</code> 参数</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// -<span class="selector-tag">q</span> 为 quiet 的缩写，-d 为 directory 的缩写</span><br><span class="line">gdb -<span class="selector-tag">q</span> <span class="selector-tag">a</span><span class="selector-class">.out</span> -d /search/<span class="selector-tag">code</span>/some</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-24-info"><a href="#6-24-info" class="headerlink" title="6.24. info"></a>6.24. info</h2><p>显示正在调试程序的通用命令。info 是通用命令，简写为 <code>i</code> 后面还要跟具体要显示的子命令（subcommands），这些子命令可以是 <code>args</code>，<code>registers</code> 等等，描述当前程序的命令。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 语法</span></span><br><span class="line">info subcommands</span><br><span class="line"></span><br><span class="line"><span class="comment">// 示例</span></span><br><span class="line"><span class="punctuation">(</span>gdb<span class="punctuation">)</span> info files</span><br><span class="line">Symbols from <span class="string">&quot;/home/John/IOV/Server/HttpClient&quot;</span>.</span><br><span class="line">Local exec file<span class="punctuation">:</span></span><br><span class="line">        `/home/John/IOV/Server/HttpClient&#x27;, file type elf64-x86-64.</span><br><span class="line">        Entry point: 0x<span class="number">400840</span></span><br><span class="line">        0x<span class="number">00000000004002</span>00 - 0x<span class="number">00000000004002</span>1c is .interp</span><br><span class="line">        0x<span class="number">00000000004002</span>1c - 0x<span class="number">00000000004002</span>3c is .note.ABI-tag</span><br><span class="line">        0x<span class="number">00000000004002</span>40 - 0x<span class="number">00000000004002</span>98 is .hash</span><br><span class="line">        0x<span class="number">00000000004002</span>98 - 0x<span class="number">00000000004004</span>30 is .dynsym</span><br><span class="line">        0x<span class="number">00000000004004</span>30 - 0x<span class="number">00000000004006</span>97 is .dynstr</span><br><span class="line">        0x<span class="number">00000000004006</span>98 - 0x<span class="number">00000000004006</span>ba is .gnu.version</span><br><span class="line"></span><br><span class="line">//  查看设置的断点信息内容</span><br><span class="line">info break</span><br><span class="line"></span><br><span class="line">// 查看程序的是否在运行，进程号，被暂停的原因。</span><br><span class="line">(gdb)info program </span><br><span class="line"></span><br><span class="line">// 打印出当前函数中所有局部变量及其值</span><br><span class="line">info locals</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-25-show"><a href="#6-25-show" class="headerlink" title="6.25. show"></a>6.25. show</h2><p>显示 GDB 本身内部的信息，像 <code>version</code>，<code>environment</code>，<code>user</code> 等等。语法同 <code>info</code> 命令一样。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 语法</span></span><br><span class="line"><span class="keyword">show</span> subcommands</span><br><span class="line"></span><br><span class="line">(gdb) <span class="keyword">show</span> version</span><br><span class="line">GNU gdb (GDB) Red Hat Enterprise Linux (<span class="number">7.2</span>-<span class="number">60</span>.el6)</span><br><span class="line">Copyright (C) <span class="number">2010</span> Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version <span class="number">3</span> or later &lt;http:<span class="comment">//gnu.org/licenses/gpl.html&gt;</span></span><br><span class="line">This <span class="keyword">is</span> free software: you are free to change and redistribute it.</span><br><span class="line">There <span class="keyword">is</span> NO WARRANTY, to the extent permitted by law.  <span class="built_in">Type</span> <span class="string">&quot;show copying&quot;</span></span><br><span class="line">and <span class="string">&quot;show warranty&quot;</span> <span class="keyword">for</span> details.</span><br><span class="line">This GDB was configured <span class="keyword">as</span> <span class="string">&quot;x86_64-redhat-linux-gnu&quot;</span>.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http:<span class="comment">//www.gnu.org/software/gdb/bugs/&gt;.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 查看程序运行路径</span></span><br><span class="line">(gdb) <span class="keyword">show</span> paths  </span><br></pre></td></tr></table></figure>
+
+<p>官方参考：<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/onlinedocs/gdb/Help.html">https://sourceware.org/gdb/onlinedocs/gdb/Help.html</a></p>
+<h2 id="6-26-command"><a href="#6-26-command" class="headerlink" title="6.26. command"></a>6.26. command</h2><h2 id="6-27-help"><a href="#6-27-help" class="headerlink" title="6.27. help"></a>6.27. help</h2><p>help 命令查看 GDB 的帮助信息。 帮助手册是学习 GDB 最权威、最好的资料，需要仔细研磨，但是常常被大多数人给遗忘了，去网上搜索各种各样的资料。</p>
+<ol>
+<li><p><code>help</code>命令后面不加任何参数，得到 GDB 所有命令，而这些命令按照不同的功能分为几大类。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">(gdb) help</span><br><span class="line">List <span class="keyword">of</span> classes <span class="keyword">of</span> commands:</span><br><span class="line"></span><br><span class="line">aliases <span class="comment">-- Aliases of other commands</span></span><br><span class="line">breakpoints <span class="comment">-- Making program stop at certain points</span></span><br><span class="line">data <span class="comment">-- Examining data</span></span><br><span class="line"><span class="built_in">files</span> <span class="comment">-- Specifying and examining files</span></span><br><span class="line">internals <span class="comment">-- Maintenance commands</span></span><br><span class="line">obscure <span class="comment">-- Obscure features</span></span><br><span class="line">running <span class="comment">-- Running the program</span></span><br><span class="line">stack <span class="comment">-- Examining the stack</span></span><br><span class="line">status <span class="comment">-- Status inquiries</span></span><br><span class="line">support <span class="comment">-- Support facilities</span></span><br><span class="line">tracepoints <span class="comment">-- Tracing of program execution without stopping the program</span></span><br><span class="line">user-defined <span class="comment">-- User-defined commands</span></span><br><span class="line"></span><br><span class="line">Type <span class="string">&quot;help&quot;</span> followed <span class="keyword">by</span> <span class="keyword">a</span> class name <span class="keyword">for</span> <span class="keyword">a</span> list <span class="keyword">of</span> commands <span class="keyword">in</span> that class.</span><br><span class="line">Type <span class="string">&quot;help all&quot;</span> <span class="keyword">for</span> <span class="keyword">the</span> list <span class="keyword">of</span> all commands.</span><br><span class="line">Type <span class="string">&quot;help&quot;</span> followed <span class="keyword">by</span> <span class="keyword">command</span> <span class="title">name</span> <span class="title">for</span> <span class="title">full</span> <span class="title">documentation</span>.</span><br><span class="line">Type <span class="string">&quot;apropos word&quot;</span> <span class="built_in">to</span> search <span class="keyword">for</span> commands related <span class="built_in">to</span> <span class="string">&quot;word&quot;</span>.</span><br><span class="line">Command name abbreviations are allowed <span class="keyword">if</span> unambiguous.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看某个命令的具体用法，<code>help</code> 后面跟需要查询的命令。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 查看 break 命令帮助信息</span><br><span class="line">(gdb) help break</span><br><span class="line"><span class="keyword">Set</span> breakpoint at specified <span class="type">line</span> <span class="keyword">or</span> <span class="keyword">function</span>.</span><br><span class="line">break [<span class="keyword">LOCATION</span>] [thread THREADNUM] [<span class="keyword">if</span> CONDITION]</span><br><span class="line"><span class="keyword">LOCATION</span> may be a <span class="type">line</span> number, <span class="keyword">function</span> <span class="type">name</span>, <span class="keyword">or</span> &quot;*&quot; <span class="keyword">and</span> an address.</span><br><span class="line"><span class="keyword">If</span> a <span class="type">line</span> number <span class="keyword">is</span> specified, break at <span class="keyword">start</span> <span class="keyword">of</span> code <span class="keyword">for</span> that <span class="type">line</span>.</span><br><span class="line"><span class="keyword">If</span> a <span class="keyword">function</span> <span class="keyword">is</span> specified, break at <span class="keyword">start</span> <span class="keyword">of</span> code <span class="keyword">for</span> that <span class="keyword">function</span>.</span><br><span class="line"><span class="keyword">If</span> an address <span class="keyword">is</span> specified, break at that exact address.</span><br><span class="line"><span class="keyword">With</span> <span class="keyword">no</span> <span class="keyword">LOCATION</span>, uses <span class="keyword">current</span> execution address <span class="keyword">of</span> the selected</span><br><span class="line">stack frame.  This <span class="keyword">is</span> useful <span class="keyword">for</span> breaking <span class="keyword">on</span> <span class="keyword">return</span> <span class="keyword">to</span> a stack frame.</span><br><span class="line"></span><br><span class="line">THREADNUM <span class="keyword">is</span> the number <span class="keyword">from</span> &quot;info threads&quot;.</span><br><span class="line">CONDITION <span class="keyword">is</span> a <span class="type">boolean</span> expression.</span><br><span class="line"></span><br><span class="line">Multiple breakpoints at one place are permitted, <span class="keyword">and</span> useful <span class="keyword">if</span> their</span><br><span class="line">conditions are different.</span><br><span class="line"></span><br><span class="line"><span class="keyword">Do</span> &quot;help breakpoints&quot; <span class="keyword">for</span> <span class="keyword">info</span> <span class="keyword">on</span> other commands dealing <span class="keyword">with</span> breakpoints.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>官网地址：<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/onlinedocs/gdb/Help.html">https://sourceware.org/gdb/onlinedocs/gdb/Help.html</a></p>
+</li>
+</ol>
+<h2 id="6-28-Others"><a href="#6-28-Others" class="headerlink" title="6.28. Others"></a>6.28. Others</h2><p>GDB 中特殊的命令。</p>
+<ul>
+<li><code>enter</code> 键执行上一次输入过的命令</li>
+</ul>
+<h1 id="7-TUI"><a href="#7-TUI" class="headerlink" title="7. TUI"></a>7. TUI</h1><p>TUI（Text User Interface）进行交互式的源码调试。进入图形界面的进行调试有下面两种方式。</p>
+<p>第一种：终端下直接执行 <code>gdb program -tui</code>命令。</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb <span class="keyword">program</span> -tui</span><br></pre></td></tr></table></figure>
+
+<p>终端下执行上面这条命令后，利用图形的方式调试可执行程序 <code>program</code> 。</p>
+<img src="figures/gdb-tui.png">
+
+<p>第二种：先进入 GDB 程序，然后再 GDB中执行　<code>layout xxx</code> 命令。</p>
+<p><code>layout</code> 命令用于分割窗口，可以一边查看代码，一边测试。TUI模式下，总共有 4 种窗口。</p>
+<ul>
+<li><p>command：<br>gdb 命令窗口是带有 gdb 提示符和 gdb 输出的 。使用 <code>readline</code> 去管理 GDB 的输入。</p>
+</li>
+<li><p>source：<br>执行 <code>layout src</code> 命令显示源代码窗口，窗口中显示程序的源文件。可以使用 <code>PageUp</code>，<code>PageDown</code> 和4个方向键来查看源码。</p>
+</li>
+<li><p>assembly：<br>执行 <code>layout asm</code> 命令显示汇编窗口，窗口中显示程序的汇编代码。</p>
+</li>
+<li><p>register：<br>执行 <code>layout regs</code> 命令显示寄存器窗口，窗口中显示处理器的寄存器值。寄存器中的值发生改变，寄存器就会高亮。</p>
+</li>
+</ul>
+<p>其它 layout 相关指令</p>
+<ul>
+<li>layout split：分离窗口，用来显示多个窗口。</li>
+<li>layout next：显示下一个layout</li>
+<li>layout prev：显示上一个layout</li>
+</ul>
+<h2 id="7-1-TUI-中的断点"><a href="#7-1-TUI-中的断点" class="headerlink" title="7.1. TUI 中的断点"></a>7.1. TUI 中的断点</h2><p>通过高亮当前行和在当前行开头设置 <code>&gt;</code> 标记来显示当前程序在源文件和汇编文件中的位置。在交互式的窗口上面，设置断点后，断点通过两种标记来显示。第一个标记表明断点的类型，其类型如下：</p>
+<ul>
+<li><code>B</code> 表示断点处代码已经运行至少一次。</li>
+<li><code>b</code> 表示断点处代码还没有运行到</li>
+<li><code>H</code> 表示观察断点（Hardware breakpoint）处代码已经运行至少一次。</li>
+<li><code>h</code> 表示观察断点（Hardware breakpoint）处代码还没有运行到。</li>
+</ul>
+<p>第二标记表示断点是否使能。</p>
+<ul>
+<li><code>+</code> 表示断点处于enable状态。</li>
+<li><code>-</code> 表示断点处于disable状态。</li>
+</ul>
+<h2 id="7-2-快捷键"><a href="#7-2-快捷键" class="headerlink" title="7.2. 快捷键"></a>7.2. 快捷键</h2><p>TUI 窗口绑定的快捷键。</p>
+<ul>
+<li>Ctrl + L：刷新窗口</li>
+<li>Ctrl + x，再按1：单窗口模式，显示一个窗口</li>
+<li>Ctrl + x，再按2：双窗口模式，显示两个窗口</li>
+<li>Ctrl + x，再按a：回到传统模式，即退出 layout，回到执行 layout 之前的调试窗口。</li>
+<li>Ctrl + p 查看上一个（prev）命令</li>
+<li>Ctrl + N 查看下一个（next）命令</li>
+</ul>
+<h1 id="8-Examining-Source-Files"><a href="#8-Examining-Source-Files" class="headerlink" title="8. Examining Source Files"></a>8. Examining Source Files</h1><p>源文件检查包括查看源码、编辑源文件、搜索源文件、指定源码路径、源码和汇编代码、禁止读源码等内容。</p>
+<h2 id="8-1-查看源码"><a href="#8-1-查看源码" class="headerlink" title="8.1. 查看源码"></a>8.1. 查看源码</h2><p>源码的查看使用 <code>list</code> 命令，list 的用法请参考 “常用命令”中的 “list”用发。</p>
+<h2 id="8-2-编辑源码"><a href="#8-2-编辑源码" class="headerlink" title="8.2. 编辑源码"></a>8.2. 编辑源码</h2><p>GDB 下对源码进行编辑，使用 <code>edit</code> 命令。有多种方式用 <code>edit</code> 打开源码文件，下面仅列出 2 种常用的方式。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">edit</span> <span class="keyword">number</span>   编辑当前文件，并跳转到 <span class="keyword">number</span> 行</span><br><span class="line"><span class="keyword">edit</span> <span class="keyword">file</span>:<span class="keyword">number</span> 编辑指定的 <span class="keyword">file</span> 文件，并跳转到 <span class="keyword">number</span> 行</span><br><span class="line"></span><br><span class="line"><span class="keyword">edit</span> <span class="keyword">function</span> 编辑当前文件，并跳转到 <span class="keyword">function</span> 函数处的下一行</span><br><span class="line"><span class="keyword">edit</span> <span class="keyword">file</span>:<span class="keyword">function</span> 编辑指定的 <span class="keyword">file</span> 文件，并跳转到 <span class="keyword">function</span> 函数处</span><br></pre></td></tr></table></figure>
+
+<p>GDB 默认使用的编辑器是 <code>/bin/ex</code>，然而你也可以让 GDB 编辑时打开使用你自定义的编辑器，改变环境变量中的 <code>EDITOR</code> 即可。</p>
+<p>比如，配置 GDB 使用 vi 编辑器，在 shell 终端执行下面的命令即可。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">EDITOR</span>=/usr/bin/vi</span><br><span class="line"><span class="built_in">export</span> EDITOR</span><br><span class="line">gdb <span class="built_in">..</span>.</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="8-3-改变源码路径"><a href="#8-3-改变源码路径" class="headerlink" title="8.3. 改变源码路径"></a>8.3. 改变源码路径</h2><p>为什么要改变源文件的路径？</p>
+<p>某些场景中代码编译与程序执行没有在相同的路径下运行，或者源文件被移动到了另外一个目录，甚至还有可能代码编译实在编译环境中操作，而程序运行则在开发环境下（另一台机器），此时你想要调试怎么办？这时就需要手动指定源路径表（source path）中的源码位置。</p>
+<p>手动去指定 source path 的核心：保证 Debug 信息中要有源码的路径，这样你在调试时，才能一边看源码，一边看程序执行的信息。</p>
+<p> 源路径（source path）：一个搜索源文件的目录列表（list）。</p>
+<p>GDB 的 <code>source path</code> 默认包含两个特别的项 <code>$cwd</code>，<code>$cdir</code>， GDB 启动时会默认去搜索源路径 <code>$cdir:$cwd</code></p>
+<ul>
+<li><code>cwd(current working directory)</code>：GDB 当前工作路径，和 <code>.</code> 是不一样的。<code>cwd</code> 在 GDB 运行过程中是会改变的，可以通过 cd 命令来修改，要注意这个 cd 修改的是 GDB session 中的当前目录，不会影响启动 GDB 程序时的目录位置。</li>
+<li><code>cdir(compilation directory)</code>：编译目录，是代码在编译时记录到 debug 信息中的目录。</li>
+</ul>
+<p>若 Debug 信息中记录了编译路径，但 <code>source path</code> 中搜索不到源文件，这时，GDB 将会结合编译路径和文件名再一次去 <code>source path</code> 中找源文件。</p>
+<p>有两种方式查看源代码文件名和编译目录。</p>
+<p>第一种：GDB 程序中查看源代码文件名和编译目录</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(gdb) i <span class="keyword">source</span></span><br><span class="line">	Current <span class="keyword">source</span> <span class="keyword">file</span> is ..<span class="regexp">/../</span>Src/FrameWorkServer.cpp</span><br><span class="line">  Compilation directory is <span class="regexp">/home/</span>John<span class="regexp">/SrcCompile/</span>Src<span class="regexp">/FrameWorkServer/M</span>akefile/Debug</span><br><span class="line">  Located in <span class="regexp">/home/</span>John<span class="regexp">/SrcCompile/</span>Src<span class="regexp">/FrameWorkServer/</span>Src/FrameWorkServer.cpp</span><br><span class="line">  Contains <span class="number">65</span> lines.</span><br><span class="line">  <span class="keyword">Source</span> language is c++.</span><br><span class="line">  Compiled with DWARF <span class="number">2</span> debugging format.</span><br><span class="line">  Does not <span class="keyword">include</span> preprocessor macro info.</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查看调试的程序中所有的源文件目录和编译目录</span></span><br><span class="line">(gdb) i sources</span><br></pre></td></tr></table></figure>
+
+<p>第二种：外部终端下查看源码路径</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ readelf <span class="selector-tag">a</span><span class="selector-class">.out</span> -<span class="selector-tag">p</span> .debug_str</span><br></pre></td></tr></table></figure>
+
+<p>在开始操作之前，需要弄清楚 GDB 中几个重要的概念。</p>
+<ul>
+<li>编译路径（compilation directory）：编译源代码的路径。</li>
+<li>源码路径（source path）：源码存放的位置。</li>
+<li>可执行文件路径：编译完成的程序在哪个目录下运行。</li>
+<li>可执行文件记录的源文件路径（the executable records the source file）：编译后的可执行程序中记录的编译时路径。</li>
+<li>GDB 当前工作路径（ current working directory）：在哪个目录下启动 GDB 程序。</li>
+</ul>
+<p>例子：编译路径为 <code>/project/build</code>，源码路径为 <code>/mnt/cross:$cdir:$cwd</code>，可执行文件记录的源文件路径为 <code>/usr/src/foo-1.0/lib/foo.c</code>，GDB 当前工作路径为 <code>/home/user</code>，GDB　将会从下面的位置中搜索源文件的路径：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/usr/src/foo-<span class="number">1.0</span>/<span class="class"><span class="keyword">lib</span>/<span class="title">foo</span>.<span class="title">c</span>             </span></span><br><span class="line"><span class="regexp">/mnt/cross</span><span class="regexp">/usr/src</span><span class="regexp">/foo-1.0/lib</span><span class="regexp">/foo.c   </span></span><br><span class="line"><span class="regexp">/project</span><span class="regexp">/build/usr</span><span class="regexp">/src/foo</span>-<span class="number">1.0</span>/<span class="class"><span class="keyword">lib</span>/<span class="title">foo</span>.<span class="title">c</span></span></span><br><span class="line"><span class="regexp">/home/user</span><span class="regexp">/usr/src</span><span class="regexp">/foo-1.0/lib</span><span class="regexp">/foo.c</span></span><br><span class="line"><span class="regexp">/mnt</span><span class="regexp">/cross/project</span><span class="regexp">/build/usr</span><span class="regexp">/src/foo</span>-<span class="number">1.0</span>/<span class="class"><span class="keyword">lib</span>/<span class="title">foo</span>.<span class="title">c</span></span></span><br><span class="line"><span class="regexp">/project/build</span><span class="regexp">/project/build</span><span class="regexp">/usr/src</span><span class="regexp">/foo-1.0/lib</span><span class="regexp">/foo.c</span></span><br><span class="line"><span class="regexp">/home</span><span class="regexp">/user/project</span><span class="regexp">/build/usr</span><span class="regexp">/src/foo</span>-<span class="number">1.0</span>/<span class="class"><span class="keyword">lib</span>/<span class="title">foo</span>.<span class="title">c</span></span></span><br><span class="line"><span class="regexp">/mnt/cross</span><span class="regexp">/foo.c</span></span><br><span class="line"><span class="regexp">/project</span><span class="regexp">/build/foo</span>.c</span><br><span class="line"><span class="regexp">/home/user</span><span class="regexp">/foo.c</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：可执行文件记录的源文件路径不能用来定位源文件（source files）。</p>
+<p>若退出 GDB 后，重新启动，GDB 会清除它缓存的有关源文件的位置以及每行在源文件中的位置信息。重新开始 GDB 时，<code>source path</code> 只包含 <code>$cdir</code> 和 <code>$cwd</code>，若想要在源路径列表中添加新的源文件路径，用 <code>directory </code> 或 <code>set substitute-path</code> 命令。</p>
+<p><code>set substitute-path</code> 命令可同时操作多个源文件，操作整个目录树，而 <code>directory</code> 命令每次只能改变一个源文件路径。比如之前源文件在 <code>/usr/src</code> 目录下，现在源文件被移到了 <code>/mnt/cross</code> 目录下。之前源文件中的 <code>foo-1.0</code> 目录中有多个文件，若用 <code>directory</code> 命令，需要对每个文件进行设置，太费时间了，而用 <code>set substitute-path</code> 命令，则需要替换目录名即可，不用对每个文件一一设置。</p>
+<p><code>substitute-path</code> 命令语法</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span> 替换源码目录，将原来路径下的 src 替换为 xxx<span class="regexp">/xxxx/</span>dest</span><br><span class="line">(gdb) set substitute-path src xxx<span class="regexp">/xxxx/</span>dest</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 例如：将 <span class="regexp">/usr/</span>src 替换为 <span class="regexp">/mnt/</span>cross</span><br><span class="line">(gdb) set substitute-path <span class="regexp">/usr/</span>src <span class="regexp">/mnt/</span>cross</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 当有多条 set substitute-path 设置的规则时，按顺序依次添加规则，则源路径列表中按添加的顺序去设置</span><br><span class="line"><span class="regexp">//</span> 将 <span class="regexp">/usr/</span>src<span class="regexp">/include/</span>defs.h 路径替换为 <span class="regexp">/mnt/i</span>nclude/defs.h</span><br><span class="line"><span class="regexp">//</span> 将 <span class="regexp">/usr/</span>src<span class="regexp">/lib/</span>foo.c 路径替换为 <span class="regexp">/mnt/</span>src<span class="regexp">/lib/</span>foo.c</span><br><span class="line">(gdb) set substitute-path <span class="regexp">/usr/</span>src<span class="regexp">/include /m</span>nt/include</span><br><span class="line">(gdb) set substitute-path <span class="regexp">/usr/</span>src <span class="regexp">/mnt/</span>src</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 从路径列表中删除指令的路径 <span class="selector-tag">path</span></span><br><span class="line">// 若不指定 <span class="selector-tag">path</span> 路径参数，则从 <span class="selector-tag">source</span> <span class="selector-tag">path</span> 中删除整个替换的规则</span><br><span class="line">unset substitute-<span class="selector-tag">path</span> <span class="selector-attr">[path]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 打印源路径列表中的替换规则，如果有的话，它将重写该路径</span><br><span class="line">// 若不指定 <span class="type">path</span> 路径参数，从源路径列表中打印已存在的替换规则</span><br><span class="line"><span class="keyword">show</span> substitute-<span class="type">path</span> [<span class="type">path</span>]</span><br></pre></td></tr></table></figure>
+
+<p><code>directory</code> 命令语法，其中 <code>directory</code> 缩写为 <code>dir</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 查看源路径列表中包含的目录</span><br><span class="line">(gdb) show <span class="built_in">dir</span>    </span><br><span class="line">Source directories searched: <span class="variable">$cdir</span>:<span class="variable">$cwd</span></span><br><span class="line"></span><br><span class="line">// <span class="built_in">dir</span> 后面不跟路径，Linux 系统下则默认设置为 <span class="variable">$cdir</span>:<span class="variable">$cwd</span> </span><br><span class="line">(gdb) <span class="built_in">dir</span></span><br><span class="line"></span><br><span class="line">// 设置源码的路径为 xxxx</span><br><span class="line">(gdb) <span class="built_in">dir</span>   xxxx  </span><br><span class="line"></span><br><span class="line">// 指定多个路径，linux 下每个路径名之间用冒号（:）分隔开，window下用分号（;）分隔开</span><br><span class="line">(gdb) <span class="built_in">dir</span> dirname1:dirname2:dirname3</span><br></pre></td></tr></table></figure>
+
+<p>若我每次启动 GDB 后都要去设置源码的路径，编写程序文件很少时没问题，但在大工程中用 Makefile 去编译的工程，编译在太机器上，程序运行在另外一台机器上，导致了编译路径、源码路径、可执行程序的路径都发生了变化，并且文件是非常多的。调试程序时，无论是用 <code>directory</code> 命令还是用 <code>substitute-path</code> 命令，都需要设置很多次，感觉很麻烦和费时，那有没有一种操作：将我要执行的命令放到一个文件中，然后 GDB 程序启动时去加载这个文件，然后再执行文件中的命令。</p>
+<p>很幸运的告诉你，有这么一种操作，那就是在 GDB 程序启动时后面跟 <code>-x</code> 参数和要执行的文件 <code>file</code>。</p>
+<p>man 手册中查看 GDB <code>-x</code> 参数说明。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">man gdb</span><br><span class="line">       -x <span class="built_in">file</span></span><br><span class="line">               Execute GDB commands <span class="keyword">from</span> <span class="built_in">file</span> <span class="built_in">file</span>.</span><br></pre></td></tr></table></figure>
+
+<p>示例：新建一个 <code>source-path-file</code> 文件，里面放入要执行的命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> substitute-path /usr/src/include /mnt/include</span><br><span class="line"><span class="built_in">set</span> substitute-path /usr/src /mnt/src</span><br></pre></td></tr></table></figure>
+
+<p>外部 shell  终端 GDB 程序启动要调试的文件，后面跟 <code>source-path-file</code> 文件。执行后的结果与在 GDB 程序里面执行 <code>set substitute-path</code> 命令是等价的。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gdb <span class="selector-tag">a</span><span class="selector-class">.out</span> -<span class="attribute">x</span> source-path-file</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="9-调试多进程"><a href="#9-调试多进程" class="headerlink" title="9. 调试多进程"></a>9. 调试多进程</h1><p>术语</p>
+<ul>
+<li>superior  上级的（父进程）</li>
+<li>inferior 下级的（子进程。GDB 将每一个被调试程序的执行状态记录在一个名为 inferior 的结构中。一般情况下一个 inferior 对应一个进程，每个不同的 inferior 有不同的地址空间。inferior 有时候会在进程没有启动的时候就存在。</li>
+</ul>
+<p>gdb 追踪多个分支（父子进程）</p>
+<ul>
+<li><code>set follow-fork-mode child</code>  追踪子进程</li>
+<li><code>set follow-fork-mode parent</code> 追踪父进程</li>
+</ul>
+<h1 id="10-调试多线程"><a href="#10-调试多线程" class="headerlink" title="10. 调试多线程"></a>10. 调试多线程</h1><p>GDB 多线程调试的术语</p>
+<ul>
+<li><p>all-stop mode      全停模式</p>
+</li>
+<li><p>single-stepping    单步执行</p>
+</li>
+<li><p>scheduler-locking  调度锁</p>
+</li>
+<li><p>schedule-multiple  多进程调度</p>
+</li>
+<li><p>record mode        记录模式</p>
+</li>
+<li><p>replay mode        回放模式</p>
+</li>
+</ul>
+<p>使用 GDB 调试多线程程序时，默认的调试模式为：一个线程暂停运行，其它线程也随即暂停；一个线程启动运行，其它线程也随即启动。要知道，这种调试机制确实能帮我们更好地监控各个线程的“一举一动”，但并非适用于所有场景。</p>
+<p>一些场景中，我们可能只想让某一特定线程运行，其它线程仍维持暂停状态。要想达到这样的效果，就需要借助 <code>set scheduler-locking</code> 命令。 帮我们将其它线程都“锁起来”，使后续执行的命令只对当前线程或者指定线程有效，而对其它线程无效。</p>
+<p>set scheduler-locking 命令的语法格式如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) <span class="built_in">set</span> scheduler-locking mode</span><br></pre></td></tr></table></figure>
+
+<p>其中，参数 mode 的值有 3 个，分别为 off、on 和 step，它们的含义分别是：</p>
+<ul>
+<li>off：不锁定线程，任何线程都可以随时执行，这是默认值；</li>
+<li>on：锁定线程，只有当前线程或指定线程可以运行；</li>
+<li>step：当单步执行某一线程时，其它线程不会执行，同时保证在调试过程中当前线程不会发生改变。但如果该模式下执行 continue、until、finish 命令，则其它线程也会执行，并且如果某一线程执行过程遇到断点，则 GDB 调试器会将该线程作为当前线程。</li>
+</ul>
+<p>常用调试的命令</p>
+<ul>
+<li><code>show scheduler-locking</code>     显示线程的scheduler-locking状态</li>
+<li><code>set scheduler-locking on</code>    调试加锁当前线程，停止所有其他线程</li>
+<li><code>gdb attach pid</code> 让进程号为 PID 的进程停止。</li>
+<li><code>info thread</code> 查看当前进程的所有线程信息。</li>
+<li><code>thread &lt;ID&gt; (或 t ID)</code> 切换到指定的线程 ID 号进行调试。</li>
+</ul>
+<p>参考</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/pugang/p/7698772.html">GDB scheduler-locking 命令详解</a></li>
+</ul>
+<h1 id="11-查看内存"><a href="#11-查看内存" class="headerlink" title="11. 查看内存"></a>11. 查看内存</h1><h2 id="11-1-backtrace"><a href="#11-1-backtrace" class="headerlink" title="11.1. backtrace"></a>11.1. backtrace</h2><p>查看函数调用堆栈信息，简写为 <code>bt</code>。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">gdb</span>) bt</span><br></pre></td></tr></table></figure>
+
+<h2 id="11-2-examine"><a href="#11-2-examine" class="headerlink" title="11.2. examine"></a>11.2. examine</h2><p><code>examine</code> 查看内存地址中的值，简写 <code>x</code>。作用：在堆栈中从指定的哪个地址开始，以什么样的格式显示多长的数据。</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 格式</span></span><br><span class="line">x/nfu <span class="keyword">addr</span></span><br><span class="line">x <span class="keyword">addr</span> </span><br></pre></td></tr></table></figure>
+
+<p>参数 n，f，u，都是可选项。</p>
+<ul>
+<li><code>n</code> 是一个十进制的整数，默认值为 <code>1</code>， 表示显示多大的内存，有后面的单位 <code>u</code> 来定。也就是说从当前地址向后显示多少地址的内容。 </li>
+<li><code>f(format)</code> 显示的格式，默认是以 16 进制显示。  这些格式可以是：‘x’, ‘d’, ‘u’, ‘o’, ‘t’,‘a’, ‘c’, ‘f’, ‘s’  。</li>
+<li><code>u</code> 表示单位大小 unit。从当前地址往后请求的字节数，如果不指定的话，GDB 默认是4个bytes。b 表示bytes，h表示Halfwords (two bytes)，w表示Words (four bytes)，g表示Giant words (eight bytes)。</li>
+<li><code>addr</code> 表示显示的开始地址。</li>
+</ul>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 从 <span class="number">0</span>x54320 地址开始显示 <span class="number">3</span> 个 十进制无符号半字（Halfwords）大小的内容</span><br><span class="line">(gdb) x/<span class="number">3</span>uh <span class="number">0</span>x54320</span><br><span class="line"></span><br><span class="line">(gdb) x/<span class="number">5</span>i $pc-<span class="number">6</span></span><br><span class="line"><span class="number">0</span>x804837f &lt;main+<span class="number">11</span>&gt;<span class="symbol">:</span> mov %esp,%ebp</span><br><span class="line"><span class="number">0</span>x8048381 &lt;main+<span class="number">13</span>&gt;<span class="symbol">:</span> push %ecx</span><br><span class="line"><span class="number">0</span>x8048382 &lt;main+<span class="number">14</span>&gt;<span class="symbol">:</span> sub $<span class="number">0</span>x4,%esp</span><br><span class="line">=&gt; <span class="number">0</span>x8048385 &lt;main+<span class="number">17</span>&gt;<span class="symbol">:</span> movl $<span class="number">0</span>x8048460,(%esp)</span><br><span class="line"><span class="number">0</span>x804838c &lt;main+<span class="number">24</span>&gt;<span class="symbol">:</span> <span class="built_in">call</span> <span class="number">0</span>x80482d4 &lt;puts@plt&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h1 id="12-Watchpoints"><a href="#12-Watchpoints" class="headerlink" title="12. Watchpoints"></a>12. Watchpoints</h1><p>普通断点：需要程序运行到哪行，你就在哪行设置断点，然后等程序运行到断点处可以单步执行，查看内存变量，遇到多个位置修改同一个变量时，并且要查看是谁改变了变量的时候，就要设置多个断点来进行查看。</p>
+<p>硬件断点（Hardware watchpoint）也叫观察断点（Watchpoints）。观察断点就是为了要监控某个变量或者表达式的值，通过值的变化情况来判断程序的执行过程是否存在异常或者Bug。只有某个变量或者表达式的值发生了改变，程序才会停止执行。相比普通断点，观察断点不需要我们预测变量（表达式）值发生改变的具体位置。</p>
+<p>用法 </p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">gdb</span>) watch var_name</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在使用 <code>watch var_name</code> 命名之前，需要使用 <code>file a.out</code>，加载 a.out 中的 <code>symbol table</code>，只有符号表加载成功后，才能打硬件断点。</p>
+</blockquote>
+<p><img src="./figures/watch-break.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> g_var = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span>* <span class="title function_">thread_func</span><span class="params">(<span class="type">void</span>* args)</span></span><br><span class="line">&#123;</span><br><span class="line">    sleep(<span class="number">5</span>);</span><br><span class="line">    g_var = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="type">pthread_t</span> tid = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    pthread_create(&amp;tid, <span class="literal">NULL</span>, thread_func, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;g_var = %d, tid = %ld\n&quot;</span>, g_var, tid);</span><br><span class="line">        sleep(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="13-Catchpoints"><a href="#13-Catchpoints" class="headerlink" title="13. Catchpoints"></a>13. Catchpoints</h1><p>Catchpoints 叫捕获断点。</p>
+<h1 id="14-调试正在运行的程序"><a href="#14-调试正在运行的程序" class="headerlink" title="14. 调试正在运行的程序"></a>14. 调试正在运行的程序</h1><p>GDB 可以对正在执行的程序进行调度，它允许开发人员中断程序并查看其状态，之后还能让这个程序正常地继续执行。</p>
+<p>1、 查看可执行程序的进程号 PID:  <code>ps aux | grep xxx.out</code></p>
+<p>2、 attach 可执行程序的进程 PID: <code>gdb attach process-id</code></p>
+<blockquote>
+<p>另一种方式：gdb -p pid或程序名。-p 表示 program</p>
+</blockquote>
+<p>3、 当attach进程时，会停止进程的运行，这时使进程继续运行需要使用 continue&#x2F;c 命令。</p>
+<p>4、 当程序停止时，用其它的命令查看其它信息</p>
+<ul>
+<li><code>bt</code> 查看堆栈信息 </li>
+<li><code>b(break)</code> 设置断点 </li>
+<li><code>watch var</code> 监控变量 var 的值</li>
+<li><code>info thread</code> 查看当前进程的所有线程信息</li>
+<li><code>info proc</code> 显示进程信息</li>
+<li><code>info reg</code> 显示寄存器信息</li>
+</ul>
+<h1 id="15-设置动态库"><a href="#15-设置动态库" class="headerlink" title="15. 设置动态库"></a>15. 设置动态库</h1><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> solib-<span class="keyword">search</span>-<span class="type">path</span>  动态库路径</span><br></pre></td></tr></table></figure>
+
+<h1 id="16-Reverse"><a href="#16-Reverse" class="headerlink" title="16. Reverse"></a>16. Reverse</h1><p>GDB7.0 以上的平台开始支持反向调试需要开启记录，调试结束关闭记录，只有在开启记录之后才能完全正常的进行反向调试。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(gdb) record        开启记录</span><br><span class="line">(gdb) record stop   关闭记录</span><br><span class="line">(gdb) reverse-next  向上走一步</span><br><span class="line">(gdb) reverse-continue 向上继续调试</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> exec-direction [forward | reverse]   设置程序运行方向，能够像正常调试方式一样反向调试</span><br></pre></td></tr></table></figure>
+
+<h1 id="17-底层原理"><a href="#17-底层原理" class="headerlink" title="17. 底层原理"></a>17. 底层原理</h1><p>ptrace 系统函数是 Linux 内核提供的一个用于进程跟踪的系统调用，通过它，一个进程(gdb)可以读写另外一个进程(test)的指令空间、数据空间、堆栈和寄存器的值。而且gdb 进程接管了test 进程的所有信号，也就是说系统向 test 进程发送的所有信号，都被 gdb 进程接收到，这样一来，test 进程的执行就被 gdb 控制了，从而达到调试的目的。</p>
+<p>gdb底层的调试机制是怎样的？</p>
+<blockquote>
+<p>系统首先会启动gdb进程，这个进程会调用系统函数fork()来创建一个子进程，这个子进程做两件事情：</p>
+<ol>
+<li>调用系统函数ptrace；</li>
+<li>通过execc来加载、执行可执行程序 test，那么test程序就在这个子进程中开始执行了。</li>
+</ol>
+</blockquote>
+<img src="./figures/gdb-ptrace.png">
+
+
+
+<h1 id="18-References"><a href="#18-References" class="headerlink" title="18. References"></a>18. References</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.gnu.org/software/gdb/">GDB 官方英文文档</a>：<font color=red>： 重点看 </font></li>
+<li><a target="_blank" rel="noopener" href="https://www.cs.cmu.edu/~gilpin/tutorial/">CS-MCU GDB tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzA3MzAwODYyNQ==&mid=2247483895&idx=1&sn=ba35d1823c259a959b72a310e0a92068&scene=21#wechat_redirect">用图文带你彻底弄懂GDB调试原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://wizardforcel.gitbooks.io/100-gdb-tips/content/set-watchpoint.html">100个gdb小技巧</a></li>
+<li><a target="_blank" rel="noopener" href="https://wizardforcel.gitbooks.io/100-gdb-tips/content/print-STL-container.html">打印STL容器中的内容</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangye3017/article/details/80382496">线程的查看以及利用gdb调试多线程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=xQ0ONbt-qPs&list=PL5Py8jKS3yHOco9op3r_6JN2IKmopTt7s">YouTube: MyGeekAdventures 临场演示如何使用GBD去调试代码</a> </li>
+<li><a target="_blank" rel="noopener" href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/gdb.html"> Linux Tools Quick Tutorial</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Linux/synced/Linux/gdb/">https://johnjeep.github.io/Linux/synced/Linux/gdb/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../tags/linux/">linux</a><a class="post-meta__tags" href="../../../../tags/gdb/">gdb</a></div><div class="post-share"><div class="social-share" data-image="../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../../../../OS/MIT-CS6-828/synced/OS/MIT-CS6.828/CS6.828/" title="CS6.828"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">CS6.828</div></div><div class="info-2"><div class="info-item-1">  课程 MIT CS8.828, Operating System Engineering 2018年秋季学科大纲。  视频 YouTube：6.828 B站：6.828 B站：6.S081   NOte: 6.828 and 6.S081 will be offered as two separate classes. 6.S081 (Introduction to Operating Systems) will be taught as a stand-alone AUS subject for undergraduates, and will provide an introduction to operating systems. 6.828 will be offered as a graduate-level seminar-style class focused on research in operating systems. 6.828 will assume you have taken 6.S081 or an equivalent class. See ...</div></div></div></a><a class="pagination-related" href="../../../../Network/synced/Network/Wireshark/" title="Wireshark"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Wireshark</div></div><div class="info-2"><div class="info-item-1">  1. 功能是一个网络流量捕获和分析的软件 2. 历史史Ethereal是Wireshark的前身，2006年改名为Wireshark。 3. 原理 捕获二进制流量 转换Wireshark组装数据包 分析捕获的数据包、识别协议等信息  4. 优势 开源免收费 跨平台 可视化，功能强大  5. 基本使用步骤 选择正确的网卡项 捕获数据流量 过滤数据包 保存数据包  6. 使用功能名字解析  功能：将MAC地址、IP地址、端口号等转换为名字，方便记忆，默认是开启了MAC地址解析。包括三种解析器：MAC地址解析、网络名字解析、传输名字解析。 缺点：开启IP地址或端口解析可以加大可读性，但是也会出现解读错误并且资源消耗大。  6.1. 数据包 标记数据包 注释数据包 合并数据包 打印数据包 导出数据包  7. References Wireshark.org: 官网 Wireshark Wiki: 维基网站 Wiresharkbook: 书籍推荐网站  </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="../performance/" title="Performance"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Performance</div></div><div class="info-2"><div class="info-item-1">   1. Performance optimization 1.1. 怎样做性能优化？ 1.2. 如何去分析 1.2.1. 工具 1.2.2. 代码编写   1.3. 优化到多少？ 1.4. 其它   2. process and system 2.1. top 2.2. htop 2.3. uptime 2.4. pidstat 2.5. dmesg 2.6. gprof 2.7. oprofile 2.8. gperftools   3. CPU 3.1. mpstat   4. Memory 4.1. vmstat 4.1.1. 虚拟内存原理 4.1.2. 格式 4.1.3. 参数   4.2. vmtouch 4.3. pmap 4.4. 内存泄漏检测工具   5. I&#x2F;O 5.1. iostat 5.2. iotop 5.3. Magical Command   6. Network 6.1. netstat 6.2. stress 6.3. sar 6.4. iftop   7. logs 8. Others 9. References  1. Perfo...</div></div></div></a><a class="pagination-related" href="../linux-tricks/" title="Linux Tricks"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Linux Tricks</div></div><div class="info-2"><div class="info-item-1">  linux system tricks and tips  1. 系统 2. 资源 3. 磁盘和分区 4. 网络 5. 进程 6. 用户 7. 服务 8. 程序 9. 内存信息 10. 机器型号 11. 网卡信息  1. 系统12345678# uname -a        # 查看内核/操作系统/CPU信息# head -n 1 /etc/issue  # 查看操作系统版本# cat /proc/cpuinfo   # 查看CPU信息# hostname        # 查看计算机名# lspci -tv       # 列出所有PCI设备# lsusb -tv       # 列出所有USB设备# lsmod         # 列出加载的内核模块# env          # 查看环境变量  2. 资源1234567# free -m        # 查看内存使用量和交换区使用量# df -h         # 查看各分区使用情况# du -sh &lt;目录名&gt;    # 查看指定目录的大小# grep MemTotal /proc/meminfo  ...</div></div></div></a><a class="pagination-related" href="../../../system-program/synced/Linux/system_program/signal/" title="Signal"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-28</div><div class="info-item-2">Signal</div></div><div class="info-2"><div class="info-item-1">  1. Linux 下常用信号解释 2. SIGINT 3. SIGTERM 4. SIGHUP  1. Linux 下常用信号解释Linux 终端下输入 man 7 signal 命令，可查看信号的使用手册。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657$man 7 signalSIGNAL(7)                 Linux Programmer&#x27;s Manual                 SIGNAL(7)NAME       signal - overview of signalsDESCRIPTION       Linux supports both POSIX reliable signals (hereinafter &quot;standard sig‐       nals&quot;) and POSIX real-time signals.   Signal d...</div></div></div></a><a class="pagination-related" href="../inode/" title="Inode"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-19</div><div class="info-item-2">Inode</div></div><div class="info-2"><div class="info-item-1">    1. 查看iNode的命令 2. 什么是iNode 3. iNode包含内容 4. 操作系统是如何打开文件的 5. 目录文件 6. iNode的应用 7. 硬链接与符号链接 8. References  1. 查看iNode的命令 查看每个硬盘分区的iNode总数和已经使用的数量 df -i 查看当前路径下每个iNode的节点号  ls  -li 查看某个文件的iNode信息  stat test.txt  2. 什么是iNode概念：存储文件的元数据的区域叫iNode，也叫”索引节点” 3. iNode包含内容 文件的字节数 文件的read、write、execute权限 文件的ID（User ID、Group ID） 文件的时间戳 ctime:  iNode上一次变动的时间 mtime:  文件内容上一次变动的时间 atime:  文件上一次打开的时间   链接数： 有多少文件名指向这个iNode 文件数据block的位置 创建时间  4. 操作系统是如何打开文件的 操作系统用iNode号码来识别不同的文件。分为三步： 系统找到这个文件名对应的iNode号 通过iNo...</div></div></div></a><a class="pagination-related" href="../../../FAQ/synced/Linux/FAQ/kswapd0/" title="Kswapd0"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Kswapd0</div></div><div class="info-2"><div class="info-item-1">   References kswapd0 进程CPU占用过高  linux CPU占用率高 排查  MySQL 故障诊断：MySQL 占用 CPU 过高问题定位及优化   </div></div></div></a><a class="pagination-related" href="../curl/" title="Curl"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-12</div><div class="info-item-2">Curl</div></div><div class="info-2"><div class="info-item-1">   1. Curl 2. API 2.1. CURLcode curl_global_init(long flags); 2.2. void curl_global_cleanup(void); 2.3. char *curl_version( );   3. The Easy interface 3.1. CURL *curl_easy_init( ); 3.2. void curl_easy_cleanup(CURL *handle); 3.3. CURLcode curl_easy_setopt(CURL *handle, CURLoption option, parameter)   4. CURLcode curl_easy_perform(CURL *handle); 4.1. Multi interface 4.2. multi-socket interface   5. The primary structs 5.1. 命令参数   6. References  1. Curllinux curl 是一个利用 URL 规则在命令行下工作的文件传输工具。它支持文件...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">1. 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85-GDB"><span class="toc-number">2.</span> <span class="toc-text">2. 安装 GDB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%9C%A8%E7%BA%BF%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 在线安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 源码安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Invoking-GDB"><span class="toc-number">3.</span> <span class="toc-text">3. Invoking GDB</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Shell-Commands"><span class="toc-number">4.</span> <span class="toc-text">4. Shell Commands</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-Logging-Output"><span class="toc-number">5.</span> <span class="toc-text">5. Logging Output</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">6. 常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-run"><span class="toc-number">6.1.</span> <span class="toc-text">6.1. run</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-1-arguments"><span class="toc-number">6.1.1.</span> <span class="toc-text">6.1.1. arguments</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-2-environment"><span class="toc-number">6.1.2.</span> <span class="toc-text">6.1.2. environment</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-3-working-directory"><span class="toc-number">6.1.3.</span> <span class="toc-text">6.1.3. working directory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-4-standard-input-and-output"><span class="toc-number">6.1.4.</span> <span class="toc-text">6.1.4. standard input and output</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-start"><span class="toc-number">6.2.</span> <span class="toc-text">6.2. start</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-starti"><span class="toc-number">6.3.</span> <span class="toc-text">6.3. starti</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-continue"><span class="toc-number">6.4.</span> <span class="toc-text">6.4. continue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-5-quit"><span class="toc-number">6.5.</span> <span class="toc-text">6.5. quit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-6-list"><span class="toc-number">6.6.</span> <span class="toc-text">6.6. list</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-7-break"><span class="toc-number">6.7.</span> <span class="toc-text">6.7. break</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-8-delete"><span class="toc-number">6.8.</span> <span class="toc-text">6.8. delete</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-9-next"><span class="toc-number">6.9.</span> <span class="toc-text">6.9. next</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-10-next-into"><span class="toc-number">6.10.</span> <span class="toc-text">6.10. next into</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-11-step"><span class="toc-number">6.11.</span> <span class="toc-text">6.11. step</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-12-step-into"><span class="toc-number">6.12.</span> <span class="toc-text">6.12. step into</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-13-finish"><span class="toc-number">6.13.</span> <span class="toc-text">6.13. finish</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-14-until"><span class="toc-number">6.14.</span> <span class="toc-text">6.14. until</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-15-print"><span class="toc-number">6.15.</span> <span class="toc-text">6.15. print</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-16-ptype"><span class="toc-number">6.16.</span> <span class="toc-text">6.16. ptype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-17-display"><span class="toc-number">6.17.</span> <span class="toc-text">6.17. display</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-18-undisplay"><span class="toc-number">6.18.</span> <span class="toc-text">6.18. undisplay</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-19-whatis"><span class="toc-number">6.19.</span> <span class="toc-text">6.19. whatis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-20-set"><span class="toc-number">6.20.</span> <span class="toc-text">6.20. set</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-21-call"><span class="toc-number">6.21.</span> <span class="toc-text">6.21. call</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-22-clear"><span class="toc-number">6.22.</span> <span class="toc-text">6.22. clear</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-23-dir"><span class="toc-number">6.23.</span> <span class="toc-text">6.23. dir</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-24-info"><span class="toc-number">6.24.</span> <span class="toc-text">6.24. info</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-25-show"><span class="toc-number">6.25.</span> <span class="toc-text">6.25. show</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-26-command"><span class="toc-number">6.26.</span> <span class="toc-text">6.26. command</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-27-help"><span class="toc-number">6.27.</span> <span class="toc-text">6.27. help</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-28-Others"><span class="toc-number">6.28.</span> <span class="toc-text">6.28. Others</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-TUI"><span class="toc-number">7.</span> <span class="toc-text">7. TUI</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-TUI-%E4%B8%AD%E7%9A%84%E6%96%AD%E7%82%B9"><span class="toc-number">7.1.</span> <span class="toc-text">7.1. TUI 中的断点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">7.2.</span> <span class="toc-text">7.2. 快捷键</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-Examining-Source-Files"><span class="toc-number">8.</span> <span class="toc-text">8. Examining Source Files</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-%E6%9F%A5%E7%9C%8B%E6%BA%90%E7%A0%81"><span class="toc-number">8.1.</span> <span class="toc-text">8.1. 查看源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-%E7%BC%96%E8%BE%91%E6%BA%90%E7%A0%81"><span class="toc-number">8.2.</span> <span class="toc-text">8.2. 编辑源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-%E6%94%B9%E5%8F%98%E6%BA%90%E7%A0%81%E8%B7%AF%E5%BE%84"><span class="toc-number">8.3.</span> <span class="toc-text">8.3. 改变源码路径</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-%E8%B0%83%E8%AF%95%E5%A4%9A%E8%BF%9B%E7%A8%8B"><span class="toc-number">9.</span> <span class="toc-text">9. 调试多进程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-%E8%B0%83%E8%AF%95%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">10.</span> <span class="toc-text">10. 调试多线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AD%98"><span class="toc-number">11.</span> <span class="toc-text">11. 查看内存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#11-1-backtrace"><span class="toc-number">11.1.</span> <span class="toc-text">11.1. backtrace</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-2-examine"><span class="toc-number">11.2.</span> <span class="toc-text">11.2. examine</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12-Watchpoints"><span class="toc-number">12.</span> <span class="toc-text">12. Watchpoints</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13-Catchpoints"><span class="toc-number">13.</span> <span class="toc-text">13. Catchpoints</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14-%E8%B0%83%E8%AF%95%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E7%A8%8B%E5%BA%8F"><span class="toc-number">14.</span> <span class="toc-text">14. 调试正在运行的程序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#15-%E8%AE%BE%E7%BD%AE%E5%8A%A8%E6%80%81%E5%BA%93"><span class="toc-number">15.</span> <span class="toc-text">15. 设置动态库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#16-Reverse"><span class="toc-number">16.</span> <span class="toc-text">16. Reverse</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#17-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="toc-number">17.</span> <span class="toc-text">17. 底层原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#18-References"><span class="toc-number">18.</span> <span class="toc-text">18. References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../js/utils.js"></script><script src="../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Omron | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. Product Overview产品线逻辑树 123456789101112131415欧姆龙PLC产品树├── 大型PLC  │   ├── CV系列（1990s，已停产）  │   └── CS系列（2000s，已逐步淘汰）  ├── 中型PLC  │   ├── C200H系列（1990s）  │   ├── CJ系列（2000s-至今）  │   └── NJ&#x2F;NX系列（2010">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Omron">
+<meta property="og:url" content="https://johnjeep.github.io/Protocol/synced/Protocol/Omron/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="1. Product Overview产品线逻辑树 123456789101112131415欧姆龙PLC产品树├── 大型PLC  │   ├── CV系列（1990s，已停产）  │   └── CS系列（2000s，已逐步淘汰）  ├── 中型PLC  │   ├── C200H系列（1990s）  │   ├── CJ系列（2000s-至今）  │   └── NJ&#x2F;NX系列（2010">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-04-09T19:15:49.000Z">
+<meta property="article:modified_time" content="2025-04-09T19:15:49.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="protocol">
+<meta property="article:tag" content="omron">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Omron",
+  "url": "https://johnjeep.github.io/Protocol/synced/Protocol/Omron/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-04-09T19:15:49.000Z",
+  "dateModified": "2025-04-09T19:15:49.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Protocol/synced/Protocol/Omron/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Omron',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../index.html"></a><a class="nav-page-title" href="../../../../index.html"><span class="site-name">Omron</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Omron</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-09T19:15:49.000Z" title="发表于 2025-04-10 03:15:49">2025-04-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-09T19:15:49.000Z" title="更新于 2025-04-10 03:15:49">2025-04-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../categories/Protocol/">Protocol</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2025-03-31 09:00:04
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2025-04-10 11:13:43
+ * @Description: 欧姆龙协议
+ * Copyright (c) 2025 by John Jeep, All Rights Reserved. 
+-->
+
+<h1 id="1-Product-Overview"><a href="#1-Product-Overview" class="headerlink" title="1. Product Overview"></a>1. Product Overview</h1><p>产品线逻辑树</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">欧姆龙PLC产品树</span><br><span class="line">├── 大型PLC  </span><br><span class="line">│   ├── CV系列（1990s，已停产）  </span><br><span class="line">│   └── CS系列（2000s，已逐步淘汰）  </span><br><span class="line">├── 中型PLC  </span><br><span class="line">│   ├── C200H系列（1990s）  </span><br><span class="line">│   ├── CJ系列（2000s-至今）  </span><br><span class="line">│   └── NJ/NX系列（2010s-至今，运动控制核心）  </span><br><span class="line">├── 小型PLC  </span><br><span class="line">│   ├── CQM1系列（1990s）  </span><br><span class="line">│   ├── CP系列（2000s-至今）  </span><br><span class="line">│   └── CP2E系列（2020s）  </span><br><span class="line">└── 专用控制器  </span><br><span class="line">    ├── Sysmac平台（NJ/NX + HMI +视觉）  </span><br><span class="line">    └── NX1机器控制器（高速精密控制）</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>欧姆龙PLC产品线演进时间轴</strong></p>
+<p><strong>1970s-1980s：早期产品线（模块化起步）</strong></p>
+<ol>
+<li><strong>C系列</strong>（1970年代末）<ul>
+<li><strong>定位</strong>：欧姆龙第一代PLC，基础逻辑控制。</li>
+<li><strong>特点</strong>：继电器逻辑替代，支持简单I&#x2F;O扩展。</li>
+<li><strong>代表型号</strong>：C20、C28（已停产）。</li>
+</ul>
+</li>
+<li><strong>K系列</strong>（1980年代初）<ul>
+<li><strong>升级点</strong>：增强抗干扰能力，支持更多I&#x2F;O点。</li>
+<li><strong>应用场景</strong>：工厂自动化初级应用。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>1990s：中型&#x2F;大型PLC崛起</strong></p>
+<ol>
+<li><p><strong>C200H系列</strong>（1990年代初）</p>
+<ul>
+<li><strong>定位</strong>：中型PLC，模块化设计。</li>
+<li><strong>技术亮点</strong>：<ul>
+<li>支持扩展机架、模拟量模块。</li>
+<li>通信协议：Host Link（RS-232）。</li>
+</ul>
+</li>
+<li><strong>代表型号</strong>：C200H-CPU01。</li>
+</ul>
+</li>
+<li><p><strong>CV系列</strong>（1990年代中期）</p>
+<p>欧姆龙（Omron）的 <strong>CV系列PLC</strong> 是其早期推出的大型高端可编程逻辑控制器，<strong>主要生产于1990年代至2000年代初期</strong>。CV系列于 <strong>1990年代中期</strong>推出，是欧姆龙在工业自动化领域对标西门子S5&#x2F;S7、三菱Q系列等高端PLC的旗舰产品。<strong>停产时间</strong>：2000年代初期逐渐被 <strong>CS系列</strong>（如CS1G&#x2F;CS1H）替代，后续又被 <strong>NJ&#x2F;NX系列</strong>（基于EtherCAT）取代。</p>
+<ul>
+<li><strong>定位</strong>：高端大型PLC，对标西门子S5&#x2F;S7。</li>
+<li><strong>技术亮点</strong>：<ul>
+<li>多任务处理、浮点运算。</li>
+<li>支持Controller Link网络。</li>
+</ul>
+</li>
+<li><strong>CV系列的典型型号</strong><ul>
+<li><strong>CV500</strong>：基础型，适用于中等规模控制。</li>
+<li><strong>CV1000</strong>：高性能型，支持更多I&#x2F;O<code>点和复杂运算</code>。</li>
+<li><strong>CV2000</strong>：顶级型号，用于超大型系统（如全厂自动化）。</li>
+<li><strong>扩展模块</strong>：如 <strong>CVM1-CPU01</strong>（CPU单元）、<strong>CV500-IOxxx</strong>（I&#x2F;O模块）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>CQM1系列</strong>（1990年代末）</p>
+<ul>
+<li><strong>定位</strong>：紧凑型小型PLC。</li>
+<li><strong>特点</strong>：体积小，适合简单设备控制。</li>
+<li><strong>代表型号</strong>：CQM1-CPU11。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>2000s：模块化与网络化升级</strong></p>
+<ol>
+<li><strong>CS系列</strong>（2000年代初）<ul>
+<li><strong>定位</strong>：替代CV系列，大型系统核心控制器。</li>
+<li><strong>技术亮点</strong>：<ul>
+<li>高速CPU（如CS1H-CPU67H）。</li>
+<li>支持EtherNet&#x2F;IP、DeviceNet。</li>
+</ul>
+</li>
+<li><strong>代表型号</strong>：CS1G、CS1H。</li>
+</ul>
+</li>
+<li><strong>CJ系列</strong>（2000年代中期）<ul>
+<li><strong>定位</strong>：中型模块化PLC（CV系列的简化版）。</li>
+<li><strong>技术亮点</strong>：<ul>
+<li>紧凑设计，支持CJ1W扩展模块。</li>
+<li>兼容CS系列部分功能。</li>
+</ul>
+</li>
+<li><strong>代表型号</strong>：CJ1M、CJ2M。</li>
+</ul>
+</li>
+<li><strong>CP系列</strong>（2000年代末）<ul>
+<li><strong>定位</strong>：经济型小型PLC。</li>
+<li><strong>技术亮点</strong>：<ul>
+<li>集成USB编程口，成本低。</li>
+<li>支持脉冲输出（CP1H）。</li>
+</ul>
+</li>
+<li><strong>代表型号</strong>：CP1E、CP1L、CP1H。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p> <strong>2010s至今：高性能与智能化</strong></p>
+<ol>
+<li><strong>NJ系列</strong>（2010年代初）<ul>
+<li><strong>定位</strong>：基于EtherCAT的运动控制PLC。</li>
+<li><strong>技术亮点</strong>：<ul>
+<li>多轴同步控制（支持欧姆龙Σ伺服）。</li>
+<li>符合IEC 61131-3标准（ST、梯形图混合编程）。</li>
+</ul>
+</li>
+<li><strong>代表型号</strong>：NJ501、NJ301。</li>
+</ul>
+</li>
+<li><strong>NX系列</strong>（2010年代中期）<ul>
+<li><strong>定位</strong>：工业物联网（IIoT）高端PLC。</li>
+<li><strong>技术亮点</strong>：<ul>
+<li>内置安全功能（Safety over EtherCAT）。</li>
+<li>支持OPC UA、MQTT协议。</li>
+</ul>
+</li>
+<li><strong>代表型号</strong>：NX1P、NX7。</li>
+</ul>
+</li>
+<li><strong>CP2E系列</strong>（2020年）<ul>
+<li><strong>定位</strong>：新一代小型PLC，替代CP1系列。</li>
+<li><strong>技术亮点</strong>：<ul>
+<li>简化编程，支持Ethernet&#x2F;IP通信。</li>
+<li>兼容传统I&#x2F;O模块。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="2-手册"><a href="#2-手册" class="headerlink" title="2. 手册"></a>2. 手册</h1><p>文档类型：</p>
+<ul>
+<li>用户手册（User’s Manual）</li>
+<li>编程指南（Programming Manual）</li>
+<li>硬件规格（Hardware Specifications）</li>
+<li>通信协议手册（EtherCAT&#x2F;EtherNet&#x2F;IP Manuals）</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Protocol/synced/Protocol/Omron/">https://johnjeep.github.io/Protocol/synced/Protocol/Omron/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../tags/protocol/">protocol</a><a class="post-meta__tags" href="../../../../tags/omron/">omron</a></div><div class="post-share"><div class="social-share" data-image="../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../Manufacture/" title="Manufacture"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Manufacture</div></div><div class="info-2"><div class="info-item-1">  1. Terminology CNC: Computer Numerical Control(计算机数字控制) NC: Numerical Contro(数字控制)  2. 控制设备工业系统中的控制设备种类繁多，涵盖从数据采集到执行操作的各个环节。以下是主要控制设备的分类及功能说明： 2.1. 控制层设备（核心控制器） PLC(可编程逻辑控制器, Programmable Logic Controller)  功能：通过编程实现逻辑控制、顺序控制和定时&#x2F;计数功能，适用于离散制造（如流水线控制）。 典型品牌：西门子（S7系列）、三菱（FX系列）、罗克韦尔（Allen-Bradley）。   DCS(分布式控制系统, Distributed Control System)  功能：用于过程工业（如化工、电力）的连续控制，通过多节点分散控制实现高可靠性。 典型系统：霍尼韦尔（Experion）、艾默生（DeltaV）。   工业PC(工控机, Industrial PC)  功能：运行高级控制算法或SCADA软件，处理复杂数据（如机器视觉分析）。   嵌入式控制器（如单片...</div></div></div></a><a class="pagination-related" href="../Fanuc/" title="Fanuc"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Fanuc</div></div><div class="info-2"><div class="info-item-1">   1. IntroductionFANUC（发那科）是工业自动化和机器人领域的知名公司，总部在日本。他们的产品应该涵盖数控系统、工业机器人、自动化设备等。 2. Product Overview 数控系统（CNC）  Series 0i 经济型CNC，适用于中小型机床（如铣床、车床），操作简便，适合基础加工需求。  Series 30i&#x2F;31i&#x2F;32i 高端多轴控制系统，支持5轴联动和复杂曲面加工，应用于航空、汽车精密零部件制造。  Power Motion i 集成运动控制与CNC功能，专攻高精度伺服控制场景（如电子元件装配）。    工业机器人  M系列（如M-20iA、M-710） 高负载（10-700kg）机器人，用于搬运、焊接、喷涂，汽车行业应用广泛。  ARC系列（ARC Mate） 专为弧焊设计，高重复定位精度（±0.08mm），适应复杂焊缝轨迹。  LR Mate系列 轻型协作机器人（负载5-20kg），紧凑设计，适用于狭窄空间（如3C行业装配）。  SCARA系列（SR-3iA） 高速平面关节机器人，用于快速分拣、精密组装（如电子产品）。...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="../WebRTC/" title="WebRTC"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-12</div><div class="info-item-2">WebRTC</div></div><div class="info-2"><div class="info-item-1">WebRTCReferences 给好奇者的WebRTC  </div></div></div></a><a class="pagination-related" href="../Siemens/" title="Siemens"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-25</div><div class="info-item-2">Siemens</div></div><div class="info-2"><div class="info-item-1"> Siemens ProtocolReferences Siemens communications overview: Siemens S7 Common 通信概述  </div></div></div></a><a class="pagination-related" href="../Manufacture/" title="Manufacture"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-10</div><div class="info-item-2">Manufacture</div></div><div class="info-2"><div class="info-item-1">  1. Terminology CNC: Computer Numerical Control(计算机数字控制) NC: Numerical Contro(数字控制)  2. 控制设备工业系统中的控制设备种类繁多，涵盖从数据采集到执行操作的各个环节。以下是主要控制设备的分类及功能说明： 2.1. 控制层设备（核心控制器） PLC(可编程逻辑控制器, Programmable Logic Controller)  功能：通过编程实现逻辑控制、顺序控制和定时&#x2F;计数功能，适用于离散制造（如流水线控制）。 典型品牌：西门子（S7系列）、三菱（FX系列）、罗克韦尔（Allen-Bradley）。   DCS(分布式控制系统, Distributed Control System)  功能：用于过程工业（如化工、电力）的连续控制，通过多节点分散控制实现高可靠性。 典型系统：霍尼韦尔（Experion）、艾默生（DeltaV）。   工业PC(工控机, Industrial PC)  功能：运行高级控制算法或SCADA软件，处理复杂数据（如机器视觉分析）。   嵌入式控制器（如单片...</div></div></div></a><a class="pagination-related" href="../Terms/" title="Protocol Terms"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Protocol Terms</div></div><div class="info-2"><div class="info-item-1">Protocol Terms pattern ethernet transport chunk bulk  Network Topology   host links router driver socket iptable network interface layer source destination MTU: Maximium Transmission Unit TCP: Transmission Control Protocol UDP: user Datagram Protocol  OSI Physical bit symbol   Data link frame ID offset flag payload data link sequence field   Network datagram packet   Transport segment   Session session   presentation Application  </div></div></div></a><a class="pagination-related" href="../Beckhoff/" title="Beckoff Protocol"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-25</div><div class="info-item-2">Beckoff Protocol</div></div><div class="info-2"><div class="info-item-1">Beckoff Protocol倍福设备协议。 TWINCAT一句话概括： TWINCAT 是 德国倍福（Beckhoff）公司开发的、基于PC的自动化控制软件，它将一台工业PC变成一个功能强大的PLC、运动控制器和NC控制器。它负责“做”，直接驱动电机执行精确的动作。 详细解释：  角色定位： 它是机器人的 “脊髓”和“低级神经中枢” 。它直接与伺服驱动器、I&#x2F;O模块等硬件打交道，实现实时、确定性的控制。 核心功能： 软PLC： 在Windows或实时操作系统上运行，执行IEC 61131-3标准的控制逻辑（如结构化文本ST、梯形图LD）。 软运动控制： 实现多轴同步运动控制、电子凸轮、齿轮同步等复杂功能。 实时性： 拥有硬实时内核，能保证控制任务在精确的时间周期内完成，这对于高精度、高速度的工业应用至关重要。 硬件集成： 与倍福的EtherCAT总线系统无缝集成，EtherCAT是工业自动化领域高性能的实时以太网协议。   工作层面： 它工作在 底层的实时控制层面。它接收来自上层（如MoveIt）的轨迹点，然后通过实时总线 精确地控制电机走到每一个点位。 依赖关系：...</div></div></div></a><a class="pagination-related" href="../Fanuc/" title="Fanuc"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-10</div><div class="info-item-2">Fanuc</div></div><div class="info-2"><div class="info-item-1">   1. IntroductionFANUC（发那科）是工业自动化和机器人领域的知名公司，总部在日本。他们的产品应该涵盖数控系统、工业机器人、自动化设备等。 2. Product Overview 数控系统（CNC）  Series 0i 经济型CNC，适用于中小型机床（如铣床、车床），操作简便，适合基础加工需求。  Series 30i&#x2F;31i&#x2F;32i 高端多轴控制系统，支持5轴联动和复杂曲面加工，应用于航空、汽车精密零部件制造。  Power Motion i 集成运动控制与CNC功能，专攻高精度伺服控制场景（如电子元件装配）。    工业机器人  M系列（如M-20iA、M-710） 高负载（10-700kg）机器人，用于搬运、焊接、喷涂，汽车行业应用广泛。  ARC系列（ARC Mate） 专为弧焊设计，高重复定位精度（±0.08mm），适应复杂焊缝轨迹。  LR Mate系列 轻型协作机器人（负载5-20kg），紧凑设计，适用于狭窄空间（如3C行业装配）。  SCARA系列（SR-3iA） 高速平面关节机器人，用于快速分拣、精密组装（如电子产品）。...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Product-Overview"><span class="toc-number">1.</span> <span class="toc-text">1. Product Overview</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%89%8B%E5%86%8C"><span class="toc-number">2.</span> <span class="toc-text">2. 手册</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../js/utils.js"></script><script src="../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

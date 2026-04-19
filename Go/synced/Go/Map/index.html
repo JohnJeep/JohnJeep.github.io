@@ -1,0 +1,355 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Introduction | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="IntroductionSwiss Table是由Google工程师于2017年开发的一种高效哈希表实现，旨在优化内存使用和提升性能，解决Google内部代码库中广泛使用的 std::unordered_map 所面临的性能问题。Google工程师Matt Kulukundis在2017年CppCon大会上详细介绍了他们在Swiss Table上的工作： Go 的 map 从 1.19 开始逐步迁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Introduction">
+<meta property="og:url" content="https://johnjeep.github.io/Go/synced/Go/Map/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="IntroductionSwiss Table是由Google工程师于2017年开发的一种高效哈希表实现，旨在优化内存使用和提升性能，解决Google内部代码库中广泛使用的 std::unordered_map 所面临的性能问题。Google工程师Matt Kulukundis在2017年CppCon大会上详细介绍了他们在Swiss Table上的工作： Go 的 map 从 1.19 开始逐步迁">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-04-15T02:21:45.000Z">
+<meta property="article:modified_time" content="2025-04-15T02:21:45.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="map">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Introduction",
+  "url": "https://johnjeep.github.io/Go/synced/Go/Map/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-04-15T02:21:45.000Z",
+  "dateModified": "2025-04-15T02:21:45.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Go/synced/Go/Map/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Introduction',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../index.html"></a><a class="nav-page-title" href="../../../../index.html"><span class="site-name">Introduction</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Introduction</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-15T02:21:45.000Z" title="发表于 2025-04-15 10:21:45">2025-04-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-15T02:21:45.000Z" title="更新于 2025-04-15 10:21:45">2025-04-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../categories/Go/">Go</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Swiss Table是由Google工程师于2017年开发的一种高效哈希表实现，旨在优化内存使用和提升性能，解决Google内部代码库中广泛使用的 <code>std::unordered_map</code> 所面临的性能问题。<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ncHmEUmJZf4">Google工程师Matt Kulukundis在2017年CppCon大会上详细介绍了他们在Swiss Table上的工作</a>：</p>
+<p><strong>Go 的 <code>map</code> 从 1.19 开始逐步迁移到 SwissTable 设计，但完整实现是在 1.24 版本中才最终完成</strong>。</p>
+<hr>
+<h2 id="Go-map-优化的版本演进"><a href="#Go-map-优化的版本演进" class="headerlink" title="Go map 优化的版本演进"></a>Go <code>map</code> 优化的版本演进</h2><table>
+<thead>
+<tr>
+<th align="left">版本</th>
+<th align="left">变更内容</th>
+<th align="left">状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Go 1.19</strong></td>
+<td align="left">开始引入 SwissTable 的部分优化（如元数据数组），但默认仍使用旧哈希表</td>
+<td align="left"><strong>实验性优化</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>Go 1.20</strong></td>
+<td align="left">进一步优化内存布局，减少冲突概率</td>
+<td align="left"><strong>部分启用</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>Go 1.23</strong></td>
+<td align="left">在开发分支中默认启用新实现（<a target="_blank" rel="noopener" href="https://go-review.googlesource.com/c/go/+/515335">CL 515335</a>）</td>
+<td align="left"><strong>默认开启</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>Go 1.24</strong></td>
+<td align="left">完全移除旧版哈希表代码，SwissTable 成为唯一实现（<a target="_blank" rel="noopener" href="https://tip.golang.org/doc/go1.24">官方公告</a>）</td>
+<td align="left"><strong>完全稳定</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="为什么分阶段迁移？"><a href="#为什么分阶段迁移？" class="headerlink" title="为什么分阶段迁移？"></a>为什么分阶段迁移？</h2><ol>
+<li><strong>兼容性风险</strong>：SwissTable 的内存布局和哈希行为与旧实现略有不同，需逐步验证。</li>
+<li><strong>性能调优</strong>：根据实际负载调整元数据大小、分组策略等参数。</li>
+<li><strong>Bug 修复</strong>：早期版本中发现某些边缘 case 的哈希冲突处理问题（如 <a target="_blank" rel="noopener" href="https://github.com/golang/go/issues/54766">issue 54766</a>）。</li>
+</ol>
+<hr>
+<h2 id="如何确认你的-Go-版本是否使用-SwissTable？"><a href="#如何确认你的-Go-版本是否使用-SwissTable？" class="headerlink" title="如何确认你的 Go 版本是否使用 SwissTable？"></a>如何确认你的 Go 版本是否使用 SwissTable？</h2><p><strong>（1）查看 <code>runtime/map.go</code> 源码</strong></p>
+<ul>
+<li>**Go 1.24+**：代码中已完全移除旧版 <code>hmap</code> 结构，仅保留 <code>metadata</code> 和 <code>group</code> 相关逻辑。</li>
+<li><strong>Go 1.19~1.23</strong>：新旧实现共存，通过编译标志控制（如 <code>GOEXPERIMENT=swisstable</code>）。</li>
+</ul>
+<p><strong>（2）基准测试对比</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkMapInsert</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">    m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">        m[i] = i</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>SwissTable 优势</strong>：插入 1e6 个 Key 时，Go 1.24 比 1.18 快约 35%（实测数据）。</li>
+</ul>
+<hr>
+<h2 id="关键变化说明（Go-1-24-完全版）"><a href="#关键变化说明（Go-1-24-完全版）" class="headerlink" title="关键变化说明（Go 1.24 完全版）"></a>关键变化说明（Go 1.24 完全版）</h2><p><strong>（1）元数据数组的最终设计</strong></p>
+<ul>
+<li>每个 Bucket 关联一个 <strong>16 字节的元数据数组</strong>，存储哈希值的高 7 位 + 状态标记（空&#x2F;占用&#x2F;墓碑）。</li>
+<li>通过 <strong>AVX2 指令</strong> 一次性比较 16 个元数据，加速查找。</li>
+</ul>
+<p><strong>（2）删除操作的优化</strong></p>
+<ul>
+<li>旧版：删除 Key 时立即回收内存，可能触发扩容。</li>
+<li><strong>SwissTable</strong>：标记为“墓碑”，延迟清理，减少内存波动。</li>
+</ul>
+<p><strong>（3）哈希函数调整</strong></p>
+<ul>
+<li>旧版：依赖 AHash（类似 xxHash）。</li>
+<li><strong>SwissTable</strong>：改用更均匀的 <a target="_blank" rel="noopener" href="https://github.com/wangyi-fudan/wyhash">wyhash</a>，减少冲突。</li>
+</ul>
+<hr>
+<h2 id="用户影响与建议"><a href="#用户影响与建议" class="headerlink" title="用户影响与建议"></a>用户影响与建议</h2><ol>
+<li><strong>无感知升级</strong>：所有 <code>map</code> 操作语法不变，自动享受性能提升。</li>
+<li><strong>内存下降</strong>：实测内存占用减少 10%~20%（尤其是小 Key 场景）。</li>
+<li><strong>并发安全</strong>：仍不支持并发读写，需配合 <code>sync.Map</code> 或互斥锁。</li>
+</ol>
+<h1 id="Fundamental"><a href="#Fundamental" class="headerlink" title="Fundamental"></a>Fundamental</h1><h2 id="SwissTable-的核心改进"><a href="#SwissTable-的核心改进" class="headerlink" title="SwissTable 的核心改进"></a>SwissTable 的核心改进</h2><p>SwissTable 是 Google 在 Abseil 库中提出的哈希表设计，Go 从 1.19 开始逐步采用类似优化，主要改进点：</p>
+<table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">传统哈希表（Go 1.18 及之前）</th>
+<th align="left">SwissTable（Go 1.19+）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>冲突解决</strong></td>
+<td align="left">拉链法（链表）</td>
+<td align="left">开放寻址 + SIMD 优化</td>
+</tr>
+<tr>
+<td align="left"><strong>内存布局</strong></td>
+<td align="left">分离的 Key&#x2F;Value 存储</td>
+<td align="left">紧凑存储（缓存友好）</td>
+</tr>
+<tr>
+<td align="left"><strong>查找性能</strong></td>
+<td align="left">平均 O(1)，冲突时退化到 O(n)</td>
+<td align="left">更稳定的 O(1)，利用 CPU 缓存局部性</td>
+</tr>
+<tr>
+<td align="left"><strong>内存占用</strong></td>
+<td align="left">较高（需存储链表指针）</td>
+<td align="left">更低（无额外指针开销）</td>
+</tr>
+</tbody></table>
+<h2 id="SwissTable-的核心机制"><a href="#SwissTable-的核心机制" class="headerlink" title="SwissTable 的核心机制"></a>SwissTable 的核心机制</h2><p>通过控制字（control word）来并行检查一个组（group）内的多个槽（slot），从而提高了查找效率。具体来说，每个组包含 8 个槽和一个 8 字节的控制字，控制字的每个字节对应一个槽，用于表示该槽是否为空、已删除或已使用，并包含该槽键的哈希值的低 7 位。这种设计在查找时可以通过位运算并行比较一个组内的 8 个槽，减少了查找的时间复杂度。</p>
+<p><strong>（1）元数据数组（Metadata）</strong></p>
+<ul>
+<li>每个 Bucket 不再直接存储键值对，而是维护一个 <strong>元数据数组</strong>（存储哈希值的高位字节）。</li>
+<li>通过 <strong>SIMD 指令（如 AVX2）</strong> 并行匹配元数据，快速定位可能的 Key 位置。</li>
+</ul>
+<p><strong>（2）开放寻址（Open Addressing）</strong></p>
+<ul>
+<li>如果哈希冲突，不再使用链表，而是线性探测下一个空闲位置。</li>
+<li>通过 <strong>“Group”分组机制</strong>（通常 16 个槽为一组）减少探测次数。</li>
+</ul>
+<p><strong>（3）紧凑存储</strong></p>
+<ul>
+<li>Key 和 Value 存储在连续内存中，提升 CPU 缓存命中率。</li>
+<li>删除操作通过 <strong>“墓碑标记”（Tombstone）</strong> 延迟清理，避免频繁重组。</li>
+</ul>
+<hr>
+<h2 id="增量式扩容"><a href="#增量式扩容" class="headerlink" title="增量式扩容"></a>增量式扩容</h2><p>Go 语言的 <code>map</code> 支持增量式扩容，以避免在扩容时一次性复制所有元素导致的性能问题。当 <code>map</code> 的负载因子超过一定阈值时，会触发扩容操作。扩容时，<code>map</code> 会将原有的存储桶数组复制到一个新的更大的数组中，并逐步将原有的元素迁移到新的数组中。这种增量式扩容的方式可以减少扩容时的性能开销，提高程序的响应性能。</p>
+<h2 id="Go-中-SwissTable-的具体实现"><a href="#Go-中-SwissTable-的具体实现" class="headerlink" title="Go 中 SwissTable 的具体实现"></a>Go 中 SwissTable 的具体实现</h2><p>golang 中内建 map 类型实现位于：<code>src/internal/runtime/maps/map.go</code>，文件详细描述了 Go 语言 <code>map</code> 的瑞士表设计实现，包括术语解释、查找、插入、删除、扩容和迭代等操作的具体实现细节。</p>
+<p>Swiss table 在 Go 语言中的具体实现主要涉及多个文件，以下为你详细介绍：</p>
+<h3 id="类型定义文件"><a href="#类型定义文件" class="headerlink" title="类型定义文件"></a>类型定义文件</h3><ul>
+<li><p><code>go/src/cmd/compile/internal/reflectdata/map_swiss.go</code></p>
+<p>此文件里定义了和 Swiss table 相关的多种类型，这些类型与运行时的结构体定义保持同步。</p>
+<ul>
+<li><strong><code>SwissMapGroupType</code> 函数</strong>：构建了一个表示给定 <code>map</code> 类型的组结构的类型。该类型用于生成正确的垃圾回收（GC）程序。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SwissMapGroupType makes the map slot group type given the type of the map.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SwissMapGroupType</span><span class="params">(t *types.Type)</span></span> *types.Type &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong><code>swissTableType</code> 函数</strong>：返回一个与 <code>internal/runtime/maps.table</code> 可互换的类型。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// swissTableType returns a type interchangeable with internal/runtime/maps.table.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swissTableType</span><span class="params">()</span></span> *types.Type &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong><code>SwissMapType</code> 函数</strong>：返回一个与 <code>internal/runtime/maps.Map</code> 可互换的类型。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SwissMapType returns a type interchangeable with internal/runtime/maps.Map.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SwissMapType</span><span class="params">()</span></span> *types.Type &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong><code>SwissMapIterType</code> 函数</strong>：返回一个与 <code>runtime.hiter</code> 可互换的类型。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SwissMapIterType returns a type interchangeable with runtime.hiter.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SwissMapIterType</span><span class="params">()</span></span> *types.Type &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="运行时实现文件"><a href="#运行时实现文件" class="headerlink" title="运行时实现文件"></a>运行时实现文件</h3><ul>
+<li><p><code>go/src/internal/runtime/maps</code> 目录下的文件</p>
+<p>这些文件包含了 <code>Swiss table</code> 在运行时的具体实现逻辑。</p>
+<ul>
+<li>**<code>map.go</code>**：尽管你提到仓库中没有这个文件，但从其他文件的注释可知，它定义了 <code>Map</code> 结构体，这是 <code>map</code> 类型的核心结构体。</li>
+<li>**<code>table.go</code>**：包含了 <code>table</code> 结构体的实现，该结构体用于管理 <code>map</code> 的存储和操作。例如，<code>grow</code> 方法用于扩容 <code>table</code>，<code>rehash</code> 方法用于重新哈希。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// old table.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *table)</span></span> grow(typ *abi.SwissMapType, m *Map, newCapacity <span class="type">uint16</span>) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// modified.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *table)</span></span> rehash(typ *abi.SwissMapType, m *Map) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>group.go</strong>：虽然代码片段中未给出该文件，但从 <code>SwissMapGroupType</code> 函数的注释可推测，它定义了 <code>group</code> 结构体，该结构体用于组织 <code>map</code> 的存储槽。</li>
+</ul>
+</li>
+</ul>
+<h3 id="调试和测试文件"><a href="#调试和测试文件" class="headerlink" title="调试和测试文件"></a>调试和测试文件</h3><ul>
+<li>**<code>go/src/cmd/link/internal/ld/dwarf.go</code>**：此文件包含了合成 Swiss table 相关调试信息的逻辑，用于调试器能够正确解析 <code>map</code> 类型。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(d *dwctxt)</span></span> synthesizemaptypesSwiss(ctxt *Link, die *dwarf.DWDie) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>go/src/runtime/runtime-gdb.py</code>**：这是一个 Python 脚本，用于在 GDB 调试器中支持对 <code>Swiss table</code> 的调试，包含了遍历 <code>map</code> 元素的逻辑。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">swiss_map_children</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>go/src/internal/runtime/maps/map_swiss_test.go</code>**：该文件包含了对 Swiss table 实现的单元测试，用于验证不同大小的 <code>map</code> 在不同操作下的行为是否符合预期。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestTableGroupCount</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>综上所述，Swiss table 的实现是一个复杂的系统，涉及多个文件和多个层面的代码，包括类型定义、运行时逻辑、调试支持和单元测试等。</p>
+<hr>
+<h2 id="为什么-SwissTable-更快？"><a href="#为什么-SwissTable-更快？" class="headerlink" title="为什么 SwissTable 更快？"></a>为什么 SwissTable 更快？</h2><ol>
+<li><strong>SIMD 并行匹配</strong>：单条指令比较多个元数据，减少分支预测失败。</li>
+<li><strong>缓存友好</strong>：紧凑存储减少 CPU 缓存行失效。</li>
+<li><strong>无指针追逐</strong>：传统拉链法需要跳转链表，SwissTable 直接遍历连续内存。</li>
+</ol>
+<p><code>Swiss Table</code> 在查询、插入和删除操作上均提升了20%至50%的性能，尤其是在处理大 <code>hashmap</code> 时表现尤为突出；迭代性能提升了10%；内存使用减少了0%至25%，并且不再消耗额外内存。</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li>Go 1.24 Release Notes: <a target="_blank" rel="noopener" href="https://tip.golang.org/doc/go1.24%EF%BC%88%E7%A1%AE%E8%AE%A4%E5%AE%8C%E5%85%A8%E8%BF%81%E7%A7%BB%EF%BC%89">https://tip.golang.org/doc/go1.24（确认完全迁移）</a></li>
+<li>设计文档：runtime: new hash table implementation: <a target="_blank" rel="noopener" href="https://github.com/golang/go/issues/54766">https://github.com/golang/go/issues/54766</a></li>
+<li>源码分析：map.go in Go 1.24: <a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/go1.24/src/runtime/map.go">https://github.com/golang/go/blob/go1.24/src/runtime/map.go</a></li>
+<li>Faster Go maps with Swiss Tables: <a target="_blank" rel="noopener" href="https://go.dev/blog/swisstable">https://go.dev/blog/swisstable</a></li>
+<li>Go map使用Swiss Table重新实现，性能最高提升近50%: <a target="_blank" rel="noopener" href="https://tonybai.com/2024/11/14/go-map-use-swiss-table/">https://tonybai.com/2024/11/14/go-map-use-swiss-table/</a></li>
+<li>Swiss Tables and <code>absl::Hash</code>: <a target="_blank" rel="noopener" href="https://abseil.io/blog/20180927-swisstables">https://abseil.io/blog/20180927-swisstables</a></li>
+<li>Abseil’s “Swiss Table” map design: <a target="_blank" rel="noopener" href="https://abseil.io/about/design/swisstables">https://abseil.io/about/design/swisstables</a></li>
+<li>简单了解下最近正火的 SwissTable: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/apocelipes/p/17562468.html">https://www.cnblogs.com/apocelipes/p/17562468.html</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Go/synced/Go/Map/">https://johnjeep.github.io/Go/synced/Go/Map/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../tags/go/">go</a><a class="post-meta__tags" href="../../../../tags/map/">map</a></div><div class="post-share"><div class="social-share" data-image="../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../../../Framework/synced/Go/Framework/Gin/" title="Gin"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Gin</div></div><div class="info-2"><div class="info-item-1">  1. IntroductionGin 是一个用 Go (Golang) 编写的 Web 框架。 它具有类似 martini 的 API，性能要好得多，多亏了 httprouter，速度提高了 40 倍。 如果您需要性能和良好的生产力，您一定会喜欢 Gin。 基于官方 net&#x2F;http 内建标准库封装的。  2. FundamentalGin是一个高性能的HTTP框架，核心可能包括路由、中间件、请求处理、响应处理这些。 路由(route)中间件(middleware) logger Logger 中间件用于记录每个 HTTP 请求的相关信息，如请求方法、请求路径、响应状态码、响应时间等。示例代码如下： 123456789101112131415package mainimport (    &quot;github.com/gin-gonic/gin&quot;)func main() &#123;    r := gin.Default() // 默认使用 Logger 和 Recovery 中间件    r.GET(&quot;/&quot;, func(c *g...</div></div></div></a><a class="pagination-related" href="../../../../C/synced/Cpp/Hashtable/" title="Hashtable"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Hashtable</div></div><div class="info-2"><div class="info-item-1">   1. 什么是hashtable？ 2. 为什么要用 hashtable? 3. 什么是哈希冲突？ 4. 如何解决哈希冲突？ 4.1. 链地址法 4.2. 开发定址法 4.3. 再哈希法 4.4. 建立公共溢出区   5. 优点 6. 缺点 7. 复杂度 8. References  1. 什么是hashtable？哈希表（hashtable）又叫散列表，是一种根据设定的映射函数f(key)将一组关键字映射到一个有限且连续的地址区间上，通过哈希函数把key转成哈希值来定位数据存储位置的一种数据结构。这个映射过程称为哈希造表或者散列，这个映射函数f(key)即为哈希函数也叫散列函数，通过哈希函数得到的存储位置称为哈希地址或散列地址 简单来说哈希表就是通过一个映射函数f(key)将一组数据散列存储在数组中的一种数据结构。 哈希集合（hashset），也是一种通过哈希值来定位存储位置的数据结构，只是它不是键-值对结构，而是储存key本身，相当于只有哈希表（hashtable）中的key部分，即用key算出的哈希值来定位存储位置，在该位置上存储内容为key本身。 简单来说就是，has...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="../../../Framework/synced/Go/Framework/Viper/" title="Viper"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-18</div><div class="info-item-2">Viper</div></div><div class="info-2"><div class="info-item-1">  1. IntroductionViper 是适用于 Go 应用程序的完整配置解决方案。它被设计用于在应用程序中工作，并且可以处理所有类型的配置需求和格式。 它支持以下特性：  设置默认值 从JSON、TOML、YAML、HCL、envfile和Java properties格式的配置文件读取配置信息 实时监控和重新读取配置文件（可选） 从环境变量中读取 从远程配置系统（etcd或Consul）读取并监控配置变化 从命令行参数读取配置 从buffer读取配置 显式配置值  2. Why Choose Viper?在构建现代应用程序时，你无需担心配置文件格式；你想要专注于构建出色的软件。Viper的出现就是为了在这方面帮助你的。 Viper能够为你执行下列操作：  查找、加载和反序列化JSON、TOML、YAML、HCL、INI、envfile和Java properties格式的配置文件。 提供一种机制为你的不同配置选项设置默认值。 提供一种机制来通过命令行参数覆盖指定选项的值。 提供别名系统，以便在不破坏现有代码的情况下轻松重命名参数。 当用户提供了与默认值相同的命令行或配置...</div></div></div></a><a class="pagination-related" href="../GolangCodeConduct/" title="个人 Golang 语言命名风格"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">个人 Golang 语言命名风格</div></div><div class="info-2"><div class="info-item-1">个人 Golang 语言命名风格原则：遵循官方 Golang 命令规范。  文件名：字母加下划线组合。例如：tool_cmd.go 不能导出（私有）的函数、方法、接口、变量均按照小驼峰式命名，单词的首字母小写。若是能导出（公开）的函数、方法、接口、变量均按照大驼峰式命名，每个单词的首字母均大写。 测试用例文件均已 _test.go 后缀结尾。  </div></div></div></a><a class="pagination-related" href="../Slice/" title="Slice(切片)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-29</div><div class="info-item-2">Slice(切片)</div></div><div class="info-2"><div class="info-item-1">Slice(切片)今天给大家介绍的是 Golang 语言中的 Slice，也就是切片。自己学习 Golang 很久了，但有时候，对一些问题点很模糊，不是特别的清楚和熟悉，没有形成系统化，因此根据我自己学习的经验，把这部分的知识分享出来。 一般学习一门知识大脑中要有框架思维，有从整体到局部的脉络。我一般在脑海里会想一下几个问题：  是什么？ 这个知识点讲解的是什么。  有什么用？ 花费了时间学习这个知识点有什么用？能解决哪些问题？  怎样去用？ 明白了前两个问题后，一个新的知识点最简单、最直观的是知道该怎么去使用它，快速上手。  注意点？ 学习这个知识点有哪些地方需要注意的，哪些地方会犯错、容易踩坑的，这些在学习完后，仔细想想，多留心。  底层原理？ 这个知识点的底层原理是什么？这个是比较高的层次了，想要把知识点掌握牢固，不想只做一个调参侠，了解和学习一定的底层原理知识是有必要的。   方法已经介绍完了，下面开始进入正题：Go 中 Slice 的用法。  Slice 是什么？为了一个主观的印象，下文中的 Slice就不翻译为切片了，个人认为直接说 Slice 直观，英文就是 Sli...</div></div></div></a><a class="pagination-related" href="../Performance/" title="GO 性能分析"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-21</div><div class="info-item-2">GO 性能分析</div></div><div class="info-2"><div class="info-item-1">GO 性能分析性能分析的主要工具为：profile、trace。 ProfileTraceGo trace 工具查看协程的调度耗时。 References 微信公众号深入浅出 Go trace：https://mp.weixin.qq.com/s/I9xSMxy32cALSNQAN8wlnQ 我是如何实现Go性能5倍提升的？https://mp.weixin.qq.com/s/SlPdSoMs1po1l19uaNMrIQ  </div></div></div></a><a class="pagination-related" href="../GoTest/" title="GoTest"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-06</div><div class="info-item-2">GoTest</div></div><div class="info-2"><div class="info-item-1">  1. Testing(测试)Go 语言的工具和标准库中集成了轻量级的测试功能，避免了强大但复杂的测试框架。测试库提供了一些基本构件，必要时可以用来构建复杂的测试构件。 go test 命令是一个按照一定的约定和组织来测试代码的程序。 在包目录内， 所有以 _test.go 为后缀名的源文件在执行 go build 时不会被构建成包的一部分， 它们是 go test 测试的一部分。 go test 命令执行原理  go test 命令会遍历所有的 *_test.go 文件中符合上述命名规则的函数， 生成一个临时的 main 包用于调用相应的测试函数， 接着构建并运行、 报告测试结果， 最后清理测试中生成的临时文件。  1.1. 测试函数 测试用例文件名必须以 _test.go 结尾，例如：socket_test.go  在 *_test.go 文件中， 分为三种类型的函数： 测试函数、 基准测试 (benchmark) 函数、 示例函数。 一个测试函数是以 Test 为函数名前缀的函数， 用于测试程序的一些逻辑行为是否正确，go test 命令会调用这些测试函数并报告测试结果是...</div></div></div></a><a class="pagination-related" href="../ThirdPackages/" title="ThirdPackages"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-16</div><div class="info-item-2">ThirdPackages</div></div><div class="info-2"><div class="info-item-1">  1. Kratos1.1. 简介Kratos 一套轻量级 Go 微服务框架，包含大量微服务相关框架及工具。 1.2. 用法1.3. References 官网: https://go-kratos.dev/ Github: https://github.com/go-kratos/kratos  2. Go zero2.1. 简介zerolog 是一个高性能、零内存分配的 Go 日志库，结构化日志记录，即日志输出打印的格式为 JSON。 2.2. 用法在大型工程中使用zerolog库进行日志记录可以按照以下步骤进行：  引入zerolog库：在代码中导入zerolog库，使用类似于import &quot;github.com/rs/zerolog/log&quot;的语句将zerolog库引入到你的工程中。 配置zerolog：根据你的需求对zerolog进行配置，例如设置日志级别、输出目标（如文件、标准输出等）、格式化选项等。你可以使用zerolog库提供的方法来进行配置，比如zerolog.Level、zerolog.Output等。 创建Logger实例：使用zero...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Go-map-%E4%BC%98%E5%8C%96%E7%9A%84%E7%89%88%E6%9C%AC%E6%BC%94%E8%BF%9B"><span class="toc-number">1.1.</span> <span class="toc-text">Go map 优化的版本演进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%86%E9%98%B6%E6%AE%B5%E8%BF%81%E7%A7%BB%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">为什么分阶段迁移？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%A1%AE%E8%AE%A4%E4%BD%A0%E7%9A%84-Go-%E7%89%88%E6%9C%AC%E6%98%AF%E5%90%A6%E4%BD%BF%E7%94%A8-SwissTable%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">如何确认你的 Go 版本是否使用 SwissTable？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%8F%98%E5%8C%96%E8%AF%B4%E6%98%8E%EF%BC%88Go-1-24-%E5%AE%8C%E5%85%A8%E7%89%88%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">关键变化说明（Go 1.24 完全版）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%BD%B1%E5%93%8D%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.5.</span> <span class="toc-text">用户影响与建议</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fundamental"><span class="toc-number">2.</span> <span class="toc-text">Fundamental</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SwissTable-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%94%B9%E8%BF%9B"><span class="toc-number">2.1.</span> <span class="toc-text">SwissTable 的核心改进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SwissTable-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6"><span class="toc-number">2.2.</span> <span class="toc-text">SwissTable 的核心机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%E9%87%8F%E5%BC%8F%E6%89%A9%E5%AE%B9"><span class="toc-number">2.3.</span> <span class="toc-text">增量式扩容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Go-%E4%B8%AD-SwissTable-%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.4.</span> <span class="toc-text">Go 中 SwissTable 的具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6"><span class="toc-number">2.4.1.</span> <span class="toc-text">类型定义文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6"><span class="toc-number">2.4.2.</span> <span class="toc-text">运行时实现文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E5%92%8C%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6"><span class="toc-number">2.4.3.</span> <span class="toc-text">调试和测试文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-SwissTable-%E6%9B%B4%E5%BF%AB%EF%BC%9F"><span class="toc-number">2.5.</span> <span class="toc-text">为什么 SwissTable 更快？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#References"><span class="toc-number">3.</span> <span class="toc-text">References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../js/utils.js"></script><script src="../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

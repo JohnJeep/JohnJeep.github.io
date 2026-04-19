@@ -1,0 +1,334 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>License | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="License 开源许可证开源协议是软件项目向外界开放源代码时的重要法律工具，决定了他人使用、修改、分发代码的权利与义务。GPL、LGPL、MIT 和 Apache 是四种最常见的开源协议，它们的核心差异在于强制程度（传染性）、专利授权以及商业友好性。下面分别介绍各协议特点，并通过对比说明主要区别，最后给出选用时的注意事项。 协议选用协议时，除了技术层面，还应考虑法律环境（尤其是专利）、社区习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="License">
+<meta property="og:url" content="https://johnjeep.github.io/OpenSource/synced/OpenSource/License/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="License 开源许可证开源协议是软件项目向外界开放源代码时的重要法律工具，决定了他人使用、修改、分发代码的权利与义务。GPL、LGPL、MIT 和 Apache 是四种最常见的开源协议，它们的核心差异在于强制程度（传染性）、专利授权以及商业友好性。下面分别介绍各协议特点，并通过对比说明主要区别，最后给出选用时的注意事项。 协议选用协议时，除了技术层面，还应考虑法律环境（尤其是专利）、社区习">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2023-09-15T01:31:00.000Z">
+<meta property="article:modified_time" content="2026-02-12T18:32:32.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="opensource">
+<meta property="article:tag" content="license">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "License",
+  "url": "https://johnjeep.github.io/OpenSource/synced/OpenSource/License/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2023-09-15T01:31:00.000Z",
+  "dateModified": "2026-02-12T18:32:32.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/OpenSource/synced/OpenSource/License/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'License',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../index.html"></a><a class="nav-page-title" href="../../../../index.html"><span class="site-name">License</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">License</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-09-15T01:31:00.000Z" title="发表于 2023-09-15 09:31:00">2023-09-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-02-12T18:32:32.000Z" title="更新于 2026-02-13 02:32:32">2026-02-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../categories/OpenSource/">OpenSource</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2024-12-01 00:40:42
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2026-02-13 10:29:50
+ * @Description:  开源许可证
+ * Copyright (c) 2025 by John Jeep, All Rights Reserved. 
+-->
+
+<h1 id="License-开源许可证"><a href="#License-开源许可证" class="headerlink" title="License 开源许可证"></a>License 开源许可证</h1><p>开源协议是软件项目向外界开放源代码时的重要法律工具，决定了他人使用、修改、分发代码的权利与义务。<br>GPL、LGPL、MIT 和 Apache 是四种最常见的开源协议，它们的核心差异在于强制程度（传染性）、专利授权以及商业友好性。<br>下面分别介绍各协议特点，并通过对比说明主要区别，最后给出选用时的注意事项。</p>
+<h1 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h1><p>选用协议时，除了技术层面，还应考虑法律环境（尤其是专利）、社区习惯（如前端圈多用 MIT）以及未来是否可能被其他项目集成。<br>若不确定，可从 MIT 或 Apache 2.0 起步，它们足够宽松，日后变更协议（征得全部贡献者同意）也相对容易。</p>
+<h2 id="MIT"><a href="#MIT" class="headerlink" title="MIT"></a>MIT</h2><p>MIT License 许可证是一种非常宽松的开源协议，允许用户几乎无限制地使用、复制、修改、合并、发布、分发、再授权和销售软件。<br>唯一的要求是必须在软件和相关文档中包含原始版权声明和许可声明。<br>这使得 MIT 许可证非常适合那些希望最大程度地开放代码，同时又不想对使用者施加过多限制的开发者。</p>
+<p>类型：超宽松（Permissive）</p>
+<p>核心要求：</p>
+<ul>
+<li>只需保留原作者的版权声明和许可声明，即可自由使用、修改、分发、闭源、商用。</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>最简单、限制最少的协议，无专利授权明示，无商标授权。</li>
+<li>与各种协议兼容性极佳。</li>
+</ul>
+<p>典型项目：Node.js、jQuery、React（早期采用MIT）。</p>
+<h2 id="Apache-2-0"><a href="#Apache-2-0" class="headerlink" title="Apache 2.0"></a>Apache 2.0</h2><p>Apache 2.0 License 许可证是一种宽松的开源协议，允许用户自由使用、修改和分发软件，<br>同时提供了明确的专利授权和商标使用条款。与 MIT 许可证相比，Apache 2.0 还要求用户在修改代码时提供变更说明，<br>并且在分发衍生作品时保留原始版权声明和许可声明。这使得 Apache 2.0 非常适合那些希望在开放代码的同时保护自己专利权利的开发者。</p>
+<p>类型：宽松（Permissive），但比 MIT 更严谨</p>
+<p>核心要求：</p>
+<ul>
+<li>保留版权声明和免责声明，修改文件需标明变更。</li>
+<li>提供明确的专利授权：贡献者自动授予使用者针对其贡献的专利许可。</li>
+<li>如果原项目包含 NOTICE 文件，分发时必须保留该文件内容。</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>比 MIT 更完善的法律条款，尤其适合涉及专利的企业项目。</li>
+<li>兼容 GPLv3（但 GPLv2 不兼容 Apache 2.0）。</li>
+</ul>
+<p>典型项目：Hadoop、Spring Framework、Kubernetes（部分）、Android（部分）。</p>
+<h2 id="GPL"><a href="#GPL" class="headerlink" title="GPL"></a>GPL</h2><p>GPL 全称是 GNU General Public License（GNU 通用公共许可证），是由自由软件基金会（Free Software Foundation）<br>发布的一种开源许可证。GPL 具有强制性的传染性（Copyleft），要求任何使用 GPL 代码的项目必须同样采用 GPL 许可证发布。<br>这意味着如果你将 GPL 代码集成到你的项目中，那么你的项目也必须开源，并且使用 GPL 许可证。<br>这种特性使得 GPL 非常适合那些希望确保其代码及其衍生作品始终保持开源的开发者。</p>
+<p>类型：强 Copyleft（传染性）</p>
+<p>核心要求：</p>
+<ul>
+<li>任何发布或分发基于 GPL 代码的衍生作品，必须以 GPL 协议完整公开源代码。</li>
+<li>即使是通过网络提供服务（如 SaaS），GPLv3 及部分解释下仍可能要求提供源代码（但 GPLv2 对网络使用不强制）。</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>保证软件永远自由，防止被私有化。</li>
+<li>如果仅内部使用而不分发，可不公开源码。</li>
+<li>GPLv3 增加了针对专利反制、禁止 TiVo 化等条款。</li>
+</ul>
+<p>典型项目：Linux 内核（GPLv2）、GCC、WordPress（GPLv2+）。</p>
+<h2 id="LGPL"><a href="#LGPL" class="headerlink" title="LGPL"></a>LGPL</h2><p>LGPL 全称是 GNU Lesser General Public License（GNU 较宽松公共许可证），是 GPL 的一个变体，<br>旨在允许开发者在不强制要求整个项目开源的情况下使用 GPL 代码。LGPL 主要用于库（Library）或框架（Framework），<br>允许开发者将 LGPL 代码作为独立模块集成到他们的项目中，而不需要将整个项目都开源。<br>这使得 LGPL 非常适合那些希望利用开源库但又不想完全开放自己代码的开发者。</p>
+<p>类型：弱 Copyleft</p>
+<p>核心要求：</p>
+<ul>
+<li>允许将 LGPL 库以动态链接方式用于闭源程序，此时闭源部分无需公开源码。</li>
+<li>若对 LGPL 库本身进行修改并分发，则修改部分仍需以 LGPL 公开。</li>
+<li>静态链接可能被视为衍生作品，某些解释下要求整个应用以 GPL&#x2F;LGPL 发布（具体依赖实现方式）。</li>
+</ul>
+<p>特点：<br>-专为函数库设计，在保护库的自由的同时允许商业软件使用。</p>
+<p>典型项目：FFmpeg（部分LGPL）、glibc、Qt（部分模块早期使用LGPL）。</p>
+<h1 id="核心差异对比表"><a href="#核心差异对比表" class="headerlink" title="核心差异对比表"></a>核心差异对比表</h1><table>
+<thead>
+<tr>
+<th align="left">维度</th>
+<th align="left">GPL (v3)</th>
+<th align="left">LGPL</th>
+<th align="left">MIT</th>
+<th align="left">Apache 2.0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>传染性</strong></td>
+<td align="left">强：衍生作品必须开源</td>
+<td align="left">弱：仅库本身传染，动态链接可闭源</td>
+<td align="left">无传染性</td>
+<td align="left">无传染性</td>
+</tr>
+<tr>
+<td align="left"><strong>专利授权</strong></td>
+<td align="left">有（v3）</td>
+<td align="left">同 GPLv3</td>
+<td align="left">无</td>
+<td align="left">有，明确且完整</td>
+</tr>
+<tr>
+<td align="left"><strong>商业友好度</strong></td>
+<td align="left">低</td>
+<td align="left">中</td>
+<td align="left">极高</td>
+<td align="left">高</td>
+</tr>
+<tr>
+<td align="left"><strong>要求保留版权</strong></td>
+<td align="left">是</td>
+<td align="left">是</td>
+<td align="left">是（简短声明）</td>
+<td align="left">是（含 NOTICE）</td>
+</tr>
+<tr>
+<td align="left"><strong>允许闭源发布</strong></td>
+<td align="left">否</td>
+<td align="left">部分允许（动态链接）</td>
+<td align="left">是</td>
+<td align="left">是</td>
+</tr>
+<tr>
+<td align="left"><strong>兼容 GPLv2</strong></td>
+<td align="left">-</td>
+<td align="left">兼容</td>
+<td align="left">兼容</td>
+<td align="left"><strong>不兼容</strong>（v2）</td>
+</tr>
+<tr>
+<td align="left"><strong>兼容 GPLv3</strong></td>
+<td align="left">-</td>
+<td align="left">兼容</td>
+<td align="left">兼容</td>
+<td align="left"><strong>兼容</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>典型适用场景</strong></td>
+<td align="left">必须保持完全开源的项目</td>
+<td align="left">开源库允许商业闭源调用</td>
+<td align="left">小型工具、前端库</td>
+<td align="left">企业级框架、基金会项目</td>
+</tr>
+</tbody></table>
+<p><strong>兼容性说明</strong>：</p>
+<ul>
+<li>GPLv3 代码可以包含 Apache 2.0 代码，反之则不行。</li>
+<li>MIT 代码可与任何协议组合。</li>
+<li>将 MIT 代码并入 GPL 项目是允许的，但反过来 GPL 代码不能并入 MIT 项目（因 MIT 无 Copyleft 要求，但 MIT 自身约束很少）。</li>
+</ul>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><h2 id="1-根据项目目标选择协议"><a href="#1-根据项目目标选择协议" class="headerlink" title="1. 根据项目目标选择协议"></a>1. 根据项目目标选择协议</h2><ul>
+<li><strong>希望强制衍生作品开源</strong> → GPL（如不希望被云服务商规避，应选 GPLv3）。</li>
+<li><strong>开发开源库，但不排斥商业闭源调用</strong> → LGPL 或宽松协议（MIT&#x2F;Apache）。</li>
+<li><strong>希望代码被最大范围采用</strong> → MIT（最无约束）。</li>
+<li><strong>公司项目，有专利风险顾虑</strong> → Apache 2.0（专利保护双向受益）。</li>
+<li><strong>纯个人学习分享，不关心商用</strong> → 任何协议均可，但推荐至少选一个。</li>
+</ul>
+<h2 id="2-严格遵守协议文本"><a href="#2-严格遵守协议文本" class="headerlink" title="2. 严格遵守协议文本"></a>2. 严格遵守协议文本</h2><ul>
+<li><strong>所有协议都要求保留原始版权声明</strong>。删除版权信息是违约行为。</li>
+<li><strong>Apache 2.0 特别要求保留 NOTICE 文件</strong>，若原项目提供。</li>
+<li><strong>LGPL 动态链接</strong>：必须允许用户修改 LGPL 库并重新链接（通常提供目标文件或使用共享库）。</li>
+<li><strong>GPL 项目</strong>：若发布二进制，必须同时提供完整对应的源代码（或书面承诺提供）。</li>
+</ul>
+<h2 id="3-注意许可证兼容性"><a href="#3-注意许可证兼容性" class="headerlink" title="3. 注意许可证兼容性"></a>3. 注意许可证兼容性</h2><ul>
+<li>将不同协议的代码组合成一个作品时，必须满足<strong>所有协议</strong>中较严格的一方。<ul>
+<li>例：GPL 项目只能使用 GPL、LGPL、MIT、BSD 等兼容协议代码，但不能使用 Apache 2.0（若项目本身是 GPLv2）。</li>
+<li>GPLv3 项目可包含 Apache 2.0 代码。</li>
+</ul>
+</li>
+<li>尽量避免协议冲突，否则无法合法分发。</li>
+</ul>
+<h2 id="4-明确协议版本和扩展"><a href="#4-明确协议版本和扩展" class="headerlink" title="4. 明确协议版本和扩展"></a>4. 明确协议版本和扩展</h2><ul>
+<li>GPL 有 “GPLv2 only” 和 “GPLv2 or later” 等措辞，影响未来兼容性。</li>
+<li>若不确定，建议采用 “GPLv3 or later” 或明确固定版本。</li>
+</ul>
+<h2 id="5-专利与商标问题"><a href="#5-专利与商标问题" class="headerlink" title="5. 专利与商标问题"></a>5. 专利与商标问题</h2><ul>
+<li><strong>MIT 和 BSD 类协议无专利授权</strong>，若贡献者拥有相关专利，使用者仍可能被起诉。Apache 2.0 和 GPLv3 则明确授予专利许可。</li>
+<li><strong>商标权</strong>：所有协议均不授予商标使用权，不可利用项目名称误导来源。</li>
+</ul>
+<h2 id="6-云服务（SaaS）的特殊性"><a href="#6-云服务（SaaS）的特殊性" class="headerlink" title="6. 云服务（SaaS）的特殊性"></a>6. 云服务（SaaS）的特殊性</h2><ul>
+<li><strong>GPLv2</strong>：仅通过分发触发 Copyleft，若只通过云服务运行而不分发软件，不强制公开源码。</li>
+<li><strong>GPLv3</strong> 和 <strong>AGPL</strong>（更强版）明确要求网络服务也需提供源码。若担心云服务商“白嫖”，可考虑 AGPL。</li>
+</ul>
+<h2 id="7-区分“程序”与“库”-“聚合体”"><a href="#7-区分“程序”与“库”-“聚合体”" class="headerlink" title="7. 区分“程序”与“库”&#x2F;“聚合体”"></a>7. 区分“程序”与“库”&#x2F;“聚合体”</h2><ul>
+<li>静态链接 LGPL 库时，通常视为衍生作品，可能被迫开源整个应用。<strong>稳妥做法是始终采用动态链接</strong>。</li>
+<li>若仅是命令行管道调用，不视为修改 LGPL 库，无需遵守 Copyleft。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/OpenSource/synced/OpenSource/License/">https://johnjeep.github.io/OpenSource/synced/OpenSource/License/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../tags/opensource/">opensource</a><a class="post-meta__tags" href="../../../../tags/license/">license</a></div><div class="post-share"><div class="social-share" data-image="../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../../../../Go/synced/Go/Compiler/" title="Compiler"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Compiler</div></div><div class="info-2"><div class="info-item-1">  1. IntroductionGolang 编译器底层源码分析。 2. 预编译指令在 Go 语言中，虽然没有像 C&#x2F;C++ 那样的传统预处理器，但提供了一些特殊的注释指令（称为编译指示或编译器指令），用于控制编译、构建、代码生成等行为。以下是 Go 中常见的预编译指令和相关功能： 1. 构建约束(Build Constraints)用于控制文件是否参与编译，通常基于操作系统、架构或自定义标签。 格式： 新语法（Go 1.17+） 1//go:build linux &amp;&amp; amd64  旧语法（兼容性保留） 1// +build linux,amd64  示例：1234//go:build linux// +build linuxpackage main  该文件仅在 Linux 系统下编译。  2. cgo用于在 Go 中调用 C 代码，设置 C 编译器和链接器参数。 常见指令： **#cgo CFLAGS**：设置 C 编译器标志。 **#cgo LDFLAGS**：设置链接器标志。 **#cgo pkg-config**：通过 pkg-confi...</div></div></div></a><a class="pagination-related" href="../../../../Cloud-Native/synced/CloudNative/TechnicalChoose/" title="技术选型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">技术选型</div></div><div class="info-2"><div class="info-item-1">技术选型Kafka &amp;&amp; RocketMQReferences 知乎技术选型 RocketMQ or Kafka : https://zhuanlan.zhihu.com/p/60196818 RocketMQ与kafka的区别：https://blog.csdn.net/shijinghan1126/article/details/104724407 三分钟了解RocketMQ与Kafka的异同：https://juejin.cn/post/6844903920058236936  </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="../Jsoncpp/" title="Jsoncpp"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Jsoncpp</div></div><div class="info-2"><div class="info-item-1">  1. IntroductionJsonCpp是一个序列化反序列JSON格式的开源C++库，被C++程序广泛使用（包括Chromium项目）。JsonCpp还有一个重要特性是其支持在JSON格式内注释，这对于使用JSON格式作为配置文件很有意义，可以给配置添加注释说明其用途。 2. UsagingJsonCpp三个核心类 Reader、FastWriter、Value基本可以满足项目对JSON构造解析的要求。  类Reader，用来将一个JSON文件或JSON格式的字符串解析成Value对象。parse()接口第一个参数为JSON格式字符串，第二个参数是解析后Value对象，如果JSON格式正确将解析成功。 类FastWriter，用来将一个Value对象格式化为JSON格式的字符串。write()接口的参数是一个Value对象，返回值为JSON格式的字符串。 类Value，是JsonCpp库最为重要的类，它代表JSON格式字符串在内存中的状态，修改JSON格式字符串需先修改其Value对象，然后序列化输出，其提供四类接口： 第一， 判断类型，接口名字为isXXX()，其中XX...</div></div></div></a><a class="pagination-related" href="../jq/" title="Jq"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-21</div><div class="info-item-2">Jq</div></div><div class="info-2"><div class="info-item-1">   Introductionjq 是 stedolan 开发的一个轻量级的和灵活的命令行 JSON 处理器。 它主要用于在命令行界面处理 JSON 输入，并使用给定的过滤条件来过滤符合条件的新的 JSON 串。 通常在类 Unix 环境下，我们可以快速的使用 jq 来进行 JSON 数据格式化过滤和处理。同时需要注意的是，该命令行工具和 awk&#x2F;sed&#x2F;grep 工具一样，属于系统的默认命令，如果系统没有该命令，可以尝试使用如下方式进行安装。 12345# Ubuntu/Debian 系列$ sudo apt-get install jq # CentOS 系列$ yum install jq   验证安装 1jq --version   Usage例如：有一个 json 文件：data.json 12345678910111213141516&#123;  &quot;a&quot;:11,  &quot;b&quot;:22,  &quot;person&quot;: &#123;      &quot;name&quot;: &quot;Bob&quo...</div></div></div></a><a class="pagination-related" href="../Rapidjson/" title="Rapidjson"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-01</div><div class="info-item-2">Rapidjson</div></div><div class="info-2"><div class="info-item-1">  1. 基础用法1.1. 是什么rapidjson 是腾讯的开源 Json解析框架，用 C++ 代码实现，用于解析和生成 JSON 由于全部代码仅用头文件实现，因此很容易集成在项目中。根据其作者 Milo Yipz 所做的比较，可以看出 rapidjson 的性能非常可观。通过使用 DOM（Document Object Model）可以很方便的将 Json 转化成 DOM，然后查询修改，再转化为一个 Json。通过 rapidjson 库，可以方便我们进行参数的传递，解析的工作。Json 非常便捷的支持键值对、数组、以及深入的嵌套，在编写程序时，可以帮助我们聚焦于业务，而对于参数的传递，则可以较少的投入精力。 1.2. 特征优点  RapidJSON 库仅由头文件组成，只需把头文件复制至你的项目中。  独立、最小依赖。不需依赖 STL、Boost 库等。  没使用 C++ 异常、RTTI。  支持跨平台。 编译器：Visual Studio、gcc、clang 等架构：x86、x64、ARM 等操作系统：Windows、Mac OS X、Linux、iOS、Android 等...</div></div></div></a><a class="pagination-related" href="../Project/" title="Project"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Project</div></div><div class="info-2"><div class="info-item-1">    1. GitHub开源项目 2. C 3. C++ 4. Java 5. 网络 6. Linux 7. Go 8. 数据结构与算法 9. 有价值的开源库 10. 其它  1. GitHub开源项目2. C ip2region：准确率99.9%的离线IP地址定位库，0.0x毫秒级查询 explainshell：解析 Linux 命令的网站 Tinyhttpd：一个不到 500 行的超轻量型 HTTP Server db_tutorial：用 C 从零创建一个简单的数据库 reading-code-of-nginx-1.9.2：nginx源码阅读分析中文注 write-a-hash-table Tutorial - Write a System Call Let’s code a TCP&#x2F;IP stack, 1: Ethernet &amp; ARP Tutorial - Write a Shell in C Writing a Unix Shell libhv：快速的编写 HTTP 客户端&#x2F;服务端，简单易用的非阻塞 IO 事件循环库  3. C++ JS...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#License-%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF%E8%AF%81"><span class="toc-number">1.</span> <span class="toc-text">License 开源许可证</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.</span> <span class="toc-text">协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MIT"><span class="toc-number">2.1.</span> <span class="toc-text">MIT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-2-0"><span class="toc-number">2.2.</span> <span class="toc-text">Apache 2.0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GPL"><span class="toc-number">2.3.</span> <span class="toc-text">GPL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LGPL"><span class="toc-number">2.4.</span> <span class="toc-text">LGPL</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%B7%AE%E5%BC%82%E5%AF%B9%E6%AF%94%E8%A1%A8"><span class="toc-number">3.</span> <span class="toc-text">核心差异对比表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.</span> <span class="toc-text">注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A0%B9%E6%8D%AE%E9%A1%B9%E7%9B%AE%E7%9B%AE%E6%A0%87%E9%80%89%E6%8B%A9%E5%8D%8F%E8%AE%AE"><span class="toc-number">4.1.</span> <span class="toc-text">1. 根据项目目标选择协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%B8%A5%E6%A0%BC%E9%81%B5%E5%AE%88%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC"><span class="toc-number">4.2.</span> <span class="toc-text">2. 严格遵守协议文本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%B3%A8%E6%84%8F%E8%AE%B8%E5%8F%AF%E8%AF%81%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-number">4.3.</span> <span class="toc-text">3. 注意许可证兼容性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%98%8E%E7%A1%AE%E5%8D%8F%E8%AE%AE%E7%89%88%E6%9C%AC%E5%92%8C%E6%89%A9%E5%B1%95"><span class="toc-number">4.4.</span> <span class="toc-text">4. 明确协议版本和扩展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%B8%93%E5%88%A9%E4%B8%8E%E5%95%86%E6%A0%87%E9%97%AE%E9%A2%98"><span class="toc-number">4.5.</span> <span class="toc-text">5. 专利与商标问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%BA%91%E6%9C%8D%E5%8A%A1%EF%BC%88SaaS%EF%BC%89%E7%9A%84%E7%89%B9%E6%AE%8A%E6%80%A7"><span class="toc-number">4.6.</span> <span class="toc-text">6. 云服务（SaaS）的特殊性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%8C%BA%E5%88%86%E2%80%9C%E7%A8%8B%E5%BA%8F%E2%80%9D%E4%B8%8E%E2%80%9C%E5%BA%93%E2%80%9D-%E2%80%9C%E8%81%9A%E5%90%88%E4%BD%93%E2%80%9D"><span class="toc-number">4.7.</span> <span class="toc-text">7. 区分“程序”与“库”&#x2F;“聚合体”</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../js/utils.js"></script><script src="../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

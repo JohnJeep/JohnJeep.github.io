@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>4 Debug | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="F8：step over 单步 遇到断点后，程序停止运行，按F8单步运行。 F7：step into 进入 配合F8使用。单步调试F8时，如果某行调用其他模块的函数，在此行F7，可以进入函数内部，如果是F8则不会进入函数内容，直接单步到下一行。 Alt+shift+F7：step into mycode, 个人理解F8和F7的综合。1、没遇到函数，和F8一样；2、遇到函数会自动进入函数内部，和F8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4 Debug">
+<meta property="og:url" content="https://johnjeep.github.io/C/synced/C/4_debug/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="F8：step over 单步 遇到断点后，程序停止运行，按F8单步运行。 F7：step into 进入 配合F8使用。单步调试F8时，如果某行调用其他模块的函数，在此行F7，可以进入函数内部，如果是F8则不会进入函数内容，直接单步到下一行。 Alt+shift+F7：step into mycode, 个人理解F8和F7的综合。1、没遇到函数，和F8一样；2、遇到函数会自动进入函数内部，和F8">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-04-19T02:41:21.000Z">
+<meta property="article:modified_time" content="2025-04-04T19:37:30.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="c">
+<meta property="article:tag" content="4-debug">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "4 Debug",
+  "url": "https://johnjeep.github.io/C/synced/C/4_debug/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2026-04-19T02:41:21.000Z",
+  "dateModified": "2025-04-04T19:37:30.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/C/synced/C/4_debug/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '4 Debug',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../index.html"></a><a class="nav-page-title" href="../../../../index.html"><span class="site-name">4 Debug</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">4 Debug</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-04T19:37:30.000Z" title="更新于 2025-04-05 03:37:30">2025-04-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../categories/C/">C</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>F8：step over 单步 遇到断点后，程序停止运行，按F8单步运行。</p>
+<p>F7：step into 进入 配合F8使用。单步调试F8时，如果某行调用其他模块的函数，在此行F7，可以进入函数内部，如果是F8则不会进入函数内容，直接单步到下一行。</p>
+<p>Alt+shift+F7：step into mycode, 个人理解F8和F7的综合。1、没遇到函数，和F8一样；2、遇到函数会自动进入函数内部，和F8时按F7类似的</p>
+<p>shift+F8：跳出 调试过程中，F7进入函数内后，shift+F8跳出函数，会回到进入前调用函数的代码。不是函数地方shift+F8跳出</p>
+<p>F9：resume program 按翻译是重启程序 ，实际是 下个断点，当打多个断点是，F9会到下一个断点</p>
+<hr>
+<p>（1）Step into：遇见函数调用语句，进入函数内部</p>
+<p>（2）Step over：遇见函数调用语句，但不进入函数内部，跳过该函数。调试时，如果不能确定这个函数是否有错，一般先跳过函数而不进入。</p>
+<p>（3）Step out：从当前的函数中跳出，程序流程执行函数调用语句的下一步。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/C/synced/C/4_debug/">https://johnjeep.github.io/C/synced/C/4_debug/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../tags/c/">c</a><a class="post-meta__tags" href="../../../../tags/4-debug/">4-debug</a></div><div class="post-share"><div class="social-share" data-image="../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../6_volatile/" title="6 Volatile"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">6 Volatile</div></div><div class="info-2"><div class="info-item-1">      1. Volatile关键字 1.1. 编译器的优化介绍 1.2. 概念 1.3. 为什么使用 volatile 关键字修饰的语句会影响编译器的优化？ 1.4. 什么情况下使用 volatile？ 1.5. 注意点 1.6. Reference      1. Volatile关键字1.1. 编译器的优化介绍 高速缓存：处理器读取程序里面的数据时，把一些访问频率比较高的数据，临时存储到寄存器(register)中，当需要取数据时，就会从 register 中取，而不是直接去从 memory(内存)中取，节约了时间，像这样的过程，叫做高速缓存。   硬件级别的优化：内存访问速度远不及CPU处理速度，为提高机器整体性能，在硬件上引入硬件高速缓存(Cache)，加速对内存的访问。另外在现代CPU中指令的执行并不一定严格按照顺序执行，没有相关性的指令可以乱序执行，以充分利用CPU的指令流水线(Instruction pipeline)，提高执行速度。  软件级别的优化：一种是在编写代码时由程序员优化，另一种是由编译器进行优化。编译器优化常用的方法有：将内存变量缓存到寄存器；调...</div></div></div></a><a class="pagination-related" href="../43_statistic_memory_usage/" title="背景"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">背景</div></div><div class="info-2"><div class="info-item-1">背景在程序中插入自定义的统计代码，来记录内存的使用情况。通过在关键位置调用操作系统提供的内存使用统计函数，如getrusage()或mallinfo()等，可以获取程序的内存使用情况，并将其记录下来。这样你就可以在程序运行过程中实时监测内存的使用情况。 getrusage()和mallinfo()是两个不同的函数，用于获取不同层面的内存使用情况。 getrusage()getrusage()函数用于获取系统级别的资源使用情况，包括进程的总体内存使用情况以及其他资源的统计信息。它返回的结构体struct rusage包含了多个字段，可以获取最大常驻内存集、页面错误次数等信息。这些信息是从操作系统的角度统计的，适用于整个进程的内存使用情况。 12345678910111213141516171819202122232425// 头文件#include &lt;sys/time.h&gt;#include &lt;sys/resource.h&gt;int getrusage(int who, struct rusage *usage);// 结构体struct rusage &#12...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="../13_void/" title="13 Void"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">13 Void</div></div><div class="info-2"><div class="info-item-1">  1. Void Keywords1.1. 函数用法 使用规则 如果函数没有返回值，那么应声明为void类型； 如果函数无参数，那么应声明其参数为void； 如果函数的参数可以是 任意类型指针，那么应声明其参数为void *  不能用 void 定义真实的变量。例如： 定义 void a; 会出错，因为无法确定类型，不同类型分配的空间不一样；   作用 对函数参数的限定 对函数返回的限定   含义 void的字面意思是“无类型”，void *则为“无类型指针”，void *可以指向任何类型的数据。  void几乎只有“注释”和限制程序的作用    1.2. 注意 不能对 void 指针进行算法操作 void* 不能转化为其它类型的数据，否则会报错;但是其它类型的数据可以转化为 void* 类型 void 的出现只是为了一种抽象的需要，像在面向对象中，不能给 抽象基类 定义一个实例，因此不能定义一个void变量。  1.3. 参考 void与void*详解  </div></div></div></a><a class="pagination-related" href="../40_dynamic_library/" title="40 Dynamic Library"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">40 Dynamic Library</div></div><div class="info-2"><div class="info-item-1">  动态库WindowsGetProcAddress()函数原型 1234FARPROC GetProcAddress(    HMODULE hModule, // DLL模块句柄    LPCSTR lpProcName // 函数名);    FreeLibrary()Linuxdlopen()dlopen 是一个Linux下的动态链接库操作函数，用于在运行时加载共享对象（动态链接库）并返回一个句柄（handle），以便在程序中使用。这个句柄可以用于后续的符号查找和符号解析，以及动态链接库的卸载。 dlopen 可以将一个共享对象加载到进程的地址空间中，从而允许程序在运行时动态地加载库。 dlopen 的函数原型如下： 12cCopy codevoid *dlopen(const char *filename, int flag);  其中，filename 参数是一个字符串，表示要加载的共享对象的文件名。flag 参数用于指定加载库的行为，可以是以下值之一：  RTLD_LAZY：在程序首次访问动态链接库的符号时进行符号解析； RTLD_NOW：在 dlopen 调用时立...</div></div></div></a><a class="pagination-related" href="../36_operate/" title="36 Operate"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">36 Operate</div></div><div class="info-2"><div class="info-item-1">  在项目中遇见了 *p++ 这种操作，但不明白在 *p++中 ++ 和 * 是怎样执行的？现在我们来一一剖析它的运算过程。 C语言中取值运算符 * 与前置自增运算符++、后置自增运算符++都属于单目运算符，运算符的优先级顺序同为第2级，结合方向为 右到左。其中，* 使用形式为：*p，用于指针变量，前置自增使用形式为 ++i，后置自增使用形式为 ++i。  注意  同一优先级的运算符，运算次序由结合方向所决定。 简单记就是：！ &gt; 算术运算符 &gt; 关系运算符 &gt; &amp;&amp; &gt; || &gt; 赋值运算符    用一段代码来说明 1234567891011121314#include &lt;iostream&gt;#include &lt;cstdio&gt;using namespace std;int main(int argc, char *argv[])&#123;    char ch[] = &quot;hello&quot;;    char* p = ch;    cout &lt;&lt; *p++ &lt;&lt; &quo...</div></div></div></a><a class="pagination-related" href="../25_atoi/" title="25 Atoi"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">25 Atoi</div></div><div class="info-2"><div class="info-item-1"> atoi (表示 ascii to integer)是把字符串转换成整型数的一个函数 函数原型：int atoi(const char *nptr); 函数会扫描参数 nptr字符串，会跳过前面的空白字符（例如空格，tab缩进）等 如果 nptr不能转换成 int 或者 nptr为空字符串，那么将返回 0    </div></div></div></a><a class="pagination-related" href="../37_callback_function/" title="37 Callback Function"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">37 Callback Function</div></div><div class="info-2"><div class="info-item-1">  1. 什么是回调函数？ 将函数指针作为一个参数传递给另一个函数。 把函数的指针（地址）作为另一个函数参数的入口地址传递，当这个指针被用来调用其所指向的函数时，我们就说这是回调函数。  2. 分类根据回调函数在运行时控制数据流的方式不同，可以为两种类型的回调函数。  阻塞回调(Blocking callbacks)，也叫同步回调(synchronous callbacks)或者直接叫回调函数(callbacks)。阻塞回调函数调用是发生在函数返回之前。阻塞回调通常不用于异步或将当前的工作委托给另外一个线程的情况。  延迟回调(Deferred callbacks)，也叫异步回调(asynchronous callbacks)。延时回调函数调用是发生在函数返回之后。延时回调函数常常使用在I&#x2F;O操作或事件处理(event handing)中,，通过中断或多线程来调用。   Windows系统中使用回调函数，应用程序提供一个特定的自定义回调函数给操作系统调用，然后这个应用程序需要实现特定的函数功能，像鼠标点击或键盘按下。 windows系统中外部应用程序与系统库函数之间通过...</div></div></div></a><a class="pagination-related" href="../18_struct_bytealigned/" title="18 Struct Bytealigned"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">18 Struct Bytealigned</div></div><div class="info-2"><div class="info-item-1">   1. 结构体定义（3种） 声明结构体包括两步  定义结构体 声明相应结构体类型的变量（结构体能包含C语言允许的所有类型变量）   法一：在定义结构体类型的同时说明结构体变量 1234struct 结构体标识符&#123;    成员变量列表;&#125;变量名列表;  法二:直接说明结构体变量 1234struct&#123;    成员变量列表;&#125;变量名列表;  法三：先定义结构体，再说明结构体变量 12345struct 结构体标识符&#123;    成员变量列表;&#125;;struct 结构体标识符 变量名列表;  2. 调用结构体 普通结构体 . 成员变量的引用  结构体变量名.成员名 结构体指针两种表示 (* 变量名).成员字段名 :点操作(.)比取值操作符(*)有更高的优先级，所以要加括号  -&gt; 指针成员变量引用  结构体指针变量名字-&gt;成员名    3. 初始化结构体(两种方法) 在声明结构体类型时，不能指直接赋值，而是要定义结构体变量后才可以赋值。结构体是一种类型，而不是一个变量。 声明结构体变量后，单独初始化每个成员 通过集合...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../js/utils.js"></script><script src="../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

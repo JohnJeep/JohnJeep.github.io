@@ -1,0 +1,722 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Nginx | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. Introducenginx (“engine x“) is an HTTP web server, reverse proxy, content cache, load balancer, TCP&#x2F;UDP proxy server, and mail proxy server. Originally written by Igor Sysoev and distributed">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx">
+<meta property="og:url" content="https://johnjeep.github.io/Nginx/synced/Nginx/Nginx/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="1. Introducenginx (“engine x“) is an HTTP web server, reverse proxy, content cache, load balancer, TCP&#x2F;UDP proxy server, and mail proxy server. Originally written by Igor Sysoev and distributed">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2021-01-27T05:38:53.000Z">
+<meta property="article:modified_time" content="2025-04-04T04:10:47.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Nginx",
+  "url": "https://johnjeep.github.io/Nginx/synced/Nginx/Nginx/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2021-01-27T05:38:53.000Z",
+  "dateModified": "2025-04-04T04:10:47.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Nginx/synced/Nginx/Nginx/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Nginx',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../index.html"></a><a class="nav-page-title" href="../../../../index.html"><span class="site-name">Nginx</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Nginx</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-27T05:38:53.000Z" title="发表于 2021-01-27 13:38:53">2021-01-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-04T04:10:47.000Z" title="更新于 2025-04-04 12:10:47">2025-04-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../categories/Nginx/">Nginx</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2020-09-05 23:42:59
+ * @LastEditTime: 2025-04-04 20:07:50
+ * @LastEditors: JohnJeep
+ * @Description: Nginx learning
+ * -->
+
+<h1 id="1-Introduce"><a href="#1-Introduce" class="headerlink" title="1. Introduce"></a>1. Introduce</h1><p>nginx (“<em>engine x</em>“) is an HTTP web server, reverse proxy, content cache, load balancer, TCP&#x2F;UDP proxy server, and mail proxy server. Originally written by <a target="_blank" rel="noopener" href="http://sysoev.ru/en/">Igor Sysoev</a> and distributed under the <a target="_blank" rel="noopener" href="https://nginx.org/LICENSE">2-clause BSD License</a>.</p>
+<p>Nginx 优点</p>
+<ul>
+<li>高并发、高性能</li>
+<li>可扩展性好</li>
+<li>高可靠性</li>
+<li>热部署</li>
+<li>BSD许可证</li>
+</ul>
+<h1 id="2-Install"><a href="#2-Install" class="headerlink" title="2. Install"></a>2. Install</h1><h2 id="2-1-Source-code-install"><a href="#2-1-Source-code-install" class="headerlink" title="2.1. Source code install"></a>2.1. Source code install</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">1. 准备编译环境，自动安装 Nginx 对应的依赖环境</span><br><span class="line">  yum update</span><br><span class="line">  yum -y install gcc pcre pcre-devel zlib zlib-devel openssl openssl-devel</span><br><span class="line"></span><br><span class="line">2. 获取源码</span><br><span class="line">  wget http://nginx.org/download/nginx-1.14.0.tar.gz</span><br><span class="line"></span><br><span class="line">3. 解压 Nginx 源码</span><br><span class="line">  tar -xzf nginx-1.14.0.tar.gz</span><br><span class="line"></span><br><span class="line">4. 进入源码目录</span><br><span class="line">  <span class="built_in">cd</span> nginx-1.14.0</span><br><span class="line"></span><br><span class="line">5. 执行 configure 脚本，设置指定路径</span><br><span class="line">  ./configure --prefix=/opt/nginx1.14  --with-http_ssl_module --with-http_stub_status_module --with-http_realip_module --with-threads</span><br><span class="line"></span><br><span class="line">6. 执行 make 命令，调用 gcc 编译工具链</span><br><span class="line">  make</span><br><span class="line"></span><br><span class="line">7. 开始安装到指定路径 </span><br><span class="line">  make install</span><br><span class="line"></span><br><span class="line">8. 安装成功后，到 Nginx 的 sbin 路径下启动软件，看是否安装成功。</span><br><span class="line">  /opt/nginx1.14/sbin/nginx -V</span><br><span class="line">  </span><br><span class="line">  输出如下：</span><br><span class="line">  nginx version: nginx/1.14.0</span><br><span class="line">  built by gcc 4.8.5 20150623 (Red Hat 4.8.5-28) (GCC) </span><br><span class="line">  built with OpenSSL 1.0.2k-fips  26 Jan 2017</span><br><span class="line">  TLS SNI support enabled</span><br><span class="line">  configure arguments: --user=www --group=www --prefix=/opt/nginx1.14  --with-http_ssl_module --with-http_stub_status_module --with-threads</span><br></pre></td></tr></table></figure>
+
+<p>Nginx 编译参数</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--prefix=value</code></td>
+<td>指向安装目录</td>
+</tr>
+<tr>
+<td><code>--sbin-path</code></td>
+<td>指向（执行）程序文件（<code>nginx</code>）</td>
+</tr>
+<tr>
+<td><code>--conf-path=</code></td>
+<td>指向配置文件（<code>nginx.conf</code>）</td>
+</tr>
+<tr>
+<td><code>--error-log-path=</code></td>
+<td>指向错误日志目录</td>
+</tr>
+<tr>
+<td><code>--pid-path=</code></td>
+<td>指向 <code>pid</code> 文件（<code>nginx.pid</code>）</td>
+</tr>
+<tr>
+<td><code>--lock-path=</code></td>
+<td>指向 <code>lock</code> 文件（<code>nginx.lock</code>）（安装文件锁定，防止安装文件被别人利用，或自己误操作。）进程ID文件</td>
+</tr>
+<tr>
+<td><code>--user=</code></td>
+<td>指定程序运行时的用户名</td>
+</tr>
+<tr>
+<td><code>--group=</code></td>
+<td>指定程序运行时的用户组名</td>
+</tr>
+<tr>
+<td><code>--builddir=</code></td>
+<td>指向编译目录</td>
+</tr>
+<tr>
+<td><code>--with-rtsig_module</code></td>
+<td>启用 rtsig 模块支持（实时信号）</td>
+</tr>
+<tr>
+<td><code>--with-select_module</code></td>
+<td>启用 select 模块支持（一种轮询模式,不推荐在高载环境下使用）禁用：<code>--without-select_module</code></td>
+</tr>
+<tr>
+<td><code>--with-poll_module</code></td>
+<td>启用 poll 模块支持（功能与 select 相同，与 select 特性相同，为一种轮询模式,不推荐在高载环境下使用）</td>
+</tr>
+<tr>
+<td><code>--with-file-aio</code></td>
+<td>启用 file aio 支持（一种 APL 文件传输格式）</td>
+</tr>
+<tr>
+<td><code>--with-ipv6</code></td>
+<td>启用 ipv6 支持</td>
+</tr>
+<tr>
+<td><code>--add-module=</code></td>
+<td>启用外部模块支持</td>
+</tr>
+<tr>
+<td><code>--with-cc=</code></td>
+<td>指向 C 编译器路径</td>
+</tr>
+<tr>
+<td><code>--with-cpp=</code></td>
+<td>指向 C 预处理路径</td>
+</tr>
+<tr>
+<td><code>--with-cc-opt=</code></td>
+<td>设置 C 编译器参数</td>
+</tr>
+<tr>
+<td><code>--with-ld-opt=</code></td>
+<td>设置连接文件参数</td>
+</tr>
+<tr>
+<td><code>--with-cpu-opt=</code></td>
+<td>指定编译的 CPU，可用的值为：pentium, pentiumpro, pentium3, pentium4, athlon, opteron, amd64, sparc32, sparc64, ppc64</td>
+</tr>
+<tr>
+<td><code>--without-pcre</code></td>
+<td>禁用 PCRE 库</td>
+</tr>
+<tr>
+<td><code>--with-pcre</code></td>
+<td>启用 PCRE 库</td>
+</tr>
+<tr>
+<td><code>--with-pcre=</code></td>
+<td>指向 PCRE 库文件目录</td>
+</tr>
+<tr>
+<td><code>--with-pcre-opt=</code></td>
+<td>在编译时为 PCRE 库设置附加参数</td>
+</tr>
+<tr>
+<td><code>--with-md5=</code></td>
+<td>指向 MD5 库文件目录（消息摘要算法第五版，用以提供消息的完整性保护）</td>
+</tr>
+<tr>
+<td><code>--with-md5-opt=</code></td>
+<td>在编译时为 MD5 库设置附加参数</td>
+</tr>
+<tr>
+<td><code>--with-md5-asm</code></td>
+<td>使用 MD5 汇编源</td>
+</tr>
+<tr>
+<td><code>--with-sha1=</code></td>
+<td>指向 sha1 库目录（数字签名算法，主要用于数字签名）</td>
+</tr>
+<tr>
+<td><code>--with-sha1-opt=</code></td>
+<td>在编译时为 sha1 库设置附加参数</td>
+</tr>
+<tr>
+<td><code>--with-sha1-asm</code></td>
+<td>使用 sha1 汇编源</td>
+</tr>
+<tr>
+<td><code>--with-perl=</code></td>
+<td>设定 perl 库文件路径</td>
+</tr>
+<tr>
+<td><code>--with-zlib=</code></td>
+<td>指向 zlib 库目录</td>
+</tr>
+<tr>
+<td><code>--with-zlib-opt=</code></td>
+<td>在编译时为 zlib 设置附加参数</td>
+</tr>
+<tr>
+<td><code>--with-zlib-asm=</code></td>
+<td>为指定的 CPU 使用 zlib 汇编源进行优化，CPU 类型为 pentium, pentiumpro</td>
+</tr>
+<tr>
+<td><code>--with-libatomic</code></td>
+<td>为原子内存的更新操作的实现提供一个架构</td>
+</tr>
+<tr>
+<td><code>--with-libatomic=</code></td>
+<td>指向 libatomic_ops 安装目录</td>
+</tr>
+<tr>
+<td><code>--with-openssl=</code></td>
+<td>指向 openssl 安装目录</td>
+</tr>
+<tr>
+<td><code>--with-openssl-opt</code></td>
+<td>在编译时为 openssl 设置附加参数</td>
+</tr>
+<tr>
+<td><code>--with-debug</code></td>
+<td>启用 debug 日志</td>
+</tr>
+<tr>
+<td><code>--with-http_ssl_module</code></td>
+<td>启用 ngx_http_ssl_module 支持（使支持 HTTPS 请求，需已安装 openssl）</td>
+</tr>
+<tr>
+<td><code>--with-http_realip_module</code></td>
+<td>启用 ngx_http_realip_module 支持（这个模块允许从请求标头更改客户端的 IP 地址值，默认为关）</td>
+</tr>
+<tr>
+<td><code>--with-http_addition_module</code></td>
+<td>启用 ngx_http_addition_module 支持（作为一个输出过滤器，支持不完全缓冲，分部分响应请求）</td>
+</tr>
+<tr>
+<td><code>--with-http_xslt_module</code></td>
+<td>启用 ngx_http_xslt_module 支持（过滤转换 XML 请求）</td>
+</tr>
+<tr>
+<td><code>--with-http_image_filter_module</code></td>
+<td>启用 ngx_http_image_filter_module 支持（传输 JPEG&#x2F;GIF&#x2F;PNG 图片的一个过滤器）（默认为不启用。GD 库要用到）</td>
+</tr>
+<tr>
+<td><code>--with-http_geoip_module</code></td>
+<td>启用 ngx_http_geoip_module 支持（该模块创建基于与 MaxMind GeoIP 二进制文件相配的客户端 IP 地址的 ngx_http_geoip_module 变量）</td>
+</tr>
+<tr>
+<td><code>--with-http_sub_module</code></td>
+<td>启用 ngx_http_sub_module 支持（允许用一些其他文本替换 Nginx 响应中的一些文本）</td>
+</tr>
+<tr>
+<td><code>--with-http_dav_module</code></td>
+<td>启用 ngx_http_dav_module 支持（增加 PUT、DELETE、MKCOL 创建集合，COPY 和 MOVE 方法）默认情况下为关闭，需编译开启</td>
+</tr>
+<tr>
+<td><code>--with-http_flv_module</code></td>
+<td>启用 ngx_http_flv_module 支持（提供寻求内存使用基于时间的偏移量文件）</td>
+</tr>
+<tr>
+<td><code>--with-http_gzip_static_module</code></td>
+<td>启用 ngx_http_gzip_static_module 支持（在线实时压缩输出数据流）</td>
+</tr>
+<tr>
+<td><code>--with-http_random_index_module</code></td>
+<td>启用 <code>ngx_http_random_index_module</code> 支持（从目录中随机挑选一个目录索引）</td>
+</tr>
+<tr>
+<td><code>--with-http_secure_link_module</code></td>
+<td>启用 ngx_http_secure_link_module 支持（计算和检查要求所需的安全链接网址）</td>
+</tr>
+<tr>
+<td><code>--with-http_degradation_module</code></td>
+<td>启用 ngx_http_degradation_module 支持（允许在内存不足的情况下返回204或444码）</td>
+</tr>
+<tr>
+<td><code>--with-http_stub_status_module</code></td>
+<td>启用 ngx_http_stub_status_module 支持（获取 Nginx 自上次启动以来的工作状态）</td>
+</tr>
+<tr>
+<td><code>--without-http_charset_module</code></td>
+<td>禁用 ngx_http_charset_module 支持（重新编码 WEB 页面，但只能是一个方向–服务器端到客户端，并且只有一个字节的编码可以被重新编码）</td>
+</tr>
+<tr>
+<td><code>--without-http_gzip_module</code></td>
+<td>禁用 ngx_http_gzip_module 支持（该模块同 <code>--with-http_gzip_static_module</code> 功能一样）</td>
+</tr>
+<tr>
+<td><code>--without-http_ssi_module</code></td>
+<td>禁用 ngx_http_ssi_module 支持（该模块提供了一个在输入端处理处理服务器包含文件（SSI）的过滤器，目前支持 SSI 命令的列表是不完整的）</td>
+</tr>
+<tr>
+<td><code>--without-http_userid_module</code></td>
+<td>禁用 ngx_http_userid_module 支持（该模块用来处理用来确定客户端后续请求的 <code>cookie</code> ）</td>
+</tr>
+<tr>
+<td><code>--without-http_access_module</code></td>
+<td>禁用 ngx_http_access_module 支持（该模块提供了一个简单的基于主机的访问控制。允许&#x2F;拒绝基于 IP 地址）</td>
+</tr>
+<tr>
+<td><code>--without-http_auth_basic_module</code></td>
+<td>禁用 ngx_http_auth_basic_module（该模块是可以使用用户名和密码基于 HTTP 基本认证方法来保护你的站点或其部分内容）</td>
+</tr>
+<tr>
+<td><code>--without-http_autoindex_module</code></td>
+<td>禁用 ngx_http_autoindex_module 支持（该模块用于自动生成目录列表，只在 <code>ngx_http_index_module</code> 模块未找到索引文件时发出请求。）</td>
+</tr>
+<tr>
+<td><code>--without-http_geo_module</code></td>
+<td>禁用 ngx_http_geo_module 支持（创建一些变量，其值依赖于客户端的IP地址）</td>
+</tr>
+<tr>
+<td><code>--without-http_map_module</code></td>
+<td>禁用 ngx_http_map_module 支持（使用任意的键&#x2F;值对设置配置变量）</td>
+</tr>
+<tr>
+<td><code>--without-http_split_clients_module</code></td>
+<td>禁用 ngx_http_split_clients_module 支持（该模块用来基于某些条件划分用户。条件如：ip地址、报头、cookies等等）</td>
+</tr>
+<tr>
+<td><code>--without-http_referer_module</code></td>
+<td>禁用 ngx_http_referer_module支持（该模块用来过滤请求，拒绝报头中 Referer 值不正确的请求）</td>
+</tr>
+<tr>
+<td><code>--without-http_rewrite_module</code></td>
+<td>禁用 ngx_http_rewrite_module ，链接重写</td>
+</tr>
+<tr>
+<td><code>--without-http_proxy_module</code></td>
+<td>禁用 ngx_http_proxy_module 支持（有关代理服务器）</td>
+</tr>
+<tr>
+<td><code>--without-http_fastcgi_module</code></td>
+<td>禁用 ngx_http_fastcgi_module 支持（该模块允许 Nginx 与 FastCGI 进程交互，并通过传递参数来控制 FastCGI 进程工作。 ）FastCGI 一个常驻型的公共网关接口。</td>
+</tr>
+<tr>
+<td><code>--without-http_uwsgi_module</code></td>
+<td>禁用 ngx_http_uwsgi_module 支持（该模块用来医用uwsgi协议，uWSGI服务器相关）</td>
+</tr>
+<tr>
+<td><code>--without-http_scgi_module</code></td>
+<td>禁用 ngx_http_scgi_module支持</td>
+</tr>
+<tr>
+<td><code>--without-http_memcached_module</code></td>
+<td>禁用 ngx_http_memcached_module 支持（该模块用来提供简单的缓存，以提高系统效率）</td>
+</tr>
+<tr>
+<td><code>-without-http_limit_zone_module</code></td>
+<td>禁用 ngx_http_limit_zone_module 支持（该模块可以针对条件，进行会话的并发连接数控制）</td>
+</tr>
+<tr>
+<td><code>--without-http_limit_req_module</code></td>
+<td>禁用 ngx_http_limit_req_module 支持（该模块允许你对于一个地址进行请求数量的限制用一个给定的session或一个特定的事件）</td>
+</tr>
+<tr>
+<td><code>--without-http_empty_gif_module</code></td>
+<td>禁用 <code>ngx_http_empty_gif_module</code> 支持（该模块在内存中常驻了一个1*1的透明GIF图像，可以被非常快速的调用）</td>
+</tr>
+<tr>
+<td><code>--without-http_browser_module</code></td>
+<td>禁用 ngx_http_browser_module 支持</td>
+</tr>
+<tr>
+<td><code>--without-http_upstream_ip_hash_module</code></td>
+<td>禁用 ngx_http_upstream_ip_hash_module 支持（该模块用于简单的负载均衡）</td>
+</tr>
+<tr>
+<td><code>--with-http_perl_module</code></td>
+<td>启用 ngx_http_perl_module 支持（该模块使nginx可以直接使用perl或通过ssi调用perl）</td>
+</tr>
+<tr>
+<td><code>--with-perl_modules_path=</code></td>
+<td>设定 perl 模块路径</td>
+</tr>
+<tr>
+<td><code>--http-log-path=</code></td>
+<td>设定 access log 路径</td>
+</tr>
+<tr>
+<td><code>--http-client-body-temp-path=</code></td>
+<td>设定 HTTP 客户端请求临时文件路径</td>
+</tr>
+<tr>
+<td><code>--http-proxy-temp-path=</code></td>
+<td>设定 HTTP 代理临时文件路径</td>
+</tr>
+<tr>
+<td><code>--http-fastcgi-temp-path=</code></td>
+<td>设定 HTTP Fastcgi 临时文件路径</td>
+</tr>
+<tr>
+<td><code>--http-uwsgi-temp-path=</code></td>
+<td>设定 HTTP uwsgi 临时文件路径</td>
+</tr>
+<tr>
+<td><code>--http-scgi-temp-path=</code></td>
+<td>设定 HTTP scgi 临时文件路径</td>
+</tr>
+<tr>
+<td><code>--without-http</code></td>
+<td>禁用 HTTP server 功能</td>
+</tr>
+<tr>
+<td><code>--without-http-cache</code></td>
+<td>禁用 HTTP Cache 功能</td>
+</tr>
+<tr>
+<td><code>--with-mail</code></td>
+<td>启用 POP3&#x2F;IMAP4&#x2F;SMTP 代理模块支持</td>
+</tr>
+<tr>
+<td><code>--with-mail_ssl_module</code></td>
+<td>启用 ngx_mail_ssl_module 支持</td>
+</tr>
+<tr>
+<td><code>--without-mail_pop3_module</code></td>
+<td>禁用 POP3 协议</td>
+</tr>
+<tr>
+<td><code>--without-mail_imap_module</code></td>
+<td>禁用 IMAP 协议</td>
+</tr>
+<tr>
+<td><code>--without-mail_smtp_module</code></td>
+<td>禁用 SMTP 协议</td>
+</tr>
+<tr>
+<td><code>--with-google_perftools_module</code></td>
+<td>启用 ngx_google_perftools_module 支持（调试用，剖析程序性能瓶颈）</td>
+</tr>
+<tr>
+<td><code>--with-cpp_test_module</code></td>
+<td>启用 ngx_cpp_test_module 支持</td>
+</tr>
+</tbody></table>
+<p>使用源码安装的 nginx 是没有 <code>nginx.service</code> 的，需要手动配置后，才能设置为开机自启。一般 <code>nginx.service</code> 位于 <code>/lib/systemd/system/nginx.service</code></p>
+<p><code>nginx.service</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Stop dance <span class="keyword">for</span> nginx</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">=======================</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># ExecStop sends SIGQUIT (graceful stop) to the nginx process.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">If, after 5s (--retry QUIT/5) nginx is still running, systemd takes control</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">and sends SIGTERM (fast shutdown) to the main process.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">After another 5s (TimeoutStopSec=5), and <span class="keyword">if</span> nginx is alive, systemd sends</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">SIGKILL to all the remaining processes <span class="keyword">in</span> the process group (KillMode=mixed).</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># nginx signals reference doc:</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">http://nginx.org/en/docs/control.html</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">[Unit]</span></span><br><span class="line">Description=A high performance web server and a reverse proxy server</span><br><span class="line">Documentation=man:nginx(8)</span><br><span class="line">After=network-online.target remote-fs.target nss-lookup.target</span><br><span class="line">Wants=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/run/nginx.pid</span><br><span class="line">ExecStartPre=/usr/sbin/nginx -t -q -g &#x27;daemon on; master_process on;&#x27;</span><br><span class="line">ExecStart=/usr/sbin/nginx -g &#x27;daemon on; master_process on;&#x27;</span><br><span class="line">ExecReload=/usr/sbin/nginx -g &#x27;daemon on; master_process on;&#x27; -s reload</span><br><span class="line">ExecStop=-/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile /run/nginx.pid</span><br><span class="line">TimeoutStopSec=5</span><br><span class="line">KillMode=mixed</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-2-Binary-install"><a href="#2-2-Binary-install" class="headerlink" title="2.2. Binary install"></a>2.2. Binary install</h2><p>Debian, Ubuntu 及发行版安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install neginx</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-3-Docker-install"><a href="#2-3-Docker-install" class="headerlink" title="2.3. Docker install"></a>2.3. Docker install</h2><ul>
+<li>官网镜像：<a target="_blank" rel="noopener" href="https://hub.docker.com/_/nginx/">https://hub.docker.com/_/nginx/</a></li>
+<li>下载镜像：<code>docker pull nginx</code></li>
+<li>启动容器<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name my-nginx -p <span class="number">80</span>:<span class="number">80</span> -v <span class="regexp">/data/</span>docker<span class="regexp">/nginx/</span>logs:<span class="regexp">/var/</span>log<span class="regexp">/nginx -v /</span>data<span class="regexp">/docker/</span>nginx<span class="regexp">/conf/</span>nginx.conf:<span class="regexp">/etc/</span>nginx/nginx.conf:ro -d nginx</span><br></pre></td></tr></table></figure></li>
+<li>重新加载配置：<code>docker exec -it my-nginx nginx -s reload</code></li>
+<li>停止服务：<code>docker exec -it my-nginx nginx -s stop</code> 或者：<code>docker stop my-nginx</code></li>
+<li>重新启动服务：<code>docker restart my-nginx</code></li>
+</ul>
+<h1 id="3-command"><a href="#3-command" class="headerlink" title="3. command"></a>3. command</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 停止nginx</span></span><br><span class="line">nginx -s quit</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启nginx，并重新载入配置文件nginx.conf</span></span><br><span class="line">nginx -s reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新打开日志文件，一般用于切割日志</span></span><br><span class="line">nginx -s reopen</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">nginx -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看详细版本信息，包括编译信息</span></span><br><span class="line">nginx -V</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查对配置文件的修改是否正确</span></span><br><span class="line">nginx -t</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定配置文件</span></span><br><span class="line">nginx -c filename</span><br><span class="line"></span><br><span class="line"><span class="comment">#强制停止nginx</span></span><br><span class="line"><span class="built_in">kill</span> -9 nginx：</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看nginx进程</span></span><br><span class="line">ps -ef | grep nginx </span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看nginx的所有进程在TCP、UDP传输中的所有状态</span></span><br><span class="line">netstat -apn | grep nginx </span><br></pre></td></tr></table></figure>
+
+<p>systemctl 来管理 nginx 进程</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重新加载系统服务</span></span><br><span class="line">systemctl daemon-reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemd 开机自启动</span></span><br><span class="line">systemctl <span class="built_in">enable</span> nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止开机自启</span></span><br><span class="line">systemctl <span class="built_in">disable</span> nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看设否设置为开机自启</span></span><br><span class="line">systemctl is-enabled nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">systemctl start nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看状态</span></span><br><span class="line">systemctl status nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止</span></span><br><span class="line">systemctl stop nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启</span></span><br><span class="line">systemctl restart nginx</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-Configure"><a href="#4-Configure" class="headerlink" title="4. Configure"></a>4. Configure</h1><p>Nginx 语法配置</p>
+<ol>
+<li><p>配置文件由指令与指令块构成</p>
+<p>指令块：upstream、http、server、location</p>
+</li>
+<li><p>每条指令以;分号结尾，指令与参数间以空格符号分隔</p>
+</li>
+<li><p>指令块以<code>&#123;&#125;</code>大括号将多条指令组织在一起</p>
+</li>
+<li><p><code>include</code>语句允许组合多个配置文件以提升可维护性</p>
+</li>
+<li><p>使用<code>#</code>符号添加注释，提高可读性</p>
+</li>
+<li><p>使用<code>$</code>符号使用变量</p>
+</li>
+<li><p>部分指令的参数支持正则表达式</p>
+</li>
+</ol>
+<p>nginx 配置文件中的内置变量，也是全局变量</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$args</td>
+<td>这个变量等于请求行中的参数，同$query_string</td>
+</tr>
+<tr>
+<td>$content_length</td>
+<td>请求头中的Content-length字段</td>
+</tr>
+<tr>
+<td>$content_type</td>
+<td>请求头中的Content-Type字段</td>
+</tr>
+<tr>
+<td>$document_root</td>
+<td>当前请求在root指令中指定的值</td>
+</tr>
+<tr>
+<td>$host</td>
+<td>请求主机头字段，否则为服务器名称</td>
+</tr>
+<tr>
+<td>$http_user_agent</td>
+<td>客户端agent信息</td>
+</tr>
+<tr>
+<td>$http_cookie</td>
+<td>客户端cookie信息</td>
+</tr>
+<tr>
+<td>$limit_rate</td>
+<td>限制连接速率</td>
+</tr>
+<tr>
+<td>$request_method</td>
+<td>客户端请求的动作，通常为GET或POST</td>
+</tr>
+<tr>
+<td>$remote_addr</td>
+<td>客户端的IP地址</td>
+</tr>
+<tr>
+<td>$remote_port</td>
+<td>客户端的端口</td>
+</tr>
+<tr>
+<td>$remote_user</td>
+<td>经过Auth Basic Module验证的用户名</td>
+</tr>
+<tr>
+<td>$request_filename</td>
+<td>当前请求的文件路径，由root或alias指令与URI请求生成</td>
+</tr>
+<tr>
+<td>$scheme</td>
+<td>HTTP方法（如http，https）</td>
+</tr>
+<tr>
+<td>$server_protocol</td>
+<td>请求使用的协议</td>
+</tr>
+<tr>
+<td>$server_addr</td>
+<td>服务器地址</td>
+</tr>
+<tr>
+<td>$server_name</td>
+<td>服务器名称</td>
+</tr>
+<tr>
+<td>$server_port</td>
+<td>请求到达服务器的端口号</td>
+</tr>
+<tr>
+<td>$request_uri</td>
+<td>包含请求参数的原始URI，不包含主机名</td>
+</tr>
+<tr>
+<td>$uri</td>
+<td>不带请求参数的当前URL</td>
+</tr>
+<tr>
+<td>$document_uri</td>
+<td>与$uri相同</td>
+</tr>
+</tbody></table>
+<p>Nginx configure architecture</p>
+<p><img src="figures/configure.png" alt="alt text"></p>
+<p>location</p>
+<ul>
+<li><p><code>alias</code>：用于将 URL 路径映射到文件系统的特定目录（<code>/www/image</code> 或 <code>/www/video</code>）。</p>
+</li>
+<li><p>路径会直接替换 <code>location</code>（例如 <code>alias /www/image</code> 会直接指向 <code>/www/image</code>）。</p>
+</li>
+<li><p><code>index</code>：指定默认访问的文件为 <code>index.html</code>。</p>
+</li>
+<li><p><code>try_files</code>：确保请求的文件或目录存在，否则返回 404。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">挂载 /video 路径到 /www/video</span></span><br><span class="line">location /video &#123;</span><br><span class="line">  alias /www/video;</span><br><span class="line">  index index.html;</span><br><span class="line">  try_files $uri $uri/ =404;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果用 <code>root</code>，路径会是 <code>root + location</code>（例如 <code>root /www; location /image</code> 会指向 <code>/www/image</code>）。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根路径配置</span></span><br><span class="line">location / &#123;</span><br><span class="line">  root /www;</span><br><span class="line">  index index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="5-Nginx-Application"><a href="#5-Nginx-Application" class="headerlink" title="5. Nginx Application"></a>5. Nginx Application</h1><ul>
+<li>Web服务器</li>
+<li>反向代理</li>
+<li>负载均衡</li>
+<li>动态分离<ul>
+<li>为了加快网站的解析速度，把动态页面和静态页面分别用不同的服务器来解析，加快解析速度，降低原来单个服务器的压力。</li>
+</ul>
+</li>
+</ul>
+<h1 id="6-References"><a href="#6-References" class="headerlink" title="6. References"></a>6. References</h1><ul>
+<li>Nginx official document: <a target="_blank" rel="noopener" href="https://nginx.org/en/docs">https://nginx.org/en/docs</a></li>
+<li>Nginx 极简教程: <a target="_blank" rel="noopener" href="https://github.com/dunwu/nginx-tutorial">https://github.com/dunwu/nginx-tutorial</a></li>
+<li>Tencent Nginx 最全操作总结: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/LmtHTOVOvdcnMBuxv7a9_A">https://mp.weixin.qq.com/s/LmtHTOVOvdcnMBuxv7a9_A</a></li>
+<li>CentOS 7 源码编译安装 Nginx: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/stulzq/p/9291223.html#top">https://www.cnblogs.com/stulzq/p/9291223.html#top</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Nginx/synced/Nginx/Nginx/">https://johnjeep.github.io/Nginx/synced/Nginx/Nginx/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../tags/nginx/">nginx</a></div><div class="post-share"><div class="social-share" data-image="../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../../../../Redis/synced/Redis/Redis/" title="Redis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Redis</div></div><div class="info-2"><div class="info-item-1">  1. 如何学 Redis如何花费很少的时间掌握 Redis 的知识和使用经验，去解决更多的问题。需要自己抓住主线，在自己的脑海中绘制一幅 Redis 全景知识图，从整体上去看 Redis，建立一套完整的体系架构。下面这幅图概述了 Redis 学习的“两大维度，三大主线”。 “两大维度”：指系统维度和应用维度，“三大主线”：是指高性能、高可靠和高可扩展。 从系统维度上说，需要了解 Redis 的各项关键技术的设计原理，这些能够为你判断和推理问题打下坚实的基础，而且，你还能从中掌握一些优雅的系统设计规范，例如 run-to-complete 模型、epoll 网络模型，这些可以应用到你后续的系统开发实践中。 从应用维度上，按照两种方式学习: “应用场景驱动”和“典型案例驱动”，一个是“面”的梳理，一个是“点”的掌握。比如，缓存和集群是 Redis 的两大广泛的应用场景，而提到缓存场景，需要想到缓存机制、缓存替换、缓存异常等一连串的问题。 三大主线：  高性能主线，包括线程模型、数据结构、持久化、网络框架； 高可靠主线，包括主从复制、哨兵机制； 高可扩展主线，包括数据分片、负载均衡...</div></div></div></a><a class="pagination-related" href="../../../../Git-SVN/synced/Git-SVN/SVN/" title="SVN"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">SVN</div></div><div class="info-2"><div class="info-item-1">  1. Introduction什么是Subversion?  Subversion的版本库是一种特别的文件版本库，它会记录每一次改变：每个文件的改变，甚至是目录树本身的改变。  文件共享  一般的文件共享采用的是 lock-modify-unlock 的方式 Subversion、VS和一些版本控制系统使用  copy-modify-merge模型。 在这种模型里，每一个客户联系项目版本库建立一个个人工作拷贝—版本库中文件和目录的本地映射。用户并行工作，修改各自的工作拷贝，最终，各个私有的拷贝合并在一起，成为最终的版本，这种系统通常可以辅助合并操作，但是最终要靠人工去确定正误。    工作副本   .svn 为名的文件夹，也被叫做工作副本的管理目录，这个目录里的文件能够帮助 Subversion 识别哪些文件做过修改，哪些文件相对于别人的工作已经过期。  修订版本  每当版本库接受了一个提交，文件系统进入了一个新的状态，叫做一次修订(revision)，每一个修订版本被赋予一个独一无二的自然数，一个比一个大，初始修订号是0，只创建了一个空目录，没有任何内容。版本库每一次的提交...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Introduce"><span class="toc-number">1.</span> <span class="toc-text">1. Introduce</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Install"><span class="toc-number">2.</span> <span class="toc-text">2. Install</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Source-code-install"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. Source code install</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Binary-install"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. Binary install</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Docker-install"><span class="toc-number">2.3.</span> <span class="toc-text">2.3. Docker install</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-command"><span class="toc-number">3.</span> <span class="toc-text">3. command</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Configure"><span class="toc-number">4.</span> <span class="toc-text">4. Configure</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-Nginx-Application"><span class="toc-number">5.</span> <span class="toc-text">5. Nginx Application</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-References"><span class="toc-number">6.</span> <span class="toc-text">6. References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../js/utils.js"></script><script src="../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>

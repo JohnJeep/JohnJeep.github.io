@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>31 Semaphore | Leaning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="semaphore问题（crux） 怎样使用 semaphores 替代 locks 和 condition variables? 什么是 semaphores？ 什么是 binary semaphore(二值信号量)？ 用锁和条件变量来实现信号量是否简单？ 不用锁和条件变量怎样来实现信号量？  信号量（semaphore） 定义：信号量是一个整型值的对象，用两个程序（routines）操作它">
+<meta property="og:type" content="article">
+<meta property="og:title" content="31 Semaphore">
+<meta property="og:url" content="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/31-Semaphore/index.html">
+<meta property="og:site_name" content="Leaning Computer Science Journey">
+<meta property="og:description" content="semaphore问题（crux） 怎样使用 semaphores 替代 locks 和 condition variables? 什么是 semaphores？ 什么是 binary semaphore(二值信号量)？ 用锁和条件变量来实现信号量是否简单？ 不用锁和条件变量怎样来实现信号量？  信号量（semaphore） 定义：信号量是一个整型值的对象，用两个程序（routines）操作它">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2020-05-28T07:30:55.000Z">
+<meta property="article:modified_time" content="2020-08-11T04:46:14.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="os">
+<meta property="article:tag" content="operating-system-three-easy-pieces">
+<meta property="article:tag" content="02-concurrency">
+<meta property="article:tag" content="31-semaphore">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "31 Semaphore",
+  "url": "https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/31-Semaphore/",
+  "image": "https://johnjeep.github.io/img/butterfly-icon.png",
+  "datePublished": "2020-05-28T07:30:55.000Z",
+  "dateModified": "2020-08-11T04:46:14.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../../../../../../../img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/31-Semaphore/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../../../../../../../css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Leaning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '31 Semaphore',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../../../../../../../index.html"></a><a class="nav-page-title" href="../../../../../../../../index.html"><span class="site-name">31 Semaphore</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="../../../../index.html"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="../../../../archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="../../../../tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="../../../../categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="../../../../link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="../../../../about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">31 Semaphore</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-05-28T07:30:55.000Z" title="发表于 2020-05-28 15:30:55">2020-05-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-08-11T04:46:14.000Z" title="更新于 2020-08-11 12:46:14">2020-08-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../../../../../categories/OS/">OS</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../../../../../categories/OS/Operating-System-Three-Easy-Pieces/">Operating-System-Three-Easy-Pieces</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../../../../../../../categories/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/">02-Concurrency</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author:JohnJeep
+ * @Date: 2020-05-28 21:45:05
+ * @LastEditTime: 2020-08-11 20:43:33
+ * @LastEditors: Please set LastEditors
+ * @Description: 信号量(semaphore)
+--> 
+<h1 id="semaphore"><a href="#semaphore" class="headerlink" title="semaphore"></a>semaphore</h1><h2 id="问题（crux）"><a href="#问题（crux）" class="headerlink" title="问题（crux）"></a>问题（crux）</h2><ul>
+<li>怎样使用 semaphores 替代 locks 和 condition variables?</li>
+<li>什么是 semaphores？</li>
+<li>什么是 binary semaphore(二值信号量)？</li>
+<li>用锁和条件变量来实现信号量是否简单？</li>
+<li>不用锁和条件变量怎样来实现信号量？</li>
+</ul>
+<h2 id="信号量（semaphore）"><a href="#信号量（semaphore）" class="headerlink" title="信号量（semaphore）"></a>信号量（semaphore）</h2><ul>
+<li><p>定义：信号量是一个整型值的对象，用两个程序（routines）操作它。</p>
+<ul>
+<li><code>sem_wait()</code></li>
+<li><code>sem_post()</code></li>
+</ul>
+</li>
+<li><p>binary semaphore</p>
+<ul>
+<li>locked: 信号量的值设置为 1</li>
+<li>unlocked: 信号量的值设置为 0</li>
+</ul>
+</li>
+<li><p>Semaphores For Ordering（信号量的顺序）</p>
+<ul>
+<li>在子进程调用 <code>sem_post</code> 之前，父进程首先会调用 <code>sem_wait</code> </li>
+<li>在父进程会调用 <code>sem_wait</code> 之前，子进程会首先调用 <code>sem_wait()</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="The-Producer-Consumer-Bounded-Buffer-Problem"><a href="#The-Producer-Consumer-Bounded-Buffer-Problem" class="headerlink" title="The Producer&#x2F;Consumer (Bounded Buffer) Problem"></a>The Producer&#x2F;Consumer (Bounded Buffer) Problem</h2><h3 id="Deadlock（死锁）"><a href="#Deadlock（死锁）" class="headerlink" title="Deadlock（死锁）"></a>Deadlock（死锁）</h3><ul>
+<li>消费者和生产者都在相互的等待对方，就发生了死锁的情况。</li>
+<li>解决方法<ul>
+<li>减少锁的作用域（scope）。<blockquote>
+<p>多线程常用的模式：有界缓冲（bounded buffer）。将互斥锁的获取和释放操作移到临界区附近，将 full 和empty的等待和唤醒操作移动到锁的外面。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Reader-Writer-Locks（读者-写者锁）"><a href="#Reader-Writer-Locks（读者-写者锁）" class="headerlink" title="Reader-Writer Locks（读者-写者锁）"></a>Reader-Writer Locks（读者-写者锁）</h3><ul>
+<li><p>不同的数据结构可能访问不同类型的锁。</p>
+</li>
+<li><p>某个线程要更新数据结构，需要调用 <code>rwlock_acquire_lock()</code> 来获得锁，调用 <code>rwlock_release_writelock()</code> 来释放锁。内部通过一个 write 的信号量保证只有一个写着(writer)能获得锁，进入临界状态，从而更新数据结构。</p>
+</li>
+<li><p>特点</p>
+<ul>
+<li>写独占，读共享 </li>
+<li>写锁优先级高，即进程中有写操作，读操作则会被阻塞。</li>
+<li>使用于读的次数远大于写的次数</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>缺少公平性。会导致 <code>reader</code> 很容易饿死。</li>
+<li>实现方案很复杂，导致更多的性能开销。</li>
+</ul>
+</li>
+</ul>
+<h2 id="The-Dining-Philosophers（哲学家就餐问题）"><a href="#The-Dining-Philosophers（哲学家就餐问题）" class="headerlink" title="The Dining Philosophers（哲学家就餐问题）"></a>The Dining Philosophers（哲学家就餐问题）</h2><ul>
+<li>什么是哲学家就餐问题？<blockquote>
+<p>5 位哲学家围绕一个圆桌，每位哲学家之间有一把餐叉。哲学家有时需要思考，有时需要餐叉，有时不需要餐叉。而每位哲学家只有同时拿到了左手边和右手边的餐叉，才能吃到东西。</p>
+</blockquote>
+</li>
+<li>这个问题或涉及竞争和同步的问题。</li>
+</ul>
+<h2 id="怎样实现信号量？"><a href="#怎样实现信号量？" class="headerlink" title="怎样实现信号量？"></a>怎样实现信号量？</h2><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">typedef struct __Zem_t &#123;</span><br><span class="line">  int value;</span><br><span class="line">  pthread_cond_t cond;</span><br><span class="line">  pthread_mutex_t lock;</span><br><span class="line">&#125; Zem_t;</span><br><span class="line"></span><br><span class="line"><span class="comment">// only one thread can call this</span></span><br><span class="line">void Zem_init(Zem_t *s, int value) &#123;</span><br><span class="line">  <span class="function"><span class="title">s</span>-&gt;</span>value = value;</span><br><span class="line">  C<span class="function"><span class="title">ond_init</span>(&amp;s-&gt;</span>cond);</span><br><span class="line">  M<span class="function"><span class="title">utex_init</span>(&amp;s-&gt;</span>lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Zem_wait(Zem_t *s) &#123;</span><br><span class="line">  M<span class="function"><span class="title">utex_lock</span>(&amp;s-&gt;</span>lock);</span><br><span class="line">  <span class="function"><span class="title">while</span> (s-&gt;</span>value &lt;= <span class="number">0</span>)</span><br><span class="line">  C<span class="function"><span class="title">ond_wait</span>(&amp;s-&gt;</span><span class="function"><span class="title">cond</span>, &amp;s-&gt;</span>lock);</span><br><span class="line">  <span class="function"><span class="title">s</span>-&gt;</span>value--;</span><br><span class="line">  M<span class="function"><span class="title">utex_unlock</span>(&amp;s-&gt;</span>lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Zem_post(Zem_t *s) &#123;</span><br><span class="line">  M<span class="function"><span class="title">utex_lock</span>(&amp;s-&gt;</span>lock);</span><br><span class="line">  <span class="function"><span class="title">s</span>-&gt;</span>value++;</span><br><span class="line">  C<span class="function"><span class="title">ond_signal</span>(&amp;s-&gt;</span>cond);</span><br><span class="line">  M<span class="function"><span class="title">utex_unlock</span>(&amp;s-&gt;</span>lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Zemaphores</code> 信号量实现：只使用了一把锁、一个条件变量、一个状态变量来记录信号量的值。注意：但信号量为负数时，没有考虑它等待的线程数。</li>
+<li>利用信号量实现锁(lock)和条件变量(condition variables)，是非常棘手的问题。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/31-Semaphore/">https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/31-Semaphore/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Leaning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../../../../../../../tags/os/">os</a><a class="post-meta__tags" href="../../../../../../../../tags/operating-system-three-easy-pieces/">operating-system-three-easy-pieces</a><a class="post-meta__tags" href="../../../../../../../../tags/02-concurrency/">02-concurrency</a><a class="post-meta__tags" href="../../../../../../../../tags/31-semaphore/">31-semaphore</a></div><div class="post-share"><div class="social-share" data-image="../../../../../../../../img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../33-Event-based-Concurrency/" title="33 Event Based Concurrency"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">33 Event Based Concurrency</div></div><div class="info-2"><div class="info-item-1">    事件循环（An Event Loop）：等待事件发生，当它发生时，检查事件类型，然后做相应的处理（可能是I&#x2F;O请求或者调度其它事件）。 采用 select() 和 poll() 进行事件的接受。 select() 检查I&#x2F;O描述符集合。 基于事件的系统中，遵循的原则：不允许阻塞调用。 采用事件编程的缺点：代码比较复杂、并且与现代操作系统的有些机制集成度较困难。  </div></div></div></a><a class="pagination-related" href="../29-30-Condition-Variables/" title="29 30 Condition Variables"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">29 30 Condition Variables</div></div><div class="info-2"><div class="info-item-1">  Condition-Variables锁的并发数据结构 并发计数器（Concurrent Counters） 并发链表（Concurrent Linked Lists） 并发队列（Concurrent Queues） 并发散列表（Concurrent Hash Table）  条件变量（Condition Variables） join() 父线程检查子线程是否实行完毕。 条件变量有两种相关操作 wait()    线程希望自己睡眠的时候，调用 signal()  当线程更改了程序中的某些内容和希望唤醒处于睡眠状态的线程时调用 注意：在调用 wait() 和 signal()时，线程要持有锁，否则会产生一些意想不到的错误。    生产者和消费者 生产者和消费者问题也叫有界缓冲问题，（The Producer&#x2F;Consumer (Bounded Buffer) Problem） 多线程在检查条件变量（condition variables）时，应使用 while，而少使用 if 进行循环。 使用两个条件变量替代一个条件变量来正确的发信号，指示在系统状态改变时，哪类线程...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="../29-30-Condition-Variables/" title="29 30 Condition Variables"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-25</div><div class="info-item-2">29 30 Condition Variables</div></div><div class="info-2"><div class="info-item-1">  Condition-Variables锁的并发数据结构 并发计数器（Concurrent Counters） 并发链表（Concurrent Linked Lists） 并发队列（Concurrent Queues） 并发散列表（Concurrent Hash Table）  条件变量（Condition Variables） join() 父线程检查子线程是否实行完毕。 条件变量有两种相关操作 wait()    线程希望自己睡眠的时候，调用 signal()  当线程更改了程序中的某些内容和希望唤醒处于睡眠状态的线程时调用 注意：在调用 wait() 和 signal()时，线程要持有锁，否则会产生一些意想不到的错误。    生产者和消费者 生产者和消费者问题也叫有界缓冲问题，（The Producer&#x2F;Consumer (Bounded Buffer) Problem） 多线程在检查条件变量（condition variables）时，应使用 while，而少使用 if 进行循环。 使用两个条件变量替代一个条件变量来正确的发信号，指示在系统状态改变时，哪类线程...</div></div></div></a><a class="pagination-related" href="../26-Concurrency-and-Threads/" title="26 Concurrency and Threads"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-19</div><div class="info-item-2">26 Concurrency and Threads</div></div><div class="info-2"><div class="info-item-1">  Concurrency-and-Threads为什么要使用线程（Thread)？ 实现并发性(parallelism)。多个CPU处理多个线程. 避免由于慢速的I&#x2F;O阻塞(block)程序的运行。  关键概念 临界区(critical section): 是访问共享资源( shared resource)的一段代码，一定不能有多个进程同时进行。通常共享资源是一个变量或数据结构。 竞态条件(race condition或data race)：多个执行的线程同时进入临界区时，它们都试图尝试更新共享资源的数据结构，会导致一些不希望的结果。 不确定性(indeterminate): 程序由一个或多个竞态条件组成，程序的输出因运行而异，取决于线程在什么时候运行，导致的结果是不确定的。通常我们希望计算机系统给我们输出的结果是确定的。 互斥(mutual exclusion)：保证了一个线程在临界区内执行，那么其它线程将被阻止进入临界区。  其它点 每个线程都有自己专用的用于计算的寄存器。 线程之间进行上下文切换(context switch): 不需要切换当前使用的page t...</div></div></div></a><a class="pagination-related" href="../32-Common-Concurrency-Problems/" title="32 Common Concurrency Problems"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-16</div><div class="info-item-2">32 Common Concurrency Problems</div></div><div class="info-2"><div class="info-item-1">      1. 并发编程中出现的缺陷(What Types Of Bugs Exist?) 1.1. Non-Deadlock Bugs(非死锁缺陷) 1.1.1. Atomicity-Violation Bugs(违反原子性缺陷) 1.1.2. Order-Violation Bugs(违反顺序性缺陷)   1.2. Deadlock(死锁) 1.2.1. What is Deadlock(什么是死锁？) 1.2.2. Why Do Deadlocks Occur?(为什么会发什么死锁？) 1.2.3. Conditions for Deadlock(产生死锁的条件) 1.2.4. Prevention(怎样阻止死锁的发生？)        1. 并发编程中出现的缺陷(What Types Of Bugs Exist?)1.1. Non-Deadlock Bugs(非死锁缺陷)非死锁问题占了并发问题的大多数。它们是怎样发生的？如何去修复它？下面我们主要讨论其中的两种：违反原子性缺陷和违反顺序性缺陷。 1.1.1. Atomicity-Violation Bugs(违反原子性缺...</div></div></div></a><a class="pagination-related" href="../28-Thread-Lock/" title="28 Thread Lock"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-20</div><div class="info-item-2">28 Thread Lock</div></div><div class="info-2"><div class="info-item-1">  Thread-Lock什么是锁(lock)? 是一个某种类型的变量。 这个锁变量(简称锁)保持了锁在某一刻的状态。要么是可用的(available or or unlocked or free)，表示当前没有线程持有锁，线程可以使用该锁；要么是被占用的(acquired or locked or held)，表示当前有线程在临界区( critical section)使用锁。 锁的持有者(the owner of the lock): Calling the routine lock() tries to acquire the lock; if no other thread holds the lock (i.e., it is free), the thread will acquire the lock and enter the critical section; 锁是为编程者提供了最小程度的调度控制(control over scheduling)。 什么是互斥量(mutual exclusion)？ POSIX 库将锁称为互斥量。用来提供线程之间的互斥。   使...</div></div></div></a><a class="pagination-related" href="../27-Thread-API/" title="27 Thread API"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-19</div><div class="info-item-2">27 Thread API</div></div><div class="info-2"><div class="info-item-1">  Thread-API如何构建并发程序的逻辑？ man -k pthread 查看所有线程接口的API  pthread_create参数  thead 指向pthread_t结构体类型的指针 attr  指定线程具有的属性（包括：栈大小、线程调度优先级） (*start_routine)(void*) 一个函数指针，告诉这个线程应该在哪个函数中运行。 arg  要传递给线程指向的函数中开始执行的参数  pthread_join: 等待线程完成 参数 __th 指定要等待的线程 **__thread_return 需要传入一个指向传入参数值的指针，而不是传入参数值的本身。   使用join确保在退出或进入下一阶段计算之前完成所有线程的工作。  锁(lock) pthread_mutex_lock  pthread_mutex_unlock  两种初始化锁方法  pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;  这样做锁会这只默认值 在运行时设置锁 int rc = pthread_mutex_init(&amp;lock, N...</div></div></div></a><a class="pagination-related" href="../33-Event-based-Concurrency/" title="33 Event Based Concurrency"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-31</div><div class="info-item-2">33 Event Based Concurrency</div></div><div class="info-2"><div class="info-item-1">    事件循环（An Event Loop）：等待事件发生，当它发生时，检查事件类型，然后做相应的处理（可能是I&#x2F;O请求或者调度其它事件）。 采用 select() 和 poll() 进行事件的接受。 select() 检查I&#x2F;O描述符集合。 基于事件的系统中，遵循的原则：不允许阻塞调用。 采用事件编程的缺点：代码比较复杂、并且与现代操作系统的有些机制集成度较困难。  </div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">lifestyle is lazy, faster, thinking</div><div class="site-data"><a href="../../../../archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="../../../../tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="../../../../categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="../../../../xxxxx@gmail.com" target="_blank" title="Gmail"><i class="fa-solid fa-bell" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#semaphore"><span class="toc-number">1.</span> <span class="toc-text">semaphore</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%EF%BC%88crux%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">问题（crux）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%EF%BC%88semaphore%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">信号量（semaphore）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Producer-Consumer-Bounded-Buffer-Problem"><span class="toc-number">1.3.</span> <span class="toc-text">The Producer&#x2F;Consumer (Bounded Buffer) Problem</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Deadlock%EF%BC%88%E6%AD%BB%E9%94%81%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">Deadlock（死锁）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reader-Writer-Locks%EF%BC%88%E8%AF%BB%E8%80%85-%E5%86%99%E8%80%85%E9%94%81%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">Reader-Writer Locks（读者-写者锁）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Dining-Philosophers%EF%BC%88%E5%93%B2%E5%AD%A6%E5%AE%B6%E5%B0%B1%E9%A4%90%E9%97%AE%E9%A2%98%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">The Dining Philosophers（哲学家就餐问题）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E6%A0%B7%E5%AE%9E%E7%8E%B0%E4%BF%A1%E5%8F%B7%E9%87%8F%EF%BC%9F"><span class="toc-number">1.5.</span> <span class="toc-text">怎样实现信号量？</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AI/synced/AI/Ollama/" title="Ollama">Ollama</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../AutoDrive/synced/AutoDrive/Autoware/" title="Autoware">Autoware</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/10_const/" title="10 Const">10 Const</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/0_code_of_conduct/" title="1、清晰第一">1、清晰第一</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../../../C/synced/C/11_restrict/" title="11 Restrict">11 Restrict</a><time datetime="2026-04-19T02:41:21.000Z" title="发表于 2026-04-19 10:41:21">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../../../../../../../js/utils.js"></script><script src="../../../../../../../../js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="../../../../js/search/local-search.js"></script></div></div></body></html>
