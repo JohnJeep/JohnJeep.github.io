@@ -1,0 +1,333 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>FAQ | Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="1. FAQ1.1. git 远程仓库更换名称，本地如何修改？ 适用于本地和远程的代码没得任何问题，就是远程仓库改了个名称，直接在本地修改远程仓库地址即可： git remote set-url origin new_address 另外还可以先删除，然后添加地址：12git remote rm origingit remote add origin new_address    1.2. G">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FAQ">
+<meta property="og:url" content="https://johnjeep.github.io/Git-SVN/synced/Git-SVN/FAQ/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="1. FAQ1.1. git 远程仓库更换名称，本地如何修改？ 适用于本地和远程的代码没得任何问题，就是远程仓库改了个名称，直接在本地修改远程仓库地址即可： git remote set-url origin new_address 另外还可以先删除，然后添加地址：12git remote rm origingit remote add origin new_address    1.2. G">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/seele.jpg">
+<meta property="article:published_time" content="2026-04-19T04:03:15.000Z">
+<meta property="article:modified_time" content="2025-12-17T20:01:41.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="git-svn">
+<meta property="article:tag" content="faq">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/seele.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "FAQ",
+  "url": "https://johnjeep.github.io/Git-SVN/synced/Git-SVN/FAQ/",
+  "image": "https://johnjeep.github.io/img/seele.jpg",
+  "datePublished": "2026-04-19T04:03:15.000Z",
+  "dateModified": "2025-12-17T20:01:41.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Git-SVN/synced/Git-SVN/FAQ/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'FAQ',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">FAQ</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">FAQ</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-19T04:03:15.000Z" title="发表于 2026-04-19 12:03:15">2026-04-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-17T20:01:41.000Z" title="更新于 2025-12-18 04:01:41">2025-12-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Git-SVN/">Git &amp; SVN</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">789</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2022-09-30 16:42:27
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2025-04-06 13:40:31
+ * @Description:
+ * Copyright (c) 2023 by John Jeep, All Rights Reserved.
+-->
+
+<h1 id="1-FAQ"><a href="#1-FAQ" class="headerlink" title="1. FAQ"></a>1. FAQ</h1><h2 id="1-1-git-远程仓库更换名称，本地如何修改？"><a href="#1-1-git-远程仓库更换名称，本地如何修改？" class="headerlink" title="1.1. git 远程仓库更换名称，本地如何修改？"></a>1.1. git 远程仓库更换名称，本地如何修改？</h2><ul>
+<li>适用于本地和远程的代码没得任何问题，就是远程仓库改了个名称，直接在本地修改远程仓库地址即可： <code>git remote set-url origin new_address</code></li>
+<li>另外还可以先删除，然后添加地址：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">rm</span> origin</span><br><span class="line">git remote add origin new_address</span><br></pre></td></tr></table></figure>
+
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/figures/update-remote-repo-name.png" alt="alt text"></li>
+</ul>
+<h2 id="1-2-Git-中文乱码"><a href="#1-2-Git-中文乱码" class="headerlink" title="1.2. Git 中文乱码"></a>1.2. Git 中文乱码</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://gist.github.com/nightire/5069597">解决 Git 在 windows 下中文乱码的问题</a></li>
+</ul>
+<h2 id="1-3-LF-or-CRLF"><a href="#1-3-LF-or-CRLF" class="headerlink" title="1.3. LF or CRLF"></a>1.3. LF or CRLF</h2><p>Git 多平台换行符问题 (LF or CRLF)。文本文件所使用的换行符，在不同的系统平台上是不一样的。UNIX&#x2F;Linux 使用的是 0x0A（LF），早期的 Mac OS 使用的是 0x0D（CR），后来的 OS X 在更换内核后与 UNIX 保持一致了。但 DOS&#x2F;Windows 一直使用 0x0D0A（CRLF） 作为换行符。</p>
+<p>跨平台协作开发是常有的，不统一的换行符确实对跨平台的文件交换带来了麻烦。最大的问题是，在不同平台上，换行符发生改变时，Git 会认为整个文件被修改，这就造成我们没法 diff，不能正确反映本次的修改。还好 Git 在设计时就考虑了这一点，其提供了一个 autocrlf 的配置项，用于在提交和检出时自动转换换行符，该配置有三个可选项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提交时转换为 LF，检出时转换为 CRLF</span></span><br><span class="line">git config --global core.autocrlf <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交时转换为 LF，检出时不转换</span></span><br><span class="line">git config --global core.autocrlf input</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交检出均不转换</span></span><br><span class="line">git config --global core.autocrlf <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>如果把 <code>autocrlf</code> 设置为 false 时，那另一个配置项 <code>safecrlf</code> 最好设置为 ture。该选项用于检查文件是否包含混合换行符，其有三个可选项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 拒绝提交包含混合换行符的文件</span></span><br><span class="line">git config --global core.safecrlf <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 允许提交包含混合换行符的文件</span></span><br><span class="line">git config --global core.safecrlf <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交包含混合换行符的文件时给出警告</span></span><br><span class="line">git config --global core.safecrlf warn</span><br></pre></td></tr></table></figure>
+
+<p>Windows 上 Git bash 客户端自带了 <code>dos2unix</code> 转换工具，将换行符统一转换为 Unix 下的 LF。只需执行下面的命令即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -<span class="built_in">type</span> f -<span class="built_in">exec</span> dos2unix &#123;&#125; +</span><br></pre></td></tr></table></figure>
+
+<p>Linux 与 Windows 换行符 转换</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Linux 下使用 <span class="built_in">cat</span> -A file 来查看文件采用的是哪种换行符。Windows 下编辑的文件放到 Linux 下打开，发现每行结尾是 ^M$，表示 CRLF；而 Linux 下的文件每行结尾是 $，表示 LF。</span><br><span class="line"></span><br><span class="line">使用 dos2unix 和 unix2dos 命令进行 Linux 与 windows 不同平台下的换行符格式转换。</span><br><span class="line">dos2unix [-kn] file [newfile]</span><br><span class="line">unix2dos [-kn] file [newfile]</span><br><span class="line">参数项</span><br><span class="line">  -n: 保留原本的旧文件，将转换后的内容输出到新文件</span><br><span class="line">  -k: 保留文件中原本的 mtime 时间格式</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-4-Github-开源项目搜索技巧"><a href="#1-4-Github-开源项目搜索技巧" class="headerlink" title="1.4. Github 开源项目搜索技巧"></a>1.4. Github 开源项目搜索技巧</h2><table>
+<thead>
+<tr>
+<th>搜索名字</th>
+<th>in:name xxx</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>搜索描述</td>
+<td>in:description xxx</td>
+</tr>
+<tr>
+<td>搜索 readme</td>
+<td>in:readme xxx</td>
+</tr>
+<tr>
+<td>按 stars</td>
+<td>stars:&gt;2000</td>
+</tr>
+<tr>
+<td>按 fork</td>
+<td>fork:&gt;3000</td>
+</tr>
+<tr>
+<td>按仓库大小</td>
+<td>size:&gt;&#x3D;5000  (5000KB)</td>
+</tr>
+<tr>
+<td>按更新时间</td>
+<td>pushed:&gt;2021-02-06</td>
+</tr>
+<tr>
+<td>按语言</td>
+<td>language:xxx</td>
+</tr>
+<tr>
+<td>按作者名</td>
+<td>user:xxx</td>
+</tr>
+</tbody></table>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./figures/github-search.png" alt="Alt text"></p>
+<h2 id="1-5-References"><a href="#1-5-References" class="headerlink" title="1.5. References"></a>1.5. References</h2><ul>
+<li>Github 仓库搜索高级技巧：<a target="_blank" rel="noopener" href="https://github.com/search/advanced">https://github.com/search/advanced</a></li>
+<li><a target="_blank" rel="noopener" href="https://sampwood.github.io/2019/01/07/git%E5%A4%9A%E5%B9%B3%E5%8F%B0%E6%8D%A2%E8%A1%8C%E7%AC%A6%E9%97%AE%E9%A2%98-LF-CRLF/">Git 多平台换行符问题 (LF or CRLF)</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Git-SVN/synced/Git-SVN/FAQ/">https://johnjeep.github.io/Git-SVN/synced/Git-SVN/FAQ/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Learning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/git-svn/">git-svn</a><a class="post-meta__tags" href="/tags/faq/">faq</a></div><div class="post-share"><div class="social-share" data-image="/img/seele.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Git-SVN/synced/Git-SVN/Install/" title="Git 安装"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Git 安装</div></div><div class="info-2"><div class="info-item-1">Git 安装Git 是一个开源跨平台的版本管理软件，可以运行在 Windows、Linux&#x2F;Unix、macOS 等不同的操作系统上。下面讲解在不同平台上的安装。 WindowsLinux电脑连接了网络，安装操作步骤很简单。比如在 Ubuntu 平台下，只需要执行 sudo apt install git 就可以；但在 Centos 系统中，使用 yum 源安装的 git 版本是1.7.1，太老了，Github 需要的 ...</div></div></div></a><a class="pagination-related" href="/Git-SVN/synced/Git-SVN/Develop/" title="Develop"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Develop</div></div><div class="info-2"><div class="info-item-1">  开发流程 克隆仓库，拉取最新代码 123cd workspacegit clone &lt;remote_repository_url&gt; 创建分支并切换到要拉取代码的新分支 1git checkout -b &lt;new_branch_name&gt; 功能开发，提交commit 12git add git commit  功能开发完成，先拉取远程仓库最新的代码到本地开发分支，若有冲突，则解决冲突，解决完成后，合并到本...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Go/FAQ/synced/Go/FAQ/VariableAllocate/" title="How Do I Know Whether a Variable Is Allocated on the Heap or the Stack?"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-09</div><div class="info-item-2">How Do I Know Whether a Variable Is Allocated on the Heap or the Stack?</div></div><div class="info-2"><div class="info-item-1">How do I know whether a variable is allocated on the heap or the stack?一、C语言中返回函数中局部变量值和指针(1) 在C语言中，一个函数可以直接返回函数中定义的局部变量，其实在函数返回后，局部变量是被系统自动回收的，因为局部变量是分配在栈空间，那为什么还可以返回局部变量，其实这里返回的是局部变量的副本（拷贝）。 (2) 函数返回局部变量地址：局部变量内存分配在...</div></div></div></a><a class="pagination-related" href="/Git-SVN/synced/Git-SVN/commit-convention/" title="Commit Convention"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Commit Convention</div></div><div class="info-2"><div class="info-item-1"> 1. Git Commit 规范约定1.1. 背景Git 每次提交代码都需要写 commit message，否则就不允许提交。一般来说，commit message 应该清晰明了，说明本次提交的目的，具体做了什么操作，但是在日常开发中，大家的 commit message 千奇百怪，中英文混合使用、fix bug 等各种笼统的 message 司空见怪，这就导致后续代码维护成本特别大，有时自己都不知道自己的 fix bug 修...</div></div></div></a><a class="pagination-related" href="/Git-SVN/synced/Git-SVN/Pipeline/" title="Git Pipeline"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-18</div><div class="info-item-2">Git Pipeline</div></div><div class="info-2"><div class="info-item-1">Git PipelineGitlab Pipeline Rules “Pipeline must succeed”：合并前 Pipeline 必须通过 “Require approvals before merging”：合并需要审批 一旦 MR 有审批记录，后续修改可自由触发 Pipeline。修改后提交 → 自动触发 Pipeline → 无需重新审批 </div></div></div></a><a class="pagination-related" href="/Git-SVN/synced/Git-SVN/Git/" title="Git"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Git</div></div><div class="info-2"><div class="info-item-1">   1. Git Command 1.1. Git init 1.2. Git add 1.3. Git log 1.4. Git tag 1.5. Git alias 1.6. Git checkout 1.7. Git commit 1.8. Git diff 1.9. Git push 1.10. Git pull 1.11. Git stash 1.12. Git blame 1.13. Git cherry-pick ...</div></div></div></a><a class="pagination-related" href="/C/FAQ/synced/Cpp/FAQ/QueuePushMaxElement/" title="STL Queue 中 最大能 Push 多少元素？"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">STL Queue 中 最大能 Push 多少元素？</div></div><div class="info-2"><div class="info-item-1">STL Queue 中 最大能 push 多少元素？阅读标准库中的源码可知：Queue 底层是基于 deque 实现的。源码中 push 函数调用的是 deque 容器中的 push_back 函数，而 deque 容器中队列能分配最大的值由 max_size 函数决定，max_size 函数的返回的类型为 size_type。一步一步追踪朔源，发现 size_type 是 size_t 的别名，而 size_t 又是 __SIZ...</div></div></div></a><a class="pagination-related" href="/Linux/FAQ/synced/Linux/FAQ/kswapd0/" title="Kswapd0"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Kswapd0</div></div><div class="info-2"><div class="info-item-1">   References kswapd0 进程CPU占用过高  linux CPU占用率高 排查  MySQL 故障诊断：MySQL 占用 CPU 过高问题定位及优化   </div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-FAQ"><span class="toc-number">1.</span> <span class="toc-text">1. FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-git-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E6%9B%B4%E6%8D%A2%E5%90%8D%E7%A7%B0%EF%BC%8C%E6%9C%AC%E5%9C%B0%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. git 远程仓库更换名称，本地如何修改？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Git-%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. Git 中文乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-LF-or-CRLF"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. LF or CRLF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-Github-%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7"><span class="toc-number">1.4.</span> <span class="toc-text">1.4. Github 开源项目搜索技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-References"><span class="toc-number">1.5.</span> <span class="toc-text">1.5. References</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ComputerSystemAProgramm'sPerspective"/></a><div class="content"><a class="title" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective">ComputerSystemAProgramm'sPerspective</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jsoncpp"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp">Jsoncpp</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Project/" title="Project"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Project"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Project/" title="Project">Project</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Protocol Terms"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms">Protocol Terms</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/modbus/" title="Modbus"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Modbus"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/modbus/" title="Modbus">Modbus</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RedisSourceCode"/></a><div class="content"><a class="title" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode">RedisSourceCode</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Qt/synced/Qt/Qt/" title="Qt"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/Qt/synced/Qt/Qt/" title="Qt">Qt</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Embodied/" title="Embodied"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Embodied"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Embodied/" title="Embodied">Embodied</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":0,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'JohnJeep/Learning-CS-Journey',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

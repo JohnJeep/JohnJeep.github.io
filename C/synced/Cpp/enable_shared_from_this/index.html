@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Enable Shared From This | Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="1. 什么是 enable_shared_from_this? 2. 为什么要用 enable_shared_from_this 2.1. 问题场景 2.2. 解决方案：enable_shared_from_this   3. 什么时候用？ 3.1. 主要使用场景 3.1.1. 异步回调 3.1.2. 容器中存储自身指针 3.1.3. 链式调用   3.2. 重要注意事项 3.2.1. 必须">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Enable Shared From This">
+<meta property="og:url" content="https://johnjeep.github.io/C/synced/Cpp/enable_shared_from_this/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="1. 什么是 enable_shared_from_this? 2. 为什么要用 enable_shared_from_this 2.1. 问题场景 2.2. 解决方案：enable_shared_from_this   3. 什么时候用？ 3.1. 主要使用场景 3.1.1. 异步回调 3.1.2. 容器中存储自身指针 3.1.3. 链式调用   3.2. 重要注意事项 3.2.1. 必须">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/seele.jpg">
+<meta property="article:published_time" content="2026-04-19T04:03:15.000Z">
+<meta property="article:modified_time" content="2026-03-20T21:30:32.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="cpp">
+<meta property="article:tag" content="enable-shared-from-this">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/seele.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Enable Shared From This",
+  "url": "https://johnjeep.github.io/C/synced/Cpp/enable_shared_from_this/",
+  "image": "https://johnjeep.github.io/img/seele.jpg",
+  "datePublished": "2026-04-19T04:03:15.000Z",
+  "dateModified": "2026-03-20T21:30:32.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/C/synced/Cpp/enable_shared_from_this/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Enable Shared From This',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">Enable Shared From This</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Enable Shared From This</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-19T04:03:15.000Z" title="发表于 2026-04-19 12:03:15">2026-04-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-20T21:30:32.000Z" title="更新于 2026-03-21 05:30:32">2026-03-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C++</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2021-04-28 21:24:43
+ * @LastEditTime: 2026-03-21 13:29:24
+ * @LastEditors: JohnJeep
+ * @Description: enable_shared_from_this usage
+-->
+
+<ul>
+<li><a href="#1-%E4%BB%80%E4%B9%88%E6%98%AF-enable_shared_from_this">1. 什么是 enable_shared_from_this?</a></li>
+<li><a href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-enable_shared_from_this">2. 为什么要用 enable_shared_from_this</a><ul>
+<li><a href="#21-%E9%97%AE%E9%A2%98%E5%9C%BA%E6%99%AF">2.1. 问题场景</a></li>
+<li><a href="#22-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88enable_shared_from_this">2.2. 解决方案：enable_shared_from_this</a></li>
+</ul>
+</li>
+<li><a href="#3-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8">3. 什么时候用？</a><ul>
+<li><a href="#31-%E4%B8%BB%E8%A6%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF">3.1. 主要使用场景</a><ul>
+<li><a href="#311-%E5%BC%82%E6%AD%A5%E5%9B%9E%E8%B0%83">3.1.1. 异步回调</a></li>
+<li><a href="#312-%E5%AE%B9%E5%99%A8%E4%B8%AD%E5%AD%98%E5%82%A8%E8%87%AA%E8%BA%AB%E6%8C%87%E9%92%88">3.1.2. 容器中存储自身指针</a></li>
+<li><a href="#313-%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8">3.1.3. 链式调用</a></li>
+</ul>
+</li>
+<li><a href="#32-%E9%87%8D%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">3.2. 重要注意事项</a><ul>
+<li><a href="#321-%E5%BF%85%E9%A1%BB%E5%9C%A8%E5%B7%B2%E6%9C%89-shared_ptr-%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E4%BD%BF%E7%94%A8">3.2.1. 必须在已有 shared_ptr 的情况下使用</a></li>
+<li><a href="#322-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%AD%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8">3.2.2. 构造函数中不能使用</a></li>
+<li><a href="#323-%E7%BB%A7%E6%89%BF%E8%A6%81%E6%B1%82">3.2.3. 继承要求</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#4-%E6%A0%87%E5%87%86%E5%BA%93%E4%B8%AD%E6%BA%90%E7%A0%81">4. 标准库中源码</a></li>
+<li><a href="#5-%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B">5. 代码示例</a></li>
+<li><a href="#6-references">6. References</a></li>
+</ul>
+<h1 id="1-什么是-enable-shared-from-this"><a href="#1-什么是-enable-shared-from-this" class="headerlink" title="1. 什么是 enable_shared_from_this?"></a>1. 什么是 enable_shared_from_this?</h1><p><code>enable_shared_from_this</code> 是一个模板类，从 C++11 开始支持，定义在头文件 <code>&lt;memory&gt;</code>。</p>
+<p>其原型为： </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt; <span class="keyword">class</span> <span class="title class_">T</span> &gt; <span class="keyword">class</span> <span class="title class_">enable_shared_from_this</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>std::enable_shared_from_this</code> 能让其一个对象（假设其名为 t ，且已被一个 std::shared_ptr 对象 pt 管理）安全地生成其他额外的 std::shared_ptr 实例（假设名为 pt0, pt2, … ） ，它们与 pt 共享对象 t 的所有权。</p>
+<p>若一个类 T 继承 std::enable_shared_from_this<T> ，则会为该类 T 提供成员函数： shared_from_this 。 当 T 类型对象 t 被一个为名为 pt 的 std::shared_ptr<T> 类对象管理时，调用 T::shared_from_this 成员函数，将会返回一个新的 std::shared_ptr<T> 对象，它与 pt 共享 t 的所有权。</p>
+<h1 id="2-为什么要用-enable-shared-from-this"><a href="#2-为什么要用-enable-shared-from-this" class="headerlink" title="2. 为什么要用 enable_shared_from_this"></a>2. 为什么要用 enable_shared_from_this</h1><p><code>enable_shared_from_this</code> 的主要用途是：在类的内部安全地获取指向当前对象的 <code>shared_ptr</code>，避免创建多个控制块，从而防止未定义行为。</p>
+<h2 id="2-1-问题场景"><a href="#2-1-问题场景" class="headerlink" title="2.1. 问题场景"></a>2.1. 问题场景</h2><p>考虑以下代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Widget</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">process</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 错误！这会创建新的控制块，导致重复计数</span></span><br><span class="line">        <span class="keyword">auto</span> self_ptr = std::<span class="built_in">shared_ptr</span>&lt;Widget&gt;(<span class="keyword">this</span>);</span><br><span class="line">        <span class="comment">// 使用 self_ptr...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> widget = std::<span class="built_in">make_shared</span>&lt;Widget&gt;();</span><br><span class="line">    widget-&gt;<span class="built_in">process</span>();  <span class="comment">// 会导致未定义行为</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的问题是：<code>widget</code> 已经有一个 <code>shared_ptr</code> 在管理它，但在 <code>process()</code> 中又用 <code>this</code> 创建了另一个 <code>shared_ptr</code>，这会创建新的控制块，导致对象被多次删除。</p>
+<h2 id="2-2-解决方案：enable-shared-from-this"><a href="#2-2-解决方案：enable-shared-from-this" class="headerlink" title="2.2. 解决方案：enable_shared_from_this"></a>2.2. 解决方案：enable_shared_from_this</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Widget</span> : <span class="keyword">public</span> std::enable_shared_from_this&lt;Widget&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">process</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 正确！共享现有的控制块</span></span><br><span class="line">        <span class="keyword">auto</span> self_ptr = <span class="built_in">shared_from_this</span>();</span><br><span class="line">        <span class="comment">// 安全地使用 self_ptr...</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 也可以获取 weak_ptr</span></span><br><span class="line">        <span class="keyword">auto</span> weak_self = <span class="built_in">weak_from_this</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">std::shared_ptr&lt;Widget&gt; <span class="title">get_shared</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">shared_from_this</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> widget = std::<span class="built_in">make_shared</span>&lt;Widget&gt;();</span><br><span class="line">    widget-&gt;<span class="built_in">process</span>();  <span class="comment">// 安全，共享同一个控制块</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">auto</span> another_ptr = widget-&gt;<span class="built_in">get_shared</span>();  <span class="comment">// 也安全</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>enable_shared_from_this</code> 的主要用途是：</p>
+<ul>
+<li><strong>安全地在对象内部获取指向自身的 <code>shared_ptr</code></strong></li>
+<li><strong>避免创建多个控制块导致的重复计数问题</strong></li>
+<li><strong>在异步操作、回调函数等场景中保持对象生命周期</strong></li>
+</ul>
+<p>总结：使用<code>enable_shared_from_this</code>是为了在类的内部安全地获取指向当前对象的<code>shared_ptr</code>，避免创建多个控制块，从而防止未定义行为。</p>
+<h1 id="3-什么时候用？"><a href="#3-什么时候用？" class="headerlink" title="3. 什么时候用？"></a>3. 什么时候用？</h1><p>使用<code>enable_shared_from_this</code>的主要场景是：在类的成员函数中，需要获取指向当前对象的<code>shared_ptr</code>。如果直接使用<code>this</code>指针来创建另一个<code>shared_ptr</code>，则会创建一个新的控制块，这与原有的<code>shared_ptr</code>的控制块是分离的，会导致同一个对象被多个控制块管理，这是错误的。</p>
+<h2 id="3-1-主要使用场景"><a href="#3-1-主要使用场景" class="headerlink" title="3.1. 主要使用场景"></a>3.1. 主要使用场景</h2><h3 id="3-1-1-异步回调"><a href="#3-1-1-异步回调" class="headerlink" title="3.1.1. 异步回调"></a>3.1.1. 异步回调</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Connection</span> : <span class="keyword">public</span> std::enable_shared_from_this&lt;Connection&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">start_async_operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> self = <span class="built_in">shared_from_this</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 在回调中捕获 shared_ptr，确保对象存活</span></span><br><span class="line">        <span class="built_in">async_operation</span>([self]() &#123;</span><br><span class="line">            self-&gt;<span class="built_in">handle_completion</span>();</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">handle_completion</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 处理完成</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="3-1-2-容器中存储自身指针"><a href="#3-1-2-容器中存储自身指针" class="headerlink" title="3.1.2. 容器中存储自身指针"></a>3.1.2. 容器中存储自身指针</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span> : <span class="keyword">public</span> std::enable_shared_from_this&lt;Node&gt; &#123;</span><br><span class="line">    std::vector&lt;std::shared_ptr&lt;Node&gt;&gt; children;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">add_child</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> child = std::<span class="built_in">make_shared</span>&lt;Node&gt;();</span><br><span class="line">        children.<span class="built_in">push_back</span>(child);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 父节点也需要在子节点中存储</span></span><br><span class="line">        child-&gt;parent = <span class="built_in">shared_from_this</span>();  <span class="comment">// 假设 parent 是 weak_ptr&lt;Node&gt;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="3-1-3-链式调用"><a href="#3-1-3-链式调用" class="headerlink" title="3.1.3. 链式调用"></a>3.1.3. 链式调用</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Builder</span> : <span class="keyword">public</span> std::enable_shared_from_this&lt;Builder&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">std::shared_ptr&lt;Builder&gt; <span class="title">set_name</span><span class="params">(<span class="type">const</span> std::string&amp; name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;name = name;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">shared_from_this</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">std::shared_ptr&lt;Builder&gt; <span class="title">set_value</span><span class="params">(<span class="type">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;value = value;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">shared_from_this</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-2-重要注意事项"><a href="#3-2-重要注意事项" class="headerlink" title="3.2. 重要注意事项"></a>3.2. 重要注意事项</h2><h3 id="3-2-1-必须在已有-shared-ptr-的情况下使用"><a href="#3-2-1-必须在已有-shared-ptr-的情况下使用" class="headerlink" title="3.2.1. 必须在已有 shared_ptr 的情况下使用"></a>3.2.1. 必须在已有 shared_ptr 的情况下使用</h3><p>不能将<code>enable_shared_from_this</code>用于栈上分配的对象，因为栈上对象没有被<code>shared_ptr</code>管理。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Widget</span> : <span class="keyword">public</span> std::enable_shared_from_this&lt;Widget&gt; &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 错误用法：</span></span><br><span class="line">Widget w;</span><br><span class="line"><span class="comment">// w.shared_from_this();  // 未定义行为！没有现有的 shared_ptr</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确用法：</span></span><br><span class="line"><span class="keyword">auto</span> widget = std::<span class="built_in">make_shared</span>&lt;Widget&gt;();</span><br><span class="line">widget-&gt;<span class="built_in">shared_from_this</span>();  <span class="comment">// 安全</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-2-2-构造函数中不能使用"><a href="#3-2-2-构造函数中不能使用" class="headerlink" title="3.2.2. 构造函数中不能使用"></a>3.2.2. 构造函数中不能使用</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Widget</span> : <span class="keyword">public</span> std::enable_shared_from_this&lt;Widget&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Widget</span>() &#123;</span><br><span class="line">        <span class="comment">// shared_from_this();  // 错误！在构造函数中不能使用</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-2-3-继承要求"><a href="#3-2-3-继承要求" class="headerlink" title="3.2.3. 继承要求"></a>3.2.3. 继承要求</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 正确：公有继承</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived</span> : <span class="keyword">public</span> std::enable_shared_from_this&lt;Derived&gt; &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果需要多态，使用 CRTP 的变体</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> : <span class="keyword">public</span> std::enable_shared_from_this&lt;Base&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Base</span>() = <span class="keyword">default</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived</span> : <span class="keyword">public</span> Base &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">std::shared_ptr&lt;Derived&gt; <span class="title">shared_from_this</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> std::<span class="built_in">static_pointer_cast</span>&lt;Derived&gt;(</span><br><span class="line">            Base::<span class="built_in">shared_from_this</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>enable_shared_from_this 的常见实现为：其内部保存着一个对 this 的弱引用 (例如 std::weak_ptr )。 std::shared_ptr 的构造函数检测无歧义且可访问的 (C++16 起) enable_shared_from_this 基类，并且若内部存储的弱引用没有被以存在的 std::shared_ptr 占有，则 (C++17 起)赋值新建的 std::shared_ptr 为内部存储的弱引用。为另一个 std::shared_ptr 所管理的对象构造一个 std::shared_ptr ，将不会考虑内部存储的弱引用，从而将导致未定义行为(undefined behavior)。</p>
+<p>只允许在先前已被std::shared_ptr 管理的对象上调用 shared_from_this 。否则调用行为未定义 (C++17 前)抛出 std::bad_weak_ptr 异常（通过 shared_ptr 从默认构造的 weak_this 的构造函数） (自C++17 起)。</p>
+<p>enable_shared_from_this 提供安全的替用方案，以替代 std::shared_ptr<T>(this) 这样的表达式（这种不安全的表达式可能会导致 this 被多个互不知晓的所有者析构）。</p>
+<h1 id="4-标准库中源码"><a href="#4-标准库中源码" class="headerlink" title="4. 标准库中源码"></a>4. 标准库中源码</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> _Tp&gt;</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">enable_shared_from_this</span></span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">      <span class="function"><span class="keyword">constexpr</span> <span class="title">enable_shared_from_this</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">      <span class="built_in">enable_shared_from_this</span>(<span class="type">const</span> enable_shared_from_this&amp;) <span class="keyword">noexcept</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">      enable_shared_from_this&amp;</span><br><span class="line">      <span class="keyword">operator</span>=(<span class="type">const</span> enable_shared_from_this&amp;) <span class="keyword">noexcept</span></span><br><span class="line">      &#123; <span class="keyword">return</span> *<span class="keyword">this</span>; &#125;</span><br><span class="line"></span><br><span class="line">      ~<span class="built_in">enable_shared_from_this</span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">      <span class="function">shared_ptr&lt;_Tp&gt;</span></span><br><span class="line"><span class="function">      <span class="title">shared_from_this</span><span class="params">()</span></span></span><br><span class="line"><span class="function">      </span>&#123; <span class="keyword">return</span> <span class="built_in">shared_ptr</span>&lt;_Tp&gt;(<span class="keyword">this</span>-&gt;_M_weak_this); &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function">shared_ptr&lt;<span class="type">const</span> _Tp&gt;</span></span><br><span class="line"><span class="function">      <span class="title">shared_from_this</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">      </span>&#123; <span class="keyword">return</span> <span class="built_in">shared_ptr</span>&lt;<span class="type">const</span> _Tp&gt;(<span class="keyword">this</span>-&gt;_M_weak_this); &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> __cplusplus &gt; 201401L || !defined(__STRICT_ANSI__) <span class="comment">// c++11 or gnu++11</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __cpp_lib_enable_shared_from_this 201602</span></span><br><span class="line">      <span class="function">weak_ptr&lt;_Tp&gt;</span></span><br><span class="line"><span class="function">      <span class="title">weak_from_this</span><span class="params">()</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">      </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span>-&gt;_M_weak_this; &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function">weak_ptr&lt;<span class="type">const</span> _Tp&gt;</span></span><br><span class="line"><span class="function">      <span class="title">weak_from_this</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">      </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span>-&gt;_M_weak_this; &#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> _Tp0&gt;</span><br><span class="line">	<span class="type">void</span></span><br><span class="line">	_M_weak_assign(_Tp0* __p, <span class="type">const</span> __shared_count&lt;&gt;&amp; __n) <span class="type">const</span> <span class="keyword">noexcept</span></span><br><span class="line">	&#123; _M_weak_this._M_assign(__p, __n); &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Found by ADL when this is an associated class.</span></span><br><span class="line">      <span class="keyword">friend</span> <span class="type">const</span> enable_shared_from_this*</span><br><span class="line">      __enable_shared_from_this_base(<span class="type">const</span> __shared_count&lt;&gt;&amp;,</span><br><span class="line">				     <span class="type">const</span> enable_shared_from_this* __p)</span><br><span class="line">      &#123; <span class="keyword">return</span> __p; &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">template</span>&lt;<span class="keyword">typename</span>, _Lock_policy&gt;</span><br><span class="line">	<span class="keyword">friend</span> <span class="keyword">class</span> <span class="title class_">__shared_ptr</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">mutable</span> weak_ptr&lt;_Tp&gt;  _M_weak_this;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+<p>enable_shared_from_this 类中的成员函数</p>
+<ul>
+<li>(constructor)：构造一个 enable_shared_from_this 对象，是一个受保护的成员函数，成员属性为 <code>protected</code>。</li>
+<li>(destructor)：销毁一个 enable_shared_from_this 对象，是一个受保护的成员函数，成员属性为 <code>protected</code>。</li>
+<li>operator&#x3D;：返回到 this 的引用，是一个受保护成员函数，成员属性为 <code>protected</code>。</li>
+<li>shared_from_this：返回共享 <code>*this</code> 指针所有权的 shared_ptr，是一个 <code>public</code> 属性的成员函数。</li>
+<li>weak_from_this(C++16)：返回共享 <code>*this</code> 所指针有权的 weak_ptr，是一个<code>public</code> 属性的成员函数。</li>
+</ul>
+<h1 id="5-代码示例"><a href="#5-代码示例" class="headerlink" title="5. 代码示例"></a>5. 代码示例</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 比较推荐的写法</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Good</span> : std::enable_shared_from_this&lt;Good&gt; <span class="comment">// note: public inheritance</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">std::shared_ptr&lt;Good&gt; <span class="title">getptr</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">shared_from_this</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 错误的用法：用不安全的表达式试图获得 this 的 shared_ptr 对象</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Bad</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">std::shared_ptr&lt;Bad&gt; <span class="title">getptr</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> std::<span class="built_in">shared_ptr</span>&lt;Bad&gt;(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">Bad</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Bad::~Bad() called\n&quot;</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 正确的用法: 两个 shared_ptr 共享同一个对象</span></span><br><span class="line">    std::shared_ptr&lt;Good&gt; gp1 = std::<span class="built_in">make_shared</span>&lt;Good&gt;();</span><br><span class="line">    std::shared_ptr&lt;Good&gt; gp2 = gp1-&gt;<span class="built_in">getptr</span>();</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;gp2.use_count() = &quot;</span> &lt;&lt; gp<span class="number">2.</span><span class="built_in">use_count</span>() &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 错误的用法: 调用 shared_from_this 但其没有被 std::shared_ptr 占有 </span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Good not_so_good;</span><br><span class="line">        std::shared_ptr&lt;Good&gt; gp1 = not_so_good.<span class="built_in">getptr</span>();</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="built_in">catch</span>(std::bad_weak_ptr&amp; e) &#123;</span><br><span class="line">        <span class="comment">// 在 C++17 之前，编译器不能捕获 enable_shared_from_this 抛出的std::bad_weak_ptr 异常</span></span><br><span class="line">        <span class="comment">// 这是在C++17之后才有的特性</span></span><br><span class="line">        std::cout &lt;&lt; e.<span class="built_in">what</span>() &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;    </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 错误的用法，每个 shared_ptr 都认为自己是对象的唯一拥有者</span></span><br><span class="line">    <span class="comment">// 调用错误的用法，会导致两次析构 Bad的对象，第二次析构时，指针指向的空间已经被析构，</span></span><br><span class="line">    <span class="comment">// 会导致程序出错</span></span><br><span class="line">    std::shared_ptr&lt;Bad&gt; bp1 = std::<span class="built_in">make_shared</span>&lt;Bad&gt;();</span><br><span class="line">    std::shared_ptr&lt;Bad&gt; bp2 = bp1-&gt;<span class="built_in">getptr</span>();</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;bp2.use_count() = &quot;</span> &lt;&lt; bp<span class="number">2.</span><span class="built_in">use_count</span>() &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+
+<h1 id="6-References"><a href="#6-References" class="headerlink" title="6. References"></a>6. References</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/memory/enable_shared_from_this">cpp reference解释其用法</a> </li>
+<li><a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/136193">enable_shared_from_this用法分析</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/C/synced/Cpp/enable_shared_from_this/">https://johnjeep.github.io/C/synced/Cpp/enable_shared_from_this/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Learning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/cpp/">cpp</a><a class="post-meta__tags" href="/tags/enable-shared-from-this/">enable-shared-from-this</a></div><div class="post-share"><div class="social-share" data-image="/img/seele.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/DataStructure/synced/DataStructure/DataStructure/" title="DataStructure"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">DataStructure</div></div><div class="info-2"><div class="info-item-1">  1. Introduction 算法：处理问题的策略。 数据结构：描述问题的数据模型。 程序：计算机按照处理问题的策略，处理问题信息的一组指令集。 用空间换时间思想：将计算的中间结果缓存下来，从缓存中找出目标结果，以牺牲内存空间来提高时间效率。 用时间换空间思想: 对于一些对内存要求比较严格时，需要牺牲时间的执行效率，来换取空间的利用率。   计算机处理问题的过程（按流程图走向）  具体问题 抽象 问题模型 数据分析 数据结构...</div></div></div></a><a class="pagination-related" href="/C/synced/Cpp/concurrency/" title="Concurrency"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Concurrency</div></div><div class="info-2"><div class="info-item-1">   1. 阻塞 2. 非阻塞 3. 异步 4. 同步 5. 并行 6. 并发 7. 高并发 8. API 8.1. async 8.2. future 8.3. Condition Variable    1. 阻塞阻塞是指当前执行的线程调用一个方法，在该方法没有返回值之前，当前执行的线程会被挂起，无法继续进行其他操作。 2. 非阻塞非阻塞是指当前执行的线程调用一个方法，当前执行的线程不受该方法的影响，可以继续进行其他操作。 3...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/C/synced/Cpp/STL/" title="STL"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">STL</div></div><div class="info-2"><div class="info-item-1">   1. Thinking 2. History(历史) 3. STL(Standard Template Library)标准模板库 4. Container(容器) 4.1. Sequence containers(有序容器) 4.1.1. Array(数组) 4.1.1.1. 优点 4.1.1.2. 缺点 4.1.1.3. 源码分析   4.1.2. vector(单端动态数组) 4.1.2.1. API 4.1.2.2....</div></div></div></a><a class="pagination-related" href="/C/synced/Cpp/OOP/" title="OOP"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-12</div><div class="info-item-2">OOP</div></div><div class="info-2"><div class="info-item-1">  Object Oriented Programming(OOP)叫面向对象编程。 class without pointer members(类中的成员不带有指针)。 class with pointer members(类中的成员带有指针)。  1. Encapsulation(封装) 2. Composition(复合) 3. Delegation(委托) 3.1. copy on write 3.2. pImpl Idi...</div></div></div></a><a class="pagination-related" href="/C/synced/Cpp/Advance/" title="Advance"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-12</div><div class="info-item-2">Advance</div></div><div class="info-2"><div class="info-item-1">   1. IOStream(输入输出流) 2. Meata Programming(元编程) 3. Resource acquisition is initialization(RAII)  1. IOStream(输入输出流)输入流 cin  getline() 终端输入缓冲区中时可以输入 空格。 ignore() 忽略缓冲区指定的数据 peek() 读缓冲区的数据，若有数据，则读出缓冲区的一个数据；没有数据，则读出无数据。 ...</div></div></div></a><a class="pagination-related" href="/C/synced/Cpp/Optimize/" title="Optimize"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-07</div><div class="info-item-2">Optimize</div></div><div class="info-2"><div class="info-item-1">   1. C++ Optimize 2. 开销来自哪里 3. 编写高效的 C++ 程序 4. 虚函数性能开销 5. References  1. C++ OptimizeC++ 优化的核心在于编写高效的算法、避免不必要的计算和步骤，以及选择恰当的优化设计策略。 2. 开销来自哪里 函数之间的调用。用模板和内联函数去解决。 虚函数调用。用 CRTP 和 variant 去解决。 内存分配和访问。用对象池和内存对齐去解决。 不必要的...</div></div></div></a><a class="pagination-related" href="/C/FAQ/synced/Cpp/FAQ/C++Sheet/" title="C++Sheet"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">C++Sheet</div></div><div class="info-2"><div class="info-item-1">  1. C++ 面试八股文1.1. 1 .h与 .hpp 文件区别.hpp 本质就是将.cpp的实现代码混入.h头文件当中，定义与实现都包含在同一文件，则该类的调用者只需要include该.hpp文件即可，无需再将cpp加入到project中进行编译。而实现代码将直接编译到调用者的obj文件中，不再生成单独的obj，采用hpp将大幅度减少调用project中的cpp文件数与编译次数，也不用再发布lib与dll文件，因此非常适合用...</div></div></div></a><a class="pagination-related" href="/Interview/Handbook/synced/Interview/Handbook/Cpp/" title="Cpp"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-17</div><div class="info-item-2">Cpp</div></div><div class="info-2"><div class="info-item-1">   1. new&#x2F;malloc 2. vector 2.1.  vector 是怎么扩容的？ 2.2. 为什么频繁 push_back 可能导致性能抖动？ 2.3. 如果要存储大量小对象，有没有更好的方式？ 2.4.  Vector 的内存管理方式是怎么做的？内存怎么回收？不析构vector对象，回收部分内存？ 2.5. vector清空用哪些函数   3. 虚函数 3.1.  虚函数表的实现原理？是什么东西？什么时候...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF-enable-shared-from-this"><span class="toc-number">1.</span> <span class="toc-text">1. 什么是 enable_shared_from_this?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-enable-shared-from-this"><span class="toc-number">2.</span> <span class="toc-text">2. 为什么要用 enable_shared_from_this</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E9%97%AE%E9%A2%98%E5%9C%BA%E6%99%AF"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 问题场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9Aenable-shared-from-this"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 解决方案：enable_shared_from_this</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">3. 什么时候用？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E4%B8%BB%E8%A6%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 主要使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-1-%E5%BC%82%E6%AD%A5%E5%9B%9E%E8%B0%83"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1. 异步回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2-%E5%AE%B9%E5%99%A8%E4%B8%AD%E5%AD%98%E5%82%A8%E8%87%AA%E8%BA%AB%E6%8C%87%E9%92%88"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2. 容器中存储自身指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-3-%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.1.3. 链式调用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E9%87%8D%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. 重要注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-%E5%BF%85%E9%A1%BB%E5%9C%A8%E5%B7%B2%E6%9C%89-shared-ptr-%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E4%BD%BF%E7%94%A8"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1. 必须在已有 shared_ptr 的情况下使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%AD%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8"><span class="toc-number">3.2.2.</span> <span class="toc-text">3.2.2. 构造函数中不能使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-%E7%BB%A7%E6%89%BF%E8%A6%81%E6%B1%82"><span class="toc-number">3.2.3.</span> <span class="toc-text">3.2.3. 继承要求</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%A0%87%E5%87%86%E5%BA%93%E4%B8%AD%E6%BA%90%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">4. 标准库中源码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">5. 代码示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-References"><span class="toc-number">6.</span> <span class="toc-text">6. References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ComputerSystemAProgramm'sPerspective"/></a><div class="content"><a class="title" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective">ComputerSystemAProgramm'sPerspective</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jsoncpp"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp">Jsoncpp</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Project/" title="Project"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Project"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Project/" title="Project">Project</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Protocol Terms"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms">Protocol Terms</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/modbus/" title="Modbus"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Modbus"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/modbus/" title="Modbus">Modbus</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RedisSourceCode"/></a><div class="content"><a class="title" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode">RedisSourceCode</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Qt/synced/Qt/Qt/" title="Qt"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/Qt/synced/Qt/Qt/" title="Qt">Qt</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Embodied/" title="Embodied"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Embodied"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Embodied/" title="Embodied">Embodied</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":0,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'JohnJeep/Learning-CS-Journey',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

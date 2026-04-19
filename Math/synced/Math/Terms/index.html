@@ -1,0 +1,904 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Terms | Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="terms以下是线性代数中常用术语的中英对照表： General Terms   英文术语 中文术语    Linear Algebra 线性代数   Scalar 标量   Vector 向量   Aligned vector 同向向量   anti-aligned vector 反向向量   Matrix 矩阵   Set 集合   System of Linear Equations 线">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Terms">
+<meta property="og:url" content="https://johnjeep.github.io/Math/synced/Math/Terms/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="terms以下是线性代数中常用术语的中英对照表： General Terms   英文术语 中文术语    Linear Algebra 线性代数   Scalar 标量   Vector 向量   Aligned vector 同向向量   anti-aligned vector 反向向量   Matrix 矩阵   Set 集合   System of Linear Equations 线">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/seele.jpg">
+<meta property="article:published_time" content="2026-01-31T04:06:51.000Z">
+<meta property="article:modified_time" content="2026-04-09T07:20:32.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="math">
+<meta property="article:tag" content="terms">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/seele.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Terms",
+  "url": "https://johnjeep.github.io/Math/synced/Math/Terms/",
+  "image": "https://johnjeep.github.io/img/seele.jpg",
+  "datePublished": "2026-01-31T04:06:51.000Z",
+  "dateModified": "2026-04-09T07:20:32.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Math/synced/Math/Terms/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Terms',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">Terms</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Terms</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-31T04:06:51.000Z" title="发表于 2026-01-31 12:06:51">2026-01-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-09T07:20:32.000Z" title="更新于 2026-04-09 15:20:32">2026-04-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Math/">Math</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2026-01-31 17:45:52
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2026-04-09 22:40:15
+ * @Description: Linear Algebra Terms
+ * Copyright (c) 2026 by John Jeep, All Rights Reserved. 
+-->
+
+<h1 id="terms"><a href="#terms" class="headerlink" title="terms"></a>terms</h1><p>以下是线性代数中常用术语的中英对照表：</p>
+<h2 id="General-Terms"><a href="#General-Terms" class="headerlink" title="General Terms"></a>General Terms</h2><table>
+<thead>
+<tr>
+<th align="left">英文术语</th>
+<th align="left">中文术语</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Linear Algebra</td>
+<td align="left">线性代数</td>
+</tr>
+<tr>
+<td align="left">Scalar</td>
+<td align="left">标量</td>
+</tr>
+<tr>
+<td align="left">Vector</td>
+<td align="left">向量</td>
+</tr>
+<tr>
+<td align="left">Aligned vector</td>
+<td align="left">同向向量</td>
+</tr>
+<tr>
+<td align="left">anti-aligned vector</td>
+<td align="left">反向向量</td>
+</tr>
+<tr>
+<td align="left">Matrix</td>
+<td align="left">矩阵</td>
+</tr>
+<tr>
+<td align="left">Set</td>
+<td align="left">集合</td>
+</tr>
+<tr>
+<td align="left">System of Linear Equations</td>
+<td align="left">线性方程组</td>
+</tr>
+<tr>
+<td align="left">Solution</td>
+<td align="left">解</td>
+</tr>
+<tr>
+<td align="left">combination</td>
+<td align="left">组合</td>
+</tr>
+<tr>
+<td align="left">sparse</td>
+<td align="left">稀疏</td>
+</tr>
+<tr>
+<td align="left">residual</td>
+<td align="left">残差</td>
+</tr>
+<tr>
+<td align="left">de-meaning</td>
+<td align="left">去均值</td>
+</tr>
+<tr>
+<td align="left">dependent variable</td>
+<td align="left">因变量</td>
+</tr>
+<tr>
+<td align="left">independent variable</td>
+<td align="left">自变量</td>
+</tr>
+<tr>
+<td align="left">distance</td>
+<td align="left">距离</td>
+</tr>
+<tr>
+<td align="left">inequality</td>
+<td align="left">不等式</td>
+</tr>
+<tr>
+<td align="left">intercept</td>
+<td align="left">截距</td>
+</tr>
+<tr>
+<td align="left">interpolation</td>
+<td align="left">插值</td>
+</tr>
+<tr>
+<td align="left">evalution</td>
+<td align="left">求值</td>
+</tr>
+<tr>
+<td align="left">multiplier</td>
+<td align="left">乘数</td>
+</tr>
+<tr>
+<td align="left">polynomial</td>
+<td align="left">多项式</td>
+</tr>
+<tr>
+<td align="left">symmetric</td>
+<td align="left">对称</td>
+</tr>
+<tr>
+<td align="left">specificity</td>
+<td align="left">奇异性</td>
+</tr>
+<tr>
+<td align="left">spherical</td>
+<td align="left">球面距离</td>
+</tr>
+<tr>
+<td align="left">nonnegative</td>
+<td align="left">非负</td>
+</tr>
+</tbody></table>
+<h2 id="Matrix-Related"><a href="#Matrix-Related" class="headerlink" title="Matrix Related"></a>Matrix Related</h2><table>
+<thead>
+<tr>
+<th align="left">英文术语</th>
+<th align="left">中文术语</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Row</td>
+<td align="left">行</td>
+</tr>
+<tr>
+<td align="left">Column</td>
+<td align="left">列</td>
+</tr>
+<tr>
+<td align="left">Entry&#x2F;Element</td>
+<td align="left">元素</td>
+</tr>
+<tr>
+<td align="left">gradient</td>
+<td align="left">梯度</td>
+</tr>
+<tr>
+<td align="left">Square Matrix</td>
+<td align="left">方阵</td>
+</tr>
+<tr>
+<td align="left">Identity Matrix</td>
+<td align="left">单位矩阵</td>
+</tr>
+<tr>
+<td align="left">Zero Matrix &#x2F; Null Matrix</td>
+<td align="left">零矩阵</td>
+</tr>
+<tr>
+<td align="left">Diagonal Matrix</td>
+<td align="left">对角矩阵</td>
+</tr>
+<tr>
+<td align="left">transpose</td>
+<td align="left">转置</td>
+</tr>
+<tr>
+<td align="left">Symmetric Matrix</td>
+<td align="left">对称矩阵</td>
+</tr>
+<tr>
+<td align="left">Inverse Matrix</td>
+<td align="left">逆矩阵</td>
+</tr>
+<tr>
+<td align="left">Singular Matrix</td>
+<td align="left">奇异矩阵 &#x2F; 不可逆矩阵</td>
+</tr>
+<tr>
+<td align="left">Nonsingular Matrix</td>
+<td align="left">非奇异矩阵 &#x2F; 可逆矩阵</td>
+</tr>
+<tr>
+<td align="left">Determinant</td>
+<td align="left">行列式</td>
+</tr>
+<tr>
+<td align="left">Trace</td>
+<td align="left">迹</td>
+</tr>
+<tr>
+<td align="left">Adjacency Matirx</td>
+<td align="left">邻接矩阵</td>
+</tr>
+<tr>
+<td align="left">Return Matrix</td>
+<td align="left">收益矩阵</td>
+</tr>
+<tr>
+<td align="left">circular difference matrix</td>
+<td align="left">循环差分矩阵</td>
+</tr>
+<tr>
+<td align="left">column major</td>
+<td align="left">列优先</td>
+</tr>
+<tr>
+<td align="left">compliance matrix</td>
+<td align="left">柔度矩阵</td>
+</tr>
+<tr>
+<td align="left">confusion matrix</td>
+<td align="left">混淆矩阵</td>
+</tr>
+<tr>
+<td align="left">controllability matrix</td>
+<td align="left">可控矩阵</td>
+</tr>
+<tr>
+<td align="left">covariance matrix</td>
+<td align="left">协方差矩阵</td>
+</tr>
+<tr>
+<td align="left">Augmented matrix</td>
+<td align="left">增广矩阵</td>
+</tr>
+<tr>
+<td align="left">power of matrix</td>
+<td align="left">矩阵的幂</td>
+</tr>
+<tr>
+<td align="left">second difference matrix</td>
+<td align="left">二阶差分矩阵</td>
+</tr>
+<tr>
+<td align="left">tall matrix</td>
+<td align="left">高形矩阵</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="Vector-Space-Related"><a href="#Vector-Space-Related" class="headerlink" title="Vector Space Related"></a>Vector Space Related</h2><table>
+<thead>
+<tr>
+<th align="left">英文术语</th>
+<th align="left">中文术语</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Vector Space</td>
+<td align="left">向量空间</td>
+</tr>
+<tr>
+<td align="left">unit vector</td>
+<td align="left">单位向量</td>
+</tr>
+<tr>
+<td align="left">column space</td>
+<td align="left">列空间</td>
+</tr>
+<tr>
+<td align="left">row space</td>
+<td align="left">行空间</td>
+</tr>
+<tr>
+<td align="left">cross product</td>
+<td align="left">叉乘</td>
+</tr>
+<tr>
+<td align="left">dot product</td>
+<td align="left">点积</td>
+</tr>
+<tr>
+<td align="left">inner product</td>
+<td align="left">内积</td>
+</tr>
+<tr>
+<td align="left">outer product</td>
+<td align="left">外积</td>
+</tr>
+<tr>
+<td align="left">projection</td>
+<td align="left">投影</td>
+</tr>
+<tr>
+<td align="left">proportion</td>
+<td align="left">比例</td>
+</tr>
+<tr>
+<td align="left">cross-validation</td>
+<td align="left">交叉验证</td>
+</tr>
+<tr>
+<td align="left">Subspace</td>
+<td align="left">子空间</td>
+</tr>
+<tr>
+<td align="left">Linear Combination</td>
+<td align="left">线性组合</td>
+</tr>
+<tr>
+<td align="left">linear equation</td>
+<td align="left">线性方程组</td>
+</tr>
+<tr>
+<td align="left">homogeneous equation</td>
+<td align="left">齐次方程组</td>
+</tr>
+<tr>
+<td align="left">Span</td>
+<td align="left">生成空间</td>
+</tr>
+<tr>
+<td align="left">Linear Independence</td>
+<td align="left">线性无关</td>
+</tr>
+<tr>
+<td align="left">Linear Dependence</td>
+<td align="left">线性相关</td>
+</tr>
+<tr>
+<td align="left">versus Linear</td>
+<td align="left">与线性</td>
+</tr>
+<tr>
+<td align="left">Basis</td>
+<td align="left">基</td>
+</tr>
+<tr>
+<td align="left">dual</td>
+<td align="left">对偶</td>
+</tr>
+<tr>
+<td align="left">Dimension</td>
+<td align="left">维度</td>
+</tr>
+<tr>
+<td align="left">Coordinate</td>
+<td align="left">坐标</td>
+</tr>
+<tr>
+<td align="left">location vector</td>
+<td align="left">位置向量</td>
+</tr>
+<tr>
+<td align="left">reverse</td>
+<td align="left">逆序</td>
+</tr>
+<tr>
+<td align="left">rotation</td>
+<td align="left">旋转</td>
+</tr>
+<tr>
+<td align="left">trajectory</td>
+<td align="left">轨迹</td>
+</tr>
+</tbody></table>
+<h2 id="Linear-Transformation-Related"><a href="#Linear-Transformation-Related" class="headerlink" title="Linear Transformation Related"></a>Linear Transformation Related</h2><table>
+<thead>
+<tr>
+<th align="left">英文术语</th>
+<th align="left">中文术语</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Linear Transformation</td>
+<td align="left">线性变换</td>
+</tr>
+<tr>
+<td align="left">Kernel &#x2F; NullSpace</td>
+<td align="left">核空间 &#x2F; 零空间</td>
+</tr>
+<tr>
+<td align="left">Image &#x2F; ColumnSpace</td>
+<td align="left">像空间 &#x2F; 列空间</td>
+</tr>
+<tr>
+<td align="left">Rank</td>
+<td align="left">秩</td>
+</tr>
+<tr>
+<td align="left">Nullity</td>
+<td align="left">零化度</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="Eigenvalues-and-Eigenvectors"><a href="#Eigenvalues-and-Eigenvectors" class="headerlink" title="Eigenvalues and Eigenvectors"></a>Eigenvalues and Eigenvectors</h2><table>
+<thead>
+<tr>
+<th align="left">英文术语</th>
+<th align="left">中文术语</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Eigenvalue</td>
+<td align="left">特征值</td>
+</tr>
+<tr>
+<td align="left">Eigenvector</td>
+<td align="left">特征向量</td>
+</tr>
+<tr>
+<td align="left">Characteristic Polynomial</td>
+<td align="left">特征多项式</td>
+</tr>
+<tr>
+<td align="left">Diagonalization</td>
+<td align="left">对角化</td>
+</tr>
+<tr>
+<td align="left">Similar Matrices</td>
+<td align="left">相似矩阵</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="Other-Important-Concepts"><a href="#Other-Important-Concepts" class="headerlink" title="Other Important Concepts"></a>Other Important Concepts</h2><table>
+<thead>
+<tr>
+<th align="left">英文术语</th>
+<th align="left">中文术语</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Inner Product &#x2F; Dot Product</td>
+<td align="left">内积 &#x2F; 点积</td>
+</tr>
+<tr>
+<td align="left">Orthogonal</td>
+<td align="left">正交</td>
+</tr>
+<tr>
+<td align="left">Orthonormal</td>
+<td align="left">标准正交</td>
+</tr>
+<tr>
+<td align="left">Projection</td>
+<td align="left">投影</td>
+</tr>
+<tr>
+<td align="left">Gram-Schmidt Process</td>
+<td align="left">格拉姆-施密特过程</td>
+</tr>
+<tr>
+<td align="left">Least Squares Solution</td>
+<td align="left">最小二乘解</td>
+</tr>
+<tr>
+<td align="left">Least Squares approximation</td>
+<td align="left">最小二乘近似</td>
+</tr>
+<tr>
+<td align="left">Least norm</td>
+<td align="left">最小范数</td>
+</tr>
+<tr>
+<td align="left">QR factorization</td>
+<td align="left">QR分解</td>
+</tr>
+<tr>
+<td align="left">acute angle</td>
+<td align="left">锐角</td>
+</tr>
+<tr>
+<td align="left">obtuse angle</td>
+<td align="left">钝角</td>
+</tr>
+<tr>
+<td align="left">orthogonal angle</td>
+<td align="left">直角</td>
+</tr>
+<tr>
+<td align="left">triangle</td>
+<td align="left">三角</td>
+</tr>
+<tr>
+<td align="left">approximation</td>
+<td align="left">近似</td>
+</tr>
+<tr>
+<td align="left">backslash notation</td>
+<td align="left">反斜杠记号</td>
+</tr>
+<tr>
+<td align="left">calculus</td>
+<td align="left">微积分</td>
+</tr>
+<tr>
+<td align="left">categorical feature</td>
+<td align="left">分类特征</td>
+</tr>
+<tr>
+<td align="left">optimal</td>
+<td align="left">最优</td>
+</tr>
+<tr>
+<td align="left">coefficient</td>
+<td align="left">系数</td>
+</tr>
+<tr>
+<td align="left">complexity</td>
+<td align="left">复杂度</td>
+</tr>
+<tr>
+<td align="left">conservation of mass</td>
+<td align="left">质量守恒</td>
+</tr>
+<tr>
+<td align="left">state feedback</td>
+<td align="left">状态反馈</td>
+</tr>
+<tr>
+<td align="left">correlation coefficient</td>
+<td align="left">相关系数</td>
+</tr>
+<tr>
+<td align="left">convolution</td>
+<td align="left">卷积</td>
+</tr>
+<tr>
+<td align="left">data fitting</td>
+<td align="left">数据拟合</td>
+</tr>
+<tr>
+<td align="left">derivative</td>
+<td align="left">导数</td>
+</tr>
+<tr>
+<td align="left">dynamic</td>
+<td align="left">动力学</td>
+</tr>
+<tr>
+<td align="left">supply chain</td>
+<td align="left">供应链</td>
+</tr>
+<tr>
+<td align="left">mechanical</td>
+<td align="left">力学的</td>
+</tr>
+<tr>
+<td align="left">Gaussian elimination</td>
+<td align="left">高斯消元法</td>
+</tr>
+<tr>
+<td align="left">LU decomposition</td>
+<td align="left">LU 分解</td>
+</tr>
+<tr>
+<td align="left">QR decomposition</td>
+<td align="left">QR 分解</td>
+</tr>
+<tr>
+<td align="left">loss function</td>
+<td align="left">损失函数</td>
+</tr>
+<tr>
+<td align="left">over-fit</td>
+<td align="left">过拟合</td>
+</tr>
+<tr>
+<td align="left">stratified</td>
+<td align="left">分层</td>
+</tr>
+<tr>
+<td align="left">partial derivative</td>
+<td align="left">偏导数</td>
+</tr>
+<tr>
+<td align="left">square root</td>
+<td align="left">平方根</td>
+</tr>
+<tr>
+<td align="left">sum of squares</td>
+<td align="left">平方和</td>
+</tr>
+<tr>
+<td align="left">root mean square</td>
+<td align="left">均方根</td>
+</tr>
+<tr>
+<td align="left">round-off error</td>
+<td align="left">舍入误差</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h1 id="Terminology-Explanation"><a href="#Terminology-Explanation" class="headerlink" title="Terminology Explanation"></a>Terminology Explanation</h1><ul>
+<li>线性组合(linear combination)：由向量通过加权求和得到的新向量。</li>
+<li>线性无关(linearly independent)：一组向量中没有一个可以表示为其他向量的线性组合。</li>
+<li>线性相关(linearly dependent)：一组向量中至少有一个可以表示为其他向量的线性组合。</li>
+<li>基(basis)：一组线性无关的向量，可以生成整个向量空间。</li>
+<li>维度(dimension)：向量空间中基的数量，表示空间的大小。</li>
+<li>内积(inner product)：两个向量的乘积，表示它们之间的关系。</li>
+<li>外积(outer product)：两个向量的乘积，生成一个矩阵。</li>
+<li>正交(orthogonal)：两个向量的内积为零，表示它们相互垂直。</li>
+<li>标准正交(orthonormal)：一组向量既正交又单位化。</li>
+<li>投影(projection)：将一个向量映射到另一个向量上的过程。</li>
+<li>范数(norm)：向量的长度或大小，通常使用欧几里得范数。</li>
+<li>距离(distance)：两个向量之间的距离，通常使用欧几里得距离。</li>
+<li>叉乘(cross product)：仅适用于三维空间的向量运算，生成一个新的向量。</li>
+<li>点积(dot product)：两个向量的乘积，生成一个标量。</li>
+<li>齐次坐标(homogeneous coordinates)：用于表示点和向量的扩展坐标系，常用于计算机图形学。</li>
+<li>轨迹(trajectory)：表示物体运动路径的向量序列。</li>
+<li>旋转(rotation)：表示向量在空间中旋转的操作。</li>
+<li>比例(proportion)：表示向量之间的比例关系。</li>
+<li>组合(combination)：表示向量通过加权求和得到的新向量。</li>
+<li>投影(projection)：表示将一个向量映射到另一个向量上的过程。</li>
+<li>反斜杠记号(backslash notation)：用于表示线性方程组的求解方法。</li>
+<li>最小范数(least norm)：表示向量的最小长度或大小。</li>
+<li>锐角(acute angle)：两个向量之间的夹角小于90度。</li>
+<li>钝角(obtuse angle)：两个向量之间的夹角大于90度。</li>
+<li>直角(orthogonal angle)：两个向量之间的夹角等于90度。</li>
+<li>近似(approximation)：表示向量的近似值或近似解。</li>
+<li>微积分(calculus)：用于描述向量变化的数学工具。</li>
+<li>最优(optimal)：表示向量在某种意义下的最佳状态。</li>
+<li>系数(coefficient)：表示向量在某种线性组合中的权重。</li>
+<li>复杂度(complexity)：表示向量运算的计算复杂度。</li>
+<li>导数(derivative)：表示向量变化率的数学工具。</li>
+<li>偏导数(partial derivative)：表示多变量向量函数中某一变量的变化率。</li>
+<li>平方根(square root)：表示向量长度的平方根。</li>
+<li>均方根(root mean square)：表示向量长度的均方根。</li>
+<li>舍入误差(round-off error)：表示向量运算中的数值误差。</li>
+<li>数据拟合(data fitting)：表示通过向量数据进行拟合的过程。</li>
+<li>卷积(convolution)：表示向量之间的卷积运算。</li>
+<li>相关系数(correlation coefficient)：表示两个向量之间的相关关系。</li>
+<li>状态反馈(state feedback)：表示通过向量状态进行反馈控制的过程。</li>
+<li>质量守恒(conservation of mass)：表示向量在物理系统中的质量守恒性质。</li>
+<li>力学的(mechanical)：表示与向量相关的力学性质。</li>
+<li>动力学(dynamic)：表示与向量相关的动力学性质。</li>
+<li>供应链(supply chain)：表示与向量相关的供应链管理问题。</li>
+<li>高斯消元法(Gaussian elimination)：用于求解线性方程组的向量运算方法。</li>
+<li>格拉姆-施密特过程(Gram-Schmidt process)：用于构造正交向量组的向量运算方法。</li>
+<li>QR分解(QR factorization)：用于将矩阵分解为正交矩阵和上三角矩阵的向量运算方法。</li>
+<li>损失函数(loss function)：用于衡量向量预测误差的函数。</li>
+<li>过拟合(over-fit)：表示向量模型在训练数据上表现过好的现象。</li>
+<li>分层(stratified)：表示向量数据按某种标准进行分层的过程。</li>
+<li>分类特征(categorical feature)：表示向量数据中的分类变量。</li>
+<li>最小二乘解(least squares solution)：表示通过最小化向量预测误差来求解线性方程组的近似解。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Math/synced/Math/Terms/">https://johnjeep.github.io/Math/synced/Math/Terms/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Learning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/math/">math</a><a class="post-meta__tags" href="/tags/terms/">terms</a></div><div class="post-share"><div class="social-share" data-image="/img/seele.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Math/synced/Math/Calculus/" title="Calculus"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Calculus</div></div><div class="info-2"><div class="info-item-1">  CalculusJames Stewart(詹姆斯·斯图尔特)，加拿大人。  James Stewart是一位数学匠人，他花费近 7 年时间写出这本他理想中的微积分教材《Calculus》，起因竟然是学生在课间无意中跟他说的一句话：“Stewart博士，我们希望你能写一本微积分教材，因为我们觉得你的讲座比我们用的书好太多了。”一年365天，他在教学和科研任务的间隙中穿插写作，有时每天会花上十几个小时，飞机起飞、火箭发射，他和助...</div></div></div></a><a class="pagination-related" href="/Math/synced/Math/MathFormulas/" title="MathFormulas"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">MathFormulas</div></div><div class="info-2"><div class="info-item-1">  math formulas数学中常用的三角函数公式以及特殊角对应的数值： 正弦和角公式（sine addition formula）： $\sin(A + B) &#x3D; \sin A \cos B + \cos A \sin B$ 余弦和角公式（cosine addition formula）： $\cos(A + B) &#x3D; \cos A \cos B - \sin A \sin B$ 正切和角公式（tange...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Protocol Terms</div></div><div class="info-2"><div class="info-item-1">Protocol Terms pattern ethernet transport chunk bulk  Network Topology   host links router driver socket iptable network interface layer source destination MTU: Maximium Transmission Unit TCP: Transmission Control Pro...</div></div></div></a><a class="pagination-related" href="/Math/synced/Math/Calculus/" title="Calculus"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-12</div><div class="info-item-2">Calculus</div></div><div class="info-2"><div class="info-item-1">  CalculusJames Stewart(詹姆斯·斯图尔特)，加拿大人。  James Stewart是一位数学匠人，他花费近 7 年时间写出这本他理想中的微积分教材《Calculus》，起因竟然是学生在课间无意中跟他说的一句话：“Stewart博士，我们希望你能写一本微积分教材，因为我们觉得你的讲座比我们用的书好太多了。”一年365天，他在教学和科研任务的间隙中穿插写作，有时每天会花上十几个小时，飞机起飞、火箭发射，他和助...</div></div></div></a><a class="pagination-related" href="/Math/synced/Math/LinearAlgebra/" title="LinearAlgebra"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-31</div><div class="info-item-2">LinearAlgebra</div></div><div class="info-2"><div class="info-item-1">   1. introduction to linear algebra vectors matrices matrix addition matrix subtraction matrix multiplication transpose matrix inverse matrix square matrix determinant QR decomposition   apply 3. practice 4. python l...</div></div></div></a><a class="pagination-related" href="/Math/synced/Math/MathFormulas/" title="MathFormulas"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-31</div><div class="info-item-2">MathFormulas</div></div><div class="info-2"><div class="info-item-1">  math formulas数学中常用的三角函数公式以及特殊角对应的数值： 正弦和角公式（sine addition formula）： $\sin(A + B) &#x3D; \sin A \cos B + \cos A \sin B$ 余弦和角公式（cosine addition formula）： $\cos(A + B) &#x3D; \cos A \cos B - \sin A \sin B$ 正切和角公式（tange...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#terms"><span class="toc-number">1.</span> <span class="toc-text">terms</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#General-Terms"><span class="toc-number">1.1.</span> <span class="toc-text">General Terms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matrix-Related"><span class="toc-number">1.2.</span> <span class="toc-text">Matrix Related</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vector-Space-Related"><span class="toc-number">1.3.</span> <span class="toc-text">Vector Space Related</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linear-Transformation-Related"><span class="toc-number">1.4.</span> <span class="toc-text">Linear Transformation Related</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Eigenvalues-and-Eigenvectors"><span class="toc-number">1.5.</span> <span class="toc-text">Eigenvalues and Eigenvectors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other-Important-Concepts"><span class="toc-number">1.6.</span> <span class="toc-text">Other Important Concepts</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Terminology-Explanation"><span class="toc-number">2.</span> <span class="toc-text">Terminology Explanation</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ComputerSystemAProgramm'sPerspective"/></a><div class="content"><a class="title" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective">ComputerSystemAProgramm'sPerspective</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jsoncpp"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp">Jsoncpp</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Project/" title="Project"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Project"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Project/" title="Project">Project</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Protocol Terms"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms">Protocol Terms</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/modbus/" title="Modbus"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Modbus"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/modbus/" title="Modbus">Modbus</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RedisSourceCode"/></a><div class="content"><a class="title" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode">RedisSourceCode</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Qt/synced/Qt/Qt/" title="Qt"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/Qt/synced/Qt/Qt/" title="Qt">Qt</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Embodied/" title="Embodied"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Embodied"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Embodied/" title="Embodied">Embodied</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":0,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'JohnJeep/Learning-CS-Journey',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

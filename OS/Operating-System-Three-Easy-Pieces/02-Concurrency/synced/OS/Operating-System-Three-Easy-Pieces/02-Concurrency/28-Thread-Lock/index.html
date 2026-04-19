@@ -1,0 +1,373 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>28 Thread Lock | Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="Thread-Lock什么是锁(lock)? 是一个某种类型的变量。 这个锁变量(简称锁)保持了锁在某一刻的状态。要么是可用的(available or or unlocked or free)，表示当前没有线程持有锁，线程可以使用该锁；要么是被占用的(acquired or locked or held)，表示当前有线程在临界区( critical section)使用锁。 锁的持有者(th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="28 Thread Lock">
+<meta property="og:url" content="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/28-Thread-Lock/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="Thread-Lock什么是锁(lock)? 是一个某种类型的变量。 这个锁变量(简称锁)保持了锁在某一刻的状态。要么是可用的(available or or unlocked or free)，表示当前没有线程持有锁，线程可以使用该锁；要么是被占用的(acquired or locked or held)，表示当前有线程在临界区( critical section)使用锁。 锁的持有者(th">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/seele.jpg">
+<meta property="article:published_time" content="2020-05-20T07:01:31.000Z">
+<meta property="article:modified_time" content="2020-08-11T04:46:14.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="os">
+<meta property="article:tag" content="operating-system-three-easy-pieces">
+<meta property="article:tag" content="02-concurrency">
+<meta property="article:tag" content="28-thread-lock">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/seele.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "28 Thread Lock",
+  "url": "https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/28-Thread-Lock/",
+  "image": "https://johnjeep.github.io/img/seele.jpg",
+  "datePublished": "2020-05-20T07:01:31.000Z",
+  "dateModified": "2020-08-11T04:46:14.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/28-Thread-Lock/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '28 Thread Lock',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">28 Thread Lock</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">28 Thread Lock</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-05-20T07:01:31.000Z" title="发表于 2020-05-20 15:01:31">2020-05-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-08-11T04:46:14.000Z" title="更新于 2020-08-11 12:46:14">2020-08-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/OS/">OS</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/OS/Operating-System-Three-Easy-Pieces/">Operating-System-Three-Easy-Pieces</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/">02-Concurrency</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2020-05-20 22:25:04
+ * @LastEditTime: 2020-08-11 20:40:43
+ * @LastEditors: Please set LastEditors
+ * @Description: 线程锁问题
+--> 
+<h1 id="Thread-Lock"><a href="#Thread-Lock" class="headerlink" title="Thread-Lock"></a>Thread-Lock</h1><h2 id="什么是锁-lock"><a href="#什么是锁-lock" class="headerlink" title="什么是锁(lock)?"></a>什么是锁(lock)?</h2><ul>
+<li>是一个某种类型的变量。</li>
+<li>这个锁变量(简称锁)保持了锁在某一刻的状态。要么是可用的(available or or unlocked or free)，表示当前没有线程持有锁，线程可以使用该锁；要么是被占用的(acquired or locked or held)，表示当前有线程在临界区( critical section)使用锁。</li>
+<li>锁的持有者(the owner of the lock): Calling the routine lock() tries to acquire the lock; if no other thread holds the lock (i.e., it is free), the thread will acquire the lock and enter the critical section;</li>
+<li>锁是为编程者提供了最小程度的调度控制(control over scheduling)。</li>
+<li>什么是互斥量(mutual exclusion)？<ul>
+<li>POSIX 库将锁称为互斥量。用来提供线程之间的互斥。</li>
+</ul>
+</li>
+<li>使用不同的锁去保护不同的数据和结构，允许更多的线程进入临界区。</li>
+</ul>
+<h2 id="如何实现一种高效的锁？"><a href="#如何实现一种高效的锁？" class="headerlink" title="如何实现一种高效的锁？"></a>如何实现一种高效的锁？</h2><ul>
+<li>提供互斥(mutual exclusion)。阻止多线程进入临界区。</li>
+<li>公平性(fairness)。是否每一个竞争(contend)线程都有公平的机会抢到锁。</li>
+<li>性能(performance)。使用锁增加的时间开销。</li>
+</ul>
+<h2 id="控制中断-Controlling-Interrupts"><a href="#控制中断-Controlling-Interrupts" class="headerlink" title="控制中断(Controlling Interrupts)"></a>控制中断(Controlling Interrupts)</h2><ul>
+<li>任何一个调用的线程需要执行一个特权的指令去打开和关闭中断，并且信任线程不会滥用资源。</li>
+<li>不能在多处理器上实现。</li>
+<li>长时间关闭中断会导致中断丢失，导致系统会出现一些问题。</li>
+<li>与普通指令执行相比，屏蔽或取消屏蔽中断的代码(code that masks or unmasks<br>interrupts)往往会被现代CPU缓慢执行。</li>
+</ul>
+<h2 id="自旋锁-Spin-Locks"><a href="#自旋锁-Spin-Locks" class="headerlink" title="自旋锁(Spin Locks)"></a>自旋锁(Spin Locks)</h2><ul>
+<li>test-and-set instruction也叫原子交换（atomic exchange）。</li>
+<li>互斥锁怎样工作<blockquote>
+<p>通过测试旧锁的值和设置新锁的值，进行单个原子操作 ，确保只有一个线程获得该锁。</p>
+</blockquote>
+</li>
+<li>抢占式调度（preemptive scheduler）：不断通过时钟去中断一个线程，让其它的线程可以运算。</li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">自旋锁是一种最简单的锁，在循环里面一直等待，利用CPU，直到有锁可用为止。</span><br><span class="line"><span class="type">void</span> <span class="keyword">lock</span>(lock_t *<span class="keyword">lock</span>) &#123;</span><br><span class="line">  <span class="keyword">while</span> (TestAndSet(&amp;<span class="keyword">lock</span>-&gt;flag, <span class="number">1</span>) == <span class="number">1</span>)</span><br><span class="line">      ; // spin-wait (<span class="keyword">do</span> <span class="keyword">nothing</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>评价自旋锁（Evaluating Spin Locks）</p>
+<ul>
+<li>正确性（correctness）: 自旋锁仅仅允许单个线程在一定的时间内进入临界区（critical section）</li>
+<li>公平性（fairness）: 没有提供让任意一个线程进入都可以进入临界区的保证，没有公平性，可能会导致有线程不会进入临界区（即，饿死）。</li>
+<li>性能（performance）<ul>
+<li>单CPU：对性能的开销很大。当一个线程持有锁进入临界区时被抢占（preempted），调度器可能会运行其它的线程，其它线程都在竞争（contending）锁。在放弃CPU的使用权时，每个线程都会自旋（spin 即，等待）一个时间片段（preempted），导致浪费了CPU的周期。</li>
+<li>多CPU：效果很好。自旋（spin）等待其它处理器上的锁是否可用，不会浪费CPU太多的周期时间。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>比较和交换（Compare-And-Swap）</p>
+<ul>
+<li>在 SPARC 系统中，使用的是 <code>compare-and-swap instruction</code></li>
+<li>在 x86 系统时，使用的是 <code>compare-and-exchange instruction</code></li>
+<li>Compare-And-Swap指令比 test-and-set指令更加强大。</li>
+</ul>
+</li>
+</ul>
+<h2 id="存储条件指令和加载链接指令（Load-Linked-and-Store-Conditional）"><a href="#存储条件指令和加载链接指令（Load-Linked-and-Store-Conditional）" class="headerlink" title="存储条件指令和加载链接指令（Load-Linked and Store-Conditional）"></a>存储条件指令和加载链接指令（Load-Linked and Store-Conditional）</h2><ul>
+<li>Load-Linked: 从内存中取出值存到寄存器中。</li>
+<li>Store-Conditional: 只有在没有发生中间存储到相应地址的情况下，Store-Conditional才会成功（并更新存储在Load-Linked地址上的值）。成功时，返回值为1，并将ptr指向的值更新为value；失败时，返回值为0，不会更新值。</li>
+</ul>
+<h2 id="获得和增加指令（Fetch-And-Add）"><a href="#获得和增加指令（Fetch-And-Add）" class="headerlink" title="获得和增加指令（Fetch-And-Add）"></a>获得和增加指令（Fetch-And-Add）</h2><ul>
+<li>原子性的增加一个值，并在特定的地址返回一个旧的值</li>
+<li>采用 <code>Fetch-And-Add</code> 指令能够保证所有的线程都能抢到锁<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> FetchAndAdd(<span class="built_in">int</span> *<span class="built_in">ptr</span>) &#123;</span><br><span class="line">    <span class="built_in">int</span> old = *<span class="built_in">ptr</span><span class="comment">;</span></span><br><span class="line">    *<span class="built_in">ptr</span> = old + <span class="number">1</span><span class="comment">;</span></span><br><span class="line">    <span class="keyword">return</span> old<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="如何避免锁在CPU上浪费过多的自旋等待-spin-？"><a href="#如何避免锁在CPU上浪费过多的自旋等待-spin-？" class="headerlink" title="如何避免锁在CPU上浪费过多的自旋等待(spin)？"></a>如何避免锁在CPU上浪费过多的自旋等待(spin)？</h2><p>不仅需要硬件的支持，还需要 OS 的支持</p>
+<ul>
+<li><p>当前线程在等待（spin）的时候，让出或放弃CPU（just yield）</p>
+<ul>
+<li>线程调用 <code>yield()</code> 函数时，线程会主动放弃 CPU，让其它的线程运行。即当前线程的状态由运行态（running）变为就绪态（ready），从而使其它的线程运行。</li>
+<li>在单CPU上使用 <code>yield()</code> 运行多线程的方式很有效。当一个线程调用 <code>lock()</code> 时，发现锁被占用，让出CPU，让另外的线程运行，并完成临界区。</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>这种方法不能用在多个线程反复竞争（contending）一把锁的情况。因为没有解决线程或饿死的问题，一个线程可能会无限的处在 <code>让出CPU的循环</code>，而其它的线程会反复地进入和推出临界区。</li>
+<li>可能会导致优先级翻转问题（priority inversion）。在现代操作系统中为了克服这一问题，使用优先级继承 <code>priority inheritance</code>，让所有的线程都有一样的优先级。</li>
+</ul>
+</li>
+</ul>
+<h2 id="使用队列：睡眠替代一直等待-Using-Queues-Sleeping-Instead-Of-Spinning"><a href="#使用队列：睡眠替代一直等待-Using-Queues-Sleeping-Instead-Of-Spinning" class="headerlink" title="使用队列：睡眠替代一直等待(Using Queues: Sleeping Instead Of Spinning)"></a>使用队列：睡眠替代一直等待(Using Queues: Sleeping Instead Of Spinning)</h2><ul>
+<li><p>使用队列的目的：处理等待的线程，谁在接下来可以获得锁。</p>
+</li>
+<li><p>在Solaris系统中共采用 <code>park()</code> 函数：让调用的线程休眠</p>
+</li>
+<li><p>在Solaris系统中共采用 <code>unpack()</code> 函数：通过 <code>threadID</code> 唤醒特定的线程。使用 <code>unpack()</code> 和 <code>pack()</code> 这两个函数，让调用者在获取不到线程时休眠（sleep），在有锁可用时被唤醒（wake）。</p>
+</li>
+<li><p>在Solaris系统中共采用 <code>setpark()</code> 解决唤醒&#x2F;等待竞争（wakeup&#x2F;waiting race）问题。</p>
+</li>
+<li><p>Linux操作系统支持 </p>
+<ul>
+<li>提供了 <code>futex</code> 接口，让每个 <code>futex</code>都关联一个特定的物理内存位置。</li>
+<li><code>futex wait(address, expected)</code> 当 <code>address</code>中的值等于 <code>expected</code> 中的值时，让被调用的线程休眠（sleep），如果两者不相等，则调用立刻返回。</li>
+<li><code>futex wake(address)</code> 唤醒一个在队列中等待的线程。</li>
+<li>代码存储在 gnu libc的 <code>nptl</code> 库中。<blockquote>
+<p>核心思想：利用一个整数，同时记录锁是否被持有（整数的最高位）和线程等待者的个数（整数的其余部位）。若锁是负的，表示该锁被持有（held）。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>两相锁（Two-Phase Locks）</p>
+<ul>
+<li>采用两个阶段处理锁。</li>
+<li>第一个spin阶段：先自己等待（自旋：spin）一段时间，希望可以获得锁。</li>
+<li>第一个spin阶段：若在第一个阶段没有获得锁，则第二阶段的调用者会进入睡眠（sleep），直到锁可以用。</li>
+</ul>
+</li>
+<li><p>Linux系统采用的就是两阶锁，但是它 <code>自旋的时间</code> 仅仅只有一次。</p>
+</li>
+<li><p>常见的方式：在使用 <code>futex</code> 睡眠之前，在循环中固定 <code>自旋的时间</code> 的次数。</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/28-Thread-Lock/">https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/28-Thread-Lock/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Learning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/os/">os</a><a class="post-meta__tags" href="/tags/operating-system-three-easy-pieces/">operating-system-three-easy-pieces</a><a class="post-meta__tags" href="/tags/02-concurrency/">02-concurrency</a><a class="post-meta__tags" href="/tags/28-thread-lock/">28-thread-lock</a></div><div class="post-share"><div class="social-share" data-image="/img/seele.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Linux/synced/Linux/compile-link/" title="Compile Link"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Compile Link</div></div><div class="info-2"><div class="info-item-1">   1. Introduction 2. Abbreviation 2.1. Preprocessing 2.2. Compilation 2.3. Assembly 2.4. Linking 2.5. Toolchain Combination 2.6. Loader   3. Memory Layout 3.1. 常见的内存错误   4. 函数库 4.1. Static Library 4.2. Dybamic Librar...</div></div></div></a><a class="pagination-related" href="/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/27-Thread-API/" title="27 Thread API"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">27 Thread API</div></div><div class="info-2"><div class="info-item-1">  Thread-API如何构建并发程序的逻辑？ man -k pthread 查看所有线程接口的API  pthread_create参数  thead 指向pthread_t结构体类型的指针 attr  指定线程具有的属性（包括：栈大小、线程调度优先级） (*start_routine)(void*) 一个函数指针，告诉这个线程应该在哪个函数中运行。 arg  要传递给线程指向的函数中开始执行的参数  pthread_join...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/33-Event-based-Concurrency/" title="33 Event Based Concurrency"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-31</div><div class="info-item-2">33 Event Based Concurrency</div></div><div class="info-2"><div class="info-item-1">    事件循环（An Event Loop）：等待事件发生，当它发生时，检查事件类型，然后做相应的处理（可能是I&#x2F;O请求或者调度其它事件）。 采用 select() 和 poll() 进行事件的接受。 select() 检查I&#x2F;O描述符集合。 基于事件的系统中，遵循的原则：不允许阻塞调用。 采用事件编程的缺点：代码比较复杂、并且与现代操作系统的有些机制集成度较困难。  </div></div></div></a><a class="pagination-related" href="/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/29-30-Condition-Variables/" title="29 30 Condition Variables"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-25</div><div class="info-item-2">29 30 Condition Variables</div></div><div class="info-2"><div class="info-item-1">  Condition-Variables锁的并发数据结构 并发计数器（Concurrent Counters） 并发链表（Concurrent Linked Lists） 并发队列（Concurrent Queues） 并发散列表（Concurrent Hash Table）  条件变量（Condition Variables） join() 父线程检查子线程是否实行完毕。 条件变量有两种相关操作 wait()    线程希望自...</div></div></div></a><a class="pagination-related" href="/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/31-Semaphore/" title="31 Semaphore"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-28</div><div class="info-item-2">31 Semaphore</div></div><div class="info-2"><div class="info-item-1">  semaphore问题（crux） 怎样使用 semaphores 替代 locks 和 condition variables? 什么是 semaphores？ 什么是 binary semaphore(二值信号量)？ 用锁和条件变量来实现信号量是否简单？ 不用锁和条件变量怎样来实现信号量？  信号量（semaphore） 定义：信号量是一个整型值的对象，用两个程序（routines）操作它。  sem_wait() sem...</div></div></div></a><a class="pagination-related" href="/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/27-Thread-API/" title="27 Thread API"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-19</div><div class="info-item-2">27 Thread API</div></div><div class="info-2"><div class="info-item-1">  Thread-API如何构建并发程序的逻辑？ man -k pthread 查看所有线程接口的API  pthread_create参数  thead 指向pthread_t结构体类型的指针 attr  指定线程具有的属性（包括：栈大小、线程调度优先级） (*start_routine)(void*) 一个函数指针，告诉这个线程应该在哪个函数中运行。 arg  要传递给线程指向的函数中开始执行的参数  pthread_join...</div></div></div></a><a class="pagination-related" href="/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/32-Common-Concurrency-Problems/" title="32 Common Concurrency Problems"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-16</div><div class="info-item-2">32 Common Concurrency Problems</div></div><div class="info-2"><div class="info-item-1">      1. 并发编程中出现的缺陷(What Types Of Bugs Exist?) 1.1. Non-Deadlock Bugs(非死锁缺陷) 1.1.1. Atomicity-Violation Bugs(违反原子性缺陷) 1.1.2. Order-Violation Bugs(违反顺序性缺陷)   1.2. Deadlock(死锁) 1.2.1. What is Deadlock(什么是死锁？) 1.2.2. Why...</div></div></div></a><a class="pagination-related" href="/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/02-Concurrency/26-Concurrency-and-Threads/" title="26 Concurrency and Threads"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-19</div><div class="info-item-2">26 Concurrency and Threads</div></div><div class="info-2"><div class="info-item-1">  Concurrency-and-Threads为什么要使用线程（Thread)？ 实现并发性(parallelism)。多个CPU处理多个线程. 避免由于慢速的I&#x2F;O阻塞(block)程序的运行。  关键概念 临界区(critical section): 是访问共享资源( shared resource)的一段代码，一定不能有多个进程同时进行。通常共享资源是一个变量或数据结构。 竞态条件(race condition...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Thread-Lock"><span class="toc-number">1.</span> <span class="toc-text">Thread-Lock</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%94%81-lock"><span class="toc-number">1.1.</span> <span class="toc-text">什么是锁(lock)?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E7%A7%8D%E9%AB%98%E6%95%88%E7%9A%84%E9%94%81%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">如何实现一种高效的锁？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E4%B8%AD%E6%96%AD-Controlling-Interrupts"><span class="toc-number">1.3.</span> <span class="toc-text">控制中断(Controlling Interrupts)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E6%97%8B%E9%94%81-Spin-Locks"><span class="toc-number">1.4.</span> <span class="toc-text">自旋锁(Spin Locks)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%9D%A1%E4%BB%B6%E6%8C%87%E4%BB%A4%E5%92%8C%E5%8A%A0%E8%BD%BD%E9%93%BE%E6%8E%A5%E6%8C%87%E4%BB%A4%EF%BC%88Load-Linked-and-Store-Conditional%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">存储条件指令和加载链接指令（Load-Linked and Store-Conditional）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%BE%97%E5%92%8C%E5%A2%9E%E5%8A%A0%E6%8C%87%E4%BB%A4%EF%BC%88Fetch-And-Add%EF%BC%89"><span class="toc-number">1.6.</span> <span class="toc-text">获得和增加指令（Fetch-And-Add）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%94%81%E5%9C%A8CPU%E4%B8%8A%E6%B5%AA%E8%B4%B9%E8%BF%87%E5%A4%9A%E7%9A%84%E8%87%AA%E6%97%8B%E7%AD%89%E5%BE%85-spin-%EF%BC%9F"><span class="toc-number">1.7.</span> <span class="toc-text">如何避免锁在CPU上浪费过多的自旋等待(spin)？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E9%98%9F%E5%88%97%EF%BC%9A%E7%9D%A1%E7%9C%A0%E6%9B%BF%E4%BB%A3%E4%B8%80%E7%9B%B4%E7%AD%89%E5%BE%85-Using-Queues-Sleeping-Instead-Of-Spinning"><span class="toc-number">1.8.</span> <span class="toc-text">使用队列：睡眠替代一直等待(Using Queues: Sleeping Instead Of Spinning)</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ComputerSystemAProgramm'sPerspective"/></a><div class="content"><a class="title" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective">ComputerSystemAProgramm'sPerspective</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jsoncpp"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp">Jsoncpp</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Project/" title="Project"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Project"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Project/" title="Project">Project</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Protocol Terms"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms">Protocol Terms</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/modbus/" title="Modbus"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Modbus"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/modbus/" title="Modbus">Modbus</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RedisSourceCode"/></a><div class="content"><a class="title" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode">RedisSourceCode</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Qt/synced/Qt/Qt/" title="Qt"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/Qt/synced/Qt/Qt/" title="Qt">Qt</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Embodied/" title="Embodied"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Embodied"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Embodied/" title="Embodied">Embodied</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":0,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'JohnJeep/Learning-CS-Journey',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

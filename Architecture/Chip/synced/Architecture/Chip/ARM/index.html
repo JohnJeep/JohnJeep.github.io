@@ -1,0 +1,347 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ARM | Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="ARM（Advanced RISC Machine）架构自1985年诞生以来，已经经历了多个重要的发展阶段： ARMv7架构（32位时代） Cortex-A系列性能对比  Cortex-A5：入门级，功耗极低，单核性能约400 DMIPS Cortex-A7：高能效，支持big.LITTLE架构，性能比A5提升50% Cortex-A8：单核王者，曾是智能手机主流选择，支持1GHz主频 Corte">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARM">
+<meta property="og:url" content="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="ARM（Advanced RISC Machine）架构自1985年诞生以来，已经经历了多个重要的发展阶段： ARMv7架构（32位时代） Cortex-A系列性能对比  Cortex-A5：入门级，功耗极低，单核性能约400 DMIPS Cortex-A7：高能效，支持big.LITTLE架构，性能比A5提升50% Cortex-A8：单核王者，曾是智能手机主流选择，支持1GHz主频 Corte">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/seele.jpg">
+<meta property="article:published_time" content="2025-11-18T22:23:15.000Z">
+<meta property="article:modified_time" content="2025-11-18T22:23:15.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="architecture">
+<meta property="article:tag" content="arm">
+<meta property="article:tag" content="chip">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/seele.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ARM",
+  "url": "https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/",
+  "image": "https://johnjeep.github.io/img/seele.jpg",
+  "datePublished": "2025-11-18T22:23:15.000Z",
+  "dateModified": "2025-11-18T22:23:15.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ARM',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">ARM</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">ARM</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-18T22:23:15.000Z" title="发表于 2025-11-19 06:23:15">2025-11-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-18T22:23:15.000Z" title="更新于 2025-11-19 06:23:15">2025-11-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Architecture/">Architecture</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Architecture/Chip/">Chip</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">888</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>ARM（Advanced RISC Machine）架构自1985年诞生以来，已经经历了多个重要的发展阶段：</p>
+<p><strong>ARMv7架构（32位时代）</strong></p>
+<p>Cortex-A系列性能对比</p>
+<ul>
+<li><strong>Cortex-A5</strong>：入门级，功耗极低，单核性能约400 DMIPS</li>
+<li><strong>Cortex-A7</strong>：高能效，支持big.LITTLE架构，性能比A5提升50%</li>
+<li><strong>Cortex-A8</strong>：单核王者，曾是智能手机主流选择，支持1GHz主频</li>
+<li><strong>Cortex-A9</strong>：多核先锋，支持1-4核心配置，乱序执行</li>
+<li><strong>Cortex-A15</strong>：高性能，支持2.5GHz+主频，比A9性能提升40%</li>
+<li><strong>Cortex-A17</strong>：A15的改进版，平衡性能与功耗，能效提升60%</li>
+</ul>
+<p><strong>ARMv8架构（64位革命）</strong></p>
+<p>Cortex-A50系列</p>
+<ul>
+<li><strong>Cortex-A53</strong>：64位入门级，兼容32位应用，功耗仅A15的1&#x2F;3</li>
+<li><strong>Cortex-A57</strong>：64位高性能，支持乱序执行，比A15性能提升20-40%</li>
+<li><strong>Cortex-A72</strong>：A57的优化版，性能提升30%，功耗降低20%</li>
+<li><strong>Cortex-A73</strong>：进一步优化的高端核心，面积减少25%</li>
+</ul>
+<p><strong>big.LITTLE架构</strong></p>
+<p>ARM的big.LITTLE技术是一种异构多核心设计：</p>
+<ul>
+<li><strong>大核（Big）</strong>：如Cortex-A76、A78<ul>
+<li>高性能乱序超标量设计</li>
+<li>复杂的分支预测和指令预取</li>
+<li>适合CPU密集型任务</li>
+</ul>
+</li>
+<li><strong>小核（Little）</strong>：如Cortex-A55<ul>
+<li>顺序双发射设计</li>
+<li>简化的预测机制</li>
+<li>适合后台任务和轻负载</li>
+</ul>
+</li>
+</ul>
+<p>CPU 相关参数</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">CPU核心架构:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">ARMv7-A:</span> <span class="number">32</span><span class="string">位，支持NEON</span> <span class="string">SIMD</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">ARMv8-A:</span> <span class="number">64</span><span class="string">位，向下兼容32位</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">ARMv9-A:</span> <span class="string">最新架构，增强安全性和AI性能</span></span><br><span class="line"></span><br><span class="line"><span class="string">核心配置:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">单核:</span> <span class="string">简单应用，低功耗需求</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">双核:</span> <span class="string">基础多任务处理</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">四核:</span> <span class="string">主流配置，平衡性能与功耗</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">八核:</span> <span class="string">高性能需求，通常为big.LITTLE设计</span></span><br><span class="line"></span><br><span class="line"><span class="string">缓存层次:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">L1缓存:</span> <span class="string">32KB-64KB，最快访问</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">L2缓存:</span> <span class="string">128KB-1MB，核心私有或共享</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">L3缓存:</span> <span class="string">1MB-8MB，全核心共享</span></span><br><span class="line"></span><br><span class="line"><span class="string">制程工艺影响:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">7nm/5nm:</span> <span class="string">最先进，高性能低功耗</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">12nm/16nm:</span> <span class="string">主流选择，成本效益平衡</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">22nm/28nm:</span> <span class="string">入门级，成本优先</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>GPU与AI加速深度解析</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">GPU架构分类:</span></span><br><span class="line">  <span class="string">Mali-G系列:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">G31:</span> <span class="string">入门级，1-2个执行引擎</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">G52:</span> <span class="string">中端，2-4个执行引擎</span>  </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">G57:</span> <span class="string">高端，6-9个执行引擎</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">G610:</span> <span class="string">旗舰，10个执行引擎</span></span><br><span class="line"></span><br><span class="line">  <span class="string">其他GPU:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">Adreno:</span> <span class="string">高通专用，移动优化</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">VideoCore:</span> <span class="string">博通树莓派系列</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">PowerVR:</span> <span class="string">苹果早期使用</span></span><br><span class="line"></span><br><span class="line"><span class="string">AI加速器类型:</span></span><br><span class="line">  <span class="attr">NPU (Neural Processing Unit):</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">专用神经网络加速器</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">支持INT8/INT16/FP16精度</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">算力单位:</span> <span class="string">TOPS</span> <span class="string">(万亿次运算/秒)</span></span><br><span class="line">  </span><br><span class="line">  <span class="attr">DSP (Digital Signal Processor):</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">数字信号处理专用</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">适合音频/图像处理</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">可编程灵活性高</span></span><br><span class="line"></span><br><span class="line">  <span class="string">GPU计算:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">OpenCL/Vulkan计算着色器</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">通用性强但效率略低</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Linux系统</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Ubuntu版本特性:</span></span><br><span class="line">  <span class="attr">Ubuntu 18.04 LTS:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">支持期:</span> <span class="number">2023</span><span class="string">年4月结束</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">内核版本:</span> <span class="number">4.15</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">适用场景:</span> <span class="string">老设备兼容性</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">Ubuntu 20.04 LTS:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">支持期:</span> <span class="number">2025</span><span class="string">年4月</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">内核版本:</span> <span class="number">5.4</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">特色:</span> <span class="string">容器化支持增强</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">Ubuntu 22.04 LTS:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">支持期:</span> <span class="number">2027</span><span class="string">年4月</span>  </span><br><span class="line">    <span class="bullet">-</span> <span class="string">内核版本:</span> <span class="number">5.15</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">特色:</span> <span class="string">Wayland默认、更好的ARM支持</span></span><br><span class="line"></span><br><span class="line"><span class="string">开发板适配状况:</span></span><br><span class="line">  <span class="string">树莓派:</span> <span class="string">官方支持，优化完善</span></span><br><span class="line">  <span class="attr">RK3588:</span> <span class="string">第三方移植，稳定性良好</span></span><br><span class="line">  <span class="attr">RDK X5:</span> <span class="string">官方定制版本</span></span><br><span class="line">  <span class="attr">Jetson:</span> <span class="string">NVIDIA官方JetPack</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>实时操作系统对比</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>RTOS类型</strong></th>
+<th><strong>最大延迟</strong></th>
+<th><strong>内存占用</strong></th>
+<th><strong>学习难度</strong></th>
+<th><strong>适用场景</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FreeRTOS</td>
+<td>&lt;10μs</td>
+<td>4-10KB</td>
+<td>中等</td>
+<td>工业控制</td>
+</tr>
+<tr>
+<td>RT-Thread</td>
+<td>&lt;5μs</td>
+<td>3-8KB</td>
+<td>低</td>
+<td>物联网设备</td>
+</tr>
+<tr>
+<td>Zephyr</td>
+<td>&lt;20μs</td>
+<td>8-32KB</td>
+<td>高</td>
+<td>复杂嵌入式</td>
+</tr>
+<tr>
+<td>QNX</td>
+<td>&lt;3μs</td>
+<td>150KB+</td>
+<td>高</td>
+<td>汽车电子</td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://www.guyuehome.com/detail?id=1929553545592373250">机器人玩转之—嵌入式开发板基础知识到实战选型指南（包含ORIN、RDK X5、Raspberry pi、RK系列等）</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/">https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Learning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/architecture/">architecture</a><a class="post-meta__tags" href="/tags/arm/">arm</a><a class="post-meta__tags" href="/tags/chip/">chip</a></div><div class="post-share"><div class="social-share" data-image="/img/seele.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Architecture/Chip/synced/Architecture/Chip/NVIDIA/" title="NVIDIA"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">NVIDIA</div></div><div class="info-2"><div class="info-item-1">Jetson 系列架构演进 12345678910111213141516171819202122232425262728292014年: Jetson TK1  - GPU架构: Kepler (192 CUDA核心)  - CPU: 4核 ARM Cortex-A15  - 制程工艺: 28nm  - AI算力: ~0.3 TOPS  2016年: Jetson TX1/TX2  - GPU架构: Maxwell (256 C...</div></div></div></a><a class="pagination-related" href="/Network/synced/Network/linux-network/" title="Linux Network"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Linux Network</div></div><div class="info-2"><div class="info-item-1">   Linux NetworkNetfilterNetfilter 是 Linux 内核内部的包过滤和处理框架。      官方 netfilter 文档：https://www.netfilter.org/ 微信公众号深入理解netfilter框架：https://mp.weixin.qq.com/s/WplVOafIn4dI3wmZLYPHFA  IptablesIptables Tutorial 1.2.2: https:...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Architecture/Chip/synced/Architecture/Chip/NVIDIA/" title="NVIDIA"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-19</div><div class="info-item-2">NVIDIA</div></div><div class="info-2"><div class="info-item-1">Jetson 系列架构演进 12345678910111213141516171819202122232425262728292014年: Jetson TK1  - GPU架构: Kepler (192 CUDA核心)  - CPU: 4核 ARM Cortex-A15  - 制程工艺: 28nm  - AI算力: ~0.3 TOPS  2016年: Jetson TX1/TX2  - GPU架构: Maxwell (256 C...</div></div></div></a><a class="pagination-related" href="/Architecture/Chip/synced/Architecture/Chip/x86/" title="X86"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-25</div><div class="info-item-2">X86</div></div><div class="info-2"><div class="info-item-1">    References Intel® 64 and IA-32 Architectures Software Developer Manuals: https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html x86 and amd64 instruction reference: https://www.felixcl...</div></div></div></a><a class="pagination-related" href="/Architecture/CPU/synced/Architecture/CPU/CPU/" title="CPU"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">CPU</div></div><div class="info-2"><div class="info-item-1">  Linux 终端下运行 lscpu 命令查看关于 CPU 架构的信息。 12345678910111213141516171819202122232425[root@AP03 log]# lscpuArchitecture:          x86_64CPU op-mode(s):        32-bit, 64-bitByte Order:            Little EndianCPU(s):       ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ComputerSystemAProgramm'sPerspective"/></a><div class="content"><a class="title" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective">ComputerSystemAProgramm'sPerspective</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jsoncpp"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp">Jsoncpp</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Project/" title="Project"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Project"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Project/" title="Project">Project</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Protocol Terms"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms">Protocol Terms</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/modbus/" title="Modbus"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Modbus"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/modbus/" title="Modbus">Modbus</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RedisSourceCode"/></a><div class="content"><a class="title" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode">RedisSourceCode</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Qt/synced/Qt/Qt/" title="Qt"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/Qt/synced/Qt/Qt/" title="Qt">Qt</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Embodied/" title="Embodied"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Embodied"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Embodied/" title="Embodied">Embodied</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":0,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'JohnJeep/Learning-CS-Journey',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

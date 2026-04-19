@@ -1,0 +1,395 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>21 Pointer | Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="1. 概念 地址：一片内存中，每个字节（Byte）的编号 address, byte, bit 他们在内存中的关系： 内存是一栋大楼，字节（Byte）是大楼中的每一层，地址是楼层编号，位（bit）是每一层中的房间，每一层有8个房间。   变量内存：在内存中申请一块空间，该空间由多个字节组成 指针：是一种数据类型，是指它指向的内存空间的数据类型。（程序数据在内存中的地址）。在c语言当中，允许用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="21 Pointer">
+<meta property="og:url" content="https://johnjeep.github.io/C/synced/C/21_pointer/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="1. 概念 地址：一片内存中，每个字节（Byte）的编号 address, byte, bit 他们在内存中的关系： 内存是一栋大楼，字节（Byte）是大楼中的每一层，地址是楼层编号，位（bit）是每一层中的房间，每一层有8个房间。   变量内存：在内存中申请一块空间，该空间由多个字节组成 指针：是一种数据类型，是指它指向的内存空间的数据类型。（程序数据在内存中的地址）。在c语言当中，允许用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/seele.jpg">
+<meta property="article:published_time" content="2026-04-19T04:03:15.000Z">
+<meta property="article:modified_time" content="2025-11-13T04:35:57.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="c">
+<meta property="article:tag" content="21-pointer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/seele.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "21 Pointer",
+  "url": "https://johnjeep.github.io/C/synced/C/21_pointer/",
+  "image": "https://johnjeep.github.io/img/seele.jpg",
+  "datePublished": "2026-04-19T04:03:15.000Z",
+  "dateModified": "2025-11-13T04:35:57.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/C/synced/C/21_pointer/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '21 Pointer',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">21 Pointer</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">21 Pointer</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-19T04:03:15.000Z" title="发表于 2026-04-19 12:03:15">2026-04-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-13T04:35:57.000Z" title="更新于 2025-11-13 12:35:57">2025-11-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2019-09-20 15:05:29
+ * @LastEditTime: 2025-11-13 20:32:48
+ * @LastEditors: JohnJeep
+ * @Description: 深入理解指针
+--> 
+
+<h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h1><ul>
+<li>地址：一片内存中，每个字节（Byte）的编号</li>
+<li>address, byte, bit 他们在内存中的关系：<blockquote>
+<p>内存是一栋大楼，字节（Byte）是大楼中的每一层，地址是楼层编号，位（bit）是每一层中的房间，每一层有8个房间。</p>
+</blockquote>
+</li>
+<li>变量内存：在内存中申请一块空间，该空间由多个字节组成</li>
+<li>指针：是一种数据类型，是指它指向的内存空间的数据类型。（程序数据在内存中的地址）。在c语言当中，允许用一个变量来存放指针，这种变量称为指针变量。</li>
+<li>不管是什么类型的指针变量，所存的值都是地址（int类型的值）。那么声明不同类型的作用是什么？<blockquote>
+<p>答案：通过声明指针类型，告诉指针每次移动多少字节，来获取变量的值。</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="2-定义"><a href="#2-定义" class="headerlink" title="2. 定义"></a>2. 定义</h1><p>指针定义：<code>数据类型 *指针变量名;</code></p>
+<ul>
+<li>符号<code>*</code>是定义指针变量的标志， 不是变量名的一部分</li>
+<li>表示指针变量指向的数据类型。例如：<code>int *P</code> 表示指针变量指向int的数据类型</li>
+<li><code>指针变量名</code>：表示指向另一个数据地址的变量，本质是一个地址变量。</li>
+<li><code>*指针变量名</code>：表示指向另一个数据地址里面的值，本质是一个数据值变量。</li>
+<li><code>*</code>：取内容运算符；取出指针变量所指向地址的内容</li>
+<li><code>&amp;</code>：取地址运算符；获取变量在计算机内存中的存储地址。取地址运算符的操作对象（变量）一定是定义过的变量或数组元素。</li>
+</ul>
+<h1 id="3-指针关键注意点"><a href="#3-指针关键注意点" class="headerlink" title="3. 指针关键注意点"></a>3. 指针关键注意点</h1><ul>
+<li>定义指针时，编译器并不为指针所指向的对象分配空间，它只是分配指针本身的空间，除非在定义时同时赋值给指针一个字符串常量进行初始化。</li>
+<li>定义时不能为常量分配空间。例如：<code>float *p = 3.14;</code> 会导致编译不通过。</li>
+<li>保存数据的地址，任何存入指针变量p 的数据都会被当作地址来处理。 p 本身的地址由编译器另外存储，存储在哪里，我们并不知道。</li>
+<li><code>*</code> 放在 <code>=</code> 的左边，给内存赋值，读内存；<code>int *p = 10;</code></li>
+<li><code>*</code> 放在 <code>=</code> 的右边，取内存的值，往内存写；<code>int q = *p;</code></li>
+<li>指针变量与它指向的内存块是两个不同的概念</li>
+<li>不允许向NULL和非法地址拷贝内存。<ul>
+<li><code>char *p = NULL; strcpy(p, &quot;abcdef&quot;);</code>  会出错，空指针p不指向任何对象或函数。</li>
+<li><code>char *p = 0x1234; strcpy(p, &quot;abcdef&quot;);</code> 也出错，指针p没有指向一个内存地址。</li>
+</ul>
+</li>
+<li>向内存中写数据时，要保证指针所指向的内存块能修改。<ul>
+<li><code>char buf[] = &quot;abcdef&quot;; buf[2] = 2;</code> 可以修改buf[2]的值，数组中的一般变量存放在内存的栈区。</li>
+<li><code>char *buf = &quot;abcdef&quot;; buf[2] = 2;</code> 不可以修改，*buf定义的变量存放在数据区。</li>
+</ul>
+</li>
+<li>空指针：定义一个指针变量后，没有指向一个确定的值。<ul>
+<li>例如：<code>int* p = NULL;</code> 指针p为一个空指针。</li>
+<li>C语言中使用宏NULL表示空指针常量：<code>#define  NULL  ((void *)0)</code></li>
+<li>系统保证空指针不指向任何对象或函数。</li>
+</ul>
+</li>
+<li>初始化：<code>数据类型 *指针变量名=内存地址；</code> <ul>
+<li>“内存地址”是地址常量或对变量取地址的运算表达式。</li>
+</ul>
+</li>
+</ul>
+<h1 id="4-初始化"><a href="#4-初始化" class="headerlink" title="4. 初始化"></a>4. 初始化</h1><h2 id="4-1-堆-上分配"><a href="#4-1-堆-上分配" class="headerlink" title="4.1. 堆 上分配"></a>4.1. 堆 上分配</h2><p>在C++中，堆(heap)上分配内存，用 <code>new</code> 运算符有两种初始化方式：</p>
+<h3 id="4-1-1-直接初始化（使用圆括号-）"><a href="#4-1-1-直接初始化（使用圆括号-）" class="headerlink" title="4.1.1. 直接初始化（使用圆括号 ()）"></a>4.1.1. 直接初始化（使用圆括号 <code>()</code>）</h3><p>C++的语法规定：当使用new分配单个对象时，可以使用括号传递初始值。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 为单个对象分配内存并进行初始化</span></span><br><span class="line"><span class="type">int</span>* ptr = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">100</span>); <span class="comment">// 分配一个int，初始值为 100</span></span><br></pre></td></tr></table></figure>
+
+<p>对于数组，我们通常使用大括号进行初始化，例如C++11以后可以这样写：<code>new int[200]&#123;1,2,3,...&#125;</code>，但注意，在C++11之前，数组的初始化不能直接使用括号，而是只能默认初始化或使用循环赋值。</p>
+<h3 id="4-1-2-默认初始化（不使用括号）"><a href="#4-1-2-默认初始化（不使用括号）" class="headerlink" title="4.1.2. 默认初始化（不使用括号）"></a>4.1.2. 默认初始化（不使用括号）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 为单个对象分配内存，但不进行显式初始化</span></span><br><span class="line"><span class="type">int</span>* p = <span class="keyword">new</span> <span class="type">int</span>;          <span class="comment">// 值未定义（可能是任意值）</span></span><br><span class="line"><span class="type">double</span>* d = <span class="keyword">new</span> <span class="type">double</span>;    <span class="comment">// 值未定义</span></span><br><span class="line"></span><br><span class="line">p = <span class="number">100</span>; <span class="comment">// 赋值</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-3-为什么这样设计？"><a href="#4-1-3-为什么这样设计？" class="headerlink" title="4.1.3. 为什么这样设计？"></a>4.1.3. 为什么这样设计？</h3><p>这种语法设计是为了与<strong>构造函数调用</strong>保持一致：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对于内置类型</span></span><br><span class="line"><span class="type">int</span>* p1 = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">200</span>);    <span class="comment">// 类似于 int x(200);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 对于类类型</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyClass</span>(<span class="type">int</span> value) &#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyClass* obj = <span class="keyword">new</span> <span class="built_in">MyClass</span>(<span class="number">100</span>);  <span class="comment">// 调用构造函数 MyClass(100)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-4-与数组分配的区别"><a href="#4-1-4-与数组分配的区别" class="headerlink" title="4.1.4. 与数组分配的区别"></a>4.1.4. 与数组分配的区别</h3><p><strong>重要</strong>：这种括号初始化语法<strong>只适用于单个对象</strong>，不适用于数组：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 正确 - 单个对象</span></span><br><span class="line"><span class="type">int</span>* p = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">200</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 错误 - 不能这样初始化数组</span></span><br><span class="line"><span class="comment">// int* arr = new int[200](100);  // 编译错误！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确初始化数组的方式（C++11以后）</span></span><br><span class="line"><span class="type">int</span>* arr = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">200</span>]&#123;<span class="number">100</span>&#125;;  <span class="comment">// 第一个元素为100，其余为0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-5-历史背景"><a href="#4-1-5-历史背景" class="headerlink" title="4.1.5. 历史背景"></a>4.1.5. 历史背景</h3><p>这种语法一致性来自于C++的哲学：”用户定义类型应该与内置类型一样好用”。既然我们可以这样写：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 栈上分配</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">x</span><span class="params">(<span class="number">200</span>)</span></span>;           <span class="comment">// 直接初始化</span></span><br><span class="line"><span class="function">MyClass <span class="title">obj</span><span class="params">(<span class="number">100</span>)</span></span>;     <span class="comment">// 调用构造函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 那么堆上分配也应该类似</span></span><br><span class="line"><span class="type">int</span>* p = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">200</span>);      <span class="comment">// 直接初始化</span></span><br><span class="line">MyClass* obj = <span class="keyword">new</span> <span class="built_in">MyClass</span>(<span class="number">100</span>);  <span class="comment">// 调用构造函数</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-6-实际应用实例"><a href="#4-1-6-实际应用实例" class="headerlink" title="4.1.6. 实际应用实例"></a>4.1.6. 实际应用实例</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 各种初始化方式</span></span><br><span class="line">    <span class="type">int</span>* uninitialized = <span class="keyword">new</span> <span class="type">int</span>;           <span class="comment">// 值未定义</span></span><br><span class="line">    <span class="type">int</span>* zero = <span class="keyword">new</span> <span class="built_in">int</span>();                  <span class="comment">// 值初始化为0 (C++特性)</span></span><br><span class="line">    <span class="type">int</span>* with_value = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">200</span>);         <span class="comment">// 初始化为200</span></span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;未初始化: &quot;</span> &lt;&lt; *uninitialized &lt;&lt; endl;  <span class="comment">// 随机值</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;零初始化: &quot;</span> &lt;&lt; *zero &lt;&lt; endl;           <span class="comment">// 输出0</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;指定值: &quot;</span> &lt;&lt; *with_value &lt;&lt; endl;       <span class="comment">// 输出200</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">delete</span> uninitialized;</span><br><span class="line">    <span class="keyword">delete</span> zero;</span><br><span class="line">    <span class="keyword">delete</span> with_value;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-2-栈上分配"><a href="#4-2-栈上分配" class="headerlink" title="4.2. 栈上分配"></a>4.2. 栈上分配</h2><h3 id="4-2-1-指向栈上变量（最常见）"><a href="#4-2-1-指向栈上变量（最常见）" class="headerlink" title="4.2.1. 指向栈上变量（最常见）"></a>4.2.1. 指向栈上变量（最常见）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">100</span>;           <span class="comment">// 栈上分配的整型变量</span></span><br><span class="line">    <span class="type">int</span>* ptr = &amp;x;         <span class="comment">// 指针指向栈上的变量x</span></span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; *ptr &lt;&lt; endl;  <span class="comment">// 输出100</span></span><br><span class="line">    <span class="comment">// 不需要手动释放，main函数结束时x和ptr自动销毁</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-2-指向其他指针"><a href="#4-2-2-指向其他指针" class="headerlink" title="4.2.2. 指向其他指针"></a>4.2.2. 指向其他指针</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">100</span>;</span><br><span class="line">    <span class="type">int</span>* ptr1 = &amp;x;</span><br><span class="line">    <span class="type">int</span>* ptr2 = ptr1;      <span class="comment">// ptr2也指向x</span></span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; *ptr2 &lt;&lt; endl; <span class="comment">// 输出100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-3-指向数组（栈上数组）"><a href="#4-2-3-指向数组（栈上数组）" class="headerlink" title="4.2.3. 指向数组（栈上数组）"></a>4.2.3. 指向数组（栈上数组）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">5</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;  <span class="comment">// 栈上数组</span></span><br><span class="line">    <span class="type">int</span>* ptr = arr;                 <span class="comment">// 指向数组首元素</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">        cout &lt;&lt; ptr[i] &lt;&lt; <span class="string">&quot; &quot;</span>;      <span class="comment">// 输出1 2 3 4 5</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-4-指向字符串常量"><a href="#4-2-4-指向字符串常量" class="headerlink" title="4.2.4. 指向字符串常量"></a>4.2.4. 指向字符串常量</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* str = <span class="string">&quot;Hello World&quot;</span>;  <span class="comment">// 指向字符串常量</span></span><br><span class="line">    cout &lt;&lt; str &lt;&lt; endl;              <span class="comment">// 输出Hello World</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-5-空指针或野指针"><a href="#4-2-5-空指针或野指针" class="headerlink" title="4.2.5. 空指针或野指针"></a>4.2.5. 空指针或野指针</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span>* ptr1 = <span class="literal">nullptr</span>;    <span class="comment">// 空指针（推荐）</span></span><br><span class="line">    <span class="type">int</span>* ptr2 = <span class="literal">NULL</span>;       <span class="comment">// 空指针（传统C风格）</span></span><br><span class="line">    <span class="type">int</span>* ptr3;              <span class="comment">// 未初始化，野指针（危险！）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-3-静态存储区"><a href="#4-3-静态存储区" class="headerlink" title="4.3. 静态存储区"></a>4.3. 静态存储区</h2><p>指针指向全局区</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> global_var = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> *p = &amp;global_var;   <span class="comment">// p指向全局变量global_var</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用p</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 不需要手动释放，因为global_var的生命周期是整个程序</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-4-总结"><a href="#4-4-总结" class="headerlink" title="4.4. 总结"></a>4.4. 总结</h2><ul>
+<li>栈上分配：使用已有栈变量的地址初始化指针，无需手动释放。</li>
+<li>堆上分配：使用new初始化指针，必须使用delete释放。</li>
+<li>静态存储区：使用全局变量或静态变量的地址初始化指针，无需手动释放。</li>
+</ul>
+<h1 id="5-应用"><a href="#5-应用" class="headerlink" title="5. 应用"></a>5. 应用</h1><ul>
+<li>指针为形参，作为函数的参数，给变量间接赋值。</li>
+<li>通过形参来改变实参的内容，必须地址传递</li>
+</ul>
+<h1 id="6-Wild-Pointer-野指针"><a href="#6-Wild-Pointer-野指针" class="headerlink" title="6. Wild Pointer(野指针)"></a>6. Wild Pointer(野指针)</h1><h2 id="6-1-什么是野指针"><a href="#6-1-什么是野指针" class="headerlink" title="6.1. 什么是野指针"></a>6.1. 什么是野指针</h2><p><strong>定义</strong>：未被初始化或指向未知内存地址的指针。</p>
+<ul>
+<li><p>野指针通常指的是未被初始化的指针。也就是说，这个指针变量被声明了，但没有被赋予一个明确的地址值。它可能指向任意内存地址，可能是随机的、不确定的。</p>
+</li>
+<li><p>使用野指针会导致未定义行为，因为它可能指向不可访问的内存区域（如系统保护区），或者意外地修改了其他重要数据。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例1：未初始化的指针</span></span><br><span class="line"><span class="type">int</span>* wildPtr;  <span class="comment">// 野指针 - 指向随机内存地址</span></span><br><span class="line">*wildPtr = <span class="number">10</span>; <span class="comment">// 未定义行为！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 示例2：指向已释放内存但未置空的指针</span></span><br><span class="line"><span class="type">int</span>* ptr = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">delete</span> ptr;    <span class="comment">// 内存已被释放</span></span><br><span class="line">*ptr = <span class="number">10</span>;     <span class="comment">// 野指针 - 访问已释放内存</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="6-2-产生的原因"><a href="#6-2-产生的原因" class="headerlink" title="6.2. 产生的原因"></a>6.2. 产生的原因</h2><ul>
+<li>指针指向了一块没有访问权限的内存。（即指针没有初始化）</li>
+<li>指针被 free 或者 delete 之后，没有置为 <code>nullptr</code>。</li>
+<li>指针操作超越了变量的作用围。</li>
+</ul>
+<h2 id="6-3-如何避免野指针"><a href="#6-3-如何避免野指针" class="headerlink" title="6.3. 如何避免野指针"></a>6.3. 如何避免野指针</h2><ul>
+<li>将指针初始化为  <code>nullptr</code>。 </li>
+<li>用已有合法的可访问的内存地址对指针初始化<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> num[ <span class="number">30</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">char</span> *p = num;</span><br></pre></td></tr></table></figure></li>
+<li>使用malloc分配内存。（在堆空间内分配）分配后要进行检查是否分配成功，最后要进行释放内存。malloc函数分配完内存后需注意：<ul>
+<li>检查是否分配成功（若分配成功，返回内存的首地址；分配不成功，返回NULL。可以通过if语句来判断）</li>
+<li>清空内存中的数据（malloc分配的空间里可能存在垃圾值，用memset或bzero 函数清空内存）</li>
+</ul>
+</li>
+</ul>
+<h1 id="7-Dangling-Pointer-悬挂指针"><a href="#7-Dangling-Pointer-悬挂指针" class="headerlink" title="7. Dangling Pointer(悬挂指针)"></a>7. Dangling Pointer(悬挂指针)</h1><p><strong>定义</strong>：指向曾经有效但现在已经失效的内存地址的指针。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例1：指向局部变量的指针</span></span><br><span class="line"><span class="function"><span class="type">int</span>* <span class="title">createDanglingPointer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> localVar = <span class="number">42</span>;</span><br><span class="line">    <span class="keyword">return</span> &amp;localVar;  <span class="comment">// 返回局部变量的地址</span></span><br><span class="line">&#125; <span class="comment">// localVar 生命周期结束</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span>* danglingPtr = <span class="built_in">createDanglingPointer</span>();</span><br><span class="line"><span class="comment">// danglingPtr 现在是指向已销毁对象的悬挂指针</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 示例2：多个指针指向同一内存</span></span><br><span class="line"><span class="type">int</span>* ptr1 = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">100</span>);</span><br><span class="line"><span class="type">int</span>* ptr2 = ptr1;      <span class="comment">// ptr2 也指向同一内存</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> ptr1;           <span class="comment">// 释放内存</span></span><br><span class="line"><span class="comment">// 现在 ptr1 和 ptr2 都成为悬挂指针</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>特点</strong>：</p>
+<ul>
+<li>曾经指向有效的内存地址</li>
+<li>由于对象生命周期结束或内存被释放而失效</li>
+<li>访问会导致未定义行为</li>
+</ul>
+<h2 id="7-1-如何应对悬挂指针？"><a href="#7-1-如何应对悬挂指针？" class="headerlink" title="7.1. 如何应对悬挂指针？"></a>7.1. 如何应对悬挂指针？</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 总是初始化指针</span></span><br><span class="line"><span class="type">int</span>* ptr = <span class="literal">nullptr</span>;  <span class="comment">// 而不是 int* ptr;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 释放内存后立即置空</span></span><br><span class="line"><span class="keyword">delete</span> ptr;</span><br><span class="line">ptr = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 避免返回局部变量的地址</span></span><br><span class="line"><span class="function"><span class="type">int</span>* <span class="title">safeFunction</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> value = <span class="number">42</span>;  <span class="comment">// 静态变量或动态分配</span></span><br><span class="line">    <span class="keyword">return</span> &amp;value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 使用智能指针（推荐）</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line">std::shared_ptr&lt;<span class="type">int</span>&gt; smartPtr = std::<span class="built_in">make_shared</span>&lt;<span class="type">int</span>&gt;(<span class="number">42</span>);</span><br><span class="line"><span class="comment">// 自动管理生命周期，避免悬挂指针</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 谨慎使用指针别名</span></span><br><span class="line"><span class="type">int</span>* ptr1 = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">100</span>);</span><br><span class="line"><span class="type">int</span>* ptr2 = ptr1;</span><br><span class="line"><span class="keyword">delete</span> ptr1;</span><br><span class="line">ptr1 = <span class="literal">nullptr</span>;</span><br><span class="line"><span class="comment">// 注意：ptr2 仍然是悬挂指针！</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="8-零值指针和-NULL-指针的区别"><a href="#8-零值指针和-NULL-指针的区别" class="headerlink" title="8. 零值指针和 NULL 指针的区别"></a>8. 零值指针和 NULL 指针的区别</h1><ul>
+<li>零值指针，是值为 0 的指针，可以是任何一种指针类型，可以是通用变体类型 void* 也可以是 char<em>，int</em>等。</li>
+<li>空指针，其实空指针只是一种编程概念，就如一个容器可能有空和非空两种基本状态，而在非空时可能里面存储了一个数值是 0，因此空指针是人为认为的指针不提供任何地址讯息。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/C/synced/C/21_pointer/">https://johnjeep.github.io/C/synced/C/21_pointer/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Learning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/c/">c</a><a class="post-meta__tags" href="/tags/21-pointer/">21-pointer</a></div><div class="post-share"><div class="social-share" data-image="/img/seele.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/C/synced/C/22_enumerations/" title="22 Enumerations"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">22 Enumerations</div></div><div class="info-2"><div class="info-item-1">  1. Enum Keywords1.1. 定义概念： enum 关键字用于声明枚举，即一种由一组称为枚举数列表的命名常数组成的独特类型。每种枚举类型都有基础类型，该类型可以是除 char 以外的任何整型。枚举元素的默认基础类型为 int。默认情况下，第一个枚举数的值为 0，后面每个枚举数的值依次递增。  定义一： enum 枚举型名 &#123;枚举常量1， 枚举常量2…枚举常量n &#125;； 定义二：typedef en...</div></div></div></a><a class="pagination-related" href="/C/synced/C/20_byte_halfword_word/" title="20 Byte Halfword Word"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">20 Byte Halfword Word</div></div><div class="info-2"><div class="info-item-1">  1.1. 概念 字定义：总线是一般设计用来传输固定大小的数据，这块数据被称为字（word）。一个字包含的字节数(即字的大小)是各种计算机系统里面的基本参数，而且这个参数在不同的操作系统里通常是不同的。  CPU按照其处理信息的字长可以分为：8位微处理器、16位微处理器、32位微处理器以及64位微处理器  CPU最大能查找多大范围的地址叫做寻址能力，CPU的寻址能力以字节为单位，如32位寻址的CPU可以寻址2的32次方大小的地址...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/C/synced/C/27_thread_pool/" title="27 Thread Pool"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">27 Thread Pool</div></div><div class="info-2"><div class="info-item-1">  参考 线程池原理及C语言实现线程池  </div></div></div></a><a class="pagination-related" href="/C/synced/C/0_code_of_conduct/" title="1、清晰第一"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">1、清晰第一</div></div><div class="info-2"><div class="info-item-1">1、清晰第一清晰性是易于维护、易于重构的程序必需具备的特征。代码首先是给人读的,好的代码应当可以像文章一样发声朗诵出来。 2.、简洁为美简洁就是易于理解并且易于实现。代码越长越难以看懂，也就越容易在修改时引入错误。写的代码越多，意味着出错的地方越多，也就意味着代码的可靠性越低。 因此，我们提倡大家通过编写简洁明了的代码来提升代码可靠性。废弃的代码(没有被调用的函数和全局变量)要及时清除，重复代码应该尽可能提炼成函数。 3、选择合适...</div></div></div></a><a class="pagination-related" href="/C/synced/C/22_enumerations/" title="22 Enumerations"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">22 Enumerations</div></div><div class="info-2"><div class="info-item-1">  1. Enum Keywords1.1. 定义概念： enum 关键字用于声明枚举，即一种由一组称为枚举数列表的命名常数组成的独特类型。每种枚举类型都有基础类型，该类型可以是除 char 以外的任何整型。枚举元素的默认基础类型为 int。默认情况下，第一个枚举数的值为 0，后面每个枚举数的值依次递增。  定义一： enum 枚举型名 &#123;枚举常量1， 枚举常量2…枚举常量n &#125;； 定义二：typedef en...</div></div></div></a><a class="pagination-related" href="/C/synced/C/7_segment_fault/" title="7 Segment Fault"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">7 Segment Fault</div></div><div class="info-2"><div class="info-item-1"> Segmentation Fault1. C语言中常见的问题 内存重叠的处理 临时变量太多或 new 的内存没有安全释放 没有测试内存越界 指针操作不熟悉  2. 概念 什么是段错误(segmentation fault)？ 程序发生了越界访问，cpu就会产生相应的异常保护，于是segmentation fault就出现了。    3. 产生的原因 什么时候会发生 segmentation fault?  访问了不可访问的内存，...</div></div></div></a><a class="pagination-related" href="/C/synced/C/12_extern/" title="12 Extern"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">12 Extern</div></div><div class="info-2"><div class="info-item-1">  externC&#x2F;C++中使用 extern 声明的变量或函数，它们的作用域是全局的，告诉编译器使用该关键字声明的变量可以在本模块或其他模块中使用。只是 声明(declaration) 了变量，但是并没有 定义(definition) 该变量，需要在具体使用的地方去定义该变量。 12345// 在某个.h 文件中声明了变量extern int a;// 在某个具体的.c或.cpp文件中使用int a = 100;  e...</div></div></div></a><a class="pagination-related" href="/C/synced/C/36_operate/" title="36 Operate"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">36 Operate</div></div><div class="info-2"><div class="info-item-1">  在项目中遇见了 *p++ 这种操作，但不明白在 *p++中 ++ 和 * 是怎样执行的？现在我们来一一剖析它的运算过程。 C语言中取值运算符 * 与前置自增运算符++、后置自增运算符++都属于单目运算符，运算符的优先级顺序同为第2级，结合方向为 右到左。其中，* 使用形式为：*p，用于指针变量，前置自增使用形式为 ++i，后置自增使用形式为 ++i。  注意  同一优先级的运算符，运算次序由结合方向所决定。 简单记就是：！ &...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">1. 概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%AE%9A%E4%B9%89"><span class="toc-number">2.</span> <span class="toc-text">2. 定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%8C%87%E9%92%88%E5%85%B3%E9%94%AE%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">3. 指针关键注意点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">4. 初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E5%A0%86-%E4%B8%8A%E5%88%86%E9%85%8D"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 堆 上分配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-1-%E7%9B%B4%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%88%E4%BD%BF%E7%94%A8%E5%9C%86%E6%8B%AC%E5%8F%B7-%EF%BC%89"><span class="toc-number">4.1.1.</span> <span class="toc-text">4.1.1. 直接初始化（使用圆括号 ()）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-2-%E9%BB%98%E8%AE%A4%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%88%E4%B8%8D%E4%BD%BF%E7%94%A8%E6%8B%AC%E5%8F%B7%EF%BC%89"><span class="toc-number">4.1.2.</span> <span class="toc-text">4.1.2. 默认初始化（不使用括号）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-3-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E6%A0%B7%E8%AE%BE%E8%AE%A1%EF%BC%9F"><span class="toc-number">4.1.3.</span> <span class="toc-text">4.1.3. 为什么这样设计？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-4-%E4%B8%8E%E6%95%B0%E7%BB%84%E5%88%86%E9%85%8D%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">4.1.4.</span> <span class="toc-text">4.1.4. 与数组分配的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-5-%E5%8E%86%E5%8F%B2%E8%83%8C%E6%99%AF"><span class="toc-number">4.1.5.</span> <span class="toc-text">4.1.5. 历史背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-6-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="toc-number">4.1.6.</span> <span class="toc-text">4.1.6. 实际应用实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E6%A0%88%E4%B8%8A%E5%88%86%E9%85%8D"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. 栈上分配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-1-%E6%8C%87%E5%90%91%E6%A0%88%E4%B8%8A%E5%8F%98%E9%87%8F%EF%BC%88%E6%9C%80%E5%B8%B8%E8%A7%81%EF%BC%89"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.1. 指向栈上变量（最常见）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-2-%E6%8C%87%E5%90%91%E5%85%B6%E4%BB%96%E6%8C%87%E9%92%88"><span class="toc-number">4.2.2.</span> <span class="toc-text">4.2.2. 指向其他指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-3-%E6%8C%87%E5%90%91%E6%95%B0%E7%BB%84%EF%BC%88%E6%A0%88%E4%B8%8A%E6%95%B0%E7%BB%84%EF%BC%89"><span class="toc-number">4.2.3.</span> <span class="toc-text">4.2.3. 指向数组（栈上数组）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-4-%E6%8C%87%E5%90%91%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F"><span class="toc-number">4.2.4.</span> <span class="toc-text">4.2.4. 指向字符串常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-5-%E7%A9%BA%E6%8C%87%E9%92%88%E6%88%96%E9%87%8E%E6%8C%87%E9%92%88"><span class="toc-number">4.2.5.</span> <span class="toc-text">4.2.5. 空指针或野指针</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E9%9D%99%E6%80%81%E5%AD%98%E5%82%A8%E5%8C%BA"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. 静态存储区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E6%80%BB%E7%BB%93"><span class="toc-number">4.4.</span> <span class="toc-text">4.4. 总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E5%BA%94%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">5. 应用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-Wild-Pointer-%E9%87%8E%E6%8C%87%E9%92%88"><span class="toc-number">6.</span> <span class="toc-text">6. Wild Pointer(野指针)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E4%BB%80%E4%B9%88%E6%98%AF%E9%87%8E%E6%8C%87%E9%92%88"><span class="toc-number">6.1.</span> <span class="toc-text">6.1. 什么是野指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-number">6.2.</span> <span class="toc-text">6.2. 产生的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8E%E6%8C%87%E9%92%88"><span class="toc-number">6.3.</span> <span class="toc-text">6.3. 如何避免野指针</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-Dangling-Pointer-%E6%82%AC%E6%8C%82%E6%8C%87%E9%92%88"><span class="toc-number">7.</span> <span class="toc-text">7. Dangling Pointer(悬挂指针)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%E6%82%AC%E6%8C%82%E6%8C%87%E9%92%88%EF%BC%9F"><span class="toc-number">7.1.</span> <span class="toc-text">7.1. 如何应对悬挂指针？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E9%9B%B6%E5%80%BC%E6%8C%87%E9%92%88%E5%92%8C-NULL-%E6%8C%87%E9%92%88%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">8.</span> <span class="toc-text">8. 零值指针和 NULL 指针的区别</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ComputerSystemAProgramm'sPerspective"/></a><div class="content"><a class="title" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective">ComputerSystemAProgramm'sPerspective</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jsoncpp"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp">Jsoncpp</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Project/" title="Project"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Project"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Project/" title="Project">Project</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Protocol Terms"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms">Protocol Terms</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/modbus/" title="Modbus"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Modbus"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/modbus/" title="Modbus">Modbus</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RedisSourceCode"/></a><div class="content"><a class="title" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode">RedisSourceCode</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Qt/synced/Qt/Qt/" title="Qt"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/Qt/synced/Qt/Qt/" title="Qt">Qt</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Embodied/" title="Embodied"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Embodied"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Embodied/" title="Embodied">Embodied</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":0,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'JohnJeep/Learning-CS-Journey',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

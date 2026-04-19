@@ -1,0 +1,368 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Kafka | Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="1. 思考● 了解发布和订阅消息模型以及该模型如何被应用在大数据生态系统中 ● 学习使用Kafka生产者和消费者来生成消息和读取消息 ● 了解Kafka保证可靠性数据传递的模式和场景需求 ● 使用Kafka构建数据管道和应用程序的最佳实践 ● 在生产环境中管理Kafka，包括监控、调优和维护 ● 了解Kafka的关键度量指标 ● 探索Kafka如何成为流式处理利器  2. 优缺点 使用文件系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka">
+<meta property="og:url" content="https://johnjeep.github.io/Cloud-Native/Kafka/synced/CloudNative/Kafka/Kafka/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="1. 思考● 了解发布和订阅消息模型以及该模型如何被应用在大数据生态系统中 ● 学习使用Kafka生产者和消费者来生成消息和读取消息 ● 了解Kafka保证可靠性数据传递的模式和场景需求 ● 使用Kafka构建数据管道和应用程序的最佳实践 ● 在生产环境中管理Kafka，包括监控、调优和维护 ● 了解Kafka的关键度量指标 ● 探索Kafka如何成为流式处理利器  2. 优缺点 使用文件系统">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/seele.jpg">
+<meta property="article:published_time" content="2023-04-14T01:44:55.000Z">
+<meta property="article:modified_time" content="2025-04-04T04:10:47.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="cloudnative">
+<meta property="article:tag" content="kafka">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/seele.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Kafka",
+  "url": "https://johnjeep.github.io/Cloud-Native/Kafka/synced/CloudNative/Kafka/Kafka/",
+  "image": "https://johnjeep.github.io/img/seele.jpg",
+  "datePublished": "2023-04-14T01:44:55.000Z",
+  "dateModified": "2025-04-04T04:10:47.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Cloud-Native/Kafka/synced/CloudNative/Kafka/Kafka/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Kafka',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">Kafka</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Kafka</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-14T01:44:55.000Z" title="发表于 2023-04-14 09:44:55">2023-04-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-04T04:10:47.000Z" title="更新于 2025-04-04 12:10:47">2025-04-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Cloud-Native/">Cloud Native</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Cloud-Native/Kafka/">Kafka</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2023-09-15 11:03:37
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2025-04-04 19:28:12
+ * @Description: kafka learning
+ * Copyright (c) 2025 by John Jeep, All Rights Reserved. 
+-->
+
+<h1 id="1-思考"><a href="#1-思考" class="headerlink" title="1. 思考"></a>1. 思考</h1><p>● 了解发布和订阅消息模型以及该模型如何被应用在大数据生态系统中</p>
+<p>● 学习使用Kafka生产者和消费者来生成消息和读取消息</p>
+<p>● 了解Kafka保证可靠性数据传递的模式和场景需求</p>
+<p>● 使用Kafka构建数据管道和应用程序的最佳实践</p>
+<p>● 在生产环境中管理Kafka，包括监控、调优和维护</p>
+<p>● 了解Kafka的关键度量指标</p>
+<p>● 探索Kafka如何成为流式处理利器</p>
+<hr>
+<h1 id="2-优缺点"><a href="#2-优缺点" class="headerlink" title="2. 优缺点"></a>2. 优缺点</h1><ul>
+<li>使用文件系统，大量依赖操作系统中的 page cache，而非应用内 cache，这样可以内存充分利用，而且更加稳定（防止 GC）因为是 OS 维护 page cache，所以故障之后容易恢复，不用重建OS 会比较激进的把内存用作 page cache。</li>
+<li>因为访问模式固定，使用 Persistent Queue 作为数据结构</li>
+<li>使用 zero-copy optimization，不用频繁的跟 user space 交互因为大部分在操作在内存中进行，而且使用了 zero-copy，所以性能瓶颈可能只会出现下网络上</li>
+<li>选用 pull 模型，从而避免了 push 模型中 push 速度与消费速度不一致，导致 consumer 压力过大的问题</li>
+<li>采用了 ISR（ in-sync replicas ） 来保证备份中数据是一致的，ISR 的集合维护在 ZooKeeper 中（0.9版本之前，而0.9版本之后数据（offset）存储在kafka本地）。 </li>
+<li>没有采用一般的多数票选举的方法。</li>
+<li>因为为了性能没有使用 fsync，所以可能导致数据不能完整恢复</li>
+<li>提供大量的可配置空间，方便使用者在 Consistency 与 Availability 中选择</li>
+</ul>
+<h1 id="3-Kafka-是什么？"><a href="#3-Kafka-是什么？" class="headerlink" title="3. Kafka 是什么？"></a>3. Kafka 是什么？</h1><p><strong>Kafka</strong>是由<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Apache%E8%BD%AF%E4%BB%B6%E5%9F%BA%E9%87%91%E4%BC%9A">Apache软件基金会</a>开发的一个<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%BC%80%E6%BA%90">开源</a><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%B5%81%E5%A4%84%E7%90%86">流处理</a>平台，由 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Scala">Scala</a> 和 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Java">Java </a>编写。该项目的目标是为处理实时数据提供一个统一、高吞吐、低延迟的平台。</p>
+<p>Kafka 有点像消息系统，允许发布和订阅消息流。从这点来看，它类似于 ActiveMQ 、RabbitMQ 或 IBM 的 MQSeries 等产品。尽管看上去有些相似，但 Kafka 与这些传统的消息系统仍然存在很多重要的不同点，这些差异使它完全不同于消息系统。有三个不同的点：第一，作为一个现代的分布式系统， Kafka 以集群（cluster）的方式运行，可以自由伸缩，处理公司的所有应用程序。 Kafka 集群并不是一组独立运行的 broker，而是一个可以灵活伸缩的中心平台，可以处理整个公司所有的数据流。第二， Kafka 是一个真正的存储系统，可以存储数据，只要您愿意，保存多久都可以 。作为数据连接层（connecting layer）， Kafka 提供了数据传递保证可复制（replicated）、持久化（persistent），保留多长时间完全可以由你来决定。第三，流式处理将数据处理的层次提升到了新高度 。 消息系统（Messaging systems）只会传递消息，而 Kafka 的流式处理能力让你只用很少的代码就能够动态地处理派生流和数据集。Kafka 的这些独到之处足以让你刮目相看，它不只是“另一个消息队列” 。  </p>
+<p>另外一种角度看 Kafka：认为它是一种实时版的（real-time） Hadoop，这也是设计和构建 Kafka 的原始动机之一。Hadoop 让你存储和定期处理大量的数据文件，而 Kafka 让你存储和持续处理大规模的数据流。从技术角度来看，它们有着惊人的相似之处，很多人将新兴的流式处理看成批处理（batch processing）的超集。它们之间的最大不同体现在：<strong>持续的低延迟处理（low-latency processing）和批处理之间的差异上</strong>。Hadoop 和大数据主要应用在数据分析上，而 Kafka 因其低延迟的特点更适合用在核心的业务应用（core applications）上。业务事时刻在发生，Kafka 能够及时对这些事件作出响应，基于Kafka 构建的服务直接为业务运营提供支撑，提升用户体验。  </p>
+<p>Kafka 是一个分布式的基于发布-订阅模式的消息队列（Message Queue），主要应用于大数据实时处理领域。</p>
+<h1 id="4-诞生的目的"><a href="#4-诞生的目的" class="headerlink" title="4. 诞生的目的"></a>4. 诞生的目的</h1><p>开始是 Linkedin 内部建立的一个基础设施系统，虽然有很多数据库和系统可以用来存储数据，但是他们发现在他们当前的架构中缺少一种东西来帮助处理连续不断的数据流（handle the continuous flow of data）。在开发 Kafka 之前，他们实验了各种现成的解决方案，从消息系统（messaging systems ）到日志聚合系统（log aggregation），再到 ETL 工具，但这些都无法满足他们的需求。 </p>
+<p>因此，他们想从零开始开发一个系统。他们的想法是替换掉专注于大量处理的数据，像关系型数据库（relational databases ）、键值对存储（key-value stores）、索引搜索（search indexes）或缓存（caches），而是专注于处理数据的持续变化和不断增长的流，基于这样的想法去构建一个数据系统，事实上，是一个数据架构（data architecture ）。</p>
+<p>这个想法实现后比他们最初期望适用性更广泛。尽管 Kafka 一开始被用在社交网络的实时应用和数据流当中，而现在已经成为下一代数据架构的基础。大型零售商正在基于持续数据流改造他们的基础业务流程，汽车公司正在从互联网汽车那里收集和处理实时数据流，银行也在重新思考基于 Kafka 改造他们的基础流程和系统。  </p>
+<h2 id="4-1-Kafka-在这当中充当了怎样的角色？"><a href="#4-1-Kafka-在这当中充当了怎样的角色？" class="headerlink" title="4.1. Kafka 在这当中充当了怎样的角色？"></a>4.1. Kafka 在这当中充当了怎样的角色？</h2><p>Kafka 是一个流平台（streaming platform  ），在这个平台上 让你发布和订阅数据流，去存储它们、处理它们，这就是构建 Kafka 的初衷。  以这种方式来看待数据确实与人们习惯的想法有所不同，但它确实在构建应用和架构方面表现出了强大的抽象能力。  </p>
+<p>Kafka 常常会被拿来与现有的技术作比较：企业级消息系统（enterprise messaging systems,）、大数据系统（如 Hadoop）和数据集成（data integration）或 ETL工具。与它们每一个比较都有一定的有效性，但也有一些不足。  </p>
+<h2 id="4-2-它与现有的系统比较有什么区别？"><a href="#4-2-它与现有的系统比较有什么区别？" class="headerlink" title="4.2. 它与现有的系统比较有什么区别？"></a>4.2. 它与现有的系统比较有什么区别？</h2><p>Kafka 和 ETL 工具或其他数据集等这些工具都擅长移动数据，但它们最大的不同在于 Kafka 颠覆了传统的思维 。 Kafka 并非只是把数据从一个系统拆解出来再塞进另一个系统，它其实是一个面向实时数据流的平台（a platform oriented around real-time streams of events）。也就是说，它不仅可以将现有的应用程序和数据系统连接起来，它还能用于加强这些触发相同数据流的应用。  </p>
+<h1 id="5-发展历程"><a href="#5-发展历程" class="headerlink" title="5. 发展历程"></a>5. 发展历程</h1><ol>
+<li><p>0.7版本：只有基础消息队列功能，无副本；</p>
+</li>
+<li><p>0.8版本：增加了副本机制，新的producer API；至此kafka成为一个真正意义上的分布式高可靠消息队列解决方案；</p>
+</li>
+<li><p>0.9版本：增加权限和认证，新的consumer API，Kafka Connect功能；</p>
+</li>
+<li><p>0.10版本：引入Kafka Streams功能，bug修复；</p>
+</li>
+<li><p>0.11版本：增加producer API幂等，事物API，消息格式重构；</p>
+</li>
+<li><p>1.0和2.0版本：Kafka Streams改进；</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../figures/kafka-streams.png"></p>
+</li>
+</ol>
+<h1 id="6-消息队列"><a href="#6-消息队列" class="headerlink" title="6. 消息队列"></a>6. 消息队列</h1><p>好处</p>
+<ul>
+<li>解耦</li>
+<li>削峰</li>
+</ul>
+<p>两种模式</p>
+<ol>
+<li>点对点模式（一对一）</li>
+<li>发布-订阅模式（一对多，消费）<ul>
+<li>消费者的消息由消费者自己来决定，消费者主动拉取数据。缺点：一直在轮询，看消息队列中是否有数据。</li>
+<li>生产者主动 push 数据。</li>
+</ul>
+</li>
+</ol>
+<h1 id="7-Kafka-架构"><a href="#7-Kafka-架构" class="headerlink" title="7. Kafka 架构"></a>7. Kafka 架构</h1><h2 id="7-1-Terminology"><a href="#7-1-Terminology" class="headerlink" title="7.1. Terminology"></a>7.1. Terminology</h2><ul>
+<li><p>Topic（主题）：将数据分类，主题中有分区有副本。kafka 中的数据主要存储在 topic 中。</p>
+</li>
+<li><p>Partition（分区）：提高 topic 的负载均衡，同时也提高了并发能力。</p>
+</li>
+<li><p>broker（消息中心）：负责接收和处理消息的服务器。</p>
+</li>
+<li><p>Follower：相当于备份的作用。</p>
+</li>
+</ul>
+<p>注意：同一个分区（partition）中的数据（topic）只能被同一个消费组中的一个消费者（consumer）消费。</p>
+<p>Zookeeper 作用</p>
+<ul>
+<li>帮助 kafka 存储信息</li>
+<li>存储消费者消费的位置信息。</li>
+</ul>
+<p>kafka 消息存储在磁盘。</p>
+<h1 id="8-工作流程"><a href="#8-工作流程" class="headerlink" title="8. 工作流程"></a>8. 工作流程</h1><p><em>Seek 直接找数据的位置</em></p>
+<p>保证 partition 有序，不能保证全局有序。</p>
+<p>定位 index 采用 二分查找，</p>
+<p>offset + dataSzie</p>
+<h1 id="9-生产者"><a href="#9-生产者" class="headerlink" title="9. 生产者"></a>9. 生产者</h1><h2 id="9-1-分区策略"><a href="#9-1-分区策略" class="headerlink" title="9.1. 分区策略"></a>9.1. 分区策略</h2><h2 id="9-2-数据可靠性保证"><a href="#9-2-数据可靠性保证" class="headerlink" title="9.2. 数据可靠性保证"></a>9.2. 数据可靠性保证</h2><p>ISR(In-sync replica set)：同步副本；作用：leader 挂了以后去选择一个新的 leader。</p>
+<ul>
+<li>保留了时间参数：0.9版本之前，超过数目参数的最大值后，频繁的要访问内存和Zookeeper，降低了效率，因此删除了。</li>
+</ul>
+<p>acks 参数配置</p>
+<ul>
+<li>0：</li>
+<li>1：</li>
+</ul>
+<p>ack 解决的是数据丢失和数据重复问题。</p>
+<p>HW 解决的是消费一致性和存储一致性问题。</p>
+<h1 id="10-消费者"><a href="#10-消费者" class="headerlink" title="10. 消费者"></a>10. 消费者</h1><h1 id="11-Docker-中使用-Kafka"><a href="#11-Docker-中使用-Kafka" class="headerlink" title="11. Docker 中使用 Kafka"></a>11. Docker 中使用 Kafka</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 创建 topic 为 hello</span><br><span class="line">bash-5.1# kafka-topics.sh --create --topic hello --partitions 1 --zookeeper zk1:2181 --replication-factor 1</span><br><span class="line">Created topic hello.</span><br><span class="line"></span><br><span class="line">// 获取 topic 列表</span><br><span class="line">bash-5.1# kafka-topics.sh --list --zookeeper zk1:2181</span><br><span class="line">hello</span><br><span class="line"></span><br><span class="line">// 生产者产生消息</span><br><span class="line">bash-5.1# kafka-console-producer.sh --topic hello --broker-list kafka1:9092,kafka2:9092</span><br><span class="line">&gt;nihao</span><br><span class="line">&gt;my </span><br><span class="line">&gt;I<span class="string">&#x27;m you</span></span><br><span class="line"><span class="string">&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// 消费者消费消息</span></span><br><span class="line"><span class="string">bash-5.1# kafka-console-consumer.sh --topic hello --bootstrap-server kafka1:9092,kafka2:9092</span></span><br><span class="line"><span class="string">nihao</span></span><br><span class="line"><span class="string">my</span></span><br><span class="line"><span class="string">I&#x27;</span>m you</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="12-References"><a href="#12-References" class="headerlink" title="12. References"></a>12. References</h1><ul>
+<li>Kafka 官网：<a target="_blank" rel="noopener" href="https://kafka.apache.org/">https://kafka.apache.org/</a></li>
+<li>《Kafka: The Definitive Guide: Real-Time Data and Stream Processing at Scale》</li>
+<li>《Kafka 权威指南》</li>
+<li><a target="_blank" rel="noopener" href="https://docs.confluent.io/platform/current/clients/librdkafka/html/index.html">The Apache Kafka C&#x2F;C++ client library API</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_9291927/category33.html">51CTO 天山老妖S-kafka系列</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/hellozpc/article/details/105680217">kafka详细教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1547380">Kafka 入门知识</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Cloud-Native/Kafka/synced/CloudNative/Kafka/Kafka/">https://johnjeep.github.io/Cloud-Native/Kafka/synced/CloudNative/Kafka/Kafka/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Learning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/cloudnative/">cloudnative</a><a class="post-meta__tags" href="/tags/kafka/">kafka</a></div><div class="post-share"><div class="social-share" data-image="/img/seele.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Cloud-Native/Kubernetes/synced/CloudNative/Kubernetes/kubernetes/" title="Kubernetes"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Kubernetes</div></div><div class="info-2"><div class="info-item-1">  1. IntroduceKubernetes 最初是由Google内部项目 Borg 演化而来的，刚开始研发的时候仅仅只有 3 个人，后来得到 Google 高层的批准，将项目开源，吸引跟多的人参与进来。 2. Thinking国外的工程师的创造力是非常、非常的强，产生的想发都是源自于解决当前生产所面临的问题。他们产生了一个不错的想法，有平台和技术做支撑，能快速的去实现，并推广给大众，让全世界的人都能去用。（2022&#x2F...</div></div></div></a><a class="pagination-related" href="/Cloud-Native/Docker/synced/CloudNative/Docker/docker/" title="Docker"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Docker</div></div><div class="info-2"><div class="info-item-1">  1. 为什么会出现 Docker？为了解决运行环境和配置的问题。开发人员在部署好的机器上开发，开发完成后，交付给测试和运维人员，而他们也需要在相同的环境下进行测试和产品的运维，需要部署同样的环境。在部署的过程中可能会存在环境不一致的问题，需要去逐一解决，这样很费时、费力。那么有没有一种技术，测试人员或运维的人员直接将开发人员的部署的环境直接拿来用？将开发人员打包好的环境，类似像安装软件一样，直接安装在测试环境或运维环境的机器上...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Cloud-Native/synced/CloudNative/Influxdb/" title="1. InfluxDB"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-31</div><div class="info-item-2">1. InfluxDB</div></div><div class="info-2"><div class="info-item-1">1. InfluxDBInfluxDB 是一个高性能的时序数据库，专门用于处理高写入负载的数据存储，尤其是时间序列数据，比如物联网传感器数据、性能监控数据和实时分析数据等。以下是InfluxDB的一些基本概念和操作介绍： 什么是InfluxDB？InfluxDB 是由InfluxData公司开发的一款开源时序数据库（Time Series Database，TSDB），设计用于高性能的写入和查询操作，特别是针对时间序列数据。它的主...</div></div></div></a><a class="pagination-related" href="/Cloud-Native/gRPC/synced/CloudNative/gRPC/SourceCode/" title="1. 目标"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-14</div><div class="info-item-2">1. 目标</div></div><div class="info-2"><div class="info-item-1">1. 目标gRPC C++ 源码的质量很高，学习 Google 工程师门优秀的抽象和设计能力。 2. 特色2.1. 大量高级抽象结构gRPC 的源码为了简化异步代码的编写，同时为了更好的代码复用。设计了许多高级的数据结构。如  grpc_closure grpc_closure_scheduler ExecCtx grpc_combiner grpc_completion_queue  2.2. 大量设计模式为了提供跨平台能力，g...</div></div></div></a><a class="pagination-related" href="/Cloud-Native/Probobuf/synced/CloudNative/Probobuf/protobuf/" title="Protobuf"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-14</div><div class="info-item-2">Protobuf</div></div><div class="info-2"><div class="info-item-1">   概念标识号在消息体的定义中，每个字段都必须有一个唯一的标识号，标识号是  $0- 2^{29}-1$ 范围内的一个整数。 消息类型基本类型枚举类型序列化与反序列化三种流（stream） 字节流（byte stream） 文件流（file stream） 字符串流（string stream）  protobuf 中定义服务 v2 和 v3 主要区别 删除原始值字段的字段存在逻辑 删除 required 字段 删除 optio...</div></div></div></a><a class="pagination-related" href="/Cloud-Native/gRPC/synced/CloudNative/gRPC/gRPCFoundation/" title="gRPCFoundation"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">gRPCFoundation</div></div><div class="info-2"><div class="info-item-1">   1. RPC(remote produce call)1.1. 什么是 RPCRPC简称远程过程调用，是一个用于构建基于Client和Server分布式应用程序的技术。目前业界已经有了很多的框架能够用来构建基于RPC的分布式应用，例如SpringBoot，Dubbo和gRPC。 RPC 标准最早是由Bruce Jay Nelson 写的论文 Implementing Remote Procedure Calls中提出的，后期...</div></div></div></a><a class="pagination-related" href="/Cloud-Native/synced/CloudNative/Mqtt/" title="Mqtt"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-22</div><div class="info-item-2">Mqtt</div></div><div class="info-2"><div class="info-item-1">   1. EMQX 1.1. Port 1.1.1. 开放防火墙端口 1.1.2. 检查防火墙端口是否开放   1.2. env 1.2.1. 查找 EMQX 安装目录 1.2.2. 编辑环境变量 1.2.3. 验证是否生效 1.2.4. 系统级环境变量（可选）   1.3. ClientID 1.4. 介绍 1.5. 冲突的 MQTT 客户端 ID 1.6. 参数配置 1.6.1. retain 1.6.2. retainHa...</div></div></div></a><a class="pagination-related" href="/Cloud-Native/Kubernetes/synced/CloudNative/Kubernetes/kubernetes/" title="Kubernetes"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-14</div><div class="info-item-2">Kubernetes</div></div><div class="info-2"><div class="info-item-1">  1. IntroduceKubernetes 最初是由Google内部项目 Borg 演化而来的，刚开始研发的时候仅仅只有 3 个人，后来得到 Google 高层的批准，将项目开源，吸引跟多的人参与进来。 2. Thinking国外的工程师的创造力是非常、非常的强，产生的想发都是源自于解决当前生产所面临的问题。他们产生了一个不错的想法，有平台和技术做支撑，能快速的去实现，并推广给大众，让全世界的人都能去用。（2022&#x2F...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%80%9D%E8%80%83"><span class="toc-number">1.</span> <span class="toc-text">1. 思考</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">2. 优缺点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Kafka-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">3. Kafka 是什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E8%AF%9E%E7%94%9F%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="toc-number">4.</span> <span class="toc-text">4. 诞生的目的</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-Kafka-%E5%9C%A8%E8%BF%99%E5%BD%93%E4%B8%AD%E5%85%85%E5%BD%93%E4%BA%86%E6%80%8E%E6%A0%B7%E7%9A%84%E8%A7%92%E8%89%B2%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. Kafka 在这当中充当了怎样的角色？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E5%AE%83%E4%B8%8E%E7%8E%B0%E6%9C%89%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%AF%94%E8%BE%83%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. 它与现有的系统比较有什么区别？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E5%8F%91%E5%B1%95%E5%8E%86%E7%A8%8B"><span class="toc-number">5.</span> <span class="toc-text">5. 发展历程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="toc-number">6.</span> <span class="toc-text">6. 消息队列</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-Kafka-%E6%9E%B6%E6%9E%84"><span class="toc-number">7.</span> <span class="toc-text">7. Kafka 架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-Terminology"><span class="toc-number">7.1.</span> <span class="toc-text">7.1. Terminology</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">8.</span> <span class="toc-text">8. 工作流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-%E7%94%9F%E4%BA%A7%E8%80%85"><span class="toc-number">9.</span> <span class="toc-text">9. 生产者</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-%E5%88%86%E5%8C%BA%E7%AD%96%E7%95%A5"><span class="toc-number">9.1.</span> <span class="toc-text">9.1. 分区策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-%E6%95%B0%E6%8D%AE%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BF%9D%E8%AF%81"><span class="toc-number">9.2.</span> <span class="toc-text">9.2. 数据可靠性保证</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-%E6%B6%88%E8%B4%B9%E8%80%85"><span class="toc-number">10.</span> <span class="toc-text">10. 消费者</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-Docker-%E4%B8%AD%E4%BD%BF%E7%94%A8-Kafka"><span class="toc-number">11.</span> <span class="toc-text">11. Docker 中使用 Kafka</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12-References"><span class="toc-number">12.</span> <span class="toc-text">12. References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ComputerSystemAProgramm'sPerspective"/></a><div class="content"><a class="title" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective">ComputerSystemAProgramm'sPerspective</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jsoncpp"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp">Jsoncpp</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Project/" title="Project"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Project"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Project/" title="Project">Project</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Protocol Terms"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms">Protocol Terms</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/modbus/" title="Modbus"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Modbus"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/modbus/" title="Modbus">Modbus</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RedisSourceCode"/></a><div class="content"><a class="title" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode">RedisSourceCode</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Qt/synced/Qt/Qt/" title="Qt"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/Qt/synced/Qt/Qt/" title="Qt">Qt</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Embodied/" title="Embodied"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Embodied"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Embodied/" title="Embodied">Embodied</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":0,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'JohnJeep/Learning-CS-Journey',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

@@ -1,0 +1,1189 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>System Program | Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="1. System function 1.1. Core concept 1.2. Carriage Return &amp;&amp; Line Feed(终端换行) 1.3. File I&#x2F;O 1.3.1. open 1.3.2. read&#x2F;write 1.3.3. lseek 1.3.4. fsync 1.3.5. stat 1.3.6. lstat 1.3.7.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="System Program">
+<meta property="og:url" content="https://johnjeep.github.io/Linux/system-program/synced/Linux/system_program/system-program/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="1. System function 1.1. Core concept 1.2. Carriage Return &amp;&amp; Line Feed(终端换行) 1.3. File I&#x2F;O 1.3.1. open 1.3.2. read&#x2F;write 1.3.3. lseek 1.3.4. fsync 1.3.5. stat 1.3.6. lstat 1.3.7.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/seele.jpg">
+<meta property="article:published_time" content="2023-07-27T18:39:14.000Z">
+<meta property="article:modified_time" content="2025-12-20T21:48:23.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="system-program">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/seele.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "System Program",
+  "url": "https://johnjeep.github.io/Linux/system-program/synced/Linux/system_program/system-program/",
+  "image": "https://johnjeep.github.io/img/seele.jpg",
+  "datePublished": "2023-07-27T18:39:14.000Z",
+  "dateModified": "2025-12-20T21:48:23.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Linux/system-program/synced/Linux/system_program/system-program/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'System Program',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">System Program</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">System Program</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-07-27T18:39:14.000Z" title="发表于 2023-07-28 02:39:14">2023-07-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-20T21:48:23.000Z" title="更新于 2025-12-21 05:48:23">2025-12-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/system-program/">system_program</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">10.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>34分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2020-05-23 23:12:17
+ * @LastEditTime: 2025-12-20 18:48:13
+ * @LastEditors: JohnJeep
+ * @Description: Linux 环境系统编程基础知识
+-->
+
+<ul>
+<li><a href="#1-system-function">1. System function</a><ul>
+<li><a href="#11-core-concept">1.1. Core concept</a></li>
+<li><a href="#12-carriage-return--line-feed%E7%BB%88%E7%AB%AF%E6%8D%A2%E8%A1%8C">1.2. Carriage Return &amp;&amp; Line Feed(终端换行)</a></li>
+<li><a href="#13-file-io">1.3. File I&#x2F;O</a><ul>
+<li><a href="#131-open">1.3.1. open</a></li>
+<li><a href="#132-readwrite">1.3.2. read&#x2F;write</a></li>
+<li><a href="#133-lseek">1.3.3. lseek</a></li>
+<li><a href="#134-fsync">1.3.4. fsync</a></li>
+<li><a href="#135-stat">1.3.5. stat</a></li>
+<li><a href="#136-lstat">1.3.6. lstat</a></li>
+<li><a href="#137-access">1.3.7. access</a></li>
+<li><a href="#138-chmod">1.3.8. chmod</a></li>
+<li><a href="#139-truncate">1.3.9. truncate</a></li>
+<li><a href="#1310-readlink">1.3.10. readlink</a></li>
+<li><a href="#1311-unlink">1.3.11. unlink</a></li>
+<li><a href="#1312-chdir">1.3.12. chdir</a></li>
+<li><a href="#1313-opendir">1.3.13. opendir</a></li>
+<li><a href="#1314-readdir">1.3.14. readdir</a></li>
+<li><a href="#1315-closedir">1.3.15. closedir</a></li>
+<li><a href="#1316-dup--dup2">1.3.16. dup &amp;&amp; dup2</a></li>
+<li><a href="#1317-fcntl">1.3.17. fcntl</a></li>
+</ul>
+</li>
+<li><a href="#14-environment-variables">1.4. Environment variables</a></li>
+</ul>
+</li>
+<li><a href="#2-process">2. Process</a><ul>
+<li><a href="#21-fork">2.1. fork</a></li>
+<li><a href="#22-exec">2.2. exec</a></li>
+<li><a href="#23-wait">2.3. wait</a></li>
+<li><a href="#24-ipc">2.4. IPC</a><ul>
+<li><a href="#241-pipe%E7%AE%A1%E9%81%93">2.4.1. Pipe(管道)</a><ul>
+<li><a href="#2411-unamed-pipe%E5%8C%BF%E5%90%8D%E7%AE%A1%E9%81%93">2.4.1.1. unamed pipe(匿名管道)</a></li>
+<li><a href="#2412-named-pipe%E6%9C%89%E5%90%8D%E7%AE%A1%E9%81%93">2.4.1.2. named pipe(有名管道)</a></li>
+</ul>
+</li>
+<li><a href="#242-mmap">2.4.2. mmap</a></li>
+<li><a href="#243-signal%E4%BF%A1%E5%8F%B7">2.4.3. Signal(信号)</a></li>
+<li><a href="#244-semaphore%E4%BF%A1%E5%8F%B7%E9%87%8F">2.4.4. Semaphore(信号量)</a></li>
+<li><a href="#245-message-queues%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97">2.4.5. Message queues(消息队列)</a></li>
+<li><a href="#246-socket%E5%A5%97%E6%8E%A5%E5%AD%97">2.4.6. Socket(套接字)</a></li>
+</ul>
+</li>
+<li><a href="#25-race-condition%E6%97%B6%E5%BA%8F%E7%AB%9E%E6%80%81">2.5. Race condition(时序竞态)</a></li>
+<li><a href="#26-terminal">2.6. Terminal</a></li>
+<li><a href="#27-process-group">2.7. Process group</a></li>
+<li><a href="#28-daemon%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B">2.8. Daemon(守护进程)</a></li>
+</ul>
+</li>
+<li><a href="#3-thread">3. Thread</a><ul>
+<li><a href="#31-core-concepts">3.1. Core concepts</a></li>
+<li><a href="#32-api">3.2. API</a></li>
+<li><a href="#33-thread-attr">3.3. thread attr</a></li>
+<li><a href="#34-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">3.4. 注意事项</a></li>
+<li><a href="#35-%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5">3.5. 线程同步</a></li>
+<li><a href="#36-%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%97%B4%E6%AD%BB%E9%94%81%E7%9A%84%E5%8E%9F%E5%9B%A0">3.6. 线程之间死锁的原因</a></li>
+<li><a href="#37-mutex%E7%BA%BF%E7%A8%8B%E4%BA%92%E6%96%A5">3.7. Mutex(线程互斥)</a></li>
+</ul>
+</li>
+<li><a href="#4-references">4. References</a></li>
+</ul>
+<h1 id="1-System-function"><a href="#1-System-function" class="headerlink" title="1. System function"></a>1. System function</h1><h2 id="1-1-Core-concept"><a href="#1-1-Core-concept" class="headerlink" title="1.1. Core concept"></a>1.1. Core concept</h2><p><strong>文件函数包括三部分内容</strong></p>
+<ul>
+<li><code>file descriptor</code>  文件描述符</li>
+<li><code>file pointer(fp)</code> 文件指针</li>
+<li><code>file buffer</code>     文件数据缓冲区</li>
+</ul>
+<p><strong>文件描述符返回值</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0 标准输入</span><br><span class="line">1 标准输出</span><br><span class="line">2 错误</span><br><span class="line">3 文件指针</span><br></pre></td></tr></table></figure>
+
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../figures/库函数与系统函数的关系_3.png">
+
+<p><strong>error</strong></p>
+<ul>
+<li>全部的错误变量 <code>errno</code> 在 Linux 中存放的位置： <code>/usr/include</code></li>
+<li><code>perror()</code>:  打印错误的信息。</li>
+</ul>
+<p><strong>umask</strong></p>
+<ul>
+<li><p>文件的实际权限 &#x3D; 用户给定的权限和本地的掩码（umask）取反之后，在进行按位与（<code>&amp;</code>）的操作，可以计算出文件的实际权限。</p>
+<p>例如，假设用户给定的权限是 7（读、写、执行），UMASK 是 022。首先，将 UMASK 取反得到 755，然后进行位与操作：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用户给定权限：  111  (7 的二进制表示)</span><br><span class="line">UMASK取反：     755  (022 的二进制取反)</span><br><span class="line">------------</span><br><span class="line">实际权限：     111  (结果)</span><br></pre></td></tr></table></figure>
+
+<p>注：UMASK 是一种权限掩码，用于在创建新文件或目录时从默认权限中去除一些权限位。在 Unix 和类 Unix系统中，UMASK 通常表示为八进制数字，并且会被应用于文件和目录的权限。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Linux 终端查看 umask 值</span></span><br><span class="line">$ <span class="built_in">umask</span></span><br><span class="line">0022</span><br></pre></td></tr></table></figure>
+
+<p>在Linux系统中，umask 值可以在多个地方进行修改。以下是一些常见的地方：</p>
+<ol>
+<li><strong>用户级别配置：</strong> 每个用户都可以在其个人的shell配置文件（如<code>~/.bashrc</code>、<code>~/.bash_profile</code>、<code>~/.zshrc</code>等）中设置umask 值。用户级别配置仅适用于特定用户。</li>
+<li><strong>系统级别配置：</strong> 系统管理员可以在系统范围的 shell 配置文件（通常位于 <code>/etc/profile </code>或 <code>/etc/bash.bashrc</code> 等）中设置全局的 umask 值，以适用于所有用户。这样，对所有新创建的文件和目录都会应用这个umask值。</li>
+<li><strong>PAM配置：</strong> PAM（Pluggable Authentication Modules）是 Linux 系统中用于身份验证的模块化框架。系统管理员可以通过修改 PAM 配置文件来设置 umask 值，以在用户登录时应用特定的 umask 设置。</li>
+<li><strong>登录脚本：</strong> 在一些情况下，系统管理员可以通过修改特定的用户登录脚本来设置 umask 值。例如，对于某个特定用户组，可以在其登录脚本中设置特定的 umask 值。</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-2-Carriage-Return-Line-Feed-终端换行"><a href="#1-2-Carriage-Return-Line-Feed-终端换行" class="headerlink" title="1.2. Carriage Return &amp;&amp; Line Feed(终端换行)"></a>1.2. Carriage Return &amp;&amp; Line Feed(终端换行)</h2><p>关于打印</p>
+<ul>
+<li><p>在机械打字机时代，打字机上有个 “打印头（print head）” 的零部件，打印时从左往右自动移动，满一行时需要手动推到最左边，这个动作叫“回车（Carriage Return）”，<br>同时卷轴需要向上卷使纸张上移一行，打印头相对于纸张就是下移一行，这个动作叫做“移行（Line Feed）”。</p>
+</li>
+<li><p>ANSI 标准规定，转义字符 <code>\r</code> 指代 <code>CR</code>，<code>\n</code> 指代 <code>LF</code>，计算机系统早期广泛采用 <code> CR+LF</code> 指示换行。</p>
+</li>
+<li><p>UNIX 系统时代存储资源很贵，仅采用 1 个字符 “\n” 指示换行，而 MS-DOS 出于兼容性采用 <code>\r\n</code> 指示换行，后来搬到了 Windows 上，而 Mac 系统则采用 <code>\r</code> 指示换行，Linux、Cygwin 照搬了 <code>\n</code>。</p>
+</li>
+<li><p><code>\r\n</code> 换行的文本文件在 Windows 显示正常，在 UNIX、Linux、Cygwin 中行末多出 1 个 “^M”，“^M” 指真实的 Ctrl-M 组合字符；<code>\n</code> 换行的文本文件在 UNIX、Linux、Cygwin 显示正常，在 Windows 中整个文件显示为一行。</p>
+</li>
+</ul>
+<p>C 语言换行符</p>
+<p>C 语言中虽然也有转义字符<code>\r</code>、<code>\n</code>，但并不保证与 ASCII 码 <code>CR</code>、<code>LF</code> 等价，在文本模式下，写入<code>\n</code>由系统底层翻译成换行符，读入文本时换行符再由系统底层翻译为 <code>\n</code>。<br>UNIX 系统正是 C 语言写出来的，系统底层就使用 <code>LF</code> 作换行符，系统内外表示一致不需翻译；而 MS-DOS、Windows 系统底层，则在系统内外需要进行 <code>\n</code> 与 <code>CR+LF</code> 的转换工作。</p>
+<h2 id="1-3-File-I-O"><a href="#1-3-File-I-O" class="headerlink" title="1.3. File I&#x2F;O"></a>1.3. File I&#x2F;O</h2><p>库函数与系统函数的关系</p>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../figures/库函数与系统函数的关系_1.png">
+
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../figures/库函数与系统函数的关系_2.png">
+
+<h3 id="1-3-1-open"><a href="#1-3-1-open" class="headerlink" title="1.3.1. open"></a>1.3.1. open</h3><ul>
+<li>创建：<code>O_CREAT</code> 或采用 <code> 截断为 0 的方式创建 O_TRUNC</code></li>
+<li>读写：<code>O_RDWR</code></li>
+<li>只读：<code>O_RDONLY</code></li>
+<li>只写：<code>O_WRONLY</code></li>
+<li>文件是否存在：<code>O_EXCL</code></li>
+</ul>
+<h3 id="1-3-2-read-write"><a href="#1-3-2-read-write" class="headerlink" title="1.3.2. read&#x2F;write"></a>1.3.2. read&#x2F;write</h3><ul>
+<li><code>-1</code> 读 &#x2F; 写文件失败</li>
+<li><code>0</code>  文件读完了或文件写成完了</li>
+<li><code>&gt;0</code> 读 &#x2F; 写文件的字节数</li>
+</ul>
+<h3 id="1-3-3-lseek"><a href="#1-3-3-lseek" class="headerlink" title="1.3.3. lseek"></a>1.3.3. lseek</h3><ul>
+<li>获取文件的长度</li>
+<li>移动文件指针</li>
+<li>文件拓展（只能向文件的中间或尾部扩展，不能向前端扩展）</li>
+</ul>
+<h3 id="1-3-4-fsync"><a href="#1-3-4-fsync" class="headerlink" title="1.3.4. fsync"></a>1.3.4. fsync</h3><p><code>fsync</code>是一个系统调用（system call）和一个 Unix&#x2F;Linux 命令，用于将文件系统缓冲区中的数据立即写入磁盘，以确保数据持久化保存。在使用 <code>fsync</code> 之前，通常会将数据缓存在操作系统的缓冲区中，以提高 I&#x2F;O 性能。然而，这些缓冲的数据并不是立即写入磁盘，而是由操作系统自行决定合适的时机进行刷新。<code>fsync</code> 允许应用程序强制将数据从缓冲区刷新到磁盘，以确保数据不会在系统崩溃或断电时丢失。</p>
+<p>在C语言中，<code>fsync</code>函数的原型如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">fsync</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>fsync</code> 函数接受一个文件描述符（file descriptor）<code>fd </code>作为参数，表示要刷新数据的文件。调用 <code>fsync</code>后，会将该文件相关的数据从操作系统缓冲区立即写入磁盘，并确保数据已经持久化。</p>
+<p>请注意：<code>fsync </code>操作可能会导致磁盘的 IO 延迟，因为数据需要写入磁盘。因此，在使用 <code>fsync</code> 时应谨慎，只在确保数据持久性很重要的情况下使用。</p>
+<p>此外，<code>fsync </code>是一个阻塞式调用，它会一直等待数据写入磁盘完成后才返回。如果对性能有较高要求且可以接受一定的数据丢失，可以考虑使用 <code>fdatasync</code> 函数，它类似于 <code>fsync</code>，但更加高效，不会写入文件的元数据（metadata）。</p>
+<p>在命令行下，可以使用<code>fsync</code>命令来刷新文件的缓冲区，命令语法如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsync [FILE]</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>FILE</code>为要刷新的文件路径。使用 <code>fsync</code> 命令可以在不编写代码的情况下手动刷新文件的缓冲区。</p>
+<h3 id="1-3-5-stat"><a href="#1-3-5-stat" class="headerlink" title="1.3.5. stat"></a>1.3.5. stat</h3><p><code>stat()</code>: 查看文件的所有状态信息。进行追踪或穿透，显示追踪到的文件或软连接指定的文件信息。</p>
+<h3 id="1-3-6-lstat"><a href="#1-3-6-lstat" class="headerlink" title="1.3.6. lstat"></a>1.3.6. lstat</h3><p><code>lstat()</code>: 查看文件的状态信息。不进行追踪或穿透，直接显示当前文件或软连接的信息。</p>
+<h3 id="1-3-7-access"><a href="#1-3-7-access" class="headerlink" title="1.3.7. access"></a>1.3.7. access</h3><p><code>access()</code>: 测试指定文件是否拥有某种权限。</p>
+<h3 id="1-3-8-chmod"><a href="#1-3-8-chmod" class="headerlink" title="1.3.8. chmod"></a>1.3.8. chmod</h3><p><code>chmod()</code>: 改变文件的权限</p>
+<h3 id="1-3-9-truncate"><a href="#1-3-9-truncate" class="headerlink" title="1.3.9. truncate"></a>1.3.9. truncate</h3><p><code>truncate()</code> 将指定文件的大小由指定参数 <code>length</code> 长度确定，</p>
+<ul>
+<li><code>length</code> 长度大于当前文件，文件将被拓展</li>
+<li><code>length</code> 长度小于当前文件，文件截取，截取值为 <code>length</code> 值</li>
+</ul>
+<h3 id="1-3-10-readlink"><a href="#1-3-10-readlink" class="headerlink" title="1.3.10. readlink"></a>1.3.10. readlink</h3><p><code>readlink()</code>: 读一个软链接的值</p>
+<h3 id="1-3-11-unlink"><a href="#1-3-11-unlink" class="headerlink" title="1.3.11. unlink"></a>1.3.11. unlink</h3><ul>
+<li>删除一个硬链接数</li>
+<li>可以读取临时文件的内容。先创建文件，向文件写，然后读文件中写的内容并将读出的数据写到另外的一个文件中。</li>
+</ul>
+<h3 id="1-3-12-chdir"><a href="#1-3-12-chdir" class="headerlink" title="1.3.12. chdir"></a>1.3.12. chdir</h3><p>改变工作目录</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">chdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *path)</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-13-opendir"><a href="#1-3-13-opendir" class="headerlink" title="1.3.13. opendir"></a>1.3.13. opendir</h3><p><code>opendir()</code>: 打开一个目录</p>
+<h3 id="1-3-14-readdir"><a href="#1-3-14-readdir" class="headerlink" title="1.3.14. readdir"></a>1.3.14. readdir</h3><p><code>readdir()</code>: 读一个目录</p>
+<h3 id="1-3-15-closedir"><a href="#1-3-15-closedir" class="headerlink" title="1.3.15. closedir"></a>1.3.15. closedir</h3><p><code>closedir()</code>: 关闭一个目录</p>
+<h3 id="1-3-16-dup-dup2"><a href="#1-3-16-dup-dup2" class="headerlink" title="1.3.16. dup &amp;&amp; dup2"></a>1.3.16. dup &amp;&amp; dup2</h3><p><code>dup2()</code> 是一个系统调用函数，在 Unix-like 操作系统（例如 Linux）上使用，用于复制文件描述符（file descriptor）。</p>
+<p><strong>功能：</strong> <code>dup2()</code> 函数用于复制一个已有的文件描述符，并将它复制到指定的新文件描述符。这样，原先的文件描述符和新的文件描述符都可以引用同一个打开的文件，它们共享相同的文件偏移量和文件状态标志（比如读 &#x2F; 写位置、文件状态等）。</p>
+<p><strong>函数原型：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">dup2</span><span class="params">(<span class="type">int</span> oldfd, <span class="type">int</span> newfd)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">dup</span><span class="params">(<span class="type">int</span> fd)</span>;  <span class="comment">// 复制 fd 对应的文件表指针，返回下一个可用的文件描述符</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">dup2</span><span class="params">(<span class="type">int</span> oldfd, <span class="type">int</span> newfd)</span>; <span class="comment">// 将 newfd 对应的文件表指针修改为 oldfd 对应的文件表指针</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>oldfd</code>：已有的文件描述符，它是需要复制的源文件描述符。</li>
+<li><code>newfd</code>：新的文件描述符，它是复制后的目标文件描述符。如果 <code>newfd</code> 已经打开，则会先关闭 <code>newfd</code> 所指向的文件，然后将 <code>oldfd</code> 复制到 <code>newfd</code>。</li>
+</ul>
+<p><strong>返回值：</strong></p>
+<ul>
+<li>如果复制成功，返回新的文件描述符 <code>newfd</code>。</li>
+<li>如果复制失败，返回 - 1，并设置 <code>errno</code> 来指示错误的原因。</li>
+</ul>
+<p><strong>注意事项：</strong></p>
+<ul>
+<li>在使用 <code>dup2()</code> 函数时，应确保 <code>oldfd</code> 是有效的（已打开的）文件描述符。否则，函数可能返回错误，并设置 <code>errno</code> 为 <code>EBADF</code>（表示文件描述符无效）。</li>
+<li>如果 <code>newfd</code> 和 <code>oldfd</code> 已经指向同一个文件描述符，则 <code>dup2()</code> 不会关闭 <code>newfd</code>，但是会返回 <code>newfd</code> 本身。</li>
+<li>在使用完 <code>dup2()</code> 复制的新文件描述符后，应当注意及时关闭它，以避免资源泄漏。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;errno.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> fd1, fd2;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打开一个文件，获取文件描述符 fd1</span></span><br><span class="line">    fd1 = open(<span class="string">&quot;file.txt&quot;</span>, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);</span><br><span class="line">    <span class="keyword">if</span> (fd1 &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;open&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 复制文件描述符 fd1 到文件描述符 fd2</span></span><br><span class="line">    fd2 = dup2(fd1, <span class="number">42</span>);</span><br><span class="line">    <span class="keyword">if</span> (fd2 &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;dup2&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 fd2 进行文件操作</span></span><br><span class="line">    write(fd2, <span class="string">&quot;Hello, dup2!&quot;</span>, <span class="number">13</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 关闭文件描述符</span></span><br><span class="line">    close(fd1);</span><br><span class="line">    close(fd2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上述示例中，我们使用 <code>dup2()</code> 将文件描述符 <code>fd1</code> 复制到了文件描述符 <code>42</code>（<code>newfd</code>）。之后，我们使用 <code>fd2</code> 这个新的文件描述符进行文件写入操作，它和 <code>fd1</code> 共享了同一个文件状态，所以对 <code>fd2</code> 的写入操作也会对 <code>fd1</code> 产生影响。</p>
+<h3 id="1-3-17-fcntl"><a href="#1-3-17-fcntl" class="headerlink" title="1.3.17. fcntl"></a>1.3.17. fcntl</h3><p>改变已经打开文件的属性，即获取或设置文件的状态标记。</p>
+<ul>
+<li><code>F_GETFL</code> 获取文件状态参数</li>
+<li><code>F_SETFL</code> 设置文件状态参数</li>
+</ul>
+<h2 id="1-4-Environment-variables"><a href="#1-4-Environment-variables" class="headerlink" title="1.4. Environment variables"></a>1.4. Environment variables</h2><p>常见的环境变量</p>
+<ul>
+<li><code>PATH </code> 指定可执行文件搜索路径</li>
+<li><code>SHELL</code> 指定当前所使用的命令解析器</li>
+<li><code>TERM </code> 当前终端类型</li>
+<li><code>LANG </code> 指定语言环境</li>
+<li><code>HOME </code> 用户主目录</li>
+</ul>
+<p>环境变量相关函数</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getenv()</td>
+<td>获取环境变量值</td>
+</tr>
+<tr>
+<td>setenv()</td>
+<td>设置环境变量值。返回值：1：覆盖原值；0：不覆盖；-1：出错</td>
+</tr>
+<tr>
+<td>unsetenv()</td>
+<td>删除环境变量</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="2-Process"><a href="#2-Process" class="headerlink" title="2. Process"></a>2. Process</h1><p><strong>什么是进程</strong></p>
+<p>在计算中，进程是由一个或多个线程执行的计算机程序的实例。它包含程序代码（code）和运行指令（activity）。取决于操作系统（OS），一个进程可能由多个并行执行指令的执行线程组成。程序本身只是指令、数据及其组织形式的描述，相当于一个名词，进程才是程序（那些指令和数据）的真正运行实例。</p>
+<h2 id="2-1-fork"><a href="#2-1-fork" class="headerlink" title="2.1. fork"></a>2.1. fork</h2><ul>
+<li><p>创建一个子进程过程。一个进程调用 <code>fork()</code> 函数，变为两个进程，各自的进程都有一个返回值。父进程返回值为子进程的 <code>PID</code>（返回值大于 0），子进程的返回值为 <code>0</code>，进程创建成功。</p>
+<blockquote>
+<p>执行 <code>fork</code> 操作之后，是父进程先执行还是子进程先执行，是不确定的，取决于系统内的调度算法。</p>
+</blockquote>
+</li>
+<li><p>父子进程之间遵循原则：<code>读时共享写时复制</code>。例如：一个全局变量，子进程只读时，则父子进程共享变量；若子进程对全局变量写操作时，则不共享全局变量。</p>
+</li>
+<li><p>父子进程共享</p>
+<ul>
+<li>共享文件描述符。</li>
+<li>共享 <code>mmap</code> 建立的映射区。</li>
+</ul>
+</li>
+</ul>
+<p>子进程与父进程异同点</p>
+<ul>
+<li>相同<ul>
+<li>全局变量</li>
+<li>.data</li>
+<li>.text</li>
+<li>栈、堆</li>
+<li>环境变量</li>
+<li>用户 ID</li>
+<li>宿主目录</li>
+<li>进程工作目录</li>
+<li>信号处理方式</li>
+</ul>
+</li>
+<li>不同<ul>
+<li>进程控制块 (当前进程的父进程 ID)</li>
+<li>PID</li>
+<li>fork 返回值</li>
+<li>定时器</li>
+<li>未决信号集</li>
+<li>进程运行时间</li>
+</ul>
+</li>
+</ul>
+<p>PID相关的函数</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getpid()</td>
+<td>获取子进程 PID 号</td>
+</tr>
+<tr>
+<td>getppid()</td>
+<td>获取父进程 PID 号</td>
+</tr>
+<tr>
+<td>getuid()</td>
+<td>获取当前进程实际用户 ID 号</td>
+</tr>
+<tr>
+<td>geteuid()</td>
+<td>获取当前进程有效用户 ID 号</td>
+</tr>
+<tr>
+<td>getgid()</td>
+<td>获取当前进程实际用户组 ID 号</td>
+</tr>
+<tr>
+<td>getegid()</td>
+<td>获取当前进程有效用户组 ID 号</td>
+</tr>
+</tbody></table>
+<h2 id="2-2-exec"><a href="#2-2-exec" class="headerlink" title="2.2. exec"></a>2.2. exec</h2><ul>
+<li>执行 <code>exec()</code> 家族的函数后，将当前进程的内存空间数据替换为要执行函数的内存空间数据。</li>
+<li>exec() 家族函数只有失败时才返回，返回值为 -1，程序执行成功时，含食宿不会返回。<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">l</span><span class="params">(list)</span></span>	   	   命令行参数列表</span><br><span class="line"><span class="selector-tag">p</span>(path)			   搜素 file 时使用 <span class="selector-tag">path</span> 变量</span><br><span class="line"><span class="function"><span class="title">v</span><span class="params">(vector)</span></span>			 使用命令行参数数组</span><br><span class="line"><span class="function"><span class="title">e</span><span class="params">(environment)</span></span>	使用环境变量数组, 不使用进程原有的环境变量，设置新加载程序运行的环境变量</span><br></pre></td></tr></table></figure></li>
+</ul>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../figures/exec_family.png">
+
+<p>相关函数用法</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>execlp()</td>
+<td>加载一个进程，通过环境变量加载。</td>
+</tr>
+<tr>
+<td>execl()</td>
+<td>加载一个进程，通过路径 + 程序名称来加载。</td>
+</tr>
+<tr>
+<td>execle()</td>
+<td>加载一个进程，通过路径 + 程序名称来加载，使用自定义环境变量 env。</td>
+</tr>
+<tr>
+<td>execv()</td>
+<td>加载一个进程，使用命令行参数数组。</td>
+</tr>
+<tr>
+<td>execvp()</td>
+<td>加载一个进程，使用自定义环境变量 env</td>
+</tr>
+<tr>
+<td>execvpe()</td>
+<td>加载一个进程，使用命令行参数数组，并加上自定义环境变量 env。</td>
+</tr>
+</tbody></table>
+<h2 id="2-3-wait"><a href="#2-3-wait" class="headerlink" title="2.3. wait"></a>2.3. wait</h2><p><strong>什么是孤儿进程</strong></p>
+<p>父进程先与子进程死亡，子进程就成为了孤儿进程，此时子进程的父进程的变为 <code>init</code> 进程，<code>init</code> 进程也称为 <code>init</code> 进程领养孤儿进程。</p>
+<p><strong>什么是僵尸进程</strong></p>
+<p>子进程结束了，父进程没有回收子进程的内存空间，而子进程的进程控制块（PCB）还存留于操作系统的内核之中，此时的子进程称为僵尸进程（zombie）。</p>
+<p><code>wait()</code> </p>
+<ul>
+<li>阻塞等待子进程退出</li>
+<li>回收子进程的 PCB 内存空间资源</li>
+<li>获取子进程死亡的原因<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 子进程退出的几种常见的宏</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (WIFEXITED(wstatus))         <span class="comment">// 进程正常结束</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;exited, status=%d\n&quot;</span>, WEXITSTATUS(wstatus));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (WIFSIGNALED(wstatus))  <span class="comment">// 进程异常终止</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;killed by signal %d\n&quot;</span>, WTERMSIG(wstatus));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (WIFSTOPPED(wstatus))   <span class="comment">// 进程处于暂停状态</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;stopped by signal %d\n&quot;</span>, WSTOPSIG(wstatus));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (WIFCONTINUED(wstatus))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;continued\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>一个 <code>waitpid()</code> 或 <code>wait()</code> 函数只能回收一个僵尸进程。回收多个僵尸进程需要循环调用 <code>waitpid()</code> 或 <code>wait()</code> 函数。</p>
+<p><code>waitpid()</code> </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">函数原型 <span class="type">pid_t</span> <span class="title function_">waitpid</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">int</span> *wstatus, <span class="type">int</span> options)</span>;</span><br><span class="line"></span><br><span class="line">参数</span><br><span class="line">- pid 指定特定的进程 PID，</span><br><span class="line">  - 当 pid=<span class="number">-1</span> 时，传入的是任意进程的 PID</span><br><span class="line">  - 当 pid=<span class="number">0</span> 时，回收当前进程组内（group）的所有子进程；</span><br><span class="line">  - 当 pid= 进程组 id 时，回收指定进程组内的任意子进程。</span><br><span class="line">- *wstatus 子进程退出的状态</span><br><span class="line">- options 可以将进程设置为阻塞态（设置为 <span class="number">0</span>）或运行态（设置为 WNOHAGN）</span><br><span class="line"></span><br><span class="line">函数返回值</span><br><span class="line">- 正常运行：pid</span><br><span class="line">- 失败：<span class="number">-1</span></span><br><span class="line">- 当 `options=WNOHAGN` 时，子进程为非阻塞状态且子进程尚未结束时，返回值为 <span class="number">0</span></span><br><span class="line"></span><br><span class="line">函数作用：指定特定的进程 PID 进行僵尸进程的回收。子进程的状态可以设置为不阻塞，使用宏 WNOHAGN</span><br></pre></td></tr></table></figure>
+
+<p><strong>WIFEXITED</strong></p>
+<p>在 Linux（以及类 Unix 系统）中，<code>WIFEXITED</code> 是一个用于解析子进程退出状态的<strong>宏（macro）</strong>，通常与 <code>wait()</code>、<code>waitpid()</code> 等函数配合使用。</p>
+<p>当你调用 <code>wait()</code> 或 <code>waitpid()</code> 时，它们会返回一个整型状态值（通常命名为 <code>status</code>），这个值包含了子进程终止的相关信息。但这个 <code>status</code> 并不是一个简单的退出码，而是一个<strong>编码后的状态字（status word）</strong>，需要用特定的宏来解析。</p>
+<p><code>WIFEXITED(status)</code> 用于<strong>判断子进程是否正常退出（即通过调用 exit()、_exit() 或从 main 返回）</strong>。</p>
+<ul>
+<li>如果子进程是<strong>正常退出</strong>的，<code>WIFEXITED(status)</code> 返回 <strong>非零值（true）</strong>。</li>
+<li>如果子进程是被信号终止（如段错误、被 kill 等），则返回 <strong>0（false）</strong>。</li>
+</ul>
+<p>示例</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">pid_t</span> pid = fork();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 子进程</span></span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">42</span>);  <span class="comment">// 正常退出，退出码为 42</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pid &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 父进程</span></span><br><span class="line">        <span class="type">int</span> status;</span><br><span class="line">        waitpid(pid, &amp;status, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (WIFEXITED(status)) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;子进程正常退出，退出码：%d\n&quot;</span>, WEXITSTATUS(status));</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (WIFSIGNALED(status)) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;子进程被信号 %d 终止\n&quot;</span>, WTERMSIG(status));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>配合使用的宏</strong></p>
+<ul>
+<li><code>WEXITSTATUS(status)</code>：<br> 当 <code>WIFEXITED(status)</code> 为真时，可以用这个宏提取子进程的实际退出码（0~255）。</li>
+<li><code>WIFSIGNALED(status)</code>：<br> 判断子进程是否因接收到信号而异常终止。</li>
+<li><code>WTERMSIG(status)</code>：<br> 若 <code>WIFSIGNALED</code> 为真，此宏返回导致进程终止的信号编号。</li>
+</ul>
+<h2 id="2-4-IPC"><a href="#2-4-IPC" class="headerlink" title="2.4. IPC"></a>2.4. IPC</h2><p>IPC(Inter Process Communication) 叫进程间通信。</p>
+<p>Linux 中七种文件类型</p>
+<ul>
+<li><p>非伪文件：占用磁盘的存储空间</p>
+<ul>
+<li><code>-</code> 普通文件</li>
+<li><code>d(directory)</code> 目录</li>
+<li><code>l(link)</code> 链接</li>
+</ul>
+</li>
+<li><p>伪文件：不占用磁盘的存储空间</p>
+<ul>
+<li><code>s(socket)</code> 套接字</li>
+<li><code>b(block) </code> 块设备</li>
+<li><code>c(char)  </code> 字符设备</li>
+<li><code>p(pipe)  </code> 管道</li>
+</ul>
+</li>
+</ul>
+<p>6 种方式</p>
+<ol>
+<li>Pipe(管道：最简单)</li>
+<li>Signal(信号：开销最小)</li>
+<li>Mmap(共享映射区：无血缘关系)</li>
+<li>Socket(本地套接字：最稳定)</li>
+<li>Message queue(消息队列)</li>
+<li>Semaphore(信号量)</li>
+</ol>
+<h3 id="2-4-1-Pipe-管道"><a href="#2-4-1-Pipe-管道" class="headerlink" title="2.4.1. Pipe(管道)"></a>2.4.1. Pipe(管道)</h3><p>分类</p>
+<ul>
+<li>匿名管道 (named pipe)</li>
+<li>有名管道 (unnamed pipe)</li>
+</ul>
+<p>管道本质：是一个伪文件，从内核创建的一个缓冲区。有两个文件描述符引用，一个表示 Read(读端)，一个表示 Write(写端)。</p>
+<ul>
+<li><code>fd[0]</code>————— 管道的 read 端</li>
+<li><code>fd[1]</code>————— 管道的 write 端</li>
+</ul>
+<h4 id="2-4-1-1-unamed-pipe-匿名管道"><a href="#2-4-1-1-unamed-pipe-匿名管道" class="headerlink" title="2.4.1.1. unamed pipe(匿名管道)"></a>2.4.1.1. unamed pipe(匿名管道)</h4><p>匿名管道：用于非血缘关系之间的进程通信。</p>
+<p>原理: 通过环形队列，借助内核缓冲区（4k 大小）来实现的，数据从写端流入管道，从读端流出，这样就实现了进程间通信。</p>
+<p><strong>局限性</strong></p>
+<ul>
+<li>数据不能自己读写</li>
+<li>数据一旦被读走，管道中就没有了，不能反复读取。</li>
+<li>管道采用半双工通信方式，数据只能在一个方向上流动。</li>
+<li>只能在有 <code>公共祖先</code> 的进程间使用管道。</li>
+</ul>
+<p><strong>管道中数据的读与写</strong></p>
+<p>人为规定：子进程从管道中 <code>read</code>，父进程从管道中 <code>write</code>。</p>
+<p><strong>读管道</strong></p>
+<ul>
+<li>管道中有数据<ul>
+<li><code>read()</code> 返回实际读到的字节数。</li>
+</ul>
+</li>
+<li>管道中无数据<ul>
+<li>管道 <code>写端</code> 被全部关闭: <code>read()</code> 返回皇子为 0</li>
+<li>管道 <code>写端</code> 没有被全部关闭: <code>read()</code> 阻塞等待。</li>
+</ul>
+</li>
+</ul>
+<p><strong>写管道</strong></p>
+<ul>
+<li>管道读端全部关闭<ul>
+<li>进程异常终止。可用 <code>SIGPIPE</code> 来捕捉信号。</li>
+</ul>
+</li>
+<li>管道读端没有全部关闭<ul>
+<li>管道已满，write 阻塞。</li>
+<li>管道未满，write 将数据写入，并返回实际写入的字节数。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-4-1-2-named-pipe-有名管道"><a href="#2-4-1-2-named-pipe-有名管道" class="headerlink" title="2.4.1.2. named pipe(有名管道)"></a>2.4.1.2. named pipe(有名管道)</h4><p>有名管道中 <code>FIFO</code> 是典型的有名管道。</p>
+<h3 id="2-4-2-mmap"><a href="#2-4-2-mmap" class="headerlink" title="2.4.2. mmap"></a>2.4.2. mmap</h3><p>mmap(shared memory map) 叫共享内存映射。</p>
+<ul>
+<li>当标志位 flags 等于 <code>MAP_SHARED</code> 时，创建映射区的权限要小于等于打开文件的权限。</li>
+<li>当标志位 flags 等于 <code>MAP_PRIVATE</code> 时，对映射区的权限没有要求，因为 mmap 中的权限是对内存的限制。</li>
+<li>创建映射区的过程中隐含的有对映射区的 <code>读操作权限</code>。</li>
+<li>映射的文件大小为 <code>0</code> 时，不能再创建映射区。因此，用于映射的文件必须要有实际的大小。</li>
+<li>打开或创建的文件偏移量必须为 <code>4k 的正数倍 </code>。因为 MMU 创建的页大小为 4K。</li>
+<li>mmap 使用的过程中常常出现 <code>总线错误</code>，通常是由于共享文件存储空间大小导致的。</li>
+<li><code>munmap</code> 函数传入的地址一定是 <code>mmap</code> 函数的返回地址。</li>
+<li>映射区的返回值一定需要检查，防止出错。</li>
+</ul>
+<p>文件映射到磁盘的内存区域，可以简单的把映射的区域看做一个的类似的数组，即一个指针指向数组的首地址。</p>
+<ul>
+<li><p>父子间进程通信</p>
+<ul>
+<li>共享打开的文件</li>
+<li>当标志位 <code>flags=MAP_SHARED</code> 时，共享建立的映射区 。当 <code>flags=MAP_PRIVATE</code> 时，父子进程的内核映射区相互独立的，各占一个映射区。</li>
+</ul>
+</li>
+<li><p>匿名映射</p>
+<ul>
+<li>采用宏 <code>MAP_ANONYMOUS</code> 的方式，不需要再使用文件的方法去操作 mmap</li>
+<li>注意：只适用于类 Linux 操作系统中，对其它的操作系统（freeBSD）不适用。</li>
+</ul>
+</li>
+<li><p>通用方法</p>
+<ul>
+<li>通过 <code>/dev/zero</code> 目录中系统自带的伪文件 <code>zero</code>，去操作 mmap，实现内存映射。</li>
+</ul>
+</li>
+<li><p>非血缘关系之间的进程通信，即不同的文件之间通信。</p>
+<ul>
+<li>创建映射区的文件只有一个</li>
+<li>可以多端读和多端写</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-3-Signal-信号"><a href="#2-4-3-Signal-信号" class="headerlink" title="2.4.3. Signal(信号)"></a>2.4.3. Signal(信号)</h3><p><code>信号</code>：只能携带固定大小量的信息。Linux 系统下通过输入 <code>man 7 signal</code> 查看信号的帮助文档。</p>
+<p>进程控制块 (PCB) 信息</p>
+<ul>
+<li>进程 pid</li>
+<li>进程状态</li>
+<li>工作目录</li>
+<li>用户 id</li>
+<li>组 id</li>
+<li>文件描述符表</li>
+<li>信号相关的信息，主要指阻塞信号集和未决信号集。</li>
+</ul>
+<p>产生信号的机制</p>
+<ul>
+<li>通过软件的方式实现，有一定的延迟性（对 CPU 而言），对用户来说，延时很短，不易察觉。</li>
+<li>每个进程收到的所有信号，都是由内核负责发送，内核进行处理。</li>
+</ul>
+<p>产生信号的几种方式</p>
+<ul>
+<li>按键产生，如：<code>Ctrl+c(SIGINT 信号)</code>、<code>Ctrl+z(SIGTSTP 信号)</code>、<code>Ctrl+\(SIGQUIT 信号)</code>，请参考 <a href="./signal.md">Linux 下常用信号解释</a></li>
+<li>系统调用产生，如：<code>kill</code>、<code>raise</code>、<code>abort</code></li>
+<li>软件条件产生，如：定时器 <code>alarm</code></li>
+<li>硬件异常产生，如：非法访问内存 (段错误)、除 0(浮点数例外)、内存对齐出错 (总线错误)</li>
+<li>命令产生，如：<code>kill</code> 命令</li>
+</ul>
+<p>信号的处理方式</p>
+<ul>
+<li><p>执行默认动作</p>
+<ul>
+<li>终止进程</li>
+<li>终止进程并产生 core 文件，方便调试</li>
+<li>忽略信号</li>
+<li>暂停（stop）</li>
+<li>继续（continue）</li>
+</ul>
+</li>
+<li><p>忽略 (丢弃) ，并不是不处理信号，而是将信号处理后再进行忽略或丢弃。</p>
+</li>
+<li><p>捕捉 (调用户处理函数)<p></p>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../figures/信号处理过程.png">
+
+</li>
+<li><p>阻塞信号集 (信号屏蔽字)：</p>
+<ul>
+<li>将某些信号加入集合，对他们设置屏蔽，当屏蔽 x 信号后，再收到该信号，该信号的处理将推后 (解除屏蔽后)</li>
+</ul>
+</li>
+<li><p>未决信号集</p>
+<ul>
+<li>信号产生，未决信号集中描述该信号的位立刻翻转为 1，表信号处于未决状态。当信号被处理对应位翻转回为 0。这一时刻往往非常短暂。</li>
+<li>信号产生后由于某些原因 (主要是阻塞) 不能抵达。这类信号的集合称之为未决信号集。在屏蔽解除前，信号一直处于未决状态。<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../figures/未决信号集与阻塞信号集.png"></li>
+</ul>
+</li>
+</ul>
+<p>信号的四要素</p>
+<ol>
+<li>信号的名字</li>
+<li>信号的编号</li>
+<li>事件</li>
+<li>默认处理动作</li>
+</ol>
+<hr>
+<ul>
+<li><strong>两个特殊的信号</strong>（9—-SIGKILL，19—-SIGSTOP）不允许信号的忽略和捕捉，只能允许执行默认动作。</li>
+<li><strong>进程实际运行的时间</strong> &#x3D; 系统态运行时间 + 用户态运行时间 + 系统等待事件</li>
+</ul>
+<p>向进程发送信号的函数</p>
+<ul>
+<li><code>kill()</code> 给指定的进程发送指定的信号。</li>
+<li><code>raise()</code> 给当前进程发送指定的信号。</li>
+<li><code>abort()</code> 给当前进程发送异常终止信号 <code>6)SIGABRT</code>，并产生 core 文件。</li>
+</ul>
+<p><code>alarm()</code></p>
+<ul>
+<li>定时精度为 ms 级别</li>
+<li>函数的返回值为：上一次闹钟定时剩余的次数。</li>
+<li>每个进程有且只有一个定时器</li>
+</ul>
+<p><code>setitimer()</code>：周期性设置定时，定时器的精度为 us 级别。</p>
+<p>信号集合</p>
+<ul>
+<li>信号集设定<ul>
+<li><code>int sigemptyset(sigset_t *set);</code> 将信号位清空（置 0）</li>
+<li><code>int sigfillset(sigset_t *set);</code>  将某个信号集置 1</li>
+<li><code>int sigaddset(sigset_t *set, int signum);</code>  将某个信号加入信号集</li>
+<li><code>int sigdelset(sigset_t *set, int signum);</code> 将某个信号清出信号集</li>
+<li><code>int sigismember(const sigset_t *set, int signum);</code> 判断某个信号是否在信号集中</li>
+</ul>
+</li>
+<li><code>sigprocmask() 函数 </code> 屏蔽信号或解除屏蔽</li>
+<li><code>sigpending() 函数 </code> 读取当前进程的 <code>未决信号集</code></li>
+</ul>
+<p>信号的捕捉</p>
+<ul>
+<li><p><code>signal()</code>：注册一个信号捕捉函数</p>
+</li>
+<li><p><code>sigaction()</code>： 检测或修改信号处理动作，即注册一个信号捕捉函数。</p>
+<ul>
+<li><p><code>sigaction()</code> 函数默认使系统调用中断后不再重新启动。</p>
+</li>
+<li><p><code>sa_handler</code> 指定信号捕捉后的处理函数名 (即注册函数)。也可赋值为 <code>SIG_IGN</code> 表忽略 或 <code>SIG_DFL</code> 表执行默认动作</p>
+</li>
+<li><p><code>sa_mask</code> 一个信号集在调用信号捕捉函数之前，要将这个信号集加到进程的信号屏蔽字中，仅当从信号捕捉函数返回时，再将进程的信号屏蔽字恢复为原先值。这样，在调用信号处理程序时就能阻塞某些信号。</p>
+<p>注意：仅在处理函数被调用期间屏蔽生效，是临时性设置。</p>
+</li>
+<li><p><code>sa_flags</code> 通常设置为 0，表使用默认属性，信号捕捉函数执行期间自动屏蔽本信号。</p>
+</li>
+<li><p><code>sa_flags</code> 参数</p>
+<ul>
+<li><code>SA_INTERRURT</code> 不重启</li>
+<li><code>SA_RESTART</code> 重启</li>
+<li><code>SA_NODEFER</code> 不希望自动阻塞捕捉到的信号。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>函数</p>
+<ul>
+<li><code>pthread_sigmask()</code> : 每个线程均有自己的信号屏蔽集（信号掩码），可以使用 <code>pthread_sigmask</code> 函数来屏蔽某个线程对某些信号的响应处理，仅留下需要处理该信号的线程来处理指定的信号。</li>
+<li><code>sigwait()</code>: sigwait 是同步的等待信号的到来，而不是像进程中那样是异步的等待信号的到来。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-4-Semaphore-信号量"><a href="#2-4-4-Semaphore-信号量" class="headerlink" title="2.4.4. Semaphore(信号量)"></a>2.4.4. Semaphore(信号量)</h3><p>信号量是互斥量的加强版。信号量的初值，决定了信号量占用的线程个数。</p>
+<p><strong>信号量相关函数</strong></p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sem_init</td>
+<td></td>
+</tr>
+<tr>
+<td>sem_destroy</td>
+<td></td>
+</tr>
+<tr>
+<td>sem_wait</td>
+<td></td>
+</tr>
+<tr>
+<td>sem_trywait</td>
+<td></td>
+</tr>
+<tr>
+<td>sem_timedwait</td>
+<td></td>
+</tr>
+<tr>
+<td>sem_post</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="2-4-5-Message-queues-消息队列"><a href="#2-4-5-Message-queues-消息队列" class="headerlink" title="2.4.5. Message queues(消息队列)"></a>2.4.5. Message queues(消息队列)</h3><p><strong>什么是消息队列</strong>？</p>
+<p>维基百科解释：在计算机科学中，消息队列（英语：Message queue）是一种进程间通信或同一进程的不同线程间的通信方式，软件的贮列用来处理一系列的输入，通常是来自用户。消息队列提供了异步的通信协议，每一个贮列中的纪录包含详细说明的资料，包含发生的时间，输入设备的种类，以及特定的输入参数，也就是说：消息的发送者和接收者不需要同时与消息队列交互。消息会保存在队列中，直到接收者取回它。</p>
+<p><strong>消息队列特点</strong></p>
+<ol>
+<li>消息队列是消息的链表，具有特定的格式，存放在内存中并由消息队列标识符标识。</li>
+<li>消息队列允许一个或多个进程向它写入与读取消息。</li>
+<li>管道和消息队列的通信数据都是先进先出的原则。</li>
+<li>消息队列可以实现消息的随机查询，消息不一定要以先进先出的次序读取，也可以按消息的类型读取。比 FIFO 更有优势。</li>
+<li>消息队列克服了信号承载信息量少，管道只能承载无格式字节流以及缓冲区大小受限等缺。</li>
+<li>消息队列常常保存在链表结构中，拥有权限的进程可以向消息队列中写入或读取消息。</li>
+</ol>
+<p><strong>分类</strong></p>
+<ul>
+<li>目前主要有两种类型的消息队列：POSIX 消息队列以及 System V 消息队列。</li>
+<li>System V 消息队列目前被大量使用，系统 V 消息队列是随内核持续的，只有在内核重起或者人工删除时，该消息队列才会被删除。</li>
+</ul>
+<p><strong>两种模式</strong></p>
+<ul>
+<li>点对点模式</li>
+<li>发布与订阅者模式</li>
+</ul>
+<p><strong>用途</strong></p>
+<ul>
+<li>异步处理：处理如短信下发、状态推送、用户注册、数据同步等功能，提高系统的并发能力，集中力量处理重要的部分（同步处理），将非核心功能丢给 MQ。</li>
+<li>系统解耦：可在模块、服务、接口等不同粒度上实现解耦。</li>
+<li>重试补偿：在跨机器数据传输的整个过程中，只要任意一个环节出错，都会导致问题的产生。可以通过 MQ 的重试补偿机制去尽可能的处理掉这些异常。</li>
+<li>流量削锋：对于秒杀场景下的下单处理。服务器收到消息后，首先写入消息队列，然后按照自己的消息处理能力做处理。</li>
+<li>日志处理：可以定时将日志写入 MQ，并且主动订阅日志记录。</li>
+</ul>
+<h3 id="2-4-6-Socket-套接字"><a href="#2-4-6-Socket-套接字" class="headerlink" title="2.4.6. Socket(套接字)"></a>2.4.6. Socket(套接字)</h3><h2 id="2-5-Race-condition-时序竞态"><a href="#2-5-Race-condition-时序竞态" class="headerlink" title="2.5. Race condition(时序竞态)"></a>2.5. Race condition(时序竞态)</h2><p>时序竞态也叫竞态条件。</p>
+<p>相关函数</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pause()</td>
+<td>将进程主动挂起，等待信号唤醒。调用该函数的进程将被阻塞，直到有信号递达将其唤醒。</td>
+</tr>
+<tr>
+<td>sigsuspend()</td>
+<td>通过传递的参数 mask 进程信号屏蔽字解决使用 <code>pause()</code> 函数导致的时序竞争的问题。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>可重入函数</strong></p>
+<ul>
+<li>定义：函数内不能含有 <code>static</code> 变量和 <code>全局变量</code>。反之就是不可重入函数。</li>
+<li>信号捕捉函数应设置为可重入函数。</li>
+</ul>
+<p><strong>不可重入函数特征</strong></p>
+<ul>
+<li>含有静态的数据结构</li>
+<li>调用了 <code>malloc</code> 和 <code>free</code> 函数</li>
+<li>是标准的 I&#x2F;O 函数</li>
+</ul>
+<p><strong>SIGCHLD 信号回收子进程</strong></p>
+<ul>
+<li>子进程接收到 <code>SIGSTOP</code> 信号停止，子进程处在停止态时，接受到 <code>SIGCONT</code> 后唤醒</li>
+</ul>
+<blockquote>
+<p>多个进程之间使用 <code>全局变量</code> 时，可能会导致进程卡死的情况，尽量少使用全局变量或者在访问之前需要加锁。</p>
+</blockquote>
+<h2 id="2-6-Terminal"><a href="#2-6-Terminal" class="headerlink" title="2.6. Terminal"></a>2.6. Terminal</h2><p>分类</p>
+<ul>
+<li>字符终端</li>
+<li>网络终端</li>
+<li>伪终端 (Pseudo Terminal)</li>
+</ul>
+<p>linux 系统启动流程</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init---&gt;fork---&gt;<span class="built_in">exec</span>---&gt;getty---&gt; 用户输入账号 ---&gt;login---&gt; 输入密码 ---&gt;<span class="built_in">exec</span>---&gt;bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-7-Process-group"><a href="#2-7-Process-group" class="headerlink" title="2.7. Process group"></a>2.7. Process group</h2><ul>
+<li>每个进程都有一个进程组，当父进程，创建子进程的时候，默认子进程与父进程属于同一进程组。</li>
+<li>进程组生存期：进程组创建到最后一个进程离开 (终止或转移到另一个进程组)。</li>
+<li>相关函数<ul>
+<li><code>getpgrp()</code> 获取当前进程的进程组 ID</li>
+<li><code>getpgid()</code> 获取指定进程的进程组的 ID</li>
+<li><code>setpgid()</code> 改变进程默认所属的进程组</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-8-Daemon-守护进程"><a href="#2-8-Daemon-守护进程" class="headerlink" title="2.8. Daemon(守护进程)"></a>2.8. Daemon(守护进程)</h2><p>通常独立于控制终端并且周期性地执行某种任务或等待处理某些发生的事件。</p>
+<p>创建守护进程模型</p>
+<ul>
+<li>创建子进程，父进程退出。所有工作在子进程中进行形式上脱离了控制终端</li>
+<li>子进程中创建新会话。<code>setsid()</code> 函数，使子进程完全独立出来，脱离控制</li>
+<li>改变当前目录为根目录。<code>chdir()</code> 函数,　防止占用可卸载的文件系统</li>
+<li>重设文件权限掩码。<code>umask()</code> 函数，防止继承的文件创建屏蔽字拒绝某些权限，增加守护进程灵活性</li>
+<li>关闭文件描述符。即重定向 <code>0/1/2</code> 到 <code>/dev/null</code>，采用函数 <code>dup2()</code></li>
+<li>开始执行守护进程核心工作。</li>
+<li>守护进程退出处理程序模型。</li>
+</ul>
+<p>守护进程不会随用户的注销而退出，会一直在后台运行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 man posix page</span></span><br><span class="line"><span class="built_in">sudo</span> apt-get install manpages-posix-dev</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="3-Thread"><a href="#3-Thread" class="headerlink" title="3. Thread"></a>3. Thread</h1><h2 id="3-1-Core-concepts"><a href="#3-1-Core-concepts" class="headerlink" title="3.1. Core concepts"></a>3.1. Core concepts</h2><ul>
+<li><p>进程与线程的区别？</p>
+<ul>
+<li>根本区别：<code>进程</code> 是操作系统资源分配的最小单元，<code>线程</code> 是任务调度和执行的最小单元。</li>
+<li>在性能开销方面：每个进程独享一块地址空间，有属于自己的进程控制块 (PCB)，但子进程与父进程共享进程地址空间，进程之间的切换会有较大的开销；<br>线程可以看做轻量级的进程，同一类线程共享代码和数据空间，每个线程都有自己独立的运行栈和程序计数器（PC），线程之间切换的开销小。</li>
+<li>所处环境：在操作系统中能同时运行多个进程（程序）；而在同一个进程（程序）中有多个线程同时执行，通过 CPU 调度，在每个时间片中只有一个线程执行。</li>
+<li>内存分配方面：系统在运行的时候会为每个进程分配不同的内存空间；而对线程而言，除了 CPU 外，系统不会为线程分配内存（线程所使用的资源来自其所属进程的资源），线程组之间只能共享资源。</li>
+<li>包含关系：没有线程的进程可以看做是单线程的，如果一个进程内有多个线程，则执行过程不是一条线的，而是多条线程共同完成的；线程是进程的一部分，线程是轻量级的进程 (LWP: light weight process)，可以看做是寄存器和栈的集合。</li>
+</ul>
+</li>
+<li><p>查看指定的线程号 LWP: <code>ps -Lf pid(进程)</code> 。</p>
+<ul>
+<li><code>线程号</code> 是 CPU 分配时间轮片的依据。</li>
+<li><code> 线程 ID</code> 是在进程内区分不同的线程</li>
+</ul>
+</li>
+<li><p>线程共享哪些资源？</p>
+<ul>
+<li>共享文件描述符</li>
+<li>共享当前线程的工作路径</li>
+<li>共享信号的处理方式。（信号与线程混合在一起比较复杂，尽量将两者分开，单独实现）</li>
+<li>共享用户 ID 和组 ID</li>
+<li>共享内存空间（.text&#x2F;.data&#x2F;.bss&#x2F;heap &#x2F; 共享库，唯独不共享栈空间）。线程之间共享全局变量，进程之间不共享全局变量。</li>
+</ul>
+</li>
+<li><p>线程哪些资源不是共享的？</p>
+<ul>
+<li>线程 ID</li>
+<li>处理器现场（寄存器的值）和栈指针</li>
+<li>用户栈空间（函数运行占用的空间）</li>
+<li>error 变量（是. data 段中一个全局的变量，但每个线程独享 error 变量）</li>
+<li>信号屏蔽字</li>
+<li>线程调度的优先级</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-2-API"><a href="#3-2-API" class="headerlink" title="3.2. API"></a>3.2. API</h2><table>
+<thead>
+<tr>
+<th>API</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pthread_self()</td>
+<td>获得调用线程的线程 ID 号</td>
+</tr>
+<tr>
+<td>pthread_create()</td>
+<td>创建一个线程</td>
+</tr>
+<tr>
+<td>pthread_exit()</td>
+<td>将单个线程退出</td>
+</tr>
+<tr>
+<td>exit()</td>
+<td>将进程退出</td>
+</tr>
+<tr>
+<td>pthread_join()</td>
+<td>将子线程回收，回收的是线程的资源。线程没有结束，会一直阻塞等待。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><code>pthread_detach()</code> 实现线程的分离。</p>
+<ul>
+<li>返回值：成功返回 <code>0</code>，失败返回失败的错误码。</li>
+<li>一般情况下，线程终止后，它的终止状态一直保留到其它线程调用 <code>pthread_join()</code> 获取它的状态为止。</li>
+<li>不能对已经处于 <code>detach</code> 状态的线程调用 <code>pthread_join()</code> 函数，因为处于 <code>detach</code> 状态的线程终止后，就会立刻回收它占用的资源，而不是保留终止的状态。</li>
+<li>作用：线程结束时自动清理进程控制块 PCB 资源。</li>
+</ul>
+</li>
+<li><p><code>pthread_cannel()</code> 杀死或取消线程。</p>
+<ul>
+<li>线程的取消并不是实时的，有一定的延时性，需要等待线程达到某个取消点。若子线程中没有使用系统调用，<code>pthread_cannel()</code> 函数无法到达取消点，则 <code>pthread_cannel()</code> 不会执行，需要手动添加一个取消点函数 <code>pthread_testcancel()</code>。</li>
+<li>取消点：粗略的理解为是一个系统调用。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-3-thread-attr"><a href="#3-3-thread-attr" class="headerlink" title="3.3. thread attr"></a>3.3. thread attr</h2><p>主要用的属性</p>
+<ul>
+<li><code>pthread_attr_init()</code> : 线程属性的初始化</li>
+<li><code>pthread_attr_destory()</code> : 线程属性的销毁</li>
+<li><code>pthread_attr_setdetachstate()</code> : 修改线程的属性分离</li>
+<li><code>pthread_attr_setstack()</code> : 修改线程的栈空间地址和大小</li>
+<li><code>pthread_attr_setstacksize()</code> : 只修改线程的栈空间大小</li>
+</ul>
+<h2 id="3-4-注意事项"><a href="#3-4-注意事项" class="headerlink" title="3.4. 注意事项"></a>3.4. 注意事项</h2><ul>
+<li>查看当前线程库版本（NPTL） <code>getconf GNU_LIBPTHREAD_VERSION</code></li>
+<li>主线程退出而子线程不退，则主线程调用 <code>pthread_exit()</code></li>
+<li>避免僵尸线程的方法<ul>
+<li>调用 <code>pthread_join()</code></li>
+<li>直接将线程设置为分离态 <code>pthread_detach()</code></li>
+<li>在创建子线程之前，将线程的属性设置为分离属性，即创建线程时就指定其属性。</li>
+</ul>
+</li>
+<li>应该避免在多线程中使用 <code>fork()</code> 函数。因为使用 <code>fork()</code> 函数会创建一个新的进程，而在新创建的进程中，只有采用 <code>fork()</code> 函数创建进程的线程会存在，其它的线程都会调用 <code>pthread_exit()</code> 函数而直接退出。</li>
+<li>应尽量少将线程和信号结合在一起使用，否则会变得非常复杂。</li>
+<li>采用 <code>malloc()</code> 和 <code>mmap()</code> 函数申请的空间，可以在多个线程中进行释放。</li>
+</ul>
+<h2 id="3-5-线程同步"><a href="#3-5-线程同步" class="headerlink" title="3.5. 线程同步"></a>3.5. 线程同步</h2><ul>
+<li><p>多个线程访问同一个资源，导致数据混乱的原因</p>
+<ul>
+<li>共享数据</li>
+<li>竞争</li>
+<li>多个线程之间没有统一的调度（竞争）机制。</li>
+</ul>
+</li>
+<li><p>互斥</p>
+<ul>
+<li>产生的原因：解决多个线程之间没有统一的调度（竞争）机制。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-6-线程之间死锁的原因"><a href="#3-6-线程之间死锁的原因" class="headerlink" title="3.6. 线程之间死锁的原因"></a>3.6. 线程之间死锁的原因</h2><p><strong>导致线程死锁的原因</strong></p>
+<p>多个线程同时被阻塞，它们中的一个或者全部都在等待某个资源被释放，而该资源又被其他线程锁定，从而导致每一个线程都得等其它线程释放其锁定的资源，造成了所有线程都无法正常结束。这是从网上其他文档看到的死锁产生的四个必要条件：</p>
+<ol>
+<li>互斥使用，即当资源被一个线程使用 (占有) 时，别的线程不能使用。</li>
+<li>不可抢占，资源请求者不能强制从资源占有者手中夺取资源，资源只能由资源占有者主动释放。</li>
+<li>请求和保持，即当资源请求者在请求其他的资源的同时保持对原有资源的占有。</li>
+<li>循环等待，即存在一个等待队列：P1 占有 P2 的资源，P2 占有 P3 的资源，P3 占有 P1 的资源。这样就形成了一个等待环路。</li>
+</ol>
+<p>当上述四个条件都成立的时候，便形成死锁。当然，死锁的情况下如果打破上述任何一个条件，便可让死锁消失。</p>
+<p><strong>锁机制</strong></p>
+<ul>
+<li>互斥锁：确保同一时间只能有一个线程访问共享资源。当锁被占用时试图对其加锁的线程都进入阻塞状态 (释放 CPU 资源使其由运行状态进入等待状态)。当锁释放时哪个等待线程能获得该锁取决于内核的调度。</li>
+<li>读写锁：当以写模式加锁而处于写状态时任何试图加锁的线程 (不论是读或写) 都阻塞，当以读状态模式加锁而处于读状态时 “读” 线程不阻塞，“写”线程阻塞。读模式共享，写模式互斥。</li>
+<li>条件变量：可以以原子的方式阻塞进程，直到某个特定条件为真为止。对条件的测试是在互斥锁的保护下进行的。条件变量始终与互斥锁一起使用。</li>
+<li>自旋锁：上锁受阻时线程不阻塞而是在循环中轮询查看能否获得该锁，没有线程的切换因而没有切换开销，不过对 CPU 的霸占会导致 CPU 资源的浪费。 所以自旋锁适用于并行结构 (多个处理器) 或者适用于锁被持有时间短而不希望在线程切换产生开销的情况。</li>
+</ul>
+<h2 id="3-7-Mutex-线程互斥"><a href="#3-7-Mutex-线程互斥" class="headerlink" title="3.7. Mutex(线程互斥)"></a>3.7. Mutex(线程互斥)</h2><p>互斥操作，就是对某段代码或某个变量修改的时候只能有一个线程在执行这段代码，其他线程不能同时进入这段代码或同时修改该变量，这个代码或变量称为临界资源。</p>
+<p>线程访问共享数据之前需加锁，访问共享数据之后应立即解锁，不能有延迟时间，即锁的 <code>粒度</code> 应越小越好。</p>
+<p>互斥量 (mutex) 常见函数</p>
+<ul>
+<li><code>pthread_mutex_init()</code></li>
+<li><code>pthread_mutex_destroy()</code></li>
+<li><code>pthread_mutex_lock()</code></li>
+<li><code>pthread_mutex_trylock()</code></li>
+<li><code>pthread_mutex_unlock()</code></li>
+</ul>
+<p>读写锁 (read-write lock) 常见函数</p>
+<ul>
+<li><code>pthread_rwlock_init()</code></li>
+<li><code>pthread_rwlock_destroy()</code></li>
+<li><code>pthread_rwlock_rdlock()</code></li>
+<li><code>pthread_rwlock_wrlock()</code></li>
+<li><code>pthread_rwlock_tryrdlock()</code></li>
+<li><code>pthread_rwlock_trywrlock()</code></li>
+<li><code>pthread_rwlock_unlock()</code></li>
+</ul>
+<p>条件变量 (condition) 常见函数</p>
+<ul>
+<li><code>pthread_cond_init()</code></li>
+<li><code>pthread_cond_destroy()</code></li>
+<li><code>pthread_cond_wait()</code><ul>
+<li>阻塞一个条件变量</li>
+<li>释放已经获得的互斥锁</li>
+<li>当线程被唤醒时，<code>pthread_cond_wait()</code> 会返回并解除阻塞，重新申请获得互斥锁。</li>
+</ul>
+</li>
+<li><code>pthread_cond_timedwait()</code> 限时等待一个条件变量</li>
+<li><code>pthread_cond_signal()</code> 唤醒至少一个阻塞在条件变量上的线程</li>
+<li><code>pthread_cond_broadcast()</code> 唤醒全部阻塞在条件变量上的线程</li>
+</ul>
+<p>Linux 绝对时间是相对于 <code>1970:00:00:00</code> 这个时间的；如何操作？<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">time_t</span> cur = time(<span class="literal">NULL</span>);                     <span class="comment">// 获取当前时间</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">t</span>;</span></span><br><span class="line">t.tv_sec = cur + <span class="number">10</span>;                         <span class="comment">// 在 1970:00:00:00 这个时间点上偏移 10 秒</span></span><br><span class="line">pthread_cond_timedwait(&amp;cond, &amp;mutex, &amp;t)    <span class="comment">// 调用 pthread_cond_timedwait() 函数</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="4-References"><a href="#4-References" class="headerlink" title="4. References"></a>4. References</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/skyroben/article/details/71513385">进程间的通信方式——pipe（管道）</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.chinaunix.net/uid-26833883-id-3227144.html">进程间通信 – 管道</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/violet_echo_0908/article/details/50277537">基于 Internet 的 Linux 客户机 &#x2F; 服务器系统通讯设计与实现</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/violet_echo_0908/article/details/49670901">Linux 进程间套接字（Socket）通信</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/violet_echo_0908/article/details/49539593">Linux 下 socket 编程实现客户机服务器通信的例子</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/diyingyun/archive/2011/12/04/2275229.html">信号量与互斥锁</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.chinaunix.net/uid-23193900-id-3194924.html">信号量</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/ljianhui/article/details/10253345">Linux 进程间通信——使用共享内存</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/linuxbug/p/4882776.html">Linux 进程间通信 (四) - 共享内存</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/yang_yulei/article/details/19772649">UNIX&#x2F;Linux 进程间通信 IPC 系列（四）消息队列</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/luo77/p/5816326.html">进程间通信的方式——信号、管道、消息队列、共享内存</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/huxiao-tee/p/4660352.html">认真分析 mmap：是什么 为什么 怎么用</a></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Linux/system-program/synced/Linux/system_program/system-program/">https://johnjeep.github.io/Linux/system-program/synced/Linux/system_program/system-program/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Learning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/linux/">linux</a><a class="post-meta__tags" href="/tags/system-program/">system-program</a></div><div class="post-share"><div class="social-share" data-image="/img/seele.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Markdown/synced/Markdown/TyporaMarkdown/" title="TyporaMarkdown"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">TyporaMarkdown</div></div><div class="info-2"><div class="info-item-1">  1. Typora使用手册1.1. Markdown 语法 段落：Ctrl + 0 一级到六级标题：Ctrl + 1 到 Ctrl + 6 加粗： Ctrl/Cmd + B 测试   斜体：Ctrl + I  测试   下划线：Ctrl + U  测试   删除线：Shift + Alt + 5 ~~ 测试 ~~   插入链接：Ctrl/Cmd + K 支持超链接 ：百度 本地链接：本地 文章内锚点，制作文章目录：第一章   ...</div></div></div></a><a class="pagination-related" href="/Linux/system-program/synced/Linux/system_program/signal/" title="Signal"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Signal</div></div><div class="info-2"><div class="info-item-1">  1. Linux 下常用信号解释 2. SIGINT 3. SIGTERM 4. SIGHUP  1. Linux 下常用信号解释Linux 终端下输入 man 7 signal 命令，可查看信号的使用手册。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657$man ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Linux/system-program/synced/Linux/system_program/signal/" title="Signal"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-28</div><div class="info-item-2">Signal</div></div><div class="info-2"><div class="info-item-1">  1. Linux 下常用信号解释 2. SIGINT 3. SIGTERM 4. SIGHUP  1. Linux 下常用信号解释Linux 终端下输入 man 7 signal 命令，可查看信号的使用手册。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657$man ...</div></div></div></a><a class="pagination-related" href="/Linux/synced/Linux/curses/" title="Curses"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-21</div><div class="info-item-2">Curses</div></div><div class="info-2"><div class="info-item-1">   1. 介绍 2. 安装 2.1. Ubuntu 中安装 curses 2.2. centos 中安装 curses 2.3. 源码安装 ncurse 库   3. 案例 4. References  1. 介绍ncurses(new curses)是一套编程库，它提供了一系列的函数以便使用者调用它们去生成基于文本的用户界面。ncurses名字中的n意味着“new”，因为它是curses的自由软件版本。由于AT&amp;T“臭...</div></div></div></a><a class="pagination-related" href="/Linux/synced/Linux/ubuntu-shortcuts/" title="Ubuntu 桌面快捷键"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-07</div><div class="info-item-2">Ubuntu 桌面快捷键</div></div><div class="info-2"><div class="info-item-1">Ubuntu 桌面快捷键   按键 描述    Win+Tab 快速切换窗口，只显示应用图标   Win+A 搜索&#x2F;浏览程序   Win+Alt+← 将当前窗口左移一个显示器   Win+Alt+→ 将当前窗口右移一个显示器   Win+V 显示通知列表   Ctrl + Alt + 方向键 在不同的工作区之间切换   </div></div></div></a><a class="pagination-related" href="/Linux/synced/Linux/linux-kernal/" title="Linux Kernal"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Linux Kernal</div></div><div class="info-2"><div class="info-item-1">   1. 理解内核的秘籍 2. 如何学习内核 2.1. 核心的东西：最基础、最原始的概念。   3. Linux 内核体系结构 3.1. 内核模式与体系结构 3.2. struct 3.3. 内核中断 3.4. 内核进程   4. Linux 内核源码结构 4.1. Linux 内核源码宏观结构 4.2. Linux 内核源码各级源码分类 4.3. Linux 内核源码解析第一刀   5. Linux 内核引导程序 5.1. L...</div></div></div></a><a class="pagination-related" href="/Linux/FAQ/synced/Linux/FAQ/open-files/" title="Open Files"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Open Files</div></div><div class="info-2"><div class="info-item-1">  1. 为什么要修改可打开的文件描述符的数量进程每打开一个文件（linux下一切皆文件，包括socket），都会消耗一定的内存资源。如果有不怀好心的人启动一个进程来无限的创建和打开新的文件，会让服务器崩溃。所以linux系统出于安全角度的考虑，在多个位置都限制了可打开的文件描述符的数量，包括系统级、用户级、进程级。这三个限制的含义和修改方式如下：  系统级：当前系统可打开的最大数量，通过 fs.file-max 参数可修改 用户...</div></div></div></a><a class="pagination-related" href="/Linux/synced/Linux/compile-link/" title="Compile Link"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-21</div><div class="info-item-2">Compile Link</div></div><div class="info-2"><div class="info-item-1">   1. Introduction 2. Abbreviation 2.1. Preprocessing 2.2. Compilation 2.3. Assembly 2.4. Linking 2.5. Toolchain Combination 2.6. Loader   3. Memory Layout 3.1. 常见的内存错误   4. 函数库 4.1. Static Library 4.2. Dybamic Librar...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-System-function"><span class="toc-number">1.</span> <span class="toc-text">1. System function</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-Core-concept"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. Core concept</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Carriage-Return-Line-Feed-%E7%BB%88%E7%AB%AF%E6%8D%A2%E8%A1%8C"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. Carriage Return &amp;&amp; Line Feed(终端换行)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-File-I-O"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. File I&#x2F;O</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-open"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.3.1. open</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-2-read-write"><span class="toc-number">1.3.2.</span> <span class="toc-text">1.3.2. read&#x2F;write</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-3-lseek"><span class="toc-number">1.3.3.</span> <span class="toc-text">1.3.3. lseek</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-4-fsync"><span class="toc-number">1.3.4.</span> <span class="toc-text">1.3.4. fsync</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-5-stat"><span class="toc-number">1.3.5.</span> <span class="toc-text">1.3.5. stat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-6-lstat"><span class="toc-number">1.3.6.</span> <span class="toc-text">1.3.6. lstat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-7-access"><span class="toc-number">1.3.7.</span> <span class="toc-text">1.3.7. access</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-8-chmod"><span class="toc-number">1.3.8.</span> <span class="toc-text">1.3.8. chmod</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-9-truncate"><span class="toc-number">1.3.9.</span> <span class="toc-text">1.3.9. truncate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-10-readlink"><span class="toc-number">1.3.10.</span> <span class="toc-text">1.3.10. readlink</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-11-unlink"><span class="toc-number">1.3.11.</span> <span class="toc-text">1.3.11. unlink</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-12-chdir"><span class="toc-number">1.3.12.</span> <span class="toc-text">1.3.12. chdir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-13-opendir"><span class="toc-number">1.3.13.</span> <span class="toc-text">1.3.13. opendir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-14-readdir"><span class="toc-number">1.3.14.</span> <span class="toc-text">1.3.14. readdir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-15-closedir"><span class="toc-number">1.3.15.</span> <span class="toc-text">1.3.15. closedir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-16-dup-dup2"><span class="toc-number">1.3.16.</span> <span class="toc-text">1.3.16. dup &amp;&amp; dup2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-17-fcntl"><span class="toc-number">1.3.17.</span> <span class="toc-text">1.3.17. fcntl</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-Environment-variables"><span class="toc-number">1.4.</span> <span class="toc-text">1.4. Environment variables</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Process"><span class="toc-number">2.</span> <span class="toc-text">2. Process</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-fork"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. fork</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-exec"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. exec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-wait"><span class="toc-number">2.3.</span> <span class="toc-text">2.3. wait</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-IPC"><span class="toc-number">2.4.</span> <span class="toc-text">2.4. IPC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-1-Pipe-%E7%AE%A1%E9%81%93"><span class="toc-number">2.4.1.</span> <span class="toc-text">2.4.1. Pipe(管道)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-1-1-unamed-pipe-%E5%8C%BF%E5%90%8D%E7%AE%A1%E9%81%93"><span class="toc-number">2.4.1.1.</span> <span class="toc-text">2.4.1.1. unamed pipe(匿名管道)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-1-2-named-pipe-%E6%9C%89%E5%90%8D%E7%AE%A1%E9%81%93"><span class="toc-number">2.4.1.2.</span> <span class="toc-text">2.4.1.2. named pipe(有名管道)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-2-mmap"><span class="toc-number">2.4.2.</span> <span class="toc-text">2.4.2. mmap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-3-Signal-%E4%BF%A1%E5%8F%B7"><span class="toc-number">2.4.3.</span> <span class="toc-text">2.4.3. Signal(信号)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-4-Semaphore-%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="toc-number">2.4.4.</span> <span class="toc-text">2.4.4. Semaphore(信号量)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-5-Message-queues-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="toc-number">2.4.5.</span> <span class="toc-text">2.4.5. Message queues(消息队列)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-6-Socket-%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="toc-number">2.4.6.</span> <span class="toc-text">2.4.6. Socket(套接字)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-Race-condition-%E6%97%B6%E5%BA%8F%E7%AB%9E%E6%80%81"><span class="toc-number">2.5.</span> <span class="toc-text">2.5. Race condition(时序竞态)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-Terminal"><span class="toc-number">2.6.</span> <span class="toc-text">2.6. Terminal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-Process-group"><span class="toc-number">2.7.</span> <span class="toc-text">2.7. Process group</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8-Daemon-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.8.</span> <span class="toc-text">2.8. Daemon(守护进程)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Thread"><span class="toc-number">3.</span> <span class="toc-text">3. Thread</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-Core-concepts"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. Core concepts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-API"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-thread-attr"><span class="toc-number">3.3.</span> <span class="toc-text">3.3. thread attr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">3.4.</span> <span class="toc-text">3.4. 注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="toc-number">3.5.</span> <span class="toc-text">3.5. 线程同步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%97%B4%E6%AD%BB%E9%94%81%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-number">3.6.</span> <span class="toc-text">3.6. 线程之间死锁的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-7-Mutex-%E7%BA%BF%E7%A8%8B%E4%BA%92%E6%96%A5"><span class="toc-number">3.7.</span> <span class="toc-text">3.7. Mutex(线程互斥)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-References"><span class="toc-number">4.</span> <span class="toc-text">4. References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ComputerSystemAProgramm'sPerspective"/></a><div class="content"><a class="title" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective">ComputerSystemAProgramm'sPerspective</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jsoncpp"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp">Jsoncpp</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Project/" title="Project"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Project"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Project/" title="Project">Project</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Protocol Terms"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms">Protocol Terms</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/modbus/" title="Modbus"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Modbus"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/modbus/" title="Modbus">Modbus</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RedisSourceCode"/></a><div class="content"><a class="title" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode">RedisSourceCode</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Qt/synced/Qt/Qt/" title="Qt"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/Qt/synced/Qt/Qt/" title="Qt">Qt</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Embodied/" title="Embodied"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Embodied"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Embodied/" title="Embodied">Embodied</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":0,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'JohnJeep/Learning-CS-Journey',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

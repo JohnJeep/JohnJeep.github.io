@@ -1,0 +1,542 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>LinearAlgebra | Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="1. introduction to linear algebra vectors matrices matrix addition matrix subtraction matrix multiplication transpose matrix inverse matrix square matrix determinant QR decomposition   apply 3. pra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LinearAlgebra">
+<meta property="og:url" content="https://johnjeep.github.io/Math/synced/Math/LinearAlgebra/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="1. introduction to linear algebra vectors matrices matrix addition matrix subtraction matrix multiplication transpose matrix inverse matrix square matrix determinant QR decomposition   apply 3. pra">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/seele.jpg">
+<meta property="article:published_time" content="2025-12-31T05:10:26.000Z">
+<meta property="article:modified_time" content="2026-04-07T09:12:02.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="math">
+<meta property="article:tag" content="linearalgebra">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/seele.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LinearAlgebra",
+  "url": "https://johnjeep.github.io/Math/synced/Math/LinearAlgebra/",
+  "image": "https://johnjeep.github.io/img/seele.jpg",
+  "datePublished": "2025-12-31T05:10:26.000Z",
+  "dateModified": "2026-04-07T09:12:02.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Math/synced/Math/LinearAlgebra/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'LinearAlgebra',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">LinearAlgebra</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">LinearAlgebra</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-31T05:10:26.000Z" title="发表于 2025-12-31 13:10:26">2025-12-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-07T09:12:02.000Z" title="更新于 2026-04-07 17:12:02">2026-04-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Math/">Math</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+
+ * @Author: JohnJeep
+ * @Date: 2025-12-30 23:24:02
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2026-04-07 21:08:53
+ * @Description: Linear Algebra
+ * Copyright (c) 2025 by John Jeep, All Rights Reserved. 
+-->
+
+<ul>
+<li><a href="#1-introduction-to-linear-algebra">1. introduction to linear algebra</a></li>
+<li><a href="#vectors">vectors</a></li>
+<li><a href="#matrices">matrices</a><ul>
+<li><a href="#matrix-addition">matrix addition</a></li>
+<li><a href="#matrix-subtraction">matrix subtraction</a></li>
+<li><a href="#matrix-multiplication">matrix multiplication</a></li>
+<li><a href="#transpose-matrix">transpose matrix</a></li>
+<li><a href="#inverse-matrix">inverse matrix</a></li>
+<li><a href="#square-matrix">square matrix</a></li>
+<li><a href="#determinant">determinant</a></li>
+<li><a href="#qr-decomposition">QR decomposition</a></li>
+</ul>
+</li>
+<li><a href="#apply">apply</a><ul>
+<li><a href="#3-practice">3. practice</a></li>
+<li><a href="#4-python-library">4. python library</a></li>
+</ul>
+</li>
+<li><a href="#5-references">5. references</a></li>
+</ul>
+<h1 id="1-introduction-to-linear-algebra"><a href="#1-introduction-to-linear-algebra" class="headerlink" title="1. introduction to linear algebra"></a>1. introduction to linear algebra</h1><p>线性代数的鼻祖：美国 MIT 的 <strong>Gilbert Strang</strong> 教授。</p>
+<p>线性代数的核心概念包括:</p>
+<ul>
+<li>向量</li>
+<li>标量</li>
+<li>矩阵</li>
+<li>矩阵乘法</li>
+<li>逆矩阵</li>
+<li>行列式</li>
+<li>线性方程组</li>
+<li>子空间</li>
+<li>列空间</li>
+<li>秩</li>
+<li>线性变换</li>
+<li>解空间</li>
+<li>特征向量</li>
+<li>特征值</li>
+</ul>
+<h1 id="vectors"><a href="#vectors" class="headerlink" title="vectors"></a>vectors</h1><p>向量(vector)：向量是具有大小和方向的数学对象，通常表示为有序数对或数列。向量的基本类型包括：</p>
+<ul>
+<li>零向量(zero vector)：所有分量均为零的向量，记作 0。</li>
+<li>单位向量(unit vector)：长度为 1 的向量，通常用于表示方向。</li>
+<li>位置向量(position vector)：表示从原点到某一点的向量。</li>
+<li>方向向量(direction vector)：表示某一方向的向量。</li>
+<li>列向量(column vector)：以列形式表示的向量。</li>
+<li>行向量(row vector)：以行形式表示的向量。</li>
+<li>反向量(negative vector)：与原向量方向相反的向量，记作 -v。</li>
+<li>同向量(aligned vector)：与原向量方向相同的向量。</li>
+</ul>
+<p>标量(scalar)：标量是一个单一的数值，用于表示大小或数量。标量的基本类型包括：</p>
+<ul>
+<li>实数(real number)：表示连续数值的标量。</li>
+<li>复数(complex number)：表示具有实部和虚部的标量。</li>
+<li>整数(integer)：表示没有小数部分的标量。</li>
+<li>有理数(rational number)：表示可以表示为两个整数之比的标量。</li>
+<li>无理数(irrational number)：表示不能表示为两个整数之比的标量。</li>
+<li>自然数(natural number)：表示非负整数的标量。</li>
+</ul>
+<p>标量运算包括：</p>
+<ul>
+<li>标量乘法(scalar multiplication)：标量与向量或矩阵的乘法运算。</li>
+<li>标量减法(scalar subtraction)：标量与向量或矩阵的减法运算。</li>
+<li>标量加法(scalar addition)：标量与向量或矩阵的加法运算。</li>
+</ul>
+<p>向量 a, b 的内积定义为：</p>
+<p>$$<br>a{^T}b &#x3D; a \cdot b &#x3D; a_1b_1 + a_2b_2 + … + a_nb_n<br>$$</p>
+<p>向量 a, b 的外积定义为：</p>
+<p>$$<br>a \times b &#x3D;<br>\begin{vmatrix}<br>i &amp; j &amp; k \<br>a_1 &amp; a_2 &amp; a_3 \<br>b_1 &amp; b_2 &amp; b_3<br>\end{vmatrix}<br>$$</p>
+<p>范数(euclid )定义：向量元素平方和的平方根。</p>
+<p>$$<br>|| x || &#x3D; \sqrt{x_1^2 + x_2^2 + … + x_n^2}<br>$$</p>
+<p>范数总是非负的，且只有在向量为零向量时范数为零。</p>
+<p>向量 x, y 的范数距离</p>
+<p>$$<br>dist(x, y) &#x3D; || x - y ||<br>$$</p>
+<p>向量 x, y 的夹角 θ 定义为</p>
+<p>$$<br>cos(θ) &#x3D; \frac{ x \cdot y }{ ||x|| \cdot ||y|| }<br>$$</p>
+<p>向量 x, y 之间的夹角表示为: </p>
+<p>$$<br>{\angle(x, y)}<br>$$</p>
+<p>向量 x 和 y 的正交表示为 </p>
+<p>$$<br>{x \bot y}<br>$$</p>
+<h1 id="matrices"><a href="#matrices" class="headerlink" title="matrices"></a>matrices</h1><p>矩阵是写在方括号或圆括号中的一组数字或符号，按行和列排列。矩阵用于表示线性变换和线性方程组。</p>
+<p>一个 m x n 的矩阵用 方括号表示为：</p>
+<p>$$<br>A &#x3D;<br>\begin{bmatrix}<br>a_{11} &amp; a_{12} &amp; … &amp; a_{1n} \<br>a_{21} &amp; a_{22} &amp; … &amp; a_{2n} \<br>… &amp; … &amp; … &amp; … \<br>a_{m1} &amp; a_{m2} &amp; … &amp; a_{mn}<br>\end{bmatrix}<br>$$</p>
+<p>一个 m x n 的矩阵用 圆括号表示为：</p>
+<p>$$<br>A &#x3D;<br>\begin{pmatrix}<br>a_{11} &amp; a_{12} &amp; … &amp; a_{1n} \<br>a_{21} &amp; a_{22} &amp; … &amp; a_{2n} \<br>… &amp; … &amp; … &amp; … \<br>a_{m1} &amp; a_{m2} &amp; … &amp; a_{mn}<br>\end{pmatrix}<br>$$</p>
+<hr>
+<p>矩阵(matrix)：矩阵是一个由行和列组成的二维数组，用于表示线性变换和线性方程组。矩阵的基本类型包括：</p>
+<ul>
+<li>行矩阵(row matrix)：只有一行的矩阵。</li>
+<li>列矩阵(column matrix)：只有一列的矩阵。</li>
+<li>方阵(square matrix)：行数和列数相等的矩阵。</li>
+<li>高形矩阵(tall matrix)：行数大于列数的矩阵。</li>
+<li>宽形矩阵(wide matrix)：列数大于行数的矩阵。</li>
+<li>零矩阵(zero matrix)：所有元素均为零的矩阵。</li>
+<li>单位矩阵(identity matrix)：对角线元素为 1，其余元素为 0 的方阵，记作 I。</li>
+<li>对角矩阵(diagonal matrix)：非对角线元素均为零的矩阵。</li>
+<li>上三角矩阵(upper triangular matrix)：所有非零元素位于主对角线及其上方的矩阵。</li>
+<li>下三角矩阵(lower triangular matrix)：所有非零元素位于主对角线及其下方的矩阵。</li>
+<li>对称矩阵(symmetric matrix)：转置矩阵等于原矩阵的矩阵，即 $A^T &#x3D; A$。</li>
+<li>特征矩阵(eigen matrix)：用于表示特征值和特征向量的矩阵。</li>
+<li>稠密矩阵(dense matrix)：大部分元素非零的矩阵。</li>
+<li>稀疏矩阵(sparse matrix)：大部分元素为零的矩阵。</li>
+<li>满秩矩阵(full rank matrix)：秩等于其行数或列数的矩阵。</li>
+<li>秩缺矩阵(rank-deficient matrix)：秩小于其行数或列数的矩阵。</li>
+<li>奇异矩阵(singular matrix)：不可逆的方阵，其行列式为零。</li>
+<li>非奇异矩阵(nonsingular matrix)：可逆的方阵，其行列式不为零。</li>
+<li>伴随矩阵(adjoint matrix)：由矩阵的代数余子式组成的矩阵。</li>
+<li>余子式矩阵(minor matrix)：通过删除矩阵的某一行和某一列得到的子矩阵。</li>
+<li>余因子矩阵(cofactor matrix)：由矩阵的余子式乘以相应的符号组成的矩阵。</li>
+<li>转置矩阵(transpose matrix)：将矩阵的行和列互换得到的矩阵，记作 $A^T$。</li>
+<li>置换矩阵(permutation matrix)：通过对单位矩阵的行或列进行置换得到的矩阵。</li>
+<li>旋转矩阵(rotation matrix)：用于表示空间中旋转变换的矩阵。</li>
+<li>分块矩阵(block matrix)：由多个子矩阵组成的矩阵。</li>
+<li>增广矩阵(augmented matrix)：将线性方程组的系数矩阵和常数项矩阵合并得到的矩阵。</li>
+</ul>
+<hr>
+<p>一个 3x3 的单位矩阵表示为：</p>
+<p>$$<br>I &#x3D;<br>\begin{bmatrix}<br>1 &amp; 0 &amp; 0 \<br>0 &amp; 1 &amp; 0 \<br>0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>$$</p>
+<hr>
+<p>一个 3x3 的零矩阵表示为：</p>
+<p>$$<br>0 &#x3D;<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; 0<br>\end{bmatrix}<br>$$</p>
+<hr>
+<p>一个 3x3 的对角矩阵表示为：</p>
+<p>$$<br>D &#x3D;<br>\begin{bmatrix}<br>d_{11} &amp; 0 &amp; 0 \<br>0 &amp; d_{22} &amp; 0 \<br>0 &amp; 0 &amp; d_{33}<br>\end{bmatrix}<br>$$</p>
+<p>一个对角矩阵既是上三角矩阵又是下三角矩阵。</p>
+<hr>
+<p>一个 3x3 的上三角矩阵表示为：</p>
+<p>$$<br>U &#x3D;<br>\begin{bmatrix}<br>u_{11} &amp; u_{12} &amp; u_{13} \<br>0 &amp; u_{22} &amp; u_{23} \<br>0 &amp; 0 &amp; u_{33}<br>\end{bmatrix}<br>$$</p>
+<hr>
+<p>一个 3x3 的下三角矩阵表示为：</p>
+<p>$$<br>L &#x3D;<br>\begin{bmatrix}<br>l_{11} &amp; 0 &amp; 0 \<br>l_{21} &amp; l_{22} &amp; 0 \<br>l_{31} &amp; l_{32} &amp; l_{33}<br>\end{bmatrix}<br>$$</p>
+<h2 id="matrix-addition"><a href="#matrix-addition" class="headerlink" title="matrix addition"></a>matrix addition</h2><p>矩阵加法：两个大小相同的矩阵对应元素相加。</p>
+<p>$$<br>C &#x3D; A + B<br>$$</p>
+<p>其中 $C_{ij} &#x3D; A_{ij} + B_{ij}$。</p>
+<h2 id="matrix-subtraction"><a href="#matrix-subtraction" class="headerlink" title="matrix subtraction"></a>matrix subtraction</h2><p>矩阵减法：两个大小相同的矩阵对应元素相减。</p>
+<p>$$<br>C &#x3D; A - B<br>$$</p>
+<p>其中 $C_{ij} &#x3D; A_{ij} - B_{ij}$。</p>
+<h2 id="matrix-multiplication"><a href="#matrix-multiplication" class="headerlink" title="matrix multiplication"></a>matrix multiplication</h2><p>矩阵乘法：矩阵 A 的列数必须等于矩阵 B 的行数。矩阵乘法的结果是一个新的矩阵 C，其行数等于矩阵 A 的行数，列数等于矩阵 B 的列数。</p>
+<p>$$<br>C &#x3D; AB<br>$$</p>
+<p>其中 $C_{ij} &#x3D; \sum_{k&#x3D;1}^{n} A_{ik} B_{kj}$。</p>
+<p>矩阵乘法运算规则：</p>
+<ul>
+<li>矩阵乘法是行列式的乘积。</li>
+<li>矩阵乘法不满足交换律，但满足结合律和分配律。若果 A、B、C 是矩阵，则有：<ul>
+<li>结合律：(AB)C &#x3D; A(BC)</li>
+<li>分配律：A(B + C) &#x3D; AB + AC 和 (A + B)C &#x3D; AC + BC</li>
+<li>标量乘法与矩阵乘法满足结合律：k(AB) &#x3D; (kA)B &#x3D; A(kB)，其中 k 是标量。</li>
+<li>单位矩阵 I 满足 AI &#x3D; IA &#x3D; A。</li>
+<li>若两个矩阵 A 和 B 满足 AB &#x3D; BA，则称它们是可交换的，当这种条成立时，A 和 B 必然是 方阵。</li>
+</ul>
+</li>
+<li>矩阵乘法的结果是一个新的矩阵，其行数等于第一个矩阵的行数，列数等于第二个矩阵的列数。</li>
+</ul>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">matrix * <span class="built_in">columns</span> = <span class="built_in">columns</span></span><br><span class="line">matrix * <span class="built_in">rows</span> = <span class="built_in">rows</span></span><br><span class="line"><span class="built_in">columns</span> * <span class="built_in">rows</span> = matrix</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>示例：计算矩阵乘法</p>
+<p>$$<br>A &#x3D;<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 3 \<br>4 &amp; 5 &amp; 6<br>\end{bmatrix}<br>, \quad<br>B &#x3D;<br>\begin{bmatrix}7 &amp; 8 \<br>9 &amp; 10 \<br>11 &amp; 12<br>\end{bmatrix}<br>$$</p>
+<p>则</p>
+<p>$$<br>\begin{aligned}<br>C &amp;&#x3D; AB\<br>C_{11} &amp;&#x3D; 1\times7 + 2\times9 + 3\times11 &#x3D; 58\<br>C_{12} &amp;&#x3D; 1\times8 + 2\times10 + 3\times12 &#x3D; 64\<br>C_{21} &amp;&#x3D; 4\times7 + 5\times9 + 6\times11 &#x3D; 139\<br>C_{22} &amp;&#x3D; 4\times8 + 5\times10 + 6\times12 &#x3D; 154\<br>&amp;\Rightarrow<br>C &#x3D;<br>\begin{bmatrix}<br>58 &amp; 64\<br>139 &amp; 154<br>\end{bmatrix}<br>\end{aligned}<br>$$</p>
+<hr>
+<p>矩阵与向量的乘法：矩阵 A 与向量 x 相乘，结果是一个新的向量 b。</p>
+<p>$$<br>b &#x3D; Ax<br>$$</p>
+<p>其中 $b_i &#x3D; \sum_{j&#x3D;1}^{n} A_{ij} x_j$。</p>
+<p>示例：</p>
+<p>$$<br>A &#x3D;<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 3 \<br>4 &amp; 5 &amp; 6<br>\end{bmatrix}<br>, \quad<br>x &#x3D;<br>\begin{bmatrix}7 \<br>8 \<br>9<br>\end{bmatrix}<br>$$</p>
+<p>则</p>
+<p>$$<br>\begin{aligned}<br>b &amp;&#x3D; Ax\<br>b_{1} &amp;&#x3D; 1\times7 + 2\times8 + 3\times9 &#x3D; 50\<br>b_{2} &amp;&#x3D; 4\times7 + 5\times8 + 6\times9 &#x3D; 122\<br>&amp;\Rightarrow<br>b &#x3D;<br>\begin{bmatrix}<br>50 \<br>122<br>\end{bmatrix}<br>\end{aligned}<br>$$</p>
+<p>矩阵的乘法，用 列视角去求解，将乘法视为空间的变换、拉伸、旋转或投影。从整体层面关注 列与列 之间的变换关系，具有强烈的几何和代数直观。</p>
+<p>把矩阵是一个 “函数”，而不是一堆数字的集合。</p>
+<h2 id="transpose-matrix"><a href="#transpose-matrix" class="headerlink" title="transpose matrix"></a>transpose matrix</h2><p>转置矩阵(transpose matrix)：将矩阵的行和列互换得到的矩阵，记作 $A^T$ (或 $A^{\prime}$ 或 $A^*$)。转置矩阵的性质包括：</p>
+<ul>
+<li>$(A^T)^T &#x3D; A$</li>
+<li>$(A + B)^T &#x3D; A^T + B^T$</li>
+<li>$(kA)^T &#x3D; kA^T$（$k$为标量）</li>
+<li>$(AB)^T &#x3D; B^T A^T$</li>
+</ul>
+<p>示例：一个 2x3 的矩阵 A </p>
+<p>$$<br>A &#x3D;<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 3 \<br>4 &amp; 5 &amp; 6<br>\end{bmatrix}<br>$$</p>
+<p>其转置为：</p>
+<p>$$<br>A^T &#x3D;<br>\begin{bmatrix}<br>1 &amp; 4 \<br>2 &amp; 5 \<br>3 &amp; 6<br>\end{bmatrix}<br>$$</p>
+<h2 id="inverse-matrix"><a href="#inverse-matrix" class="headerlink" title="inverse matrix"></a>inverse matrix</h2><p>逆矩阵(inverse matrix)：对于一个方阵A，如果存在一个矩阵B，使得AB&#x3D;BA&#x3D;I（单位矩阵），则称B为A的逆矩阵，记作 $A^{-1}$。</p>
+<p>逆矩阵的性质包括：</p>
+<ul>
+<li>逆矩阵的逆矩阵是它本身。</li>
+<li>逆矩阵的乘积等于单位矩阵。</li>
+<li>逆矩阵的存在性：只有当矩阵是非奇异的（行列式不为零）时，才存在逆矩阵。</li>
+</ul>
+<hr>
+<ul>
+<li>逆矩阵的计算可以通过高斯消元法、伴随矩阵法等方法实现。</li>
+<li>逆矩阵的应用包括求解线性方程组、计算特征值和特征向量等。</li>
+<li>逆矩阵的性质包括：逆矩阵的逆矩阵是它本身，逆矩阵的乘积等于单位矩阵，逆矩阵的存在性（只有当矩阵是非奇异的，即行列式不为零时，才存在逆矩阵），逆矩阵的计算可以通过高斯消元法、伴随矩阵法等方法实现。</li>
+</ul>
+<h2 id="square-matrix"><a href="#square-matrix" class="headerlink" title="square matrix"></a>square matrix</h2><p>方阵(square matrix)：行数和列数相等的矩阵称为方阵。方阵具有以下性质：</p>
+<ul>
+<li>方阵的行列式(det(A))是一个标量，表示矩阵的可逆性。</li>
+<li>方阵的特征值和特征向量用于描述矩阵的性质。</li>
+<li>方阵的迹(trace(A))是矩阵对角线元素之和。</li>
+<li>方阵的秩(rank(A))表示矩阵中线性无关行或列的数量。</li>
+<li>方阵的逆矩阵存在当且仅当行列式不为零。</li>
+</ul>
+<h2 id="determinant"><a href="#determinant" class="headerlink" title="determinant"></a>determinant</h2><p>行列式(determinant)：行列式是一个标量值，用于描述方阵的性质。行列式的计算方法包括：</p>
+<ul>
+<li>二阶行列式：对于2x2矩阵 $A &#x3D; [[a, b], [c, d]]$，行列式 $\text{det}(A) &#x3D; ad - bc$。</li>
+<li>三阶及以上行列式：可以使用展开法、拉普拉斯展开等方法计算。</li>
+<li>行列式的性质包括：行列式的乘积等于行列式的乘积，行列式的转置等于原行列式，行列式的行交换会改变符号等。</li>
+<li>行列式的应用包括判断矩阵的可逆性（行列式不为零时矩阵可逆）、计算特征值和特征向量等。</li>
+</ul>
+<h2 id="QR-decomposition"><a href="#QR-decomposition" class="headerlink" title="QR decomposition"></a>QR decomposition</h2><p>QR 分解(QR decomposition)：将矩阵分解为一个正交矩阵Q和一个上三角矩阵R的乘积。QR分解的计算方法包括：</p>
+<ul>
+<li>格拉姆-施密特过程(Gram-Schmidt process)：通过正交化向量组来构造Q矩阵。</li>
+<li>豪斯霍尔德变换(Householder transformation)：通过反射变换来构造Q矩阵。</li>
+<li>吉文斯旋转(Givens rotation)：通过旋转变换来构造Q矩阵。</li>
+</ul>
+<p>QR分解的应用包括求解线性方程组、最小二乘问题等。</p>
+<p>QR分解的性质包括：Q矩阵是正交矩阵，R矩阵是上三角矩阵，QR分解唯一性等。</p>
+<hr>
+<p>column space is a line.</p>
+<p>矩阵的 列空间是一个平面（plane）。 </p>
+<p>基(base)是线性无关的列。</p>
+<p>column  space?</p>
+<blockquote>
+<p>所有列向量的线性组合所构成的空间。</p>
+</blockquote>
+<p>row  space?</p>
+<blockquote>
+<p>行之间的所有线性组合组成了 行空间。</p>
+</blockquote>
+<p>rank?</p>
+<blockquote>
+<p> 矩阵 A 的秩，就是其列向量中独立向量的个数。</p>
+</blockquote>
+<p>什么是 row rank?</p>
+<blockquote>
+<p>行秩(row rank)：矩阵的行秩是指矩阵中线性无关行的最大数量。行秩表示矩阵的行向量所生成的向量空间的维度。行秩与列秩相等，即矩阵的行秩等于其列秩，这一性质称为秩定理(rank theorem)。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">row rank = column rank</span><br></pre></td></tr></table></figure>
+
+<p>row rank 是 行空间维度。</p>
+<p>什么是 column rank?</p>
+<blockquote>
+<p>列秩(column rank)：矩阵的列秩是指矩阵中线性无关列的最大数量。列秩表示矩阵的列向量所生成的向量空间的维度。列秩与行秩相等，即矩阵的列秩等于其行秩，这一性质称为秩定理(rank theorem)。</p>
+</blockquote>
+<h1 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h1><h2 id="3-practice"><a href="#3-practice" class="headerlink" title="3. practice"></a>3. practice</h2><p>实现QR分解、LU分解、Cholesky分解</p>
+<p>用SVD实现图像压缩</p>
+<p>实现共轭梯度法求解大型稀疏系统</p>
+<p>用齐次坐标实现3D变换</p>
+<p>实现卡尔曼滤波器（协方差矩阵更新）</p>
+<h2 id="4-python-library"><a href="#4-python-library" class="headerlink" title="4. python library"></a>4. python library</h2><p>需要使用的库</p>
+<ul>
+<li>numPy: 核心库，提供数组和矩阵运算</li>
+<li>matplotlib: 绘图库，用于可视化</li>
+<li>scipy: 基于NumPy，提供更多科学计算工具</li>
+<li>sympy: 符号计算，用于公式推导</li>
+<li>tensorflow: 深度学习库，支持张量运算</li>
+<li>pytorch: 深度学习库，支持动态计算图</li>
+<li>opencv: 计算机视觉库</li>
+<li>pyserial: 串口通信库</li>
+<li>pyusb: USB设备通信库</li>
+</ul>
+<h1 id="5-references"><a href="#5-references" class="headerlink" title="5. references"></a>5. references</h1><ul>
+<li>18.06 Linear Algebra - Gilbert Strang: <a target="_blank" rel="noopener" href="https://web.mit.edu/18.06/www/">https://web.mit.edu/18.06/www/</a></li>
+<li>github 18.06: <a target="_blank" rel="noopener" href="https://github.com/mitmath/1806">https://github.com/mitmath/1806</a></li>
+<li>MIT 18.065: Matrix Methods In Data Analysis, Signal Processing, And Machine Learning: <a target="_blank" rel="noopener" href="https://github.com/mitmath/18065">https://github.com/mitmath/18065</a></li>
+</ul>
+<hr>
+<p>notes</p>
+<ul>
+<li>MIT-Linear-Algebra-Notes(pdf): <a target="_blank" rel="noopener" href="https://github.com/MLNLP-World/MIT-Linear-Algebra-Notes">https://github.com/MLNLP-World/MIT-Linear-Algebra-Notes</a></li>
+<li>MIT 18.06 线性代数笔记: <a target="_blank" rel="noopener" href="https://linalg.apachecn.org/">https://linalg.apachecn.org/</a></li>
+<li>cs-self-learning: <a target="_blank" rel="noopener" href="https://github.com/pkuflyingpig/cs-self-learning/">https://github.com/pkuflyingpig/cs-self-learning/</a></li>
+<li>The-Art-of-Linear-Algebra: <a target="_blank" rel="noopener" href="https://github.com/kenjihiranabe/The-Art-of-Linear-Algebra">https://github.com/kenjihiranabe/The-Art-of-Linear-Algebra</a></li>
+<li>Computational Linear Algebra for Coders: <a target="_blank" rel="noopener" href="https://github.com/fastai/numerical-linear-algebra">https://github.com/fastai/numerical-linear-algebra</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Math/synced/Math/LinearAlgebra/">https://johnjeep.github.io/Math/synced/Math/LinearAlgebra/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Learning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/math/">math</a><a class="post-meta__tags" href="/tags/linearalgebra/">linearalgebra</a></div><div class="post-share"><div class="social-share" data-image="/img/seele.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Linux/CMake/synced/Linux/CMake/CMake/" title="CMake"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">CMake</div></div><div class="info-2"><div class="info-item-1">   1. Introduction 2. variables 3. Commands 3.1. Scripting Commands 3.1.1. cmake_minimum_required 3.1.2. messge 3.1.3. set 3.1.4. unset 3.1.5. if&#x2F;elseif 3.1.6. file 3.1.7. option   3.2. Project Commands 3.2.1. pr...</div></div></div></a><a class="pagination-related" href="/Shell/synced/Shell/tmux/" title="Tmux Cheat Sheet"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Tmux Cheat Sheet</div></div><div class="info-2"><div class="info-item-1">Tmux cheat sheettmux sessions   _ new sessions    tmux   tmux new   tmux new-session   tmux new -s sessionname      _ attach sessions    tmux a   tmux att   tmux attach   tmux attach-session   tmux a -t session-name  ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Math/synced/Math/Calculus/" title="Calculus"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-12</div><div class="info-item-2">Calculus</div></div><div class="info-2"><div class="info-item-1">  CalculusJames Stewart(詹姆斯·斯图尔特)，加拿大人。  James Stewart是一位数学匠人，他花费近 7 年时间写出这本他理想中的微积分教材《Calculus》，起因竟然是学生在课间无意中跟他说的一句话：“Stewart博士，我们希望你能写一本微积分教材，因为我们觉得你的讲座比我们用的书好太多了。”一年365天，他在教学和科研任务的间隙中穿插写作，有时每天会花上十几个小时，飞机起飞、火箭发射，他和助...</div></div></div></a><a class="pagination-related" href="/Math/synced/Math/Terms/" title="Terms"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-31</div><div class="info-item-2">Terms</div></div><div class="info-2"><div class="info-item-1">  terms以下是线性代数中常用术语的中英对照表： General Terms   英文术语 中文术语    Linear Algebra 线性代数   Scalar 标量   Vector 向量   Aligned vector 同向向量   anti-aligned vector 反向向量   Matrix 矩阵   Set 集合   System of Linear Equations 线性方程组   Solution 解...</div></div></div></a><a class="pagination-related" href="/Math/synced/Math/MathFormulas/" title="MathFormulas"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-31</div><div class="info-item-2">MathFormulas</div></div><div class="info-2"><div class="info-item-1">  math formulas数学中常用的三角函数公式以及特殊角对应的数值： 正弦和角公式（sine addition formula）： $\sin(A + B) &#x3D; \sin A \cos B + \cos A \sin B$ 余弦和角公式（cosine addition formula）： $\cos(A + B) &#x3D; \cos A \cos B - \sin A \sin B$ 正切和角公式（tange...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-introduction-to-linear-algebra"><span class="toc-number">1.</span> <span class="toc-text">1. introduction to linear algebra</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vectors"><span class="toc-number">2.</span> <span class="toc-text">vectors</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#matrices"><span class="toc-number">3.</span> <span class="toc-text">matrices</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#matrix-addition"><span class="toc-number">3.1.</span> <span class="toc-text">matrix addition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#matrix-subtraction"><span class="toc-number">3.2.</span> <span class="toc-text">matrix subtraction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#matrix-multiplication"><span class="toc-number">3.3.</span> <span class="toc-text">matrix multiplication</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transpose-matrix"><span class="toc-number">3.4.</span> <span class="toc-text">transpose matrix</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#inverse-matrix"><span class="toc-number">3.5.</span> <span class="toc-text">inverse matrix</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#square-matrix"><span class="toc-number">3.6.</span> <span class="toc-text">square matrix</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#determinant"><span class="toc-number">3.7.</span> <span class="toc-text">determinant</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#QR-decomposition"><span class="toc-number">3.8.</span> <span class="toc-text">QR decomposition</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#apply"><span class="toc-number">4.</span> <span class="toc-text">apply</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-practice"><span class="toc-number">4.1.</span> <span class="toc-text">3. practice</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-python-library"><span class="toc-number">4.2.</span> <span class="toc-text">4. python library</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-references"><span class="toc-number">5.</span> <span class="toc-text">5. references</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ComputerSystemAProgramm'sPerspective"/></a><div class="content"><a class="title" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective">ComputerSystemAProgramm'sPerspective</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jsoncpp"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp">Jsoncpp</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Project/" title="Project"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Project"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Project/" title="Project">Project</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Protocol Terms"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms">Protocol Terms</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/modbus/" title="Modbus"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Modbus"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/modbus/" title="Modbus">Modbus</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RedisSourceCode"/></a><div class="content"><a class="title" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode">RedisSourceCode</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Qt/synced/Qt/Qt/" title="Qt"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/Qt/synced/Qt/Qt/" title="Qt">Qt</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Embodied/" title="Embodied"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Embodied"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Embodied/" title="Embodied">Embodied</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":0,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'JohnJeep/Learning-CS-Journey',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

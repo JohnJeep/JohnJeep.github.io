@@ -1,0 +1,402 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Fanuc | Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="1. IntroductionFANUC（发那科）是工业自动化和机器人领域的知名公司，总部在日本。他们的产品应该涵盖数控系统、工业机器人、自动化设备等。 2. Product Overview 数控系统（CNC）  Series 0i 经济型CNC，适用于中小型机床（如铣床、车床），操作简便，适合基础加工需求。  Series 30i&#x2F;31i&#x2F;32i 高端多轴控制系统，支">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fanuc">
+<meta property="og:url" content="https://johnjeep.github.io/Protocol/synced/Protocol/Fanuc/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="1. IntroductionFANUC（发那科）是工业自动化和机器人领域的知名公司，总部在日本。他们的产品应该涵盖数控系统、工业机器人、自动化设备等。 2. Product Overview 数控系统（CNC）  Series 0i 经济型CNC，适用于中小型机床（如铣床、车床），操作简便，适合基础加工需求。  Series 30i&#x2F;31i&#x2F;32i 高端多轴控制系统，支">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/seele.jpg">
+<meta property="article:published_time" content="2025-04-09T19:15:29.000Z">
+<meta property="article:modified_time" content="2025-04-09T19:15:29.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="protocol">
+<meta property="article:tag" content="fanuc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/seele.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Fanuc",
+  "url": "https://johnjeep.github.io/Protocol/synced/Protocol/Fanuc/",
+  "image": "https://johnjeep.github.io/img/seele.jpg",
+  "datePublished": "2025-04-09T19:15:29.000Z",
+  "dateModified": "2025-04-09T19:15:29.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Protocol/synced/Protocol/Fanuc/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Fanuc',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">Fanuc</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Fanuc</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-09T19:15:29.000Z" title="发表于 2025-04-10 03:15:29">2025-04-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-09T19:15:29.000Z" title="更新于 2025-04-10 03:15:29">2025-04-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Protocol/">Protocol</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2025-04-09 15:34:38
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2025-04-10 11:12:54
+ * @Description: 发那科控制协议
+ * Copyright (c) 2025 by John Jeep, All Rights Reserved. 
+-->
+
+
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>FANUC（发那科）是工业自动化和机器人领域的知名公司，总部在日本。他们的产品应该涵盖数控系统、工业机器人、自动化设备等。</p>
+<h1 id="2-Product-Overview"><a href="#2-Product-Overview" class="headerlink" title="2. Product Overview"></a>2. Product Overview</h1><ol>
+<li><p>数控系统（CNC）</p>
+<ul>
+<li><p><strong>Series 0i</strong></p>
+<p>经济型CNC，适用于中小型机床（如铣床、车床），操作简便，适合基础加工需求。</p>
+</li>
+<li><p><strong>Series 30i&#x2F;31i&#x2F;32i</strong></p>
+<p>高端多轴控制系统，支持5轴联动和复杂曲面加工，应用于航空、汽车精密零部件制造。</p>
+</li>
+<li><p><strong>Power Motion i</strong></p>
+<p>集成运动控制与CNC功能，专攻高精度伺服控制场景（如电子元件装配）。</p>
+</li>
+</ul>
+</li>
+<li><p>工业机器人</p>
+<ul>
+<li><p><strong>M系列（如M-20iA、M-710）</strong></p>
+<p>高负载（10-700kg）机器人，用于搬运、焊接、喷涂，汽车行业应用广泛。</p>
+</li>
+<li><p><strong>ARC系列（ARC Mate）</strong></p>
+<p>专为弧焊设计，高重复定位精度（±0.08mm），适应复杂焊缝轨迹。</p>
+</li>
+<li><p><strong>LR Mate系列</strong></p>
+<p>轻型协作机器人（负载5-20kg），紧凑设计，适用于狭窄空间（如3C行业装配）。</p>
+</li>
+<li><p><strong>SCARA系列（SR-3iA）</strong></p>
+<p>高速平面关节机器人，用于快速分拣、精密组装（如电子产品）。</p>
+</li>
+</ul>
+</li>
+<li><p>协作机器人（Cobot）</p>
+<ul>
+<li><p><strong>CRX系列（CRX-10iA&#x2F;L）</strong></p>
+<p>负载10kg，无安全围栏设计，支持拖拽示教，适合人机协作场景（如医疗设备组装）。</p>
+</li>
+</ul>
+</li>
+<li><p>伺服电机与驱动系统</p>
+<ul>
+<li><p><strong>α、β系列伺服电机</strong></p>
+<p>标准型伺服电机（α系列高性能，β系列经济型），配套驱动器支持高响应控制。</p>
+</li>
+<li><p><strong>Σ-7&#x2F;Σ-V系列</strong></p>
+<p>新一代伺服系统，支持EtherCAT总线通信，适用于高速高精度定位（如半导体设备）。</p>
+</li>
+</ul>
+</li>
+<li><p>激光加工设备</p>
+<ul>
+<li><p><strong>FANUC Laser</strong></p>
+<p>集成激光切割&#x2F;焊接功能，搭配CNC系统，适用于汽车车身三维切割与新能源电池焊接。</p>
+</li>
+</ul>
+</li>
+<li><p>ROBODRILL 加工中心</p>
+<ul>
+<li><p><strong>小型立式加工中心</strong></p>
+<p>高速钻孔攻丝（主轴转速24,000rpm），适合3C行业金属件加工（如手机外壳）。</p>
+</li>
+</ul>
+</li>
+<li><p>物联网和自动化软件</p>
+<ul>
+<li><p><strong>FIELD System</strong></p>
+<p>工业物联网平台，实时采集设备数据，支持AI优化生产（如预测性维护）。</p>
+</li>
+<li><p><strong>iHMI &amp; CNC Guide</strong></p>
+<p>人机界面软件，支持虚拟调试和离线编程，缩短设备停机时间。</p>
+</li>
+</ul>
+</li>
+<li><p>周边设备与解决方案</p>
+<ul>
+<li><p><strong>视觉系统（iRVision）</strong></p>
+<p>集成2D&#x2F;3D视觉引导，用于机器人定位、缺陷检测。</p>
+</li>
+<li><p><strong>力传感器（Force Sensor）</strong></p>
+<p>实现精密力控操作（如抛光、去毛刺）。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="3-应用场景"><a href="#3-应用场景" class="headerlink" title="3. 应用场景"></a>3. 应用场景</h1><ul>
+<li><strong>汽车制造</strong>：焊接、喷涂、冲压线搬运。</li>
+<li><strong>3C电子</strong>：精密组装、检测、高速分拣。</li>
+<li><strong>航空航天</strong>：复杂曲面加工、复合材料处理。</li>
+<li><strong>新能源</strong>：电池模组组装、激光焊接。</li>
+</ul>
+<p>常用协议</p>
+<ul>
+<li><p>FOCAS(Fanuc Open CNC API Specifications)</p>
+<p>Fanuc FOCAS 是从 Fanuc CNC 机器收集数据的标准协议。它是一种广泛采用的工业通信协议，因为许多机床制造商使用发那科 CNC 控制器来控制他们的设备。</p>
+<p>FOCAS 库由 Fanuc CNC 提供，用于检索 CNC 内部的大部分信息。 Neuron 使用这些库通过以太网直接从控制器访问信息。通过 FOCAS 可获得的常见数据包括：CNC 状态（运行、空闲、警报）、零件计数信息、程序名称、编号、尺寸和修改日期、刀具和工件偏移、警报编号和文本、进给倍率、参数、位置数据 、主轴转速和模态数据等。</p>
+<ul>
+<li><strong>通信方式</strong>：以太网（TCP&#x2F;IP）或光纤（HSSB）。</li>
+<li><strong>数据类型</strong>：轴坐标、程序号、报警代码、主轴负载等。</li>
+<li><strong>开发要求</strong>：需申请FANUC开发包（含DLL&#x2F;头文件）。</li>
+</ul>
+</li>
+<li><p>Ethernet&#x2F;IP</p>
+<ul>
+<li><strong>适用场景</strong>：与PLC（如罗克韦尔）协同控制，需配置FANUC Ethernet&#x2F;IP选项。</li>
+</ul>
+</li>
+<li><p>MTConnect</p>
+<ul>
+<li><strong>原理</strong>：基于HTTP&#x2F;XML的开源协议，标准化机床数据模型（如设备状态、切削参数）。</li>
+<li><strong>适配方式</strong>：通过FANUC MT-LINKi网关或第三方适配器（如Datanomix）。</li>
+</ul>
+</li>
+<li><p>OPC UA</p>
+<ul>
+<li><strong>优势</strong>：跨平台、安全性高，支持复杂数据结构（如西门子、马扎克CNC常用）。</li>
+<li><strong>配置</strong>：需CNC支持OPC UA Server功能（部分机床需额外授权）。</li>
+</ul>
+</li>
+<li><p>Modbus TCP&#x2F;RTU</p>
+<ul>
+<li><strong>适用场景</strong>：低成本采集基础数据（如启停状态、报警信号），需通过PMC（可编程机床控制器）映射数据到寄存器。</li>
+</ul>
+</li>
+</ul>
+<h1 id="4-References"><a href="#4-References" class="headerlink" title="4. References"></a>4. References</h1><ul>
+<li>fanuc official: <a target="_blank" rel="noopener" href="https://www.fanuc.com/">https://www.fanuc.com</a></li>
+<li>Product Brochures: <a target="_blank" rel="noopener" href="https://www.fanuc.co.jp/en/product/catalog/">https://www.fanuc.co.jp/en/product/catalog/</a></li>
+<li>Fanuc Focas Library: <a target="_blank" rel="noopener" href="https://www.inventcom.net/fanuc-focas-library/general/fwlib32">https://www.inventcom.net/fanuc-focas-library/general/fwlib32</a></li>
+<li>Github FANUC_Focas_API : <a target="_blank" rel="noopener" href="https://github.com/wheeliar/FANUC_Focas_API">https://github.com/wheeliar/FANUC_Focas_API</a></li>
+<li>Github fwlib: <a target="_blank" rel="noopener" href="https://github.com/strangesast/fwlib">https://github.com/strangesast/fwlib</a></li>
+</ul>
+<hr>
+<ul>
+<li>Fanuc Driver: <a target="_blank" rel="noopener" href="https://docs.ladder99.com/en/v0.9.2/page/drivers/fanuc/index.html">https://docs.ladder99.com/en/v0.9.2/page/drivers/fanuc/index.html</a></li>
+<li>cnblogs 发那科 数据采集系统:  <a target="_blank" rel="noopener" href="https://www.cnblogs.com/fzxxkj/p/17541124.html">https://www.cnblogs.com/fzxxkj/p/17541124.html</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Protocol/synced/Protocol/Fanuc/">https://johnjeep.github.io/Protocol/synced/Protocol/Fanuc/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Learning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/protocol/">protocol</a><a class="post-meta__tags" href="/tags/fanuc/">fanuc</a></div><div class="post-share"><div class="social-share" data-image="/img/seele.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Protocol/synced/Protocol/Omron/" title="Omron"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Omron</div></div><div class="info-2"><div class="info-item-1">  1. Product Overview产品线逻辑树 123456789101112131415欧姆龙PLC产品树├── 大型PLC  │   ├── CV系列（1990s，已停产）  │   └── CS系列（2000s，已逐步淘汰）  ├── 中型PLC  │   ├── C200H系列（1990s）  │   ├── CJ系列（2000s-至今）  │   └── NJ/NX系列（2010s-至今，运动控制核心）  ├──...</div></div></div></a><a class="pagination-related" href="/Go/synced/Go/ReleaseHistory/" title="Release History"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Release History</div></div><div class="info-2"><div class="info-item-1">Release History以下是 Go 语言（Golang）从 1.0 版本 到当前最新版本（1.24）的主要功能更新和关键改进的总结。每个版本均遵循 Go 的向后兼容性承诺，重大功能会逐步引入。 1.24.02025年02月11日，1.24.0 版本发布。  语言特性 map 底层实现使用 swiss table 替代原来的 hashtable。    1.23.02024年08月13日，1.23.0 版本发布。  语言特性...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-19</div><div class="info-item-2">Protocol Terms</div></div><div class="info-2"><div class="info-item-1">Protocol Terms pattern ethernet transport chunk bulk  Network Topology   host links router driver socket iptable network interface layer source destination MTU: Maximium Transmission Unit TCP: Transmission Control Pro...</div></div></div></a><a class="pagination-related" href="/Protocol/synced/Protocol/Manufacture/" title="Manufacture"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-10</div><div class="info-item-2">Manufacture</div></div><div class="info-2"><div class="info-item-1">  1. Terminology CNC: Computer Numerical Control(计算机数字控制) NC: Numerical Contro(数字控制)  2. 控制设备工业系统中的控制设备种类繁多，涵盖从数据采集到执行操作的各个环节。以下是主要控制设备的分类及功能说明： 2.1. 控制层设备（核心控制器） PLC(可编程逻辑控制器, Programmable Logic Controller)  功能：通过编程实...</div></div></div></a><a class="pagination-related" href="/Protocol/synced/Protocol/Siemens/" title="Siemens"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-25</div><div class="info-item-2">Siemens</div></div><div class="info-2"><div class="info-item-1"> Siemens ProtocolReferences Siemens communications overview: Siemens S7 Common 通信概述  </div></div></div></a><a class="pagination-related" href="/Protocol/synced/Protocol/Beckhoff/" title="Beckoff Protocol"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-25</div><div class="info-item-2">Beckoff Protocol</div></div><div class="info-2"><div class="info-item-1">Beckoff Protocol倍福设备协议。 TWINCAT一句话概括： TWINCAT 是 德国倍福（Beckhoff）公司开发的、基于PC的自动化控制软件，它将一台工业PC变成一个功能强大的PLC、运动控制器和NC控制器。它负责“做”，直接驱动电机执行精确的动作。 详细解释：  角色定位： 它是机器人的 “脊髓”和“低级神经中枢” 。它直接与伺服驱动器、I&#x2F;O模块等硬件打交道，实现实时、确定性的控制。 核心功能： ...</div></div></div></a><a class="pagination-related" href="/Protocol/synced/Protocol/WebRTC/" title="WebRTC"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-12</div><div class="info-item-2">WebRTC</div></div><div class="info-2"><div class="info-item-1">WebRTCReferences 给好奇者的WebRTC  </div></div></div></a><a class="pagination-related" href="/Protocol/synced/Protocol/SMTP/" title="1. 简介"><img class="cover" src="/img/seele.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-04</div><div class="info-item-2">1. 简介</div></div><div class="info-2"><div class="info-item-1">1. 简介SMTP（Simple Mail Transfer Protocol）即简单邮件传输协议，尽管邮件服务器可以用SMTP发送、接收邮件，但是邮件客户端只能用 SMTP 发送邮件，接收邮件一般用 IMAP 或者 POP3。邮件客户端使用 TCP 的 25 号端口与服务器通信。 SMTP在1982年首次被定义在  RFC 821 ，在2008它被更新为扩展的SMTP协议，补充在文件 RFC 5321 ，扩展的协议是目前使用最广...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Introduction"><span class="toc-number">1.</span> <span class="toc-text">1. Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Product-Overview"><span class="toc-number">2.</span> <span class="toc-text">2. Product Overview</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text">3. 应用场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-References"><span class="toc-number">4.</span> <span class="toc-text">4. References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ComputerSystemAProgramm'sPerspective"/></a><div class="content"><a class="title" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective">ComputerSystemAProgramm'sPerspective</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jsoncpp"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp">Jsoncpp</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Project/" title="Project"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Project"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Project/" title="Project">Project</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Protocol Terms"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms">Protocol Terms</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/modbus/" title="Modbus"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Modbus"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/modbus/" title="Modbus">Modbus</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RedisSourceCode"/></a><div class="content"><a class="title" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode">RedisSourceCode</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Qt/synced/Qt/Qt/" title="Qt"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/Qt/synced/Qt/Qt/" title="Qt">Qt</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Embodied/" title="Embodied"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Embodied"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Embodied/" title="Embodied">Embodied</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":0,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'JohnJeep/Learning-CS-Journey',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

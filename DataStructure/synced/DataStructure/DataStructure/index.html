@@ -1,0 +1,1020 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>DataStructure | Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="1. Introduction 算法：处理问题的策略。 数据结构：描述问题的数据模型。 程序：计算机按照处理问题的策略，处理问题信息的一组指令集。 用空间换时间思想：将计算的中间结果缓存下来，从缓存中找出目标结果，以牺牲内存空间来提高时间效率。 用时间换空间思想: 对于一些对内存要求比较严格时，需要牺牲时间的执行效率，来换取空间的利用率。   计算机处理问题的过程（按流程图走向）  具体问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DataStructure">
+<meta property="og:url" content="https://johnjeep.github.io/DataStructure/synced/DataStructure/DataStructure/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="1. Introduction 算法：处理问题的策略。 数据结构：描述问题的数据模型。 程序：计算机按照处理问题的策略，处理问题信息的一组指令集。 用空间换时间思想：将计算的中间结果缓存下来，从缓存中找出目标结果，以牺牲内存空间来提高时间效率。 用时间换空间思想: 对于一些对内存要求比较严格时，需要牺牲时间的执行效率，来换取空间的利用率。   计算机处理问题的过程（按流程图走向）  具体问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/seele.jpg">
+<meta property="article:published_time" content="2026-04-19T04:03:15.000Z">
+<meta property="article:modified_time" content="2025-04-21T02:41:56.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="datastructure">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/seele.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "DataStructure",
+  "url": "https://johnjeep.github.io/DataStructure/synced/DataStructure/DataStructure/",
+  "image": "https://johnjeep.github.io/img/seele.jpg",
+  "datePublished": "2026-04-19T04:03:15.000Z",
+  "dateModified": "2025-04-21T02:41:56.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/DataStructure/synced/DataStructure/DataStructure/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'DataStructure',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">DataStructure</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">DataStructure</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-19T04:03:15.000Z" title="发表于 2026-04-19 12:03:15">2026-04-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-21T02:41:56.000Z" title="更新于 2025-04-21 10:41:56">2025-04-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/DataStructure/">DataStructure</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">9.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>28分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2018-09-20 19:59:50
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2025-04-21 18:40:31
+ * @Description: 数据结构与算法学习
+ * Copyright (c) 2025 by John Jeep, All Rights Reserved. 
+-->
+
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><ul>
+<li>算法：处理问题的策略。</li>
+<li>数据结构：描述问题的数据模型。</li>
+<li>程序：计算机按照处理问题的策略，处理问题信息的一组指令集。</li>
+<li>用空间换时间思想：将计算的中间结果缓存下来，从缓存中找出目标结果，以牺牲内存空间来提高时间效率。</li>
+<li>用时间换空间思想: 对于一些对内存要求比较严格时，需要牺牲时间的执行效率，来换取空间的利用率。</li>
+</ul>
+<hr>
+<p>计算机处理问题的过程（按流程图走向）</p>
+<ul>
+<li>具体问题</li>
+<li>抽象</li>
+<li>问题模型</li>
+<li>数据分析</li>
+<li>数据结构</li>
+<li>算法分析</li>
+<li>算法</li>
+<li>程序设计</li>
+<li>程序</li>
+<li>测试通过</li>
+<li>问题得以解决</li>
+</ul>
+<p><strong>程序解题步骤</strong></p>
+<ul>
+<li>建模型：给定的条件是什么，得到的结果是什么</li>
+<li>设计<ul>
+<li>数据结构设计：分析数据对象、时间对象间的联系、确定数据对象的存储方式、确定要对数据对象进行的操作</li>
+<li>软件结构设计：用“自顶向下，逐步求精”法，把问题分解成规模适中且便于处理的若干模块</li>
+<li>算法设计：为每个模块完成的功能进行具体的描述，把功能描述转化为精确到、结构化的过程描述</li>
+</ul>
+</li>
+<li>编程</li>
+<li>验证<ul>
+<li>测试</li>
+<li>纠错</li>
+</ul>
+</li>
+</ul>
+<p><strong>数据结构的三要素：</strong></p>
+<ul>
+<li>逻辑结构（Logic Structure）<ul>
+<li>集合：结点间无关系</li>
+<li>线性结构：结点间一对一关系</li>
+<li>树形结构：结点间一对多关系</li>
+<li>图形结构：结点间多对多关系</li>
+</ul>
+</li>
+<li>物理结构（Physical Structure）<ul>
+<li>顺序存储</li>
+<li>链式存储</li>
+<li>索引存储</li>
+<li>散列存储</li>
+</ul>
+</li>
+<li>数据的运算</li>
+</ul>
+<h1 id="2-Thinking"><a href="#2-Thinking" class="headerlink" title="2. Thinking"></a>2. Thinking</h1><ul>
+<li>它容易读懂吗？</li>
+<li>它有完善的文档吗？</li>
+<li>它容易修改吗？</li>
+<li>它在运行时需要多大内存？</li>
+<li>它的运行时间有多长？</li>
+<li>它的通用性如何？能不能不加修改就可以用它来解决更大范围的问题？</li>
+<li>它可以在多种机器上编译和运行吗？或者说需要经过修改才能在不同的机器上运行吗？</li>
+</ul>
+<h1 id="3-Code-of-Conduct"><a href="#3-Code-of-Conduct" class="headerlink" title="3. Code of Conduct"></a>3. Code of Conduct</h1><p>代码的规范性</p>
+<ul>
+<li>正确性</li>
+<li>完整性</li>
+<li>鲁棒性：程序在执行的时候，可能会出现访问空指针的问题，会导致程序崩溃。</li>
+</ul>
+<h1 id="4-definition-struct"><a href="#4-definition-struct" class="headerlink" title="4. definition struct"></a>4. definition struct</h1><p>结构体有三种定义：</p>
+<ul>
+<li><p>法一：在定义结构体类型的同时说明结构体变量</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> 结构名</span><br><span class="line">&#123;</span><br><span class="line">    成员表列;</span><br><span class="line">&#125;变量名表列;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>法二:直接说明结构体变量</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span></span><br><span class="line">&#123;</span><br><span class="line">    成员表列;</span><br><span class="line">&#125;变量名表列;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>法三：先定义结构体，在说明结构体变量</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> 结构名</span><br><span class="line">&#123;</span><br><span class="line">    成员表列;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> 结构名 变量名表列;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>结构体调用</p>
+<ul>
+<li><font color=red> . 成员选择结构 </font> <code>结构体变量名.成员名</code></li>
+<li><font color=red> -&gt; 成员选择指针 </font> <code>结构指针-&gt;结构成员</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="5-linked-list"><a href="#5-linked-list" class="headerlink" title="5. linked list"></a>5. linked list</h1><p>链表是计算机科学中最基础的数据结构之一，是典型的<strong>递归数据类型（Recursive Data Type）</strong>。</p>
+<h2 id="5-1-什么是链表？"><a href="#5-1-什么是链表？" class="headerlink" title="5.1. 什么是链表？"></a>5.1. 什么是链表？</h2><p>链表是一种线性数据结构，由一系列节点组成，每个节点包含：</p>
+<ul>
+<li>**数据部分(data)**：存储实际数据。</li>
+<li>**指针部分(pointer)**：存储下一个节点的内存地址（在双向链表中还会存储前一个节点的地址）。</li>
+</ul>
+<p><strong>其特点</strong>：</p>
+<ul>
+<li>基础情况：空链表（nil）</li>
+<li>递归情况：节点 + 指向子链表的指针</li>
+<li><strong>链表中每个节点只需要知道下一个节点的位置</strong>，不需要知道整个链的结构，就能知道整个链表的数据。</li>
+</ul>
+<p><strong>节点定义</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> node <span class="keyword">struct</span> &#123;</span><br><span class="line">    data <span class="type">int</span></span><br><span class="line">    next *node</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/linklist.png">
+
+<h2 id="5-2-关键概念解析"><a href="#5-2-关键概念解析" class="headerlink" title="5.2. 关键概念解析"></a>5.2. 关键概念解析</h2><ol>
+<li><p>指针的意义：指针在这里的作用相当于<strong>延迟绑定</strong>：</p>
+<ul>
+<li>定义时只声明”这里会存放一个地址”。</li>
+<li>运行时才实际绑定到具体实例。</li>
+<li>通过 <code>nil</code> 表示终止条件。</li>
+</ul>
+</li>
+<li><p>为什么需要指针</p>
+<p>链表的核心是通过指针连接节点，而不是直接存储节点本身。原因包括：</p>
+<p>(1) <strong>动态内存分配</strong></p>
+<ul>
+<li>链表节点是动态创建的（运行时通过 <code>new</code> 或 <code>&amp;Node&#123;&#125;</code>）</li>
+<li>指针允许我们引用这些动态分配的内存</li>
+</ul>
+<p>(2) <strong>避免无限递归</strong></p>
+<p>如果不用指针：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误示例！会导致无限大小</span></span><br><span class="line"><span class="keyword">type</span> node <span class="keyword">struct</span> &#123;</span><br><span class="line">    data <span class="type">int</span></span><br><span class="line">    next node  <span class="comment">// 不是指针，编译错误：invalid recursive type</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每个 <code>node</code> 都会包含另一个完整的 <code>node</code>，导致无限嵌套，无法确定结构体大小。</p>
+<p>(3) <strong>高效连接</strong></p>
+<ul>
+<li>指针只存储地址（通常 4或8 字节），复制指针比复制整个节点高效</li>
+<li>修改连接时只需改变指针值，不需要移动节点数据</li>
+</ul>
+</li>
+<li><p><strong>节点连接的实质</strong></p>
+<ul>
+<li>不是复制节点，而是让一个节点的next字段存储下一个节点的地址</li>
+<li>通过指针”跳转”来访问下一个节点</li>
+</ul>
+</li>
+<li><p><strong>与数组的根本区别</strong></p>
+<ul>
+<li>数组：数组的是一次性分配内存，元素在内存中连续存储，通过<strong>索引</strong>直接计算地址访问。</li>
+<li>链表：元素分散存储，是不连续的，必须通过指针逐个”追踪”访问。链表是一种动态的数据结构，每添加一个结点分配一次内存，占用的内存是连续的，没有闲置的内存。</li>
+</ul>
+</li>
+</ol>
+<h2 id="5-3-处理技巧"><a href="#5-3-处理技巧" class="headerlink" title="5.3. 处理技巧"></a>5.3. 处理技巧</h2><ol>
+<li><strong>处理边界条件</strong><ul>
+<li>空链表</li>
+<li>单节点链表</li>
+<li>头&#x2F;尾节点操作</li>
+</ul>
+</li>
+<li><strong>指针操作技巧</strong><ul>
+<li>使用哨兵节点简化操作</li>
+<li>双指针技巧（快慢指针）</li>
+</ul>
+</li>
+<li><strong>链表操作的精髓：先改变指针指向，再移动指针。</strong></li>
+</ol>
+<h2 id="5-4-分类"><a href="#5-4-分类" class="headerlink" title="5.4. 分类"></a>5.4. 分类</h2><ol>
+<li><strong>单链表</strong>：每个节点只有一个指针，指向下一个节点。</li>
+<li><strong>双链表</strong>：每个节点有两个指针，分别指向前一个和后一个节点。</li>
+<li><strong>循环链表（单&#x2F;双）</strong>：尾节点指向头节点，形成环状结构。</li>
+</ol>
+<h2 id="5-5-linear-linked-list"><a href="#5-5-linear-linked-list" class="headerlink" title="5.5.  linear linked list"></a>5.5.  linear linked list</h2><p>同一个线性链表中所有的结点都必须是 <strong>相同的数据类型</strong>。</p>
+<p>链表的常见操作</p>
+<ul>
+<li>创建</li>
+<li>求长度</li>
+<li>取元素</li>
+<li>定位</li>
+<li>插入</li>
+<li>删除</li>
+<li>遍历</li>
+</ul>
+<p>单链表特点</p>
+<ul>
+<li>单链表中的每个结点的存储地址是存放在 <strong>前结点next域</strong>中，开始结点无 <code>前驱</code></li>
+<li>终端结点无 <code>后继</code>，终端结点的 <code>指针域</code> 为空</li>
+<li>头指针 <code>head</code> 指向开始结点</li>
+</ul>
+<h2 id="5-6-circular-linked-list"><a href="#5-6-circular-linked-list" class="headerlink" title="5.6. circular linked list"></a>5.6. circular linked list</h2><ul>
+<li>建立循环链表时，必须使最后一个结点的指针指向表头结点。</li>
+<li>判断是否到表尾时，判断该结点链域的值是否是表头结点，当链域值等于表头指针，说明已到达表尾。</li>
+</ul>
+<h2 id="5-7-算法练习"><a href="#5-7-算法练习" class="headerlink" title="5.7. 算法练习"></a>5.7. 算法练习</h2><p>利用 <code>leetcode</code> 中的创常见算法题，来加深对链表的理解。</p>
+<ol>
+<li><strong>基础操作练习</strong>：<ul>
+<li>链表反转</li>
+<li>检测链表是否有环</li>
+<li>合并两个有序链表</li>
+<li>删除链表倒数第N个节点</li>
+</ul>
+</li>
+<li><strong>中等难度</strong>：<ul>
+<li>两数相加（链表表示的数字）</li>
+<li>排序链表</li>
+<li>重排链表</li>
+<li>链表相交问题</li>
+</ul>
+</li>
+<li><strong>高级应用</strong>：<ul>
+<li>LRU缓存实现（使用双向链表）</li>
+<li>跳表实现</li>
+<li>多项式运算</li>
+</ul>
+</li>
+</ol>
+<h1 id="6-stack"><a href="#6-stack" class="headerlink" title="6. stack"></a>6. stack</h1><p><strong>定义</strong></p>
+<blockquote>
+<p>栈（stack）是一种特殊的线性表，所有的插入和删除都限制在表的同一端进行。进行插入、删除操作的一端为栈顶（top）,另一端为栈底，栈中没有元素时为空栈。</p>
+</blockquote>
+<p><strong>特点</strong></p>
+<ul>
+<li>先入后出</li>
+</ul>
+<p><strong>栈的主要操作</strong></p>
+<ol>
+<li>创建：建立一个空栈S</li>
+<li>判断栈空：判断栈是否为空</li>
+<li>进栈：在栈S中插入元素X，使其成为新的栈顶元素</li>
+<li>出栈：删除栈S的栈顶元素</li>
+<li>取栈顶元素的值，不改变栈顶的指针</li>
+<li>求栈的长度</li>
+</ol>
+<p><strong>顺序栈</strong>：采用一个数组和整型变量实现</p>
+<ul>
+<li>数组：顺序存储栈中的元素</li>
+<li>整型变量：存储栈元素的下标位置</li>
+<li>缺点：栈满后就不能再进栈了。</li>
+</ul>
+<p><strong>分类</strong> </p>
+<ul>
+<li>静态顺序栈：不能根据需要增大栈的存储空间。</li>
+<li>动态顺序栈：根据需要可以增大栈的存储空间。</li>
+</ul>
+<p><strong>链式栈</strong>：采用链表的方式实现栈操作，插入和删除只能在表头进行。</p>
+<h1 id="7-queue"><a href="#7-queue" class="headerlink" title="7. queue"></a>7. queue</h1><p><strong>定义</strong>只允许在一端（队尾）进行插入操作，在另一端（队头）进行删除操作的线性表</p>
+<p><strong>特点</strong>： </p>
+<ul>
+<li><code>先入先出</code> 方式管理的线性表，一般用于数据的缓存。</li>
+</ul>
+<p><strong>分类</strong></p>
+<ul>
+<li>顺序队列：队列的顺序存储结构</li>
+<li>循环队列：顺序队列的空间是以循环的方式使用</li>
+</ul>
+<p><strong>队列规则</strong></p>
+<ul>
+<li>排列顺序：结点排成一队，后来的排在队尾</li>
+<li>处理过程：在队头处理事件；队列中有元素则一直处理，直到队空或者发生中断事件</li>
+</ul>
+<p><strong>结论</strong></p>
+<ul>
+<li>顺序队列中已经出队的元素不需要删除</li>
+<li>顺序队列的存储空间是循环使用</li>
+<li>循环队列中头尾指针的计算规则<ul>
+<li>尾指针：<code>rear = （rear+1） % 表长(QUEUE_SIZE)</code></li>
+<li>头指针：<code>front = （front+1）%表长(QUEUE_SIZE)</code></li>
+</ul>
+</li>
+<li>队满状态：<code>rear+1 = front</code></li>
+<li>队空状态：<code>rear = front</code></li>
+<li>队列中少用一个元素的空间，达到使队满和队空的条件不一样</li>
+</ul>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/queue.png">
+
+<p><strong>链队列</strong></p>
+<ul>
+<li>用链表的方式实现的队列，仅允许在表头删除和表尾插入的单链表。</li>
+</ul>
+<h1 id="8-Tree"><a href="#8-Tree" class="headerlink" title="8. Tree"></a>8. Tree</h1><p><strong>定义</strong></p>
+<blockquote>
+<p>树是包含n（n≥0）个结点的有限集。在任意一棵非空树中，有且仅有一个称为根的结点；其余结点分为m（m≥0）个互不相交的子集，每个子集又是一棵树，称为根的子树</p>
+</blockquote>
+<p><strong>特点</strong></p>
+<ul>
+<li>每个结点有零个或多个子结点，无子结点的结点称为 <strong>叶子结点</strong></li>
+<li>没有父结点的结点称为 <strong>根结点</strong></li>
+<li>每一个非根结点有且只有一个父结点</li>
+<li>树是非线性结构</li>
+</ul>
+<p><strong>树的术语</strong></p>
+<ul>
+<li>结点层：规定树中根结点的层定义为 1，其余结点的层等于其双亲结点的层加1；根的孩子为第二层结点。</li>
+<li><strong>结点的度（degree）</strong>：一个结点拥有的子树个数。作用对象是 结结点。</li>
+<li><strong>树的度</strong>：树中结点度的最大值，即拥有子树个数的最大值。</li>
+<li><strong>树的深度（depth）</strong>：也叫数的高度，树中结点的最大层数值</li>
+<li>分支结点：也叫非终端结点，度大于 0 的结点</li>
+<li>叶子结点：也叫终端结点，是度为 0 的结点</li>
+<li>孩子：结点子树的根称为该结点的孩子</li>
+<li>双亲：孩子的直接前驱结点称为该结点的双亲</li>
+<li>兄弟：同一个双亲的结点互称为兄弟</li>
+<li>子孙：以某结点为根的各个子树上的所有结点称为该结点的子孙</li>
+<li>祖先：从树根到该结点所经过的所有分支结点称为该结点的祖先</li>
+<li>森林（forest）：m（m≥0）个树的集合</li>
+</ul>
+<h2 id="8-1-树的存储"><a href="#8-1-树的存储" class="headerlink" title="8.1. 树的存储"></a>8.1. 树的存储</h2><p>利用数组的下标将离散的树结点的编号一一对应起来。</p>
+<p><strong>存储原则</strong></p>
+<ul>
+<li>存数值、存联系</li>
+<li>存的进、取得出</li>
+</ul>
+<p><strong>存储方式</strong></p>
+<ul>
+<li>顺序连续存储</li>
+<li>链式离散存储：<ul>
+<li>二叉链表结点： 一个数据域，两个分别指向左右子结点的指针域。内部数据的指针指向采用长兄为父的思想。<table>
+<thead>
+<tr>
+<th>Lchild</th>
+<th>data</th>
+<th>Rchild</th>
+</tr>
+</thead>
+</table>
+</li>
+<li>三叉链表结点： 一个数据域，两个分别指向左右子结点的指针域，还有一个父结点。<table>
+<thead>
+<tr>
+<th>Lchild</th>
+<th>data</th>
+<th>parent</th>
+<th>Rchild</th>
+</tr>
+</thead>
+</table>
+</li>
+<li>双亲结点表示法：在子结点中存储双亲结点的位置。</li>
+</ul>
+</li>
+</ul>
+<p><strong>树如何存储在数据库中</strong>？</p>
+<blockquote>
+<p>建立两张表，一张存储树结点的表，另一张存储结点与结点之间关系的表。</p>
+</blockquote>
+<h2 id="8-2-create-tree"><a href="#8-2-create-tree" class="headerlink" title="8.2. create tree"></a>8.2. create tree</h2><p>利用 <code>#号法</code> 进行树的创建。<code>#号法</code> 的先序遍历能确定一颗树。</p>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/create-tree.png">
+
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/create-tree-example.png">
+
+<h2 id="8-3-binary-tree"><a href="#8-3-binary-tree" class="headerlink" title="8.3. binary tree"></a>8.3. binary tree</h2><p><strong>定义</strong>：二叉树的定义是递归的，是n(n≥0)个结点的有限集。该集合为空或者由一个根加上两棵互不相交的、分别称为左子树和右子树的二叉树组成。</p>
+<p><strong>二叉树的双亲表示法</strong>:</p>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/parent-node.png">
+
+<p><strong>二叉树的操作</strong></p>
+<ul>
+<li>创建：建立一棵二叉树，初始化</li>
+<li>查找：查找根结点、双亲结点、孩子结点、叶子结点</li>
+<li>插入：在指定位置差结点</li>
+<li>删除：在指定位置删除结点</li>
+<li>遍历：沿着某条搜索线路，依次对二叉树中每个结点均做依次且仅做一次访问</li>
+<li>求深度：计算二叉树的高度</li>
+</ul>
+<p><strong>性质</strong></p>
+<ul>
+<li>在二叉树的第 <code>i</code> 层上至多有 $2^{i-1}$ 个结点</li>
+<li>深度为 <code>k</code> 的二叉树上至多有 $2^{k}-1$ 个结点，$k{\geq}1$</li>
+<li>设二叉树中有 $n_2$ 个度为 <code>2</code> 的结点，$n_1$ 个度为 <code>1</code> 的结点，$n_0$ 个度为 <code>0</code> 的结点，则有：$n_0 &#x3D; n_2 + 1$，分支总数 &#x3D; $n_1 + 2n_2$，结点总数 &#x3D; $n_0 + n_1 + n_2$</li>
+<li>具有 <code>n</code> 个结点的完全二叉树的深度为 $k&#x3D;[log_2 n] + 1$</li>
+</ul>
+<h3 id="8-3-1-完全二叉树（complete-binary-tree）"><a href="#8-3-1-完全二叉树（complete-binary-tree）" class="headerlink" title="8.3.1. 完全二叉树（complete binary tree）"></a>8.3.1. 完全二叉树（complete binary tree）</h3><p><strong>定义</strong>：</p>
+<ul>
+<li>第一种：每一棵树除最下层外，每一层的结点数均达到最大值，在最下层只缺少右边的若干结点。</li>
+<li>第二种：先给满树编号，根结点编号为 <code>1</code>，从根结点开始自上而下，自左向右进行编号，若去掉树中的若干结点后，树的编号依然连续，则是完全二叉树。</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>前 <code>k－1</code> 层是满的，第 <code>k</code> 层可以不满，但第 <code>k</code> 层结点集中在 <code>左侧</code>。</li>
+<li>完全二叉树是满二叉树的一部分，而满二叉树是完全二叉树的特例。</li>
+<li><code>n</code> 个结点的完全二叉树的树深度为 $[log_2 n]+1$，其中$[log_2 n]$ 向下取整数。</li>
+</ul>
+<h3 id="8-3-2-满二叉树（full-binary-tree）"><a href="#8-3-2-满二叉树（full-binary-tree）" class="headerlink" title="8.3.2. 满二叉树（full binary tree）"></a>8.3.2. 满二叉树（full binary tree）</h3><p><strong>定义</strong>：除了叶子结点以外每一个结点都有左右子树且叶子结点都处在最底层上。</p>
+<p><strong>特点</strong></p>
+<ul>
+<li>每一层上的结点数总是达到最大的结点数。</li>
+<li>所有分支结点都有左、右子树。</li>
+<li>深度为 <code>k</code> 的满二叉树，结点总数为： $2^{k} - 1$ </li>
+<li>第 <code>i</code> 层上的结点数为 $2^{i-1}$</li>
+<li>一个层数为 <code>i</code> 的满二叉树的叶子结点个数（也就是最后一层）为 $2^{i-1}$</li>
+</ul>
+<h2 id="8-4-遍历二叉树（traverse-binary-tree）"><a href="#8-4-遍历二叉树（traverse-binary-tree）" class="headerlink" title="8.4. 遍历二叉树（traverse binary tree）"></a>8.4. 遍历二叉树（traverse binary tree）</h2><ul>
+<li><p>先序遍历（inorder tree walk）：（根–&gt;左–&gt;右）</p>
+<ol>
+<li>访问根结点 </li>
+<li>先序遍历左子树 </li>
+<li>先序遍历右子树</li>
+</ol>
+</li>
+<li><p>中序遍历（preorder tree walk）：（左–&gt;根–&gt;右） </p>
+<ol>
+<li>中序遍历左子树 </li>
+<li>访问根结点 </li>
+<li>中序遍历右子树</li>
+</ol>
+</li>
+<li><p>后序遍历（postorder tree walk）：（左–&gt;右–&gt;根）  </p>
+<ol>
+<li>后序遍历左子树 </li>
+<li>后序遍历右子树 </li>
+<li>最后访问根结点</li>
+</ol>
+</li>
+<li><p>无论是采用先序遍历、中序遍历还是后序遍历，算法遍历的过程是一样的，只是访问树结点的时机不一样。</p>
+</li>
+<li><p>前序遍历和中序遍历不采用非递归的方法时，采用栈的思想，因为先经过的结点后访问。后序遍历采用堆的思想实现。</p>
+</li>
+<li><p>非递归中序遍历步骤</p>
+<ul>
+<li>步骤一：若结点有左子树，则该结点入栈；若结点没有左子树，则访问该结点。</li>
+<li>步骤二：若结点有右子树，则重复步骤 1；若结点没有右子树，则结点访问结束，根据栈顶指示，访问栈顶元素，进行出栈。</li>
+<li>步骤三：若栈为空，则遍历结束。</li>
+</ul>
+</li>
+<li><p>如何确定一棵树？ </p>
+<ul>
+<li>通过先序遍历和中序遍历可以确定一棵树。<ul>
+<li>步骤一：根据<code>先序遍历</code> 的序列得到根结点的位置，再由根结点在 <code>中序遍历</code> 中的位置得到左右子树的集合；</li>
+<li>步骤二：在左子树集合中根据先序遍历得到左子树集合的根结点，重复步骤一；</li>
+<li>步骤三：在右子树集合中根据先序遍历得到右子树集合的根结点，重复步骤一；</li>
+</ul>
+</li>
+<li>通过 <code>中序遍历</code> 和 <code>后序遍历</code> 可以确定一棵树。</li>
+<li>通过 <code>先序遍历</code> 和 <code>后序遍历</code> 不能确定一棵树。</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-5-DFS与BFS"><a href="#8-5-DFS与BFS" class="headerlink" title="8.5. DFS与BFS"></a>8.5. DFS与BFS</h2><ul>
+<li><code>DFS(Deep First Search)</code> 深度优先搜索</li>
+<li><code>BFS(Breath First Search)</code> 广度优先搜索</li>
+</ul>
+<h2 id="8-6-二叉搜索树-binary-search-tree"><a href="#8-6-二叉搜索树-binary-search-tree" class="headerlink" title="8.6. 二叉搜索树(binary search tree)"></a>8.6. 二叉搜索树(binary search tree)</h2><p><strong>什么是二叉搜索树？</strong></p>
+<blockquote>
+<p>二叉搜索树是一种特殊的二叉树，实现更快速的查找。一棵树用链表数据结构表示，每个结点就是一个对象。</p>
+</blockquote>
+<p><strong>性质</strong></p>
+<ul>
+<li>树中的任意一个结点都大于等于它左子树中的结点，小于等于它右子树中的结点。 </li>
+<li>在一棵高度为 h 的二叉搜索树上，动态集合上的操作 Search、Minimum、Maximum、Successor、Predecessor可以在 <code>O(h)</code> 时间内完成。</li>
+<li>在一棵高度为 h 的二叉搜索树上，动态集合操作 Insertion、Deletion 的运行时间均为 <code>O(h)</code> 或 <code>lg(n)</code></li>
+</ul>
+<p><strong>查找</strong></p>
+<ul>
+<li>如果二叉查找树为空，则返回空；</li>
+<li>如果二叉查找树不为空<ul>
+<li>先查找取根结点，如果结点 X 等于根结点，则返回；</li>
+<li>如果结点小于根结点，则递归查找左子树；</li>
+<li>如果结点大于根结点，则递归查找右子树。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>查找最大、最小结点<ul>
+<li>若二叉搜索树为空，则返回空。</li>
+<li>若二叉搜索树不为空<ul>
+<li>判断是否只有一个结点（即只有根结点），如果是则返回根结点，否则就到右子树中递归查找，找到最大结点。</li>
+<li>同理，查找最小结点类似，只是到左子树中查找而已。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>插入</strong></p>
+<ul>
+<li>若树为空，则直接插入新结点。</li>
+<li>若树不为空时<ul>
+<li>如果要插入的结点比根结点大，则到右子树中插入新数据。如果右子树为空，则将新数据直接插入到右子结点的位置；如果右子树不为空，则继续遍历右子树，查找插入位置。</li>
+<li>如果要插入的结点比根结点小，则到左子树中插入新数据。如果左子树为空，则将新数据直接插入到左子结点的位置；如果左子树不为空，则继续遍历左子树，查找插入位置。</li>
+</ul>
+</li>
+</ul>
+<p><strong>删除</strong></p>
+<ul>
+<li>要删除的结点没有子结点时，删除结点并修改它的父结点，用NULL作为孩子来替换要删除的结点。</li>
+<li>要删除的结点只有一个结点，即只有左子结点或右子结点时，用左结结点或右子结点来替换要删除的结点，并修改要删除结点的父结点。</li>
+<li>要删除的结点有两个子树结点<ul>
+<li>先查找要删除结点的后继结点，若这个后继结点没有左孩子且位于要删除结点的右子树中，则用这个后继结点来替换树中要删除的结点。</li>
+<li>若要删除结点的后继结点位于要删除结点的右子树中，但不是要删除结点的直系右孩子，则需要先用要删除结点的后继结点的右孩子去替换要删除结点的后继结点，再用要删除结点的后继结点去替换需要删除的结点。</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-7-平衡二叉树（AVL树）"><a href="#8-7-平衡二叉树（AVL树）" class="headerlink" title="8.7. 平衡二叉树（AVL树）"></a>8.7. 平衡二叉树（AVL树）</h2><p>平衡二叉树是一颗空树或者左右两个子树的高度差的绝对值不超过 1，并且左右两个子树都是一颗平衡二叉树。不管我们是执行插入还是删除操作，只要不满足上面的条件，就要通过旋转来保持平衡，而旋转是非常耗时的，由此我们可以知道 AVL 树适合用于插入与删除次数比较少，但查找多的情况。</p>
+<h2 id="8-8-红黑树-Red-black-tree"><a href="#8-8-红黑树-Red-black-tree" class="headerlink" title="8.8. 红黑树(Red black tree)"></a>8.8. 红黑树(Red black tree)</h2><p><strong>什么是红黑树</strong>？</p>
+<blockquote>
+<p>红黑树是一颗二叉搜索树，它在每个结点上增加了一个存储位来表示结点的颜色，结点的颜色为红色或黑色。通过对任何一条从根结点到叶子结点路径上各个结点的颜色进行约束，确保红黑树上没有一条路径会比其它的路径长出 2 倍，使红黑树近似是平衡的。</p>
+</blockquote>
+<h2 id="8-9-create"><a href="#8-9-create" class="headerlink" title="8.9. create"></a>8.9. create</h2><p><strong>红黑树特点</strong></p>
+<ol>
+<li>每个结点是红色或黑色。</li>
+<li>根结点是黑色。</li>
+<li>所有叶子都是黑色（叶子是指针为空的的结点）。</li>
+<li>如果一个结点是红色的，则它的两个子结点是黑色。（每个叶子到根的所有路径上不能有两个连续的红色结点。）</li>
+<li>任意一结点到每个叶子结点的路径都包含数量相同的黑结点。（红黑树黑色结点的高度等于它根结点的黑色结点高度。</li>
+</ol>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/red-black-tree.png">
+
+<p><strong>注意点</strong></p>
+<ul>
+<li>红黑树是平衡二叉查找树的一种变体。</li>
+<li>红黑树的时间复杂度：$log(n)$</li>
+<li>一颗有 <code>n</code> 个结点的红黑树的高度最多为 $2*lg(n+1)$</li>
+<li>如果一个结点存在黑色的子结点，那么该结点肯定有两个子结点</li>
+</ul>
+<p><strong>应用场景</strong></p>
+<ul>
+<li>红黑树主要用来存储有序的数据。</li>
+<li>适合排序，查找的场景。</li>
+<li>容器的基本组成，如Java中的HashMap&#x2F;TreeMap，STL中的set、map等。</li>
+<li>Linux内核的完全公平调度器和Linux的虚拟内存管理</li>
+<li>Linux中epoll机制的实现</li>
+</ul>
+<h3 id="8-9-1-Rotate"><a href="#8-9-1-Rotate" class="headerlink" title="8.9.1. Rotate"></a>8.9.1. Rotate</h3><ul>
+<li>为什么红黑树要旋转？</li>
+</ul>
+<blockquote>
+<p>添加或删除红黑树中的结点之后，红黑树的结构发生了变化，可能不满足红黑树的5条性质，也就不再是一颗红黑树了，而是一颗普通的树。通过旋转，可以使这颗树重新成为红黑树。为了维护这些特性，必须要改变树中某些结点的颜色和指针结构。</p>
+</blockquote>
+<ul>
+<li>左旋：逆时针旋转红黑树的结点，使被旋转结点的右孩子成为被旋转结点的父结点，被旋转的结点成为新树的左孩子，被旋转结点的右孩子的左结点成为被旋转结点的右孩子。</li>
+<li>右旋：顺时针旋转红黑树的结点，使被旋转结点的左孩子成为被旋转结点的父结点，被旋转的结点成为新树的右孩子，被旋转结点的左孩子的右结点成为被旋转结点的左孩子。</li>
+</ul>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/redblack-tree-rotate.png">
+
+
+<ul>
+<li>变色：结点变化后的红黑树必须重新满足红黑树的性质，则需要把红色结点变为黑色，或者把黑色结点变为红色。<blockquote>
+<p>红黑树旋转和变色的核心思想：将红色结点移动到根结点，再将根结点设置为黑色。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="8-9-2-Insert"><a href="#8-9-2-Insert" class="headerlink" title="8.9.2. Insert"></a>8.9.2. Insert</h3><p>为什么红黑树中新插入的结点必须是红色？</p>
+<blockquote>
+<p>一颗正常的红黑树中新插入的结点不是红色时，否则就违反了红黑树的性质 4：每个叶子结点到根结点的所有路径上不能有两个连续的红色结点。<br>插入前需要找到结点插入的位置，如果插入结点小于当前遍历到的结点，则到当前结点的左子树中继续查找；如果插入结点大于当前结点，则到当前结点的右子树中继续查找。</p>
+</blockquote>
+<p>新插入的结点为红色结点时，分为以下几种情况</p>
+<ol>
+<li>若被插入的结点是根结点，直接把此结点涂为黑色。</li>
+<li>若被插入的结点的父结点是黑色，结点被插入后，没有违反红黑树的性质，仍然是红黑树。</li>
+<li>若被插入的结点的父结点是红色，违反了红黑树的特性，需要做旋转和变色处理。</li>
+</ol>
+<ul>
+<li><p>若当前结点的父结点和叔叔结点为红色时</p>
+<ol>
+<li>将父结点和叔叔结点设置为黑色，     </li>
+<li>如果此时祖父结点是根结点，则则直接将祖父结点设置为黑色。</li>
+<li>如果此时祖父结点不是根结点，则将祖父结点（父结点的父结点）设置为红色，并将祖父结点更新为新的当前结点，然后再对祖父结点进行后续的操作。<p> <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/redblack-tree-insert-1.png"></li>
+</ol>
+<ul>
+<li><p>若新的当前结点的父结点为红色，叔叔结点为黑色，且新的当前结点是其父结点的右孩子 </p>
+<ol>
+<li>将父结点重新作为新的当前结点</li>
+<li>以新的当前结点为支点进行左旋。此时新的当前结点满足左旋的特点，因此要用左旋来改变红黑树的结构。</li>
+<li>如果原来的当前结点经过旋转后变为根结点，则直接将其设置为黑色。</li>
+<li>如果原来的当前结点经过旋转后不是根结点，则需要将原来当前结点的父结点设置为新的当前结点。<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/redblack-tree-insert-2.png"></li>
+</ol>
+</li>
+<li><p>若新的当前结点的父结点为红色，叔叔结点为黑色，且新的当前结点是其父结点的左孩子</p>
+<ul>
+<li>将父结点设置为黑色，祖父结点设置为红色</li>
+<li>以祖父结点为支点进行右旋<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/redblack-tree-insert-3.png"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="8-9-3-delete"><a href="#8-9-3-delete" class="headerlink" title="8.9.3. delete"></a>8.9.3. delete</h3><p><strong>将红黑树当作一颗二叉查找树，待删除的结点按照儿子的个数，删除时分为3种情况。</strong></p>
+<ol>
+<li>被删除结点没有儿子，即为叶子结点。那么，直接将该结点删除就OK了 </li>
+<li>若果被删除结点只有一个儿子，那么直接删除该结点，并用该结点的唯一子结点顶替它的位置。</li>
+<li>删除的结点有两个儿子。先找到要删除结点的后继结点，然后把它后继结点内的值复制给当前要删除的结点，再删除它的后继结点。巧妙地利用了删除后继结点达到删除当前结点的目的。<blockquote>
+<p>当被删除结点有两个非空子结点的情况时，该结点的后继结点要么没有儿子，要么 只有一个儿子；若只有没有儿子，则按第一种情况处理，若只有一个儿子，则按第二种情况处理。</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>如果删除的是红色结点，那么原红黑树的性质依旧保持，此时不用做修正操作；如果删除的结点是黑色结点，原红黑树的性质可能会被改变，我们要对其做修正操作。</strong></p>
+<ul>
+<li>结点删除时，红黑树的哪些特性会发生变化？<ul>
+<li>如果删除的结点不是树唯一结点，那么删除结点的那一个支到各叶结点的黑色结点数会发生变化，此时性质5被破坏。</li>
+<li>如果被删结点的唯一非空子结点是红色，而被删结点的父结点也是红色，那么性质4被破坏。</li>
+<li>如果被删结点是根结点，而它的唯一非空子结点是红色，则删除后新根结点将变成红色，违背性质2。</li>
+</ul>
+</li>
+</ul>
+<p><strong>如何进行删除分析</strong>？</p>
+<blockquote>
+<p>删除的结点为树中的非叶子结点。 </p>
+</blockquote>
+<ul>
+<li>case1：当前结点为新的根结点，删除没有影响，直接删除 </li>
+<li>case2：当前结点为黑色，兄弟结点为红色，父结点和兄弟结点的儿子结点都为黑色 <ul>
+<li>把父结点染成红色，兄弟结点染成黑色，然后再进行左旋操作<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/redblack-tree-del-2.png"></li>
+</ul>
+</li>
+<li>case3：当前结点为黑色，兄弟结点、兄弟结点的儿子结点、父结点全都为黑色<P><ul>
+<li>只需要简单的把兄弟结点颜色变为红色就可以了。<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/redblack-tree-del-3.png"></li>
+</ul>
+</li>
+<li>case4：当前结点颜色是黑色，兄弟结点和它的儿子结点都为黑色，父结点为红色<ul>
+<li>简单的将要删除结点的兄弟结点和父结点颜色进行交换就可以了。<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/redblack-tree-del-4.png"></li>
+</ul>
+</li>
+<li>case5：当前结点颜色是黑色且为父结点的左子结点，兄弟结点是黑色，兄弟的左子结点是红色，右子结点是黑色<ul>
+<li>把兄弟结点染成红色，兄弟左子结点染黑色，再以兄弟结点为支点，进行右旋转操作。<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/redblack-tree-del-5.png"></li>
+</ul>
+</li>
+<li>case6：当前结点颜色是黑色且为父结点的左子结点，兄弟结点是黑色，兄弟结点的右子结点是红色，兄弟结点的左子结点颜色是任意色<ul>
+<li>将兄弟结点染成当前结点的父结点颜色，兄弟结点右子结点染成黑色，再以当前结点的父结点为支点进行左旋转操作。<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/redblack-tree-del-6.png"></li>
+</ul>
+</li>
+</ul>
+<h2 id="8-10-字典数（trie树）"><a href="#8-10-字典数（trie树）" class="headerlink" title="8.10. 字典数（trie树）"></a>8.10. 字典数（trie树）</h2><p><strong>定义</strong>:</p>
+<blockquote>
+<p>是一种专门处理字符串匹配的数据结构，用来解决在一组字符串集合中快速查找某个字符串的问题</p>
+</blockquote>
+<p><strong>特点</strong></p>
+<ul>
+<li>根结点不包含字符，除根结点外的每一个子结点都包含一个字符。</li>
+<li>从根结点到某一结点，路径上经过的字符连接起来，就是该结点对应的字符  串。</li>
+<li>每个字符串的公共前缀作为一个字符结点保存。</li>
+</ul>
+<p><strong>缺点</strong>:</p>
+<ul>
+<li>构造Trie树需要很大的内存空间。因为父子字符结点之间用 指针关联。如果用数组保存这些指针，这意味着子结点的数组需要穷举出每一种可能。</li>
+</ul>
+<p><strong>应用场景</strong></p>
+<ul>
+<li>关键词匹配，提示，纠错。</li>
+<li>最长公共前缀匹配。</li>
+<li>命令自动补全，如zsh.</li>
+<li>网址浏览历史记录。</li>
+<li>手机号码簿查询</li>
+</ul>
+<h2 id="8-11-堆树"><a href="#8-11-堆树" class="headerlink" title="8.11. 堆树"></a>8.11. 堆树</h2><p><strong>定义:</strong></p>
+<blockquote>
+<p> 堆是一种特殊的二叉树。</p>
+</blockquote>
+<p><strong>特点:</strong></p>
+<ul>
+<li>当树根值为最大值，则为最大堆；<ul>
+<li>一颗完全二叉树中，任意一个结点的值总是小于等于根结点的值。</li>
+</ul>
+</li>
+<li>当树根值为最小值，则为最小堆；<ul>
+<li>一颗完全二叉树中，任意一个结点的值总是大于等于根结点的值。</li>
+</ul>
+</li>
+<li>当前结点（根结点除外）与父结点和子结点地址、数据值之间的关系<ul>
+<li>父结点的索引值等于当前结点的索引值的 <code>1/2 </code></li>
+<li>左子结点的索引值等于当前结点的索引值的 <code>2倍</code></li>
+<li>右子结点的索引值等于当前结点的索引值的 <code>2倍加1</code> <p> <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/max-heap.png"></li>
+</ul>
+</li>
+<li>结点的插入、删除操作<ul>
+<li>添加新元素的时候，先存放到数组的尾部，然后在通过自下向上重新排序，使加添新元素后的二叉树，满足为堆数据结构的特性。</li>
+<li>删除元素时，一般默认删除第一个根结点，将数组的最后一个元素放到根结点的位置，之后通过自上而下重排序，使删除元素后的二叉树也满足堆数据结构的特性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-12-B树"><a href="#8-12-B树" class="headerlink" title="8.12. B树"></a>8.12. B树</h2><p><strong>什么是B Tree？</strong></p>
+<blockquote>
+<p>在计算机科学中，B树（英语：B-tree）是一种自平衡的树，能够保持数据有序。这种数据结构能够让查找数据、顺序访问、插入数据及删除的动作，都在对数时间内完成。B树，概括来说是一个一般化的二叉查找树（binary search tree）一个节点可以拥有2个以上的子节点。与自平衡二叉查找树不同，B树适用于读写相对大的数据块的存储系统，例如磁盘。B树减少定位记录时所经历的中间过程，从而加快存取速度。B树这种数据结构可以用来描述外部存储。这种数据结构常被应用在数据库和文件系统的实现上。</p>
+</blockquote>
+<p><strong>B tree 应用</strong></p>
+<ul>
+<li>主要用于文件系统以及部分数据库索引（MongoDB） 而Mysql是用B+树的。</li>
+</ul>
+<h2 id="8-13-B-树"><a href="#8-13-B-树" class="headerlink" title="8.13. B+树"></a>8.13. B+树</h2><p>什么是B++ Tree？</p>
+<p><strong>基础概念</strong></p>
+<ul>
+<li>操作系统在对磁盘进行访问的时候，通常按照块的方式进行读取。</li>
+<li>B+树内部使用双向链表的方式实现。</li>
+<li>B+树是一颗完全平衡的m阶多叉树</li>
+</ul>
+<p><strong>B+树如何进行检索？</strong></p>
+<blockquote>
+<p>先确定要检索的值位于数组中的哪两个元素之间，然后再将第一个元素对应的指针读出，获得下一个 <code>block</code> 的位置，读出 <code>block</code> 中节点的数据后，再对该块进行同样处理。逐层访问内部节点，直到读出叶子节点。对于叶子节点中的数组，直接使用二分查找算法，判断查找的元素是否存在。如果存在，得到该查询值对应的存储数据，如果这个数据是详细信息的位置指针，则还需要再访问磁盘一次，将详细信息读出。</p>
+</blockquote>
+<p><strong>B+树的优点</strong></p>
+<ul>
+<li>将索引存放在磁盘，让检索技术摆脱了内存的限制，通过将索引和数据分离的方式，使索引的数组大小保持在较小的范围内。</li>
+</ul>
+<h1 id="9-Algorithm"><a href="#9-Algorithm" class="headerlink" title="9. Algorithm"></a>9. Algorithm</h1><p>排序算法时间复杂度、空间复杂度、稳定性比较。</p>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="./figures/algorithm-complexity.png">
+
+
+
+<h2 id="9-1-快速排序"><a href="#9-1-快速排序" class="headerlink" title="9.1. 快速排序"></a>9.1. 快速排序</h2><h2 id="9-2-桶排序"><a href="#9-2-桶排序" class="headerlink" title="9.2. 桶排序"></a>9.2. 桶排序</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/skywang12345/p/3602737.html">桶排序详解</a></li>
+</ul>
+<h2 id="9-3-堆排序"><a href="#9-3-堆排序" class="headerlink" title="9.3. 堆排序"></a>9.3. 堆排序</h2><p><strong>什么是堆排序？</strong></p>
+<blockquote>
+<p>堆排序是一种结合二叉树，采用一个辅助记录空间进行排序的算法。对于一个完全二叉树来说，如果所有结点（除叶子结点外）的值都大于或小于其左右孩子结点的值，那么这颗完全二叉树就被称为一个堆。由堆的定义可知，若堆顶结点（二叉树的根节点）一定对应整个序列中最大或最小的记录。若每次将堆顶的记录输出，同时调整剩余的记录，使它们重新排成一个堆，重复以上的过程，最终得到一个有序的序列，完成排序的过程，这种排序的方法，称为堆排序。</p>
+</blockquote>
+<p><strong>堆排序过程中两个关键的问题？</strong></p>
+<ul>
+<li>如何将一个无序序列中所有的记录排成一个堆？</li>
+<li>在输出了堆顶记录后，如何将序列中剩余的记录再次排成一个堆？</li>
+</ul>
+<p><strong>堆排序注意点</strong></p>
+<ul>
+<li>对于记录较少的序列排序时，并不建议使用堆排序。但是当记录数据是很大的序列进行排序时，堆排序会比较好。因为堆排序主要时间耗费在建立初始堆和调整新堆时反复进行的“筛选”上。（从堆顶到叶子这一不断调整为堆的过程称为“筛选”。）</li>
+<li>在最坏的情况下，时间复杂度为 $\Omicron(n*log_2 n)$</li>
+</ul>
+<h2 id="9-4-递归"><a href="#9-4-递归" class="headerlink" title="9.4. 递归"></a>9.4. 递归</h2><p><strong>定义:</strong></p>
+<blockquote>
+<p>函数自己调用自己。</p>
+</blockquote>
+<p><strong>缺点:</strong></p>
+<ul>
+<li>需要消耗时间和空间：每一次函数调用，都需要在栈上分配空间来保存参数、返回地址和临时变量，而且往栈里面压入数据和弹出数据都需要时间的。 </li>
+<li>可能会导致栈溢出。</li>
+<li>递归分解的子问题中存在大量重复的计算，导致效率较低。</li>
+</ul>
+<h2 id="9-5-动态规划"><a href="#9-5-动态规划" class="headerlink" title="9.5. 动态规划"></a>9.5. 动态规划</h2><ul>
+<li>求一个问题的最优解，通常是最大值或最小值，而且问题可以分解为若干个子问题，并且子问题之间还有重叠的更小的子问题。 </li>
+<li>从上往下分析问题，从下往上求解问题。</li>
+</ul>
+<h2 id="9-6-KMP-字符串查找"><a href="#9-6-KMP-字符串查找" class="headerlink" title="9.6. KMP(字符串查找)"></a>9.6. KMP(字符串查找)</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/v_JULY_v/article/details/7041827">从头到尾彻底理解KMP（2014年8月22日版）</a></li>
+</ul>
+<h1 id="10-References"><a href="#10-References" class="headerlink" title="10. References"></a>10. References</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html">Data Structure Visualizations</a> San Francisco大学计算机学院提供一个可视化的教学资源 </li>
+<li><a target="_blank" rel="noopener" href="https://visualgo.net/en/sorting">visualgo</a> 是一款可视化学习算法的工具，从简单的排序算法到复杂的图形数据结构和算法都有 </li>
+<li><a target="_blank" rel="noopener" href="https://algorithm-visualizer.org/">algorithm-visualizer</a> 支持的语言有：Java，C++，JS 等，还有控制台也会输出整个执行的过程，能帮你更好的理解算法。</li>
+<li><a target="_blank" rel="noopener" href="https://www.shiyanlou.com/courses/492">实验楼上实现了LeetCode中一些经典的算法</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/">LeetCode英文版</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/skywang12345/p/3561803.html">数组、单链表和双链表介绍 以及 双向链表的C&#x2F;C++&#x2F;Java实现</a> </li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wzl19981116/p/9397203.html">DFS与BFS对比</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/AVL%E6%A0%91">维基百科解释AVL树</a>  </li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/yushiyi6453/article/details/76407640">排序算法时间复杂度、空间复杂度、稳定性比较</a> </li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/v_july_v/article/details/6530142">从B树、B+树、B*树谈到R 树</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/B%E6%A0%91">维基百科解释B树</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/guoweimelon/article/details/50904346">堆树（最大堆、最小堆）详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.iteye.com/blog/128kj-1728555">彻底弄懂最大堆的四种操作(图解+程序)（JAVA）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/dolphin0520/archive/2011/10/06/2199741.html">堆排序</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/cdnight/article/details/11650983?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase">算法】堆，最大堆（大顶堆）及最小堆（小顶堆）的实现</a></li>
+</ul>
+<hr>
+<h2 id="红黑树-维基百科英文解释红黑树-讲解最全面，重点掌握。-维基百科中文解释红黑树-Github详解：教你透彻了解红黑树-A-complete-and-working-implementation-in-C-James-Paton-“Red-Black-Trees”-红黑树-一-之-原理和算法详细介绍"><a href="#红黑树-维基百科英文解释红黑树-讲解最全面，重点掌握。-维基百科中文解释红黑树-Github详解：教你透彻了解红黑树-A-complete-and-working-implementation-in-C-James-Paton-“Red-Black-Trees”-红黑树-一-之-原理和算法详细介绍" class="headerlink" title="红黑树- 维基百科英文解释红黑树 讲解最全面，重点掌握。- 维基百科中文解释红黑树- Github详解：教你透彻了解红黑树- A complete and working implementation in C- James Paton. “Red-Black Trees”- 红黑树(一)之 原理和算法详细介绍"></a>红黑树<br>- <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree">维基百科英文解释红黑树</a> 讲解最全面，重点掌握。<br>- <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91">维基百科中文解释红黑树</a><br>- <a target="_blank" rel="noopener" href="https://github.com/julycoding/The-Art-Of-Programming-By-July/blob/master/ebook/zh/03.01.md">Github详解：教你透彻了解红黑树</a><br>- <a target="_blank" rel="noopener" href="https://web.archive.org/web/20140328232325/http://en.literateprograms.org/Red-black_tree_(C)">A complete and working implementation in C</a><br>- <a target="_blank" rel="noopener" href="http://pages.cs.wisc.edu/~paton/readings/Red-Black-Trees/#intro">James Paton. “Red-Black Trees”</a><br>- <a target="_blank" rel="noopener" href="https://www.cnblogs.com/skywang12345/p/3245399.html">红黑树(一)之 原理和算法详细介绍</a></h2><p>B 树</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/nullzx/p/8729425.html">B树和B+树的插入、删除图文详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/B+%E6%A0%91">维基百科解释B+树</a></li>
+</ul>
+<hr>
+<p>quick sort</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Quicksort">维基百科解释快速排序</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ttltry-air/archive/2012/08/06/2625512.html">快速排序及优化</a></li>
+</ul>
+<hr>
+<p>heap sort</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/skywang12345/p/3602162.html">堆排序详解 </a></li>
+<li>《数据结构与算法分析新视角》</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/DataStructure/synced/DataStructure/DataStructure/">https://johnjeep.github.io/DataStructure/synced/DataStructure/DataStructure/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Learning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/datastructure/">datastructure</a></div><div class="post-share"><div class="social-share" data-image="/img/seele.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Distributed/synced/Distributed/Microservices/" title="Microservices"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Microservices</div></div><div class="info-2"><div class="info-item-1">  微服务 注册中心 拉取或注册服务信息。  配置中心 拉取配置信息。  服务网关   分布式 分布式锁 分布式一致性算法 分布式事务 一致性 HASH 算法 微服务 分布式 唯一 ID 生成  面对的挑战 负载均衡 熔断降级 灰度发布 故障切换 分布式跟踪  </div></div></div></a><a class="pagination-related" href="/C/synced/Cpp/enable_shared_from_this/" title="Enable Shared From This"><img class="cover" src="/img/seele.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Enable Shared From This</div></div><div class="info-2"><div class="info-item-1">   1. 什么是 enable_shared_from_this? 2. 为什么要用 enable_shared_from_this 2.1. 问题场景 2.2. 解决方案：enable_shared_from_this   3. 什么时候用？ 3.1. 主要使用场景 3.1.1. 异步回调 3.1.2. 容器中存储自身指针 3.1.3. 链式调用   3.2. 重要注意事项 3.2.1. 必须在已有 shared_ptr 的情...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Introduction"><span class="toc-number">1.</span> <span class="toc-text">1. Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Thinking"><span class="toc-number">2.</span> <span class="toc-text">2. Thinking</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Code-of-Conduct"><span class="toc-number">3.</span> <span class="toc-text">3. Code of Conduct</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-definition-struct"><span class="toc-number">4.</span> <span class="toc-text">4. definition struct</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-linked-list"><span class="toc-number">5.</span> <span class="toc-text">5. linked list</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E4%BB%80%E4%B9%88%E6%98%AF%E9%93%BE%E8%A1%A8%EF%BC%9F"><span class="toc-number">5.1.</span> <span class="toc-text">5.1. 什么是链表？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90"><span class="toc-number">5.2.</span> <span class="toc-text">5.2. 关键概念解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E5%A4%84%E7%90%86%E6%8A%80%E5%B7%A7"><span class="toc-number">5.3.</span> <span class="toc-text">5.3. 处理技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%E5%88%86%E7%B1%BB"><span class="toc-number">5.4.</span> <span class="toc-text">5.4. 分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-linear-linked-list"><span class="toc-number">5.5.</span> <span class="toc-text">5.5.  linear linked list</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6-circular-linked-list"><span class="toc-number">5.6.</span> <span class="toc-text">5.6. circular linked list</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-7-%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0"><span class="toc-number">5.7.</span> <span class="toc-text">5.7. 算法练习</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-stack"><span class="toc-number">6.</span> <span class="toc-text">6. stack</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-queue"><span class="toc-number">7.</span> <span class="toc-text">7. queue</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-Tree"><span class="toc-number">8.</span> <span class="toc-text">8. Tree</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-%E6%A0%91%E7%9A%84%E5%AD%98%E5%82%A8"><span class="toc-number">8.1.</span> <span class="toc-text">8.1. 树的存储</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-create-tree"><span class="toc-number">8.2.</span> <span class="toc-text">8.2. create tree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-binary-tree"><span class="toc-number">8.3.</span> <span class="toc-text">8.3. binary tree</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-1-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88complete-binary-tree%EF%BC%89"><span class="toc-number">8.3.1.</span> <span class="toc-text">8.3.1. 完全二叉树（complete binary tree）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-2-%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88full-binary-tree%EF%BC%89"><span class="toc-number">8.3.2.</span> <span class="toc-text">8.3.2. 满二叉树（full binary tree）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-4-%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88traverse-binary-tree%EF%BC%89"><span class="toc-number">8.4.</span> <span class="toc-text">8.4. 遍历二叉树（traverse binary tree）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-5-DFS%E4%B8%8EBFS"><span class="toc-number">8.5.</span> <span class="toc-text">8.5. DFS与BFS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-6-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-binary-search-tree"><span class="toc-number">8.6.</span> <span class="toc-text">8.6. 二叉搜索树(binary search tree)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-7-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88AVL%E6%A0%91%EF%BC%89"><span class="toc-number">8.7.</span> <span class="toc-text">8.7. 平衡二叉树（AVL树）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-8-%E7%BA%A2%E9%BB%91%E6%A0%91-Red-black-tree"><span class="toc-number">8.8.</span> <span class="toc-text">8.8. 红黑树(Red black tree)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-9-create"><span class="toc-number">8.9.</span> <span class="toc-text">8.9. create</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-9-1-Rotate"><span class="toc-number">8.9.1.</span> <span class="toc-text">8.9.1. Rotate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-9-2-Insert"><span class="toc-number">8.9.2.</span> <span class="toc-text">8.9.2. Insert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-9-3-delete"><span class="toc-number">8.9.3.</span> <span class="toc-text">8.9.3. delete</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-10-%E5%AD%97%E5%85%B8%E6%95%B0%EF%BC%88trie%E6%A0%91%EF%BC%89"><span class="toc-number">8.10.</span> <span class="toc-text">8.10. 字典数（trie树）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-11-%E5%A0%86%E6%A0%91"><span class="toc-number">8.11.</span> <span class="toc-text">8.11. 堆树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-12-B%E6%A0%91"><span class="toc-number">8.12.</span> <span class="toc-text">8.12. B树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-13-B-%E6%A0%91"><span class="toc-number">8.13.</span> <span class="toc-text">8.13. B+树</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-Algorithm"><span class="toc-number">9.</span> <span class="toc-text">9. Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-number">9.1.</span> <span class="toc-text">9.1. 快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-%E6%A1%B6%E6%8E%92%E5%BA%8F"><span class="toc-number">9.2.</span> <span class="toc-text">9.2. 桶排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-3-%E5%A0%86%E6%8E%92%E5%BA%8F"><span class="toc-number">9.3.</span> <span class="toc-text">9.3. 堆排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-4-%E9%80%92%E5%BD%92"><span class="toc-number">9.4.</span> <span class="toc-text">9.4. 递归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-5-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">9.5.</span> <span class="toc-text">9.5. 动态规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-6-KMP-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9F%A5%E6%89%BE"><span class="toc-number">9.6.</span> <span class="toc-text">9.6. KMP(字符串查找)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-References"><span class="toc-number">10.</span> <span class="toc-text">10. References</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91-%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91%E8%8B%B1%E6%96%87%E8%A7%A3%E9%87%8A%E7%BA%A2%E9%BB%91%E6%A0%91-%E8%AE%B2%E8%A7%A3%E6%9C%80%E5%85%A8%E9%9D%A2%EF%BC%8C%E9%87%8D%E7%82%B9%E6%8E%8C%E6%8F%A1%E3%80%82-%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91%E4%B8%AD%E6%96%87%E8%A7%A3%E9%87%8A%E7%BA%A2%E9%BB%91%E6%A0%91-Github%E8%AF%A6%E8%A7%A3%EF%BC%9A%E6%95%99%E4%BD%A0%E9%80%8F%E5%BD%BB%E4%BA%86%E8%A7%A3%E7%BA%A2%E9%BB%91%E6%A0%91-A-complete-and-working-implementation-in-C-James-Paton-%E2%80%9CRed-Black-Trees%E2%80%9D-%E7%BA%A2%E9%BB%91%E6%A0%91-%E4%B8%80-%E4%B9%8B-%E5%8E%9F%E7%90%86%E5%92%8C%E7%AE%97%E6%B3%95%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="toc-number">10.1.</span> <span class="toc-text">红黑树- 维基百科英文解释红黑树 讲解最全面，重点掌握。- 维基百科中文解释红黑树- Github详解：教你透彻了解红黑树- A complete and working implementation in C- James Paton. “Red-Black Trees”- 红黑树(一)之 原理和算法详细介绍</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ComputerSystemAProgramm'sPerspective"/></a><div class="content"><a class="title" href="/OS/synced/OS/ComputerSystemAProgramm'sPerspective/" title="ComputerSystemAProgramm'sPerspective">ComputerSystemAProgramm'sPerspective</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jsoncpp"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Jsoncpp/" title="Jsoncpp">Jsoncpp</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/OpenSource/synced/OpenSource/Project/" title="Project"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Project"/></a><div class="content"><a class="title" href="/OpenSource/synced/OpenSource/Project/" title="Project">Project</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Protocol Terms"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/Terms/" title="Protocol Terms">Protocol Terms</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Protocol/synced/Protocol/modbus/" title="Modbus"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Modbus"/></a><div class="content"><a class="title" href="/Protocol/synced/Protocol/modbus/" title="Modbus">Modbus</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RedisSourceCode"/></a><div class="content"><a class="title" href="/Redis/synced/Redis/RedisSourceCode/" title="RedisSourceCode">RedisSourceCode</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Qt/synced/Qt/Qt/" title="Qt"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/Qt/synced/Qt/Qt/" title="Qt">Qt</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Embodied/" title="Embodied"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Embodied"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Embodied/" title="Embodied">Embodied</a><time datetime="2026-04-19T04:03:16.000Z" title="发表于 2026-04-19 12:03:16">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":0,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'JohnJeep/Learning-CS-Journey',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
