@@ -1,0 +1,303 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="A practical computer science learning journey with engineering notes and deep dives.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Learning Computer Science Journey">
+<meta property="og:url" content="https://johnjeep.github.io/page/13/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="A practical computer science learning journey with engineering notes and deep dives.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/butterfly-icon.png">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="computer, journey">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/butterfly-icon.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/page/13/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Learning Computer Science Journey',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page fixed" id="page-header" style="background-image: url(/img/seele.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Learning Computer Science Journey</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover"><a href="/C/synced/C/9_pointer_function_function_pointer/" title="9 Pointer Function Function Pointer"><img class="post-bg" src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="9 Pointer Function Function Pointer"></a></div><div class="recent-post-info"><a class="article-title" href="/C/synced/C/9_pointer_function_function_pointer/" title="9 Pointer Function Function Pointer">9 Pointer Function Function Pointer</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-19T03:48:39.000Z" title="发表于 2026-04-19 11:48:39">2026-04-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/C/">C</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/c/">c</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/9-pointer-function-function-pointer/">9-pointer-function-function-pointer</a></span></div><div class="content">   1. 指针函数1.1. 定义指针函数是返回结果的类型为指针的一个函数。其本质是一个函数，与普通函数的区别是，指针函数的返回值是一个指针，函数返回的数据是一个地址。 1.2. 格式函数的定义格式如下：  类型说明符  *函数名(参数表) 格式： int *fun(x, y)  1.3. 代码实现12345678910111213141516171819202122232425262728293031#include &quot...</div></div></div><div class="recent-post-item"><div class="post_cover"><a href="/C/synced/C/7_segment_fault/" title="7 Segment Fault"><img class="post-bg" src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="7 Segment Fault"></a></div><div class="recent-post-info"><a class="article-title" href="/C/synced/C/7_segment_fault/" title="7 Segment Fault">7 Segment Fault</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-19T03:48:39.000Z" title="发表于 2026-04-19 11:48:39">2026-04-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/C/">C</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/c/">c</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/7-segment-fault/">7-segment-fault</a></span></div><div class="content"> Segmentation Fault1. C语言中常见的问题 内存重叠的处理 临时变量太多或 new 的内存没有安全释放 没有测试内存越界 指针操作不熟悉  2. 概念 什么是段错误(segmentation fault)？ 程序发生了越界访问，cpu就会产生相应的异常保护，于是segmentation fault就出现了。    3. 产生的原因 什么时候会发生 segmentation fault?  访问了不可访问的内存，...</div></div></div><div class="recent-post-item"><div class="post_cover"><a href="/Architecture/CPU/synced/Architecture/CPU/CPU/" title="CPU"><img class="post-bg" src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CPU"></a></div><div class="recent-post-info"><a class="article-title" href="/Architecture/CPU/synced/Architecture/CPU/CPU/" title="CPU">CPU</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-19T03:48:39.000Z" title="发表于 2026-04-19 11:48:39">2026-04-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Architecture/">Architecture</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Architecture/CPU/">CPU</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/architecture/">architecture</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/cpu/">cpu</a></span></div><div class="content">  Linux 终端下运行 lscpu 命令查看关于 CPU 架构的信息。 12345678910111213141516171819202122232425[root@AP03 log]# lscpuArchitecture:          x86_64CPU op-mode(s):        32-bit, 64-bitByte Order:            Little EndianCPU(s):       ...</div></div></div><div class="recent-post-item"><div class="post_cover"><a href="/Cloud-Native/Docker/synced/CloudNative/Docker/Internal/" title="Internal"><img class="post-bg" src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Internal"></a></div><div class="recent-post-info"><a class="article-title" href="/Cloud-Native/Docker/synced/CloudNative/Docker/Internal/" title="Internal">Internal</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-19T03:48:39.000Z" title="发表于 2026-04-19 11:48:39">2026-04-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Cloud-Native/">Cloud Native</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Cloud-Native/Docker/">Docker</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/cloudnative/">cloudnative</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/docker/">docker</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/internal/">internal</a></span></div><div class="content">  1. 理解 Docker 内部原理 Docke 容器本质上是宿主机的进程。 namespace 实现了资源隔离。 cgroups 实现了资源限制。 写时复制机制(copy-on-write)实现了高效的文件操作。  1.1. namespace资源隔离linux 内核提拱了 6 种 namespace 隔离的系统调用，如下图所示，但是真正的容器还需要处理许多其他工作。    namespace 系统调用参数 隔离内容    U...</div></div></div><div class="recent-post-item"><div class="post_cover"><a href="/C/synced/Cpp/Optimize/" title="Optimize"><img class="post-bg" src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Optimize"></a></div><div class="recent-post-info"><a class="article-title" href="/C/synced/Cpp/Optimize/" title="Optimize">Optimize</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-07T09:10:37.000Z" title="发表于 2026-04-07 17:10:37">2026-04-07</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/C/">C++</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/cpp/">cpp</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/optimize/">optimize</a></span></div><div class="content">   1. C++ Optimize 2. 开销来自哪里 3. 编写高效的 C++ 程序 4. 虚函数性能开销 5. References  1. C++ OptimizeC++ 优化的核心在于编写高效的算法、避免不必要的计算和步骤，以及选择恰当的优化设计策略。 2. 开销来自哪里 函数之间的调用。用模板和内联函数去解决。 虚函数调用。用 CRTP 和 variant 去解决。 内存分配和访问。用对象池和内存对齐去解决。 不必要的...</div></div></div><div class="recent-post-item"><div class="post_cover"><a href="/Robotics/synced/Robotics/ROS2Packages/" title="ROS2Packages"><img class="post-bg" src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ROS2Packages"></a></div><div class="recent-post-info"><a class="article-title" href="/Robotics/synced/Robotics/ROS2Packages/" title="ROS2Packages">ROS2Packages</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-09T03:36:44.000Z" title="发表于 2026-03-09 11:36:44">2026-03-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Robotics/">Robotics</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/robotics/">robotics</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/ros2packages/">ros2packages</a></span></div><div class="content">   1. Introduction 2. rcl 3. rclcpp 3.1. rclcpp::spin(node) 3.2. internal fundamental 3.3. 什么时候 spin 会结束？ 3.4. spin 的几种用法 3.5. spin 选择建议   4. rclpy 5. rmw 6. node 7. timer 8. parameter 9. publisher 10. sub 12. rosidl ...</div></div></div><div class="recent-post-item"><div class="post_cover"><a href="/Robotics/synced/Robotics/ROS2Interfaces/" title="ROS2Interfaces"><img class="post-bg" src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ROS2Interfaces"></a></div><div class="recent-post-info"><a class="article-title" href="/Robotics/synced/Robotics/ROS2Interfaces/" title="ROS2Interfaces">ROS2Interfaces</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-09T03:36:12.000Z" title="发表于 2026-03-09 11:36:12">2026-03-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Robotics/">Robotics</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/robotics/">robotics</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/ros2interfaces/">ros2interfaces</a></span></div><div class="content">   1. Introduction 2. std_msgs References  1. Introduction在 ROS 2 中，消息（Messages）、服务（Services）和动作（Actions）是节点之间通信的基本机制。ROS 2 提供了丰富的标准消息类型，同时也支持用户定义自定义消息、服务和动作接口，以满足特定应用需求。 查看本地已安装的所有 interfaces 1ros2 interface list   2...</div></div></div><div class="recent-post-item"><div class="post_cover"><a href="/Robotics/synced/Robotics/Camera/" title="Camera"><img class="post-bg" src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Camera"></a></div><div class="recent-post-info"><a class="article-title" href="/Robotics/synced/Robotics/Camera/" title="Camera">Camera</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-05T05:09:35.000Z" title="发表于 2026-03-05 13:09:35">2026-03-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Robotics/">Robotics</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/robotics/">robotics</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/camera/">camera</a></span></div><div class="content">   1. Camera 1.1. color camera 1.2. ir camera 1.3. depth camera   2. References  1. Camera1.1. color camera彩色摄像头 1.2. ir camera红外摄像头 1.3. depth camera深度摄像头 2. References 奥比中光 orbbec_camera: https://www.orbbec.com.cn/i...</div></div></div><div class="recent-post-item"><div class="post_cover"><a href="/Robotics/synced/Robotics/Rqt/" title="Rqt"><img class="post-bg" src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rqt"></a></div><div class="recent-post-info"><a class="article-title" href="/Robotics/synced/Robotics/Rqt/" title="Rqt">Rqt</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-02-12T19:18:46.000Z" title="发表于 2026-02-13 03:18:46">2026-02-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Robotics/">Robotics</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/robotics/">robotics</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/rqt/">rqt</a></span></div><div class="content">  RqtRqt 是 ROS（机器人操作系统）生态系统中的一款强大且灵活的可视化工具。它基于 Qt 框架，提供了一个插件式的架构，使用户能够通过各种插件来监控和调试 ROS 系统中的节点、话题、参数等。 用途：  显示 2D 图表（如 rqt_plot 显示传感器数值随时间变化） 查看 话题列表&#x2F;消息内容（rqt_topic） 查看 节点图（rqt_graph） 动态调整 参数服务器（rqt_reconfigure） 发...</div></div></div><div class="recent-post-item"><div class="post_cover"><a href="/Math/synced/Math/Calculus/" title="Calculus"><img class="post-bg" src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Calculus"></a></div><div class="recent-post-info"><a class="article-title" href="/Math/synced/Math/Calculus/" title="Calculus">Calculus</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-02-12T02:58:12.000Z" title="发表于 2026-02-12 10:58:12">2026-02-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Math/">Math</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/calculus/">calculus</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/math/">math</a></span></div><div class="content">  CalculusJames Stewart(詹姆斯·斯图尔特)，加拿大人。  James Stewart是一位数学匠人，他花费近 7 年时间写出这本他理想中的微积分教材《Calculus》，起因竟然是学生在课间无意中跟他说的一句话：“Stewart博士，我们希望你能写一本微积分教材，因为我们觉得你的讲座比我们用的书好太多了。”一年365天，他在教学和科研任务的间隙中穿插写作，有时每天会花上十几个小时，飞机起飞、火箭发射，他和助...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/12/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/#content-inner">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/#content-inner">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/#content-inner">33</a><a class="extend next" rel="next" href="/page/14/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">321</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">335</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/C/synced/Cpp/C++11/" title="C++11"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++11"/></a><div class="content"><a class="title" href="/C/synced/Cpp/C++11/" title="C++11">C++11</a><time datetime="2026-04-19T03:48:40.000Z" title="发表于 2026-04-19 11:48:40">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C/synced/Cpp/Novice/" title="Novice"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Novice"/></a><div class="content"><a class="title" href="/C/synced/Cpp/Novice/" title="Novice">Novice</a><time datetime="2026-04-19T03:48:40.000Z" title="发表于 2026-04-19 11:48:40">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C/synced/Cpp/MemoryManagement/" title="MemoryManagement"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MemoryManagement"/></a><div class="content"><a class="title" href="/C/synced/Cpp/MemoryManagement/" title="MemoryManagement">MemoryManagement</a><time datetime="2026-04-19T03:48:40.000Z" title="发表于 2026-04-19 11:48:40">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C/synced/Cpp/SoftDesign/" title="SoftDesign"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SoftDesign"/></a><div class="content"><a class="title" href="/C/synced/Cpp/SoftDesign/" title="SoftDesign">SoftDesign</a><time datetime="2026-04-19T03:48:40.000Z" title="发表于 2026-04-19 11:48:40">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C/synced/Cpp/StyleGuide/" title="StyleGuide"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="StyleGuide"/></a><div class="content"><a class="title" href="/C/synced/Cpp/StyleGuide/" title="StyleGuide">StyleGuide</a><time datetime="2026-04-19T03:48:40.000Z" title="发表于 2026-04-19 11:48:40">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C/synced/Cpp/ThreadPool/" title="ThreadPool"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ThreadPool"/></a><div class="content"><a class="title" href="/C/synced/Cpp/ThreadPool/" title="ThreadPool">ThreadPool</a><time datetime="2026-04-19T03:48:40.000Z" title="发表于 2026-04-19 11:48:40">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C/synced/Cpp/STL/" title="STL"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="STL"/></a><div class="content"><a class="title" href="/C/synced/Cpp/STL/" title="STL">STL</a><time datetime="2026-04-19T03:48:40.000Z" title="发表于 2026-04-19 11:48:40">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C/synced/Cpp/concurrency/" title="Concurrency"><img src="/img/seele.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Concurrency"/></a><div class="content"><a class="title" href="/C/synced/Cpp/concurrency/" title="Concurrency">Concurrency</a><time datetime="2026-04-19T03:48:40.000Z" title="发表于 2026-04-19 11:48:40">2026-04-19</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI/"><span class="card-category-list-name">AI</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Architecture/"><span class="card-category-list-name">Architecture</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Architecture/CPU/"><span class="card-category-list-name">CPU</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Architecture/Chip/"><span class="card-category-list-name">Chip</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Assembly/"><span class="card-category-list-name">Assembly</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AutoDrive/"><span class="card-category-list-name">AutoDrive</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/"><span class="card-category-list-name">C</span><span class="card-category-list-count">44</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C/"><span class="card-category-list-name">C++</span><span class="card-category-list-count">22</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/0-code-of-conduct/" style="font-size: 1.1em; color: #999">0-code-of-conduct</a> <a href="/tags/01-12-cpu-virtualization/" style="font-size: 1.1em; color: #999">01-12-cpu-virtualization</a> <a href="/tags/01-virtualization/" style="font-size: 1.5em; color: #99a9bf">01-virtualization</a> <a href="/tags/02-concurrency/" style="font-size: 1.3em; color: #99a1ac">02-concurrency</a> <a href="/tags/1/" style="font-size: 1.1em; color: #999">1</a> <a href="/tags/1-thinking/" style="font-size: 1.1em; color: #999">1-thinking</a> <a href="/tags/10-const/" style="font-size: 1.1em; color: #999">10-const</a> <a href="/tags/11/" style="font-size: 1.1em; color: #999">11</a> <a href="/tags/11-restrict/" style="font-size: 1.1em; color: #999">11-restrict</a> <a href="/tags/12-extern/" style="font-size: 1.1em; color: #999">12-extern</a> <a href="/tags/13-abstraction-address-space/" style="font-size: 1.1em; color: #999">13-abstraction-address-space</a> <a href="/tags/13-void/" style="font-size: 1.1em; color: #999">13-void</a> <a href="/tags/14-interlude-memory-api/" style="font-size: 1.1em; color: #999">14-interlude-memory-api</a> <a href="/tags/14-memset/" style="font-size: 1.1em; color: #999">14-memset</a> <a href="/tags/146-lru/" style="font-size: 1.1em; color: #999">146-lru</a> <a href="/tags/15/" style="font-size: 1.1em; color: #999">15</a> <a href="/tags/15-address-translation/" style="font-size: 1.1em; color: #999">15-address-translation</a> <a href="/tags/15-strncpy-memcpy/" style="font-size: 1.1em; color: #999">15-strncpy-memcpy</a> <a href="/tags/16-memcmp-strcmp/" style="font-size: 1.1em; color: #999">16-memcmp-strcmp</a> <a href="/tags/16-segmentation/" style="font-size: 1.1em; color: #999">16-segmentation</a> <a href="/tags/17-free-space-management/" style="font-size: 1.1em; color: #999">17-free-space-management</a> <a href="/tags/17-typedef/" style="font-size: 1.1em; color: #999">17-typedef</a> <a href="/tags/18-introduction-to-paging/" style="font-size: 1.1em; color: #999">18-introduction-to-paging</a> <a href="/tags/18-struct-bytealigned/" style="font-size: 1.1em; color: #999">18-struct-bytealigned</a> <a href="/tags/19-cdecl/" style="font-size: 1.1em; color: #999">19-cdecl</a> <a href="/tags/19-translation-lookaside-buffers/" style="font-size: 1.1em; color: #999">19-translation-lookaside-buffers</a> <a href="/tags/2-character-encoding/" style="font-size: 1.1em; color: #999">2-character-encoding</a> <a href="/tags/20-advanced-page-tables/" style="font-size: 1.1em; color: #999">20-advanced-page-tables</a> <a href="/tags/20-byte-halfword-word/" style="font-size: 1.1em; color: #999">20-byte-halfword-word</a> <a href="/tags/21/" style="font-size: 1.1em; color: #999">21</a> <a href="/tags/21-pointer/" style="font-size: 1.1em; color: #999">21-pointer</a> <a href="/tags/21-swapping-mechanisms/" style="font-size: 1.1em; color: #999">21-swapping-mechanisms</a> <a href="/tags/215-k/" style="font-size: 1.1em; color: #999">215-k</a> <a href="/tags/22-enumerations/" style="font-size: 1.1em; color: #999">22-enumerations</a> <a href="/tags/22-swapping-policies/" style="font-size: 1.1em; color: #999">22-swapping-policies</a> <a href="/tags/23-state-machine/" style="font-size: 1.1em; color: #999">23-state-machine</a> <a href="/tags/23-virtual-memory-systems/" style="font-size: 1.1em; color: #999">23-virtual-memory-systems</a> <a href="/tags/24/" style="font-size: 1.1em; color: #999">24</a> <a href="/tags/24-array-pointer/" style="font-size: 1.1em; color: #999">24-array-pointer</a> <a href="/tags/25-atoi/" style="font-size: 1.1em; color: #999">25-atoi</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/04/">
+            <span class="card-archive-list-date">
+              2026-04
+            </span>
+            <span class="card-archive-list-count">125</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/03/">
+            <span class="card-archive-list-date">
+              2026-03
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/02/">
+            <span class="card-archive-list-date">
+              2026-02
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/01/">
+            <span class="card-archive-list-date">
+              2026-01
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/12/">
+            <span class="card-archive-list-date">
+              2025-12
+            </span>
+            <span class="card-archive-list-count">11</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/11/">
+            <span class="card-archive-list-date">
+              2025-11
+            </span>
+            <span class="card-archive-list-count">40</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/04/">
+            <span class="card-archive-list-date">
+              2025-04
+            </span>
+            <span class="card-archive-list-count">13</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/03/">
+            <span class="card-archive-list-date">
+              2025-03
+            </span>
+            <span class="card-archive-list-count">12</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">321</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">587.2k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-04-19T11:49:07.445Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  },
+  processSubtitle: (content, extraContents = []) => {
+    if (true) {
+      const sub = ["Build deep engineering intuition.","Learn from systems, code, and failure cases.","Turn notes into production knowledge."].slice()
+
+      if (extraContents.length > 0) {
+        sub.unshift(...extraContents)
+      }
+
+      if (typeof content === 'string') {
+        sub.unshift(content)
+      } else if (Array.isArray(content)) {
+        sub.unshift(...content)
+      }
+
+      sub.length > 0 && typedJSFn.init(sub)
+    } else {
+      document.getElementById('subtitle').textContent = typeof content === 'string' ? content :
+        (Array.isArray(content) && content.length > 0 ? content[0] : '')
+    }
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
+  typedJSFn.processSubtitle(["Build deep engineering intuition.","Learn from systems, code, and failure cases.","Turn notes into production knowledge."])
+}
+typedJSFn.run(subtitleType)</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
