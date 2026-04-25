@@ -6,7 +6,7 @@
   <link href="https://johnjeep.github.io/atom.xml" rel="self"/>
   
   <link href="https://johnjeep.github.io/"/>
-  <updated>2026-04-19T05:08:45.000Z</updated>
+  <updated>2025-04-18T01:49:45.000Z</updated>
   <id>https://johnjeep.github.io/</id>
   
   <author>
@@ -17,831 +17,10 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Linux Kernal</title>
-    <link href="https://johnjeep.github.io/Linux/synced/Linux/linux-kernal/"/>
-    <id>https://johnjeep.github.io/Linux/synced/Linux/linux-kernal/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-04-19T05:08:45.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: Wednesday,</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="https://johnjeep.github.io/categories/Linux/"/>
-    
-    
-    <category term="linux" scheme="https://johnjeep.github.io/tags/linux/"/>
-    
-    <category term="linux-kernal" scheme="https://johnjeep.github.io/tags/linux-kernal/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux Basic</title>
-    <link href="https://johnjeep.github.io/Linux/synced/Linux/linux-basic/"/>
-    <id>https://johnjeep.github.io/Linux/synced/Linux/linux-basic/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2025-12-28T09:33:19.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-04-04</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="https://johnjeep.github.io/categories/Linux/"/>
-    
-    
-    <category term="linux" scheme="https://johnjeep.github.io/tags/linux/"/>
-    
-    <category term="linux-basic" scheme="https://johnjeep.github.io/tags/linux-basic/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux Tricks</title>
-    <link href="https://johnjeep.github.io/Linux/synced/Linux/linux-tricks/"/>
-    <id>https://johnjeep.github.io/Linux/synced/Linux/linux-tricks/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2025-11-19T20:49:17.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2024-10-10</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="https://johnjeep.github.io/categories/Linux/"/>
-    
-    
-    <category term="linux" scheme="https://johnjeep.github.io/tags/linux/"/>
-    
-    <category term="linux-tricks" scheme="https://johnjeep.github.io/tags/linux-tricks/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Microsoft Wsl</title>
-    <link href="https://johnjeep.github.io/Linux/synced/Linux/microsoft-wsl/"/>
-    <id>https://johnjeep.github.io/Linux/synced/Linux/microsoft-wsl/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2025-11-19T20:49:17.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2022-04-07</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="https://johnjeep.github.io/categories/Linux/"/>
-    
-    
-    <category term="linux" scheme="https://johnjeep.github.io/tags/linux/"/>
-    
-    <category term="microsoft-wsl" scheme="https://johnjeep.github.io/tags/microsoft-wsl/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Performance</title>
-    <link href="https://johnjeep.github.io/Linux/synced/Linux/performance/"/>
-    <id>https://johnjeep.github.io/Linux/synced/Linux/performance/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2025-11-25T07:25:23.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2021-03-22</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="https://johnjeep.github.io/categories/Linux/"/>
-    
-    
-    <category term="performance" scheme="https://johnjeep.github.io/tags/performance/"/>
-    
-    <category term="linux" scheme="https://johnjeep.github.io/tags/linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GreekAlphabet</title>
-    <link href="https://johnjeep.github.io/Markdown/synced/Markdown/GreekAlphabet/"/>
-    <id>https://johnjeep.github.io/Markdown/synced/Markdown/GreekAlphabet/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-04-19T05:08:45.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2021-01-11</summary>
-        
-      
-    
-    
-    
-    <category term="Markdown" scheme="https://johnjeep.github.io/categories/Markdown/"/>
-    
-    
-    <category term="greekalphabet" scheme="https://johnjeep.github.io/tags/greekalphabet/"/>
-    
-    <category term="markdown" scheme="https://johnjeep.github.io/tags/markdown/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LaTex</title>
-    <link href="https://johnjeep.github.io/Markdown/synced/Markdown/LaTex/"/>
-    <id>https://johnjeep.github.io/Markdown/synced/Markdown/LaTex/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-01-05T08:31:11.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2019-03-13</summary>
-        
-      
-    
-    
-    
-    <category term="Markdown" scheme="https://johnjeep.github.io/categories/Markdown/"/>
-    
-    
-    <category term="markdown" scheme="https://johnjeep.github.io/tags/markdown/"/>
-    
-    <category term="latex" scheme="https://johnjeep.github.io/tags/latex/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Jupyter</title>
-    <link href="https://johnjeep.github.io/Markdown/synced/Markdown/Jupyter/"/>
-    <id>https://johnjeep.github.io/Markdown/synced/Markdown/Jupyter/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-04-19T05:08:45.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2022-01-27</summary>
-        
-      
-    
-    
-    
-    <category term="Markdown" scheme="https://johnjeep.github.io/categories/Markdown/"/>
-    
-    
-    <category term="markdown" scheme="https://johnjeep.github.io/tags/markdown/"/>
-    
-    <category term="jupyter" scheme="https://johnjeep.github.io/tags/jupyter/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AbbrNetworkTerms</title>
-    <link href="https://johnjeep.github.io/Network/synced/Network/AbbrNetworkTerms/"/>
-    <id>https://johnjeep.github.io/Network/synced/Network/AbbrNetworkTerms/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2025-04-04T04:10:47.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2021-04-07</summary>
-        
-      
-    
-    
-    
-    <category term="Network" scheme="https://johnjeep.github.io/categories/Network/"/>
-    
-    
-    <category term="abbrnetworkterms" scheme="https://johnjeep.github.io/tags/abbrnetworkterms/"/>
-    
-    <category term="network" scheme="https://johnjeep.github.io/tags/network/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CustomTCPProtocol</title>
-    <link href="https://johnjeep.github.io/Network/synced/Network/CustomTCPProtocol/"/>
-    <id>https://johnjeep.github.io/Network/synced/Network/CustomTCPProtocol/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2025-11-18T22:21:52.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2023-05-19</summary>
-        
-      
-    
-    
-    
-    <category term="Network" scheme="https://johnjeep.github.io/categories/Network/"/>
-    
-    
-    <category term="network" scheme="https://johnjeep.github.io/tags/network/"/>
-    
-    <category term="customtcpprotocol" scheme="https://johnjeep.github.io/tags/customtcpprotocol/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTTP</title>
-    <link href="https://johnjeep.github.io/Network/synced/Network/HTTP/"/>
-    <id>https://johnjeep.github.io/Network/synced/Network/HTTP/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-04-19T05:08:45.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-07-06</summary>
-        
-      
-    
-    
-    
-    <category term="Network" scheme="https://johnjeep.github.io/categories/Network/"/>
-    
-    
-    <category term="network" scheme="https://johnjeep.github.io/tags/network/"/>
-    
-    <category term="http" scheme="https://johnjeep.github.io/tags/http/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>How‘sTheNetworkConnected</title>
-    <link href="https://johnjeep.github.io/Network/synced/Network/How%E2%80%98sTheNetworkConnected/"/>
-    <id>https://johnjeep.github.io/Network/synced/Network/How%E2%80%98sTheNetworkConnected/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-04-25T01:18:06.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2019-12-27</summary>
-        
-      
-    
-    
-    
-    <category term="Network" scheme="https://johnjeep.github.io/categories/Network/"/>
-    
-    
-    <category term="network" scheme="https://johnjeep.github.io/tags/network/"/>
-    
-    <category term="how-sthenetworkconnected" scheme="https://johnjeep.github.io/tags/how-sthenetworkconnected/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NetworkPrinciples</title>
-    <link href="https://johnjeep.github.io/Network/synced/Network/NetworkPrinciples/"/>
-    <id>https://johnjeep.github.io/Network/synced/Network/NetworkPrinciples/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-04-19T05:08:45.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-04-04</summary>
-        
-      
-    
-    
-    
-    <category term="Network" scheme="https://johnjeep.github.io/categories/Network/"/>
-    
-    
-    <category term="network" scheme="https://johnjeep.github.io/tags/network/"/>
-    
-    <category term="networkprinciples" scheme="https://johnjeep.github.io/tags/networkprinciples/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TCP</title>
-    <link href="https://johnjeep.github.io/Network/synced/Network/TCP-UDP/"/>
-    <id>https://johnjeep.github.io/Network/synced/Network/TCP-UDP/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-04-19T05:08:45.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;TCP&quot;&gt;&lt;a href=&quot;#TCP&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Network" scheme="https://johnjeep.github.io/categories/Network/"/>
-    
-    
-    <category term="network" scheme="https://johnjeep.github.io/tags/network/"/>
-    
-    <category term="tcp-udp" scheme="https://johnjeep.github.io/tags/tcp-udp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VirtualNetwork</title>
-    <link href="https://johnjeep.github.io/Network/synced/Network/VirtualNetwork/"/>
-    <id>https://johnjeep.github.io/Network/synced/Network/VirtualNetwork/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2023-08-04T00:23:58.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2021-11-29</summary>
-        
-      
-    
-    
-    
-    <category term="Network" scheme="https://johnjeep.github.io/categories/Network/"/>
-    
-    
-    <category term="network" scheme="https://johnjeep.github.io/tags/network/"/>
-    
-    <category term="virtualnetwork" scheme="https://johnjeep.github.io/tags/virtualnetwork/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ComputerSystemAProgramm&#39;sPerspective</title>
-    <link href="https://johnjeep.github.io/OS/synced/OS/ComputerSystemAProgramm&#39;sPerspective/"/>
-    <id>https://johnjeep.github.io/OS/synced/OS/ComputerSystemAProgramm&#39;sPerspective/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-04-19T05:08:45.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-09-10</summary>
-        
-      
-    
-    
-    
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    
-    <category term="computersystemaprogramm-sperspective" scheme="https://johnjeep.github.io/tags/computersystemaprogramm-sperspective/"/>
-    
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Jsoncpp</title>
-    <link href="https://johnjeep.github.io/OpenSource/synced/OpenSource/Jsoncpp/"/>
-    <id>https://johnjeep.github.io/OpenSource/synced/OpenSource/Jsoncpp/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-02-12T18:06:08.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-05-13</summary>
-        
-      
-    
-    
-    
-    <category term="OpenSource" scheme="https://johnjeep.github.io/categories/OpenSource/"/>
-    
-    
-    <category term="jsoncpp" scheme="https://johnjeep.github.io/tags/jsoncpp/"/>
-    
-    <category term="opensource" scheme="https://johnjeep.github.io/tags/opensource/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Project</title>
-    <link href="https://johnjeep.github.io/OpenSource/synced/OpenSource/Project/"/>
-    <id>https://johnjeep.github.io/OpenSource/synced/OpenSource/Project/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-02-12T18:06:08.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-05-13</summary>
-        
-      
-    
-    
-    
-    <category term="OpenSource" scheme="https://johnjeep.github.io/categories/OpenSource/"/>
-    
-    
-    <category term="opensource" scheme="https://johnjeep.github.io/tags/opensource/"/>
-    
-    <category term="project" scheme="https://johnjeep.github.io/tags/project/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Protocol Terms</title>
-    <link href="https://johnjeep.github.io/Protocol/synced/Protocol/Terms/"/>
-    <id>https://johnjeep.github.io/Protocol/synced/Protocol/Terms/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2025-11-18T22:19:31.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;Protocol-Terms&quot;&gt;&lt;a href=&quot;#Protocol-Terms&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Protocol" scheme="https://johnjeep.github.io/categories/Protocol/"/>
-    
-    
-    <category term="terms" scheme="https://johnjeep.github.io/tags/terms/"/>
-    
-    <category term="protocol" scheme="https://johnjeep.github.io/tags/protocol/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Modbus</title>
-    <link href="https://johnjeep.github.io/Protocol/synced/Protocol/modbus/"/>
-    <id>https://johnjeep.github.io/Protocol/synced/Protocol/modbus/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2025-11-18T22:19:31.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-03-18</summary>
-        
-      
-    
-    
-    
-    <category term="Protocol" scheme="https://johnjeep.github.io/categories/Protocol/"/>
-    
-    
-    <category term="protocol" scheme="https://johnjeep.github.io/tags/protocol/"/>
-    
-    <category term="modbus" scheme="https://johnjeep.github.io/tags/modbus/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Qt</title>
-    <link href="https://johnjeep.github.io/Qt/synced/Qt/Qt/"/>
-    <id>https://johnjeep.github.io/Qt/synced/Qt/Qt/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2025-10-10T01:03:57.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JOhnJeep
- * @Date: 2020-09-07</summary>
-        
-      
-    
-    
-    
-    <category term="Qt" scheme="https://johnjeep.github.io/categories/Qt/"/>
-    
-    
-    <category term="qt" scheme="https://johnjeep.github.io/tags/qt/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RedisSourceCode</title>
-    <link href="https://johnjeep.github.io/Redis/synced/Redis/RedisSourceCode/"/>
-    <id>https://johnjeep.github.io/Redis/synced/Redis/RedisSourceCode/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2025-04-04T04:10:47.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-09-05</summary>
-        
-      
-    
-    
-    
-    <category term="Redis" scheme="https://johnjeep.github.io/categories/Redis/"/>
-    
-    
-    <category term="redis" scheme="https://johnjeep.github.io/tags/redis/"/>
-    
-    <category term="redissourcecode" scheme="https://johnjeep.github.io/tags/redissourcecode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Embodied</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Embodied/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Embodied/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-02-11T09:04:14.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-12-28</summary>
-        
-      
-    
-    
-    
-    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
-    
-    
-    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
-    
-    <category term="embodied" scheme="https://johnjeep.github.io/tags/embodied/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ROSBag2</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/ROSBag2/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/ROSBag2/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2026-01-31T04:07:48.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-11-02</summary>
-        
-      
-    
-    
-    
-    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
-    
-    
-    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
-    
-    <category term="rosbag2" scheme="https://johnjeep.github.io/tags/rosbag2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Skills</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Skills/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Skills/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2025-12-01T06:43:48.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;机器人岗位：重点关注 &lt;font</summary>
-        
-      
-    
-    
-    
-    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
-    
-    
-    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
-    
-    <category term="skills" scheme="https://johnjeep.github.io/tags/skills/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WebsiteReferences</title>
-    <link href="https://johnjeep.github.io/StudyTool/synced/StudyTool/WebsiteReferences/"/>
-    <id>https://johnjeep.github.io/StudyTool/synced/StudyTool/WebsiteReferences/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2024-12-30T04:35:26.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
-
- * @Author: JohnJeep
- * @Date: 2019-04-12</summary>
-        
-      
-    
-    
-    
-    <category term="StudyTool" scheme="https://johnjeep.github.io/categories/StudyTool/"/>
-    
-    
-    <category term="studytool" scheme="https://johnjeep.github.io/tags/studytool/"/>
-    
-    <category term="websitereferences" scheme="https://johnjeep.github.io/tags/websitereferences/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>01 12 CPU Virtualization</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/01-Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/01-Virtualization/01-12-CPU-Virtualization/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/01-Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/01-Virtualization/01-12-CPU-Virtualization/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2020-08-11T04:46:14.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-05-13</summary>
-        
-      
-    
-    
-    
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="01-Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/01-Virtualization/"/>
-    
-    
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="01-12-cpu-virtualization" scheme="https://johnjeep.github.io/tags/01-12-cpu-virtualization/"/>
-    
-    <category term="01-virtualization" scheme="https://johnjeep.github.io/tags/01-virtualization/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>21 Swapping Mechanisms</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/01-Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/01-Virtualization/21-Swapping-Mechanisms/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/01-Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/01-Virtualization/21-Swapping-Mechanisms/</id>
-    <published>2026-04-25T01:18:06.000Z</published>
-    <updated>2020-08-11T04:46:14.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-05-12</summary>
-        
-      
-    
-    
-    
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="01-Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/01-Virtualization/"/>
-    
-    
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="01-virtualization" scheme="https://johnjeep.github.io/tags/01-virtualization/"/>
-    
-    <category term="21-swapping-mechanisms" scheme="https://johnjeep.github.io/tags/21-swapping-mechanisms/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Ollama</title>
     <link href="https://johnjeep.github.io/AI/synced/AI/Ollama/"/>
     <id>https://johnjeep.github.io/AI/synced/AI/Ollama/</id>
-    <published>2026-04-25T01:18:05.000Z</published>
+    <published>2026-04-25T01:26:37.000Z</published>
     <updated>2025-04-18T01:49:45.000Z</updated>
     
     
@@ -870,7 +49,7 @@
     <title>Autoware</title>
     <link href="https://johnjeep.github.io/AutoDrive/synced/AutoDrive/Autoware/"/>
     <id>https://johnjeep.github.io/AutoDrive/synced/AutoDrive/Autoware/</id>
-    <published>2026-04-25T01:18:05.000Z</published>
+    <published>2026-04-25T01:26:37.000Z</published>
     <updated>2025-11-07T18:24:01.000Z</updated>
     
     
@@ -890,6 +69,815 @@
     <category term="autodrive" scheme="https://johnjeep.github.io/tags/autodrive/"/>
     
     <category term="autoware" scheme="https://johnjeep.github.io/tags/autoware/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>10 Const</title>
+    <link href="https://johnjeep.github.io/C/synced/C/10_const/"/>
+    <id>https://johnjeep.github.io/C/synced/C/10_const/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2019-10-21</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="10-const" scheme="https://johnjeep.github.io/tags/10-const/"/>
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>1、清晰第一</title>
+    <link href="https://johnjeep.github.io/C/synced/C/0_code_of_conduct/"/>
+    <id>https://johnjeep.github.io/C/synced/C/0_code_of_conduct/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T19:37:30.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h3 id=&quot;1、清晰第一&quot;&gt;&lt;a href=&quot;#1、清晰第一&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="0-code-of-conduct" scheme="https://johnjeep.github.io/tags/0-code-of-conduct/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>11 Restrict</title>
+    <link href="https://johnjeep.github.io/C/synced/C/11_restrict/"/>
+    <id>https://johnjeep.github.io/C/synced/C/11_restrict/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2019-08-30</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="11-restrict" scheme="https://johnjeep.github.io/tags/11-restrict/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>12 Extern</title>
+    <link href="https://johnjeep.github.io/C/synced/C/12_extern/"/>
+    <id>https://johnjeep.github.io/C/synced/C/12_extern/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+
+ * @Author: JohnJeep
+ * @Date: 2020-05-21</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="12-extern" scheme="https://johnjeep.github.io/tags/12-extern/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>13 Void</title>
+    <link href="https://johnjeep.github.io/C/synced/C/13_void/"/>
+    <id>https://johnjeep.github.io/C/synced/C/13_void/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2020-09-02</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="13-void" scheme="https://johnjeep.github.io/tags/13-void/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>14 Memset</title>
+    <link href="https://johnjeep.github.io/C/synced/C/14_memset/"/>
+    <id>https://johnjeep.github.io/C/synced/C/14_memset/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2020-09-04</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="14-memset" scheme="https://johnjeep.github.io/tags/14-memset/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>15 Strncpy Memcpy</title>
+    <link href="https://johnjeep.github.io/C/synced/C/15_strncpy_memcpy/"/>
+    <id>https://johnjeep.github.io/C/synced/C/15_strncpy_memcpy/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2020-09-05</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="15-strncpy-memcpy" scheme="https://johnjeep.github.io/tags/15-strncpy-memcpy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>16 Memcmp Strcmp</title>
+    <link href="https://johnjeep.github.io/C/synced/C/16_memcmp_strcmp/"/>
+    <id>https://johnjeep.github.io/C/synced/C/16_memcmp_strcmp/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2020-09-12</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="16-memcmp-strcmp" scheme="https://johnjeep.github.io/tags/16-memcmp-strcmp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>17 Typedef</title>
+    <link href="https://johnjeep.github.io/C/synced/C/17_typedef/"/>
+    <id>https://johnjeep.github.io/C/synced/C/17_typedef/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2019-09-06</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="17-typedef" scheme="https://johnjeep.github.io/tags/17-typedef/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>18 Struct Bytealigned</title>
+    <link href="https://johnjeep.github.io/C/synced/C/18_struct_bytealigned/"/>
+    <id>https://johnjeep.github.io/C/synced/C/18_struct_bytealigned/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2019-09-16</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="18-struct-bytealigned" scheme="https://johnjeep.github.io/tags/18-struct-bytealigned/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>19 Cdecl</title>
+    <link href="https://johnjeep.github.io/C/synced/C/19_cdecl/"/>
+    <id>https://johnjeep.github.io/C/synced/C/19_cdecl/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;参考&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="19-cdecl" scheme="https://johnjeep.github.io/tags/19-cdecl/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>1 Thinking</title>
+    <link href="https://johnjeep.github.io/C/synced/C/1_thinking/"/>
+    <id>https://johnjeep.github.io/C/synced/C/1_thinking/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T19:37:30.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2019-12-03</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="1-thinking" scheme="https://johnjeep.github.io/tags/1-thinking/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>20 Byte Halfword Word</title>
+    <link href="https://johnjeep.github.io/C/synced/C/20_byte_halfword_word/"/>
+    <id>https://johnjeep.github.io/C/synced/C/20_byte_halfword_word/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2020-05-21</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="20-byte-halfword-word" scheme="https://johnjeep.github.io/tags/20-byte-halfword-word/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>21 Pointer</title>
+    <link href="https://johnjeep.github.io/C/synced/C/21_pointer/"/>
+    <id>https://johnjeep.github.io/C/synced/C/21_pointer/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-11-13T04:35:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2019-09-20</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="21-pointer" scheme="https://johnjeep.github.io/tags/21-pointer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>23 State Machine</title>
+    <link href="https://johnjeep.github.io/C/synced/C/23_state_machine/"/>
+    <id>https://johnjeep.github.io/C/synced/C/23_state_machine/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2020-05-21</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="23-state-machine" scheme="https://johnjeep.github.io/tags/23-state-machine/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>22 Enumerations</title>
+    <link href="https://johnjeep.github.io/C/synced/C/22_enumerations/"/>
+    <id>https://johnjeep.github.io/C/synced/C/22_enumerations/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2020-05-21</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="22-enumerations" scheme="https://johnjeep.github.io/tags/22-enumerations/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>25 Atoi</title>
+    <link href="https://johnjeep.github.io/C/synced/C/25_atoi/"/>
+    <id>https://johnjeep.github.io/C/synced/C/25_atoi/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T19:37:30.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;ul&gt;
+&lt;li&gt;atoi (表示 ascii to</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="25-atoi" scheme="https://johnjeep.github.io/tags/25-atoi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>26 Fprintf</title>
+    <link href="https://johnjeep.github.io/C/synced/C/26_fprintf/"/>
+    <id>https://johnjeep.github.io/C/synced/C/26_fprintf/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;函数原型：&lt;code&gt;int fprintf (FILE* stream,</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="26-fprintf" scheme="https://johnjeep.github.io/tags/26-fprintf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>27 Thread Pool</title>
+    <link href="https://johnjeep.github.io/C/synced/C/27_thread_pool/"/>
+    <id>https://johnjeep.github.io/C/synced/C/27_thread_pool/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T19:37:30.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2020-08-11</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="27-thread-pool" scheme="https://johnjeep.github.io/tags/27-thread-pool/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>28   Attribute  ((Packed))</title>
+    <link href="https://johnjeep.github.io/C/synced/C/28___attribute__((packed))/"/>
+    <id>https://johnjeep.github.io/C/synced/C/28___attribute__((packed))/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T19:37:30.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;参考&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="28-attribute-packed" scheme="https://johnjeep.github.io/tags/28-attribute-packed/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>29 Escape String ASCII</title>
+    <link href="https://johnjeep.github.io/C/synced/C/29_escape_string_ASCII/"/>
+    <id>https://johnjeep.github.io/C/synced/C/29_escape_string_ASCII/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-11-12T06:19:40.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2020-05-21</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="29-escape-string-ascii" scheme="https://johnjeep.github.io/tags/29-escape-string-ascii/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2 Character Encoding</title>
+    <link href="https://johnjeep.github.io/C/synced/C/2_character_encoding/"/>
+    <id>https://johnjeep.github.io/C/synced/C/2_character_encoding/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2019-08-23</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="2-character-encoding" scheme="https://johnjeep.github.io/tags/2-character-encoding/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>30 Memory</title>
+    <link href="https://johnjeep.github.io/C/synced/C/30_memory/"/>
+    <id>https://johnjeep.github.io/C/synced/C/30_memory/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2026-04-19T05:10:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2019-07-17</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="30-memory" scheme="https://johnjeep.github.io/tags/30-memory/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>31 Sizeof Strlen</title>
+    <link href="https://johnjeep.github.io/C/synced/C/31_sizeof_strlen/"/>
+    <id>https://johnjeep.github.io/C/synced/C/31_sizeof_strlen/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-11-13T04:35:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2020-08-13</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="31-sizeof-strlen" scheme="https://johnjeep.github.io/tags/31-sizeof-strlen/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>32 Main</title>
+    <link href="https://johnjeep.github.io/C/synced/C/32_main/"/>
+    <id>https://johnjeep.github.io/C/synced/C/32_main/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2020-08-28</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="32-main" scheme="https://johnjeep.github.io/tags/32-main/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>33 Register Auto</title>
+    <link href="https://johnjeep.github.io/C/synced/C/33_register_auto/"/>
+    <id>https://johnjeep.github.io/C/synced/C/33_register_auto/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2020-08-17</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="33-register-auto" scheme="https://johnjeep.github.io/tags/33-register-auto/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>34 Do While(false)</title>
+    <link href="https://johnjeep.github.io/C/synced/C/34_do_while(false)/"/>
+    <id>https://johnjeep.github.io/C/synced/C/34_do_while(false)/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2021-01-18</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="34-do-while-false" scheme="https://johnjeep.github.io/tags/34-do-while-false/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>35 Snprintf</title>
+    <link href="https://johnjeep.github.io/C/synced/C/35_snprintf/"/>
+    <id>https://johnjeep.github.io/C/synced/C/35_snprintf/</id>
+    <published>2026-04-25T01:26:37.000Z</published>
+    <updated>2025-04-04T04:08:57.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2021-01-25</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
+    
+    
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
+    
+    <category term="35-snprintf" scheme="https://johnjeep.github.io/tags/35-snprintf/"/>
     
   </entry>
   
