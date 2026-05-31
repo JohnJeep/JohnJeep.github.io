@@ -71,33 +71,6 @@
   </entry>
   
   <entry>
-    <title>STL</title>
-    <link href="https://johnjeep.github.io/Python/synced/Python/STL/"/>
-    <id>https://johnjeep.github.io/Python/synced/Python/STL/</id>
-    <published>2026-04-19T09:31:46.000Z</published>
-    <updated>2026-05-31T10:51:28.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2026-04-19</summary>
-        
-      
-    
-    
-    
-    <category term="Python" scheme="https://johnjeep.github.io/categories/Python/"/>
-    
-    
-    <category term="python" scheme="https://johnjeep.github.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
     <title>ROS2Interfaces</title>
     <link href="https://johnjeep.github.io/Robotics/synced/Robotics/ROS2Interfaces/"/>
     <id>https://johnjeep.github.io/Robotics/synced/Robotics/ROS2Interfaces/</id>
@@ -422,11 +395,11 @@
   </entry>
   
   <entry>
-    <title>NVIDIA</title>
-    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/"/>
-    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/</id>
+    <title>ARM</title>
+    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/"/>
+    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/</id>
     <published>2025-12-31T13:17:16.000Z</published>
-    <updated>2026-05-31T10:12:53.000Z</updated>
+    <updated>2026-05-31T10:12:30.000Z</updated>
     
     
       
@@ -453,11 +426,11 @@
   </entry>
   
   <entry>
-    <title>ARM</title>
-    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/"/>
-    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/</id>
+    <title>NVIDIA</title>
+    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/"/>
+    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/</id>
     <published>2025-12-31T13:17:16.000Z</published>
-    <updated>2026-05-31T10:12:30.000Z</updated>
+    <updated>2026-05-31T10:12:53.000Z</updated>
     
     
       
@@ -832,6 +805,37 @@
     
     
     <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MQTT</title>
+    <link href="https://johnjeep.github.io/Interview/Handbook/synced/Interview/Handbook/MQTT/"/>
+    <id>https://johnjeep.github.io/Interview/Handbook/synced/Interview/Handbook/MQTT/</id>
+    <published>2025-11-14T01:19:20.000Z</published>
+    <updated>2025-11-20T02:44:14.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2025-11-14</summary>
+        
+      
+    
+    
+    
+    <category term="Interview" scheme="https://johnjeep.github.io/categories/Interview/"/>
+    
+    <category term="Handbook" scheme="https://johnjeep.github.io/categories/Interview/Handbook/"/>
+    
+    
+    <category term="interview" scheme="https://johnjeep.github.io/tags/interview/"/>
+    
+    <category term="handbook" scheme="https://johnjeep.github.io/tags/handbook/"/>
     
   </entry>
   
