@@ -6,7 +6,7 @@
   <link href="https://johnjeep.github.io/atom.xml" rel="self"/>
   
   <link href="https://johnjeep.github.io/"/>
-  <updated>2021-04-08T15:28:53.000Z</updated>
+  <updated>2026-05-31T07:24:26.000Z</updated>
   <id>https://johnjeep.github.io/</id>
   
   <author>
@@ -15,41 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>32 Common Concurrency Problems</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/32-Common-Concurrency-Problems/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/32-Common-Concurrency-Problems/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2021-04-08T15:28:53.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @LastEditTime:</summary>
-        
-      
-    
-    
-    
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Concurrency" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Concurrency/"/>
-    
-    
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="concurrency" scheme="https://johnjeep.github.io/tags/concurrency/"/>
-    
-  </entry>
   
   <entry>
     <title>Claude</title>
@@ -457,11 +422,11 @@
   </entry>
   
   <entry>
-    <title>ARM</title>
-    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/"/>
-    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/</id>
+    <title>NVIDIA</title>
+    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/"/>
+    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/</id>
     <published>2025-12-31T13:17:16.000Z</published>
-    <updated>2026-05-31T10:12:30.000Z</updated>
+    <updated>2026-05-31T10:12:53.000Z</updated>
     
     
       
@@ -488,11 +453,11 @@
   </entry>
   
   <entry>
-    <title>NVIDIA</title>
-    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/"/>
-    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/</id>
+    <title>ARM</title>
+    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/"/>
+    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/</id>
     <published>2025-12-31T13:17:16.000Z</published>
-    <updated>2026-05-31T10:12:53.000Z</updated>
+    <updated>2026-05-31T10:12:30.000Z</updated>
     
     
       
@@ -831,6 +796,33 @@
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
  * @Date: 2025-11-16</summary>
+        
+      
+    
+    
+    
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
+    
+    
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Skills</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Skills/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Skills/</id>
+    <published>2025-11-15T13:17:16.000Z</published>
+    <updated>2026-05-31T10:45:55.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2025-11-15</summary>
         
       
     
