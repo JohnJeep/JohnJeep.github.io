@@ -6,7 +6,7 @@
   <link href="https://johnjeep.github.io/atom.xml" rel="self"/>
   
   <link href="https://johnjeep.github.io/"/>
-  <updated>2026-05-31T04:44:38.000Z</updated>
+  <updated>2021-04-08T15:28:53.000Z</updated>
   <id>https://johnjeep.github.io/</id>
   
   <author>
@@ -17,186 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>26 Concurrency and Threads</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/26-Concurrency-and-Threads/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/26-Concurrency-and-Threads/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-05-18</summary>
-        
-      
-    
-    
-    
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Concurrency" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Concurrency/"/>
-    
-    
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="concurrency" scheme="https://johnjeep.github.io/tags/concurrency/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>27 Thread API</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/27-Thread-API/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/27-Thread-API/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-05-18</summary>
-        
-      
-    
-    
-    
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Concurrency" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Concurrency/"/>
-    
-    
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="concurrency" scheme="https://johnjeep.github.io/tags/concurrency/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>28 Thread Lock</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/28-Thread-Lock/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/28-Thread-Lock/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-05-20</summary>
-        
-      
-    
-    
-    
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Concurrency" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Concurrency/"/>
-    
-    
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="concurrency" scheme="https://johnjeep.github.io/tags/concurrency/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>29 30 Condition Variables</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/29-30-Condition-Variables/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/29-30-Condition-Variables/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-05-27</summary>
-        
-      
-    
-    
-    
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Concurrency" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Concurrency/"/>
-    
-    
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="concurrency" scheme="https://johnjeep.github.io/tags/concurrency/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>31 Semaphore</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/31-Semaphore/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/31-Semaphore/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2020-05-28</summary>
-        
-      
-    
-    
-    
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Concurrency" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Concurrency/"/>
-    
-    
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="concurrency" scheme="https://johnjeep.github.io/tags/concurrency/"/>
-    
-  </entry>
-  
-  <entry>
     <title>32 Common Concurrency Problems</title>
     <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/32-Common-Concurrency-Problems/"/>
     <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/32-Common-Concurrency-Problems/</id>
     <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <updated>2021-04-08T15:28:53.000Z</updated>
     
     
       
@@ -227,11 +52,11 @@
   </entry>
   
   <entry>
-    <title>33 Event Based Concurrency</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/33-Event-based-Concurrency/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/33-Event-based-Concurrency/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>Claude</title>
+    <link href="https://johnjeep.github.io/AI/synced/AI/Claude/"/>
+    <id>https://johnjeep.github.io/AI/synced/AI/Claude/</id>
+    <published>2026-05-31T02:13:59.000Z</published>
+    <updated>2026-05-31T07:24:26.000Z</updated>
     
     
       
@@ -240,33 +65,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2020-05-30</summary>
+ * @Date: 2026-05-31</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Concurrency" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Concurrency/"/>
+    <category term="AI" scheme="https://johnjeep.github.io/categories/AI/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="concurrency" scheme="https://johnjeep.github.io/tags/concurrency/"/>
+    <category term="ai" scheme="https://johnjeep.github.io/tags/ai/"/>
     
   </entry>
   
   <entry>
-    <title>13 Abstraction Address Space</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/13-Abstraction-Address-Space/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/13-Abstraction-Address-Space/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>Awk</title>
+    <link href="https://johnjeep.github.io/Shell/synced/Shell/awk/"/>
+    <id>https://johnjeep.github.io/Shell/synced/Shell/awk/</id>
+    <published>2026-05-19T12:58:43.000Z</published>
+    <updated>2026-05-19T13:01:02.000Z</updated>
     
     
       
@@ -275,33 +92,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2020-05-13</summary>
+ * @Date: 2026-05-19</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Virtualization/"/>
+    <category term="Shell" scheme="https://johnjeep.github.io/categories/Shell/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="virtualization" scheme="https://johnjeep.github.io/tags/virtualization/"/>
+    <category term="shell" scheme="https://johnjeep.github.io/tags/shell/"/>
     
   </entry>
   
   <entry>
-    <title>01 12 CPU Virtualization</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/01-12-CPU-Virtualization/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/01-12-CPU-Virtualization/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>STL</title>
+    <link href="https://johnjeep.github.io/Python/synced/Python/STL/"/>
+    <id>https://johnjeep.github.io/Python/synced/Python/STL/</id>
+    <published>2026-04-19T09:31:46.000Z</published>
+    <updated>2026-05-31T10:51:28.000Z</updated>
     
     
       
@@ -310,33 +119,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2025-04-01</summary>
+ * @Date: 2026-04-19</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Virtualization/"/>
+    <category term="Python" scheme="https://johnjeep.github.io/categories/Python/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="virtualization" scheme="https://johnjeep.github.io/tags/virtualization/"/>
+    <category term="python" scheme="https://johnjeep.github.io/tags/python/"/>
     
   </entry>
   
   <entry>
-    <title>14 Interlude Memory API</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/14-Interlude-Memory-API/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/14-Interlude-Memory-API/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>ROS2Interfaces</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/ROS2Interfaces/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/ROS2Interfaces/</id>
+    <published>2026-03-09T11:03:37.000Z</published>
+    <updated>2026-05-31T10:47:20.000Z</updated>
     
     
       
@@ -345,33 +146,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2020-05-13</summary>
+ * @Date: 2026-03-09</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Virtualization/"/>
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="virtualization" scheme="https://johnjeep.github.io/tags/virtualization/"/>
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
   </entry>
   
   <entry>
-    <title>15 Address Translation</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/15-Address-Translation/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/15-Address-Translation/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>ROS2Packages</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/ROS2Packages/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/ROS2Packages/</id>
+    <published>2026-03-09T10:54:36.000Z</published>
+    <updated>2026-05-31T10:47:25.000Z</updated>
     
     
       
@@ -380,33 +173,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2020-05-12</summary>
+ * @Date: 2026-03-09</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Virtualization/"/>
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="virtualization" scheme="https://johnjeep.github.io/tags/virtualization/"/>
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
   </entry>
   
   <entry>
-    <title>16 Segmentation</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/16-Segmentation/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/16-Segmentation/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>Camera</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Camera/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Camera/</id>
+    <published>2026-03-06T15:45:52.000Z</published>
+    <updated>2026-05-31T10:48:36.000Z</updated>
     
     
       
@@ -415,33 +200,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2020-05-13</summary>
+ * @Date: 2026-03-06</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Virtualization/"/>
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="virtualization" scheme="https://johnjeep.github.io/tags/virtualization/"/>
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
   </entry>
   
   <entry>
-    <title>17 Free Space Management</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/17-Free-Space-Management/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/17-Free-Space-Management/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>Calculus</title>
+    <link href="https://johnjeep.github.io/Math/synced/Math/Calculus/"/>
+    <id>https://johnjeep.github.io/Math/synced/Math/Calculus/</id>
+    <published>2026-02-12T03:29:45.000Z</published>
+    <updated>2026-02-12T10:51:03.000Z</updated>
     
     
       
@@ -450,33 +227,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2020-05-13</summary>
+ * @Date: 2026-02-12</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Virtualization/"/>
+    <category term="Math" scheme="https://johnjeep.github.io/categories/Math/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="virtualization" scheme="https://johnjeep.github.io/tags/virtualization/"/>
+    <category term="math" scheme="https://johnjeep.github.io/tags/math/"/>
     
   </entry>
   
   <entry>
-    <title>18 Introduction to Paging</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/18-Introduction-to-Paging/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/18-Introduction-to-Paging/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>MathFormulas</title>
+    <link href="https://johnjeep.github.io/Math/synced/Math/MathFormulas/"/>
+    <id>https://johnjeep.github.io/Math/synced/Math/MathFormulas/</id>
+    <published>2026-01-31T09:58:24.000Z</published>
+    <updated>2026-01-31T12:31:59.000Z</updated>
     
     
       
@@ -485,33 +254,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2020-05-12</summary>
+ * @Date: 2026-01-31</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Virtualization/"/>
+    <category term="Math" scheme="https://johnjeep.github.io/categories/Math/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="virtualization" scheme="https://johnjeep.github.io/tags/virtualization/"/>
+    <category term="math" scheme="https://johnjeep.github.io/tags/math/"/>
     
   </entry>
   
   <entry>
-    <title>19 Translation Lookaside Buffers</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/19-Translation-Lookaside-Buffers/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/19-Translation-Lookaside-Buffers/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>Terms</title>
+    <link href="https://johnjeep.github.io/Math/synced/Math/Terms/"/>
+    <id>https://johnjeep.github.io/Math/synced/Math/Terms/</id>
+    <published>2026-01-31T09:45:52.000Z</published>
+    <updated>2026-04-09T14:40:15.000Z</updated>
     
     
       
@@ -520,33 +281,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2020-05-12</summary>
+ * @Date: 2026-01-31</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Virtualization/"/>
+    <category term="Math" scheme="https://johnjeep.github.io/categories/Math/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="virtualization" scheme="https://johnjeep.github.io/tags/virtualization/"/>
+    <category term="math" scheme="https://johnjeep.github.io/tags/math/"/>
     
   </entry>
   
   <entry>
-    <title>20 Advanced Page Tables</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/20-Advanced-Page-Tables/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/20-Advanced-Page-Tables/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>PointCloud</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/PointCloud/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/PointCloud/</id>
+    <published>2026-01-25T13:39:53.000Z</published>
+    <updated>2026-03-07T07:13:53.000Z</updated>
     
     
       
@@ -555,33 +308,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2020-04-22</summary>
+ * @Date: 2026-01-25</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Virtualization/"/>
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="virtualization" scheme="https://johnjeep.github.io/tags/virtualization/"/>
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
   </entry>
   
   <entry>
-    <title>21 Swapping Mechanisms</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/21-Swapping-Mechanisms/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/21-Swapping-Mechanisms/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>Rqt</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Rqt/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Rqt/</id>
+    <published>2026-01-19T08:38:54.000Z</published>
+    <updated>2026-05-31T10:47:01.000Z</updated>
     
     
       
@@ -590,33 +335,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2020-05-12</summary>
+ * @Date: 2026-01-19</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Virtualization/"/>
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="virtualization" scheme="https://johnjeep.github.io/tags/virtualization/"/>
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
   </entry>
   
   <entry>
-    <title>22 Swapping Policies</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/22-Swapping-Policies/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/22-Swapping-Policies/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>Tmux</title>
+    <link href="https://johnjeep.github.io/Shell/synced/Shell/tmux/"/>
+    <id>https://johnjeep.github.io/Shell/synced/Shell/tmux/</id>
+    <published>2026-01-04T01:53:24.000Z</published>
+    <updated>2026-04-29T10:11:46.000Z</updated>
     
     
       
@@ -625,33 +362,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2020-05-12</summary>
+ * @Date: 2026-01-04</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Virtualization/"/>
+    <category term="Shell" scheme="https://johnjeep.github.io/categories/Shell/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="virtualization" scheme="https://johnjeep.github.io/tags/virtualization/"/>
+    <category term="shell" scheme="https://johnjeep.github.io/tags/shell/"/>
     
   </entry>
   
   <entry>
-    <title>23 Virtual Memory Systems</title>
-    <link href="https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/23-Virtual-Memory-Systems/"/>
-    <id>https://johnjeep.github.io/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/23-Virtual-Memory-Systems/</id>
-    <published>2026-05-31T04:44:38.000Z</published>
-    <updated>2026-05-31T04:44:38.000Z</updated>
+    <title>Autoware</title>
+    <link href="https://johnjeep.github.io/AutoDrive/synced/AutoDrive/Autoware/"/>
+    <id>https://johnjeep.github.io/AutoDrive/synced/AutoDrive/Autoware/</id>
+    <published>2025-12-31T13:17:16.000Z</published>
+    <updated>2026-05-31T10:13:53.000Z</updated>
     
     
       
@@ -660,33 +389,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2020-05-19</summary>
+ * @Date: 2025-12-31</summary>
         
       
     
     
     
-    <category term="OS" scheme="https://johnjeep.github.io/categories/OS/"/>
-    
-    <category term="Operating-System-Three-Easy-Pieces" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/"/>
-    
-    <category term="Virtualization" scheme="https://johnjeep.github.io/categories/OS/Operating-System-Three-Easy-Pieces/Virtualization/"/>
+    <category term="AutoDrive" scheme="https://johnjeep.github.io/categories/AutoDrive/"/>
     
     
-    <category term="os" scheme="https://johnjeep.github.io/tags/os/"/>
-    
-    <category term="operating-system-three-easy-pieces" scheme="https://johnjeep.github.io/tags/operating-system-three-easy-pieces/"/>
-    
-    <category term="virtualization" scheme="https://johnjeep.github.io/tags/virtualization/"/>
+    <category term="autodrive" scheme="https://johnjeep.github.io/tags/autodrive/"/>
     
   </entry>
   
   <entry>
-    <title>C11</title>
-    <link href="https://johnjeep.github.io/C/synced/Cpp/C11/"/>
-    <id>https://johnjeep.github.io/C/synced/Cpp/C11/</id>
-    <published>2026-05-31T03:22:52.000Z</published>
-    <updated>2026-05-31T03:22:52.000Z</updated>
+    <title>31 Sizeof Strlen</title>
+    <link href="https://johnjeep.github.io/C/synced/C/31_sizeof_strlen/"/>
+    <id>https://johnjeep.github.io/C/synced/C/31_sizeof_strlen/</id>
+    <published>2025-12-31T13:17:16.000Z</published>
+    <updated>2026-05-31T11:02:17.000Z</updated>
     
     
       
@@ -695,25 +416,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2021-01-10</summary>
+ * @Date: 2025-12-31</summary>
         
       
     
     
     
-    <category term="C++" scheme="https://johnjeep.github.io/categories/C/"/>
+    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
     
     
-    <category term="cpp" scheme="https://johnjeep.github.io/tags/cpp/"/>
+    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
     
   </entry>
   
   <entry>
-    <title>C14</title>
-    <link href="https://johnjeep.github.io/C/synced/Cpp/C14/"/>
-    <id>https://johnjeep.github.io/C/synced/Cpp/C14/</id>
-    <published>2026-05-31T03:22:52.000Z</published>
-    <updated>2026-05-31T03:22:52.000Z</updated>
+    <title>WebRTC</title>
+    <link href="https://johnjeep.github.io/Protocol/synced/Protocol/WebRTC/"/>
+    <id>https://johnjeep.github.io/Protocol/synced/Protocol/WebRTC/</id>
+    <published>2025-12-31T13:17:16.000Z</published>
+    <updated>2026-05-31T10:51:44.000Z</updated>
     
     
       
@@ -722,25 +443,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2021-11-01</summary>
+ * @Date: 2025-12-31</summary>
         
       
     
     
     
-    <category term="C++" scheme="https://johnjeep.github.io/categories/C/"/>
+    <category term="Protocol" scheme="https://johnjeep.github.io/categories/Protocol/"/>
     
     
-    <category term="cpp" scheme="https://johnjeep.github.io/tags/cpp/"/>
+    <category term="protocol" scheme="https://johnjeep.github.io/tags/protocol/"/>
     
   </entry>
   
   <entry>
-    <title>C17</title>
-    <link href="https://johnjeep.github.io/C/synced/Cpp/C17/"/>
-    <id>https://johnjeep.github.io/C/synced/Cpp/C17/</id>
-    <published>2026-05-31T03:22:52.000Z</published>
-    <updated>2026-05-31T03:22:52.000Z</updated>
+    <title>ARM</title>
+    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/"/>
+    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/</id>
+    <published>2025-12-31T13:17:16.000Z</published>
+    <updated>2026-05-31T10:12:30.000Z</updated>
     
     
       
@@ -749,25 +470,29 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2021-11-01</summary>
+ * @Date: 2025-12-31</summary>
         
       
     
     
     
-    <category term="C++" scheme="https://johnjeep.github.io/categories/C/"/>
+    <category term="Architecture" scheme="https://johnjeep.github.io/categories/Architecture/"/>
+    
+    <category term="Chip" scheme="https://johnjeep.github.io/categories/Architecture/Chip/"/>
     
     
-    <category term="cpp" scheme="https://johnjeep.github.io/tags/cpp/"/>
+    <category term="architecture" scheme="https://johnjeep.github.io/tags/architecture/"/>
+    
+    <category term="chip" scheme="https://johnjeep.github.io/tags/chip/"/>
     
   </entry>
   
   <entry>
-    <title>C20</title>
-    <link href="https://johnjeep.github.io/C/synced/Cpp/C20/"/>
-    <id>https://johnjeep.github.io/C/synced/Cpp/C20/</id>
-    <published>2026-05-31T03:22:52.000Z</published>
-    <updated>2026-05-31T03:22:52.000Z</updated>
+    <title>NVIDIA</title>
+    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/"/>
+    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/</id>
+    <published>2025-12-31T13:17:16.000Z</published>
+    <updated>2026-05-31T10:12:53.000Z</updated>
     
     
       
@@ -776,25 +501,29 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2025-11-01</summary>
+ * @Date: 2025-12-31</summary>
         
       
     
     
     
-    <category term="C++" scheme="https://johnjeep.github.io/categories/C/"/>
+    <category term="Architecture" scheme="https://johnjeep.github.io/categories/Architecture/"/>
+    
+    <category term="Chip" scheme="https://johnjeep.github.io/categories/Architecture/Chip/"/>
     
     
-    <category term="cpp" scheme="https://johnjeep.github.io/tags/cpp/"/>
+    <category term="architecture" scheme="https://johnjeep.github.io/tags/architecture/"/>
+    
+    <category term="chip" scheme="https://johnjeep.github.io/tags/chip/"/>
     
   </entry>
   
   <entry>
-    <title>1 Two Sum</title>
-    <link href="https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/1-two-sum/"/>
-    <id>https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/1-two-sum/</id>
-    <published>2026-05-31T02:02:37.000Z</published>
-    <updated>2026-05-31T04:45:50.000Z</updated>
+    <title>LinearAlgebra</title>
+    <link href="https://johnjeep.github.io/Math/synced/Math/LinearAlgebra/"/>
+    <id>https://johnjeep.github.io/Math/synced/Math/LinearAlgebra/</id>
+    <published>2025-12-30T15:24:02.000Z</published>
+    <updated>2026-04-07T13:08:53.000Z</updated>
     
     
       
@@ -802,30 +531,27 @@
         
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+
  * @Author: JohnJeep
- * @Date: 2021-04-23</summary>
+ * @Date: 2025-12-30</summary>
         
       
     
     
     
-    <category term="Interview" scheme="https://johnjeep.github.io/categories/Interview/"/>
-    
-    <category term="Algorithm" scheme="https://johnjeep.github.io/categories/Interview/Algorithm/"/>
+    <category term="Math" scheme="https://johnjeep.github.io/categories/Math/"/>
     
     
-    <category term="algorithm" scheme="https://johnjeep.github.io/tags/algorithm/"/>
-    
-    <category term="interview" scheme="https://johnjeep.github.io/tags/interview/"/>
+    <category term="math" scheme="https://johnjeep.github.io/tags/math/"/>
     
   </entry>
   
   <entry>
-    <title>11 Min in Rotated Array</title>
-    <link href="https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/11-min-in-rotated-array/"/>
-    <id>https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/11-min-in-rotated-array/</id>
-    <published>2026-05-31T02:02:37.000Z</published>
-    <updated>2026-05-31T04:45:50.000Z</updated>
+    <title>Embodied</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Embodied/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Embodied/</id>
+    <published>2025-12-28T03:06:27.000Z</published>
+    <updated>2026-05-31T10:48:16.000Z</updated>
     
     
       
@@ -834,29 +560,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2021-01-14</summary>
+ * @Date: 2025-12-28</summary>
         
       
     
     
     
-    <category term="Interview" scheme="https://johnjeep.github.io/categories/Interview/"/>
-    
-    <category term="Algorithm" scheme="https://johnjeep.github.io/categories/Interview/Algorithm/"/>
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
     
     
-    <category term="algorithm" scheme="https://johnjeep.github.io/tags/algorithm/"/>
-    
-    <category term="interview" scheme="https://johnjeep.github.io/tags/interview/"/>
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
   </entry>
   
   <entry>
-    <title>15 Three Sum</title>
-    <link href="https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/15-three-sum/"/>
-    <id>https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/15-three-sum/</id>
-    <published>2026-05-31T02:02:37.000Z</published>
-    <updated>2026-05-31T04:45:50.000Z</updated>
+    <title>BehaviorTree</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/BehaviorTree/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/BehaviorTree/</id>
+    <published>2025-12-07T15:39:49.000Z</published>
+    <updated>2026-05-31T10:48:44.000Z</updated>
     
     
       
@@ -865,29 +587,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2021-04-26</summary>
+ * @Date: 2025-12-07</summary>
         
       
     
     
     
-    <category term="Interview" scheme="https://johnjeep.github.io/categories/Interview/"/>
-    
-    <category term="Algorithm" scheme="https://johnjeep.github.io/categories/Interview/Algorithm/"/>
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
     
     
-    <category term="algorithm" scheme="https://johnjeep.github.io/tags/algorithm/"/>
-    
-    <category term="interview" scheme="https://johnjeep.github.io/tags/interview/"/>
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
   </entry>
   
   <entry>
-    <title>21 Merge Two Sorted Lists</title>
-    <link href="https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/21-merge-two-sorted-lists/"/>
-    <id>https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/21-merge-two-sorted-lists/</id>
-    <published>2026-05-31T02:02:37.000Z</published>
-    <updated>2026-05-31T04:45:50.000Z</updated>
+    <title>Colcon</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Colcon/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Colcon/</id>
+    <published>2025-12-07T15:39:49.000Z</published>
+    <updated>2026-05-31T10:48:32.000Z</updated>
     
     
       
@@ -896,29 +614,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2021-04-20</summary>
+ * @Date: 2025-12-07</summary>
         
       
     
     
     
-    <category term="Interview" scheme="https://johnjeep.github.io/categories/Interview/"/>
-    
-    <category term="Algorithm" scheme="https://johnjeep.github.io/categories/Interview/Algorithm/"/>
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
     
     
-    <category term="algorithm" scheme="https://johnjeep.github.io/tags/algorithm/"/>
-    
-    <category term="interview" scheme="https://johnjeep.github.io/tags/interview/"/>
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
   </entry>
   
   <entry>
-    <title>215 Kth Largest Element</title>
-    <link href="https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/215-kth-largest-element/"/>
-    <id>https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/215-kth-largest-element/</id>
-    <published>2026-05-31T02:02:37.000Z</published>
-    <updated>2026-05-31T04:45:50.000Z</updated>
+    <title>VCS</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/VCS/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/VCS/</id>
+    <published>2025-12-07T15:39:49.000Z</published>
+    <updated>2026-05-31T10:45:28.000Z</updated>
     
     
       
@@ -927,29 +641,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2021-04-09</summary>
+ * @Date: 2025-12-07</summary>
         
       
     
     
     
-    <category term="Interview" scheme="https://johnjeep.github.io/categories/Interview/"/>
-    
-    <category term="Algorithm" scheme="https://johnjeep.github.io/categories/Interview/Algorithm/"/>
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
     
     
-    <category term="algorithm" scheme="https://johnjeep.github.io/tags/algorithm/"/>
-    
-    <category term="interview" scheme="https://johnjeep.github.io/tags/interview/"/>
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
   </entry>
   
   <entry>
-    <title>24 Reverse Linked List</title>
-    <link href="https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/24-reverse-linked-list/"/>
-    <id>https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/24-reverse-linked-list/</id>
-    <published>2026-05-31T02:02:37.000Z</published>
-    <updated>2026-05-31T04:45:50.000Z</updated>
+    <title>NodeComposition</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/NodeComposition/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/NodeComposition/</id>
+    <published>2025-12-01T03:04:14.000Z</published>
+    <updated>2026-05-31T10:47:52.000Z</updated>
     
     
       
@@ -958,29 +668,25 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2021-04-07</summary>
+ * @Date: 2025-12-01</summary>
         
       
     
     
     
-    <category term="Interview" scheme="https://johnjeep.github.io/categories/Interview/"/>
-    
-    <category term="Algorithm" scheme="https://johnjeep.github.io/categories/Interview/Algorithm/"/>
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
     
     
-    <category term="algorithm" scheme="https://johnjeep.github.io/tags/algorithm/"/>
-    
-    <category term="interview" scheme="https://johnjeep.github.io/tags/interview/"/>
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
   </entry>
   
   <entry>
-    <title>3 Longest Substring No Repeat</title>
-    <link href="https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/3-longest-substring-no-repeat/"/>
-    <id>https://johnjeep.github.io/Interview/Algorithm/synced/Interview/Algorithm/3-longest-substring-no-repeat/</id>
-    <published>2026-05-31T02:02:37.000Z</published>
-    <updated>2026-05-31T04:45:50.000Z</updated>
+    <title>Motor</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Motor/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Motor/</id>
+    <published>2025-11-29T07:49:25.000Z</published>
+    <updated>2026-05-31T10:48:07.000Z</updated>
     
     
       
@@ -989,20 +695,151 @@
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
- * @Date: 2021-04-19</summary>
+ * @Date: 2025-11-29</summary>
         
       
     
     
     
-    <category term="Interview" scheme="https://johnjeep.github.io/categories/Interview/"/>
-    
-    <category term="Algorithm" scheme="https://johnjeep.github.io/categories/Interview/Algorithm/"/>
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
     
     
-    <category term="algorithm" scheme="https://johnjeep.github.io/tags/algorithm/"/>
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
-    <category term="interview" scheme="https://johnjeep.github.io/tags/interview/"/>
+  </entry>
+  
+  <entry>
+    <title>ABI</title>
+    <link href="https://johnjeep.github.io/GNU/synced/GNU/ABI/"/>
+    <id>https://johnjeep.github.io/GNU/synced/GNU/ABI/</id>
+    <published>2025-11-25T13:31:19.000Z</published>
+    <updated>2025-11-25T13:39:50.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2025-11-25</summary>
+        
+      
+    
+    
+    
+    <category term="GNU" scheme="https://johnjeep.github.io/categories/GNU/"/>
+    
+    
+    <category term="gnu" scheme="https://johnjeep.github.io/tags/gnu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rviz2</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Rviz2/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Rviz2/</id>
+    <published>2025-11-23T13:29:52.000Z</published>
+    <updated>2026-05-31T10:46:45.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2025-11-23</summary>
+        
+      
+    
+    
+    
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
+    
+    
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sensor</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Sensor/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Sensor/</id>
+    <published>2025-11-18T02:57:04.000Z</published>
+    <updated>2026-05-31T10:46:39.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2025-11-18</summary>
+        
+      
+    
+    
+    
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
+    
+    
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SLAM</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/SLAM/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/SLAM/</id>
+    <published>2025-11-17T12:57:37.000Z</published>
+    <updated>2025-12-27T07:54:09.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2025-11-17</summary>
+        
+      
+    
+    
+    
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
+    
+    
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SerializeDeserialize</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/SerializeDeserialize/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/SerializeDeserialize/</id>
+    <published>2025-11-16T15:09:28.000Z</published>
+    <updated>2026-05-31T10:46:27.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2025-11-16</summary>
+        
+      
+    
+    
+    
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
+    
+    
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
   </entry>
   
