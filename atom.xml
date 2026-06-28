@@ -476,11 +476,11 @@
   </entry>
   
   <entry>
-    <title>ARM</title>
-    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/"/>
-    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/</id>
+    <title>NVIDIA</title>
+    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/"/>
+    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/</id>
     <published>2025-12-31T13:17:16.000Z</published>
-    <updated>2026-05-31T10:12:30.000Z</updated>
+    <updated>2026-05-31T10:12:53.000Z</updated>
     
     
       
@@ -507,11 +507,11 @@
   </entry>
   
   <entry>
-    <title>NVIDIA</title>
-    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/"/>
-    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/</id>
+    <title>ARM</title>
+    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/"/>
+    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/</id>
     <published>2025-12-31T13:17:16.000Z</published>
-    <updated>2026-05-31T10:12:53.000Z</updated>
+    <updated>2026-05-31T10:12:30.000Z</updated>
     
     
       
@@ -593,11 +593,11 @@
   </entry>
   
   <entry>
-    <title>Colcon</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Colcon/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Colcon/</id>
+    <title>BehaviorTree</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/BehaviorTree/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/BehaviorTree/</id>
     <published>2025-12-07T15:39:49.000Z</published>
-    <updated>2026-05-31T10:48:32.000Z</updated>
+    <updated>2026-05-31T10:48:44.000Z</updated>
     
     
       
@@ -620,11 +620,11 @@
   </entry>
   
   <entry>
-    <title>BehaviorTree</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/BehaviorTree/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/BehaviorTree/</id>
+    <title>Colcon</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Colcon/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Colcon/</id>
     <published>2025-12-07T15:39:49.000Z</published>
-    <updated>2026-05-31T10:48:44.000Z</updated>
+    <updated>2026-05-31T10:48:32.000Z</updated>
     
     
       
