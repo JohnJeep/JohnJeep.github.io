@@ -6,7 +6,7 @@
   <link href="https://johnjeep.github.io/atom.xml" rel="self"/>
   
   <link href="https://johnjeep.github.io/"/>
-  <updated>2026-07-04T09:31:34.000Z</updated>
+  <updated>2026-07-04T09:30:41.000Z</updated>
   <id>https://johnjeep.github.io/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Rust</title>
+    <link href="https://johnjeep.github.io/Rust/synced/Rust/Rust/"/>
+    <id>https://johnjeep.github.io/Rust/synced/Rust/Rust/</id>
+    <published>2026-07-04T08:55:33.000Z</published>
+    <updated>2026-07-04T09:30:41.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2026-07-04</summary>
+        
+      
+    
+    
+    
+    <category term="Rust" scheme="https://johnjeep.github.io/categories/Rust/"/>
+    
+    
+    <category term="rust" scheme="https://johnjeep.github.io/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Cargo</title>
+    <link href="https://johnjeep.github.io/Rust/synced/Rust/Cargo/"/>
+    <id>https://johnjeep.github.io/Rust/synced/Rust/Cargo/</id>
+    <published>2026-07-04T08:52:51.000Z</published>
+    <updated>2026-07-04T09:28:58.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2026-07-04</summary>
+        
+      
+    
+    
+    
+    <category term="Rust" scheme="https://johnjeep.github.io/categories/Rust/"/>
+    
+    
+    <category term="rust" scheme="https://johnjeep.github.io/tags/rust/"/>
+    
+  </entry>
   
   <entry>
     <title>ROSdep</title>
@@ -40,6 +94,33 @@
     
     
     <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React</title>
+    <link href="https://johnjeep.github.io/React/synced/React/React/"/>
+    <id>https://johnjeep.github.io/React/synced/React/React/</id>
+    <published>2026-06-28T03:53:48.000Z</published>
+    <updated>2026-06-28T03:53:48.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;基本概念&lt;/p&gt;
+&lt;p&gt;工具使用范围&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="React" scheme="https://johnjeep.github.io/categories/React/"/>
+    
+    
+    <category term="react" scheme="https://johnjeep.github.io/tags/react/"/>
     
   </entry>
   
@@ -742,87 +823,6 @@
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
  * @Author: JohnJeep
  * @Date: 2025-11-29</summary>
-        
-      
-    
-    
-    
-    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
-    
-    
-    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ABI</title>
-    <link href="https://johnjeep.github.io/GNU/synced/GNU/ABI/"/>
-    <id>https://johnjeep.github.io/GNU/synced/GNU/ABI/</id>
-    <published>2025-11-25T13:31:19.000Z</published>
-    <updated>2025-11-25T13:39:50.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-11-25</summary>
-        
-      
-    
-    
-    
-    <category term="GNU" scheme="https://johnjeep.github.io/categories/GNU/"/>
-    
-    
-    <category term="gnu" scheme="https://johnjeep.github.io/tags/gnu/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Rviz2</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Rviz2/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Rviz2/</id>
-    <published>2025-11-23T13:29:52.000Z</published>
-    <updated>2026-05-31T10:46:45.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-11-23</summary>
-        
-      
-    
-    
-    
-    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
-    
-    
-    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Sensor</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Sensor/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Sensor/</id>
-    <published>2025-11-18T02:57:04.000Z</published>
-    <updated>2026-05-31T10:46:39.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-11-18</summary>
         
       
     
