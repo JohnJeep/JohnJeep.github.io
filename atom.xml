@@ -6,7 +6,7 @@
   <link href="https://johnjeep.github.io/atom.xml" rel="self"/>
   
   <link href="https://johnjeep.github.io/"/>
-  <updated>2026-07-05T16:14:08.000Z</updated>
+  <updated>2026-07-05T16:59:54.000Z</updated>
   <id>https://johnjeep.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://johnjeep.github.io/Rust/synced/Rust/Rust/"/>
     <id>https://johnjeep.github.io/Rust/synced/Rust/Rust/</id>
     <published>2026-07-04T08:55:33.000Z</published>
-    <updated>2026-07-05T16:14:08.000Z</updated>
+    <updated>2026-07-05T16:59:54.000Z</updated>
     
     
       
@@ -48,7 +48,7 @@
     <link href="https://johnjeep.github.io/Rust/synced/Rust/Cargo/"/>
     <id>https://johnjeep.github.io/Rust/synced/Rust/Cargo/</id>
     <published>2026-07-04T08:52:51.000Z</published>
-    <updated>2026-07-04T09:28:58.000Z</updated>
+    <updated>2026-07-05T17:00:06.000Z</updated>
     
     
       
@@ -584,11 +584,11 @@
   </entry>
   
   <entry>
-    <title>NVIDIA</title>
-    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/"/>
-    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/</id>
+    <title>ARM</title>
+    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/"/>
+    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/</id>
     <published>2025-12-31T13:17:16.000Z</published>
-    <updated>2026-05-31T10:12:53.000Z</updated>
+    <updated>2026-05-31T10:12:30.000Z</updated>
     
     
       
@@ -615,11 +615,11 @@
   </entry>
   
   <entry>
-    <title>ARM</title>
-    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/"/>
-    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/ARM/</id>
+    <title>NVIDIA</title>
+    <link href="https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/"/>
+    <id>https://johnjeep.github.io/Architecture/Chip/synced/Architecture/Chip/NVIDIA/</id>
     <published>2025-12-31T13:17:16.000Z</published>
-    <updated>2026-05-31T10:12:30.000Z</updated>
+    <updated>2026-05-31T10:12:53.000Z</updated>
     
     
       
