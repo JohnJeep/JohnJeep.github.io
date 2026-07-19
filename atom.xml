@@ -6,7 +6,7 @@
   <link href="https://johnjeep.github.io/atom.xml" rel="self"/>
   
   <link href="https://johnjeep.github.io/"/>
-  <updated>2026-07-05T16:59:54.000Z</updated>
+  <updated>2026-07-19T15:56:21.000Z</updated>
   <id>https://johnjeep.github.io/</id>
   
   <author>
@@ -15,6 +15,168 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Buildroot</title>
+    <link href="https://johnjeep.github.io/GNU/synced/GNU/Buildroot/"/>
+    <id>https://johnjeep.github.io/GNU/synced/GNU/Buildroot/</id>
+    <published>2026-07-19T15:39:30.000Z</published>
+    <updated>2026-07-19T15:56:21.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2026-07-19</summary>
+        
+      
+    
+    
+    
+    <category term="GNU" scheme="https://johnjeep.github.io/categories/GNU/"/>
+    
+    
+    <category term="gnu" scheme="https://johnjeep.github.io/tags/gnu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rootfs</title>
+    <link href="https://johnjeep.github.io/GNU/synced/GNU/rootfs/"/>
+    <id>https://johnjeep.github.io/GNU/synced/GNU/rootfs/</id>
+    <published>2026-07-19T05:49:11.000Z</published>
+    <updated>2026-07-19T15:54:27.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2026-07-19</summary>
+        
+      
+    
+    
+    
+    <category term="GNU" scheme="https://johnjeep.github.io/categories/GNU/"/>
+    
+    
+    <category term="gnu" scheme="https://johnjeep.github.io/tags/gnu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Musl</title>
+    <link href="https://johnjeep.github.io/GNU/synced/GNU/Musl/"/>
+    <id>https://johnjeep.github.io/GNU/synced/GNU/Musl/</id>
+    <published>2026-07-19T05:47:57.000Z</published>
+    <updated>2026-07-19T15:52:18.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2026-07-19</summary>
+        
+      
+    
+    
+    
+    <category term="GNU" scheme="https://johnjeep.github.io/categories/GNU/"/>
+    
+    
+    <category term="gnu" scheme="https://johnjeep.github.io/tags/gnu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>BusyBox</title>
+    <link href="https://johnjeep.github.io/GNU/synced/GNU/BusyBox/"/>
+    <id>https://johnjeep.github.io/GNU/synced/GNU/BusyBox/</id>
+    <published>2026-07-19T04:15:05.000Z</published>
+    <updated>2026-07-19T15:57:03.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2026-07-19</summary>
+        
+      
+    
+    
+    
+    <category term="GNU" scheme="https://johnjeep.github.io/categories/GNU/"/>
+    
+    
+    <category term="gnu" scheme="https://johnjeep.github.io/tags/gnu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RaspberryPi</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/RaspberryPi/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/RaspberryPi/</id>
+    <published>2026-07-19T03:53:02.000Z</published>
+    <updated>2026-07-19T15:51:08.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2026-07-19</summary>
+        
+      
+    
+    
+    
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
+    
+    
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Introduction</title>
+    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Introduction/"/>
+    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Introduction/</id>
+    <published>2026-07-11T01:57:08.000Z</published>
+    <updated>2026-07-19T15:50:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2026-07-11</summary>
+        
+      
+    
+    
+    
+    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
+    
+    
+    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
+    
+  </entry>
   
   <entry>
     <title>Rust</title>
@@ -670,168 +832,6 @@
     
     
     <category term="math" scheme="https://johnjeep.github.io/tags/math/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Embodied</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Embodied/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Embodied/</id>
-    <published>2025-12-28T03:06:27.000Z</published>
-    <updated>2026-05-31T10:48:16.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-12-28</summary>
-        
-      
-    
-    
-    
-    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
-    
-    
-    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>BehaviorTree</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/BehaviorTree/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/BehaviorTree/</id>
-    <published>2025-12-07T15:39:49.000Z</published>
-    <updated>2026-05-31T10:48:44.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-12-07</summary>
-        
-      
-    
-    
-    
-    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
-    
-    
-    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Colcon</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Colcon/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Colcon/</id>
-    <published>2025-12-07T15:39:49.000Z</published>
-    <updated>2026-07-05T06:53:57.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-12-07</summary>
-        
-      
-    
-    
-    
-    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
-    
-    
-    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VCS</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/VCS/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/VCS/</id>
-    <published>2025-12-07T15:39:49.000Z</published>
-    <updated>2026-05-31T10:45:28.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-12-07</summary>
-        
-      
-    
-    
-    
-    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
-    
-    
-    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NodeComposition</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/NodeComposition/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/NodeComposition/</id>
-    <published>2025-12-01T03:04:14.000Z</published>
-    <updated>2026-05-31T10:47:52.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-12-01</summary>
-        
-      
-    
-    
-    
-    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
-    
-    
-    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Motor</title>
-    <link href="https://johnjeep.github.io/Robotics/synced/Robotics/Motor/"/>
-    <id>https://johnjeep.github.io/Robotics/synced/Robotics/Motor/</id>
-    <published>2025-11-29T07:49:25.000Z</published>
-    <updated>2026-05-31T10:48:07.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-11-29</summary>
-        
-      
-    
-    
-    
-    <category term="Robotics" scheme="https://johnjeep.github.io/categories/Robotics/"/>
-    
-    
-    <category term="robotics" scheme="https://johnjeep.github.io/tags/robotics/"/>
     
   </entry>
   
