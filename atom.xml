@@ -476,6 +476,76 @@
   </entry>
   
   <entry>
+    <title>README</title>
+    <link href="https://johnjeep.github.io/Embedded/F407xx/00-uc-cos-iii-template/synced/Embedded/F407xx/00-uc-cos-iii-template/README/"/>
+    <id>https://johnjeep.github.io/Embedded/F407xx/00-uc-cos-iii-template/synced/Embedded/F407xx/00-uc-cos-iii-template/README/</id>
+    <published>2026-05-31T02:02:37.000Z</published>
+    <updated>2026-06-13T01:19:35.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;F407ZGT6 系列搭载 uC&amp;#x2F;OS-III 实时操作系统。&lt;br&gt;外部晶振为</summary>
+        
+      
+    
+    
+    
+    <category term="Embedded" scheme="https://johnjeep.github.io/categories/Embedded/"/>
+    
+    <category term="F407xx" scheme="https://johnjeep.github.io/categories/Embedded/F407xx/"/>
+    
+    <category term="00-uc-cos-iii-template" scheme="https://johnjeep.github.io/categories/Embedded/F407xx/00-uc-cos-iii-template/"/>
+    
+    
+    <category term="embedded" scheme="https://johnjeep.github.io/tags/embedded/"/>
+    
+    <category term="00-uc-cos-iii-template" scheme="https://johnjeep.github.io/tags/00-uc-cos-iii-template/"/>
+    
+    <category term="f407xx" scheme="https://johnjeep.github.io/tags/f407xx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>README</title>
+    <link href="https://johnjeep.github.io/Embedded/F407xx/00-bare-metal-template/F407ZGT6/synced/Embedded/F407xx/00-bare-metal-template/F407ZGT6/README/"/>
+    <id>https://johnjeep.github.io/Embedded/F407xx/00-bare-metal-template/F407ZGT6/synced/Embedded/F407xx/00-bare-metal-template/F407ZGT6/README/</id>
+    <published>2026-05-31T02:02:37.000Z</published>
+    <updated>2026-06-13T01:19:35.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;F407ZGT6 系列裸机模板，不带操作系统。&lt;br&gt;外部晶振为</summary>
+        
+      
+    
+    
+    
+    <category term="Embedded" scheme="https://johnjeep.github.io/categories/Embedded/"/>
+    
+    <category term="F407xx" scheme="https://johnjeep.github.io/categories/Embedded/F407xx/"/>
+    
+    <category term="00-bare-metal-template" scheme="https://johnjeep.github.io/categories/Embedded/F407xx/00-bare-metal-template/"/>
+    
+    <category term="F407ZGT6" scheme="https://johnjeep.github.io/categories/Embedded/F407xx/00-bare-metal-template/F407ZGT6/"/>
+    
+    
+    <category term="embedded" scheme="https://johnjeep.github.io/tags/embedded/"/>
+    
+    <category term="f407xx" scheme="https://johnjeep.github.io/tags/f407xx/"/>
+    
+    <category term="00-bare-metal-template" scheme="https://johnjeep.github.io/tags/00-bare-metal-template/"/>
+    
+    <category term="f407zgt6" scheme="https://johnjeep.github.io/tags/f407zgt6/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Awk</title>
     <link href="https://johnjeep.github.io/Shell/synced/Shell/awk/"/>
     <id>https://johnjeep.github.io/Shell/synced/Shell/awk/</id>
@@ -499,6 +569,33 @@
     
     
     <category term="shell" scheme="https://johnjeep.github.io/tags/shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mongodb</title>
+    <link href="https://johnjeep.github.io/MongoDb/synced/MongoDb/Mongodb/"/>
+    <id>https://johnjeep.github.io/MongoDb/synced/MongoDb/Mongodb/</id>
+    <published>2026-03-12T02:52:23.000Z</published>
+    <updated>2026-04-25T10:29:34.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2026-03-12</summary>
+        
+      
+    
+    
+    
+    <category term="MongoDb" scheme="https://johnjeep.github.io/categories/MongoDb/"/>
+    
+    
+    <category term="mongodb" scheme="https://johnjeep.github.io/tags/mongodb/"/>
     
   </entry>
   
@@ -742,87 +839,6 @@
     
     
     <category term="shell" scheme="https://johnjeep.github.io/tags/shell/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Autoware</title>
-    <link href="https://johnjeep.github.io/AutoDrive/synced/AutoDrive/Autoware/"/>
-    <id>https://johnjeep.github.io/AutoDrive/synced/AutoDrive/Autoware/</id>
-    <published>2025-12-31T13:17:16.000Z</published>
-    <updated>2026-05-31T10:13:53.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-12-31</summary>
-        
-      
-    
-    
-    
-    <category term="AutoDrive" scheme="https://johnjeep.github.io/categories/AutoDrive/"/>
-    
-    
-    <category term="autodrive" scheme="https://johnjeep.github.io/tags/autodrive/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>31 Sizeof Strlen</title>
-    <link href="https://johnjeep.github.io/C/synced/C/31_sizeof_strlen/"/>
-    <id>https://johnjeep.github.io/C/synced/C/31_sizeof_strlen/</id>
-    <published>2025-12-31T13:17:16.000Z</published>
-    <updated>2026-08-09T09:08:42.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-12-31</summary>
-        
-      
-    
-    
-    
-    <category term="C" scheme="https://johnjeep.github.io/categories/C/"/>
-    
-    
-    <category term="c" scheme="https://johnjeep.github.io/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WebRTC</title>
-    <link href="https://johnjeep.github.io/Protocol/synced/Protocol/WebRTC/"/>
-    <id>https://johnjeep.github.io/Protocol/synced/Protocol/WebRTC/</id>
-    <published>2025-12-31T13:17:16.000Z</published>
-    <updated>2026-05-31T10:51:44.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2025-12-31</summary>
-        
-      
-    
-    
-    
-    <category term="Protocol" scheme="https://johnjeep.github.io/categories/Protocol/"/>
-    
-    
-    <category term="protocol" scheme="https://johnjeep.github.io/tags/protocol/"/>
     
   </entry>
   
