@@ -422,33 +422,6 @@
   </entry>
   
   <entry>
-    <title>WslOnlyReadFileSytem</title>
-    <link href="https://johnjeep.github.io/Windows/synced/Windows/WslOnlyReadFileSytem/"/>
-    <id>https://johnjeep.github.io/Windows/synced/Windows/WslOnlyReadFileSytem/</id>
-    <published>2026-06-06T13:22:29.000Z</published>
-    <updated>2026-06-06T13:26:12.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
- * @Author: JohnJeep
- * @Date: 2026-06-06</summary>
-        
-      
-    
-    
-    
-    <category term="Windows" scheme="https://johnjeep.github.io/categories/Windows/"/>
-    
-    
-    <category term="windows" scheme="https://johnjeep.github.io/tags/windows/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Claude</title>
     <link href="https://johnjeep.github.io/AI/synced/AI/Claude/"/>
     <id>https://johnjeep.github.io/AI/synced/AI/Claude/</id>
@@ -839,6 +812,33 @@
     
     
     <category term="shell" scheme="https://johnjeep.github.io/tags/shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Autoware</title>
+    <link href="https://johnjeep.github.io/AutoDrive/synced/AutoDrive/Autoware/"/>
+    <id>https://johnjeep.github.io/AutoDrive/synced/AutoDrive/Autoware/</id>
+    <published>2025-12-31T13:17:16.000Z</published>
+    <updated>2026-05-31T10:13:53.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;!--
+ * @Author: JohnJeep
+ * @Date: 2025-12-31</summary>
+        
+      
+    
+    
+    
+    <category term="AutoDrive" scheme="https://johnjeep.github.io/categories/AutoDrive/"/>
+    
+    
+    <category term="autodrive" scheme="https://johnjeep.github.io/tags/autodrive/"/>
     
   </entry>
   
