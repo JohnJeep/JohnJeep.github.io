@@ -1594,51 +1594,6 @@ RocketMQ 与 kafka 的区别：https://blog.csdn.net/shijinghan1126/article/deta
       </tags>
   </entry>
   <entry>
-    <title>10 Const</title>
-    <url>/C/synced/C/10_const/</url>
-    <content><![CDATA[ 
-
-
-C90 新增两个限定符：const  volatile
-C99 新增一个限定符：restrict 
-C11 新增一个限定符：_Atmoic
-C 语言中，用 const 类型限定符声明的是变量，不是常量
-用于限定一个变量为只读,数值不能通过赋值或递增、递减来修改
-
-例子
-const float* pf;  pf 指向一个 float 类型的 const 值 
-pf 指向的值不能改变，指针本身可以改变
-
-
-float* const pt;   pt 是一个 const 指针
-pt 本身的值不能改变，但它所指向的值可以改变
-
-
-const float* const ptr; 表明 ptr 既不能指向别处， 它所指向的值也不能改变。
- const 放在*左侧任意位置，限定了指针指向的数据不能改变；const 放在*的右侧， 限定了指针本身不能改变
-
-
-
-什么时候用？
-如果一个指针仅用于给函数访问值， 应将其声明为一个指向 const 限定类型的指针。 
-如果要用指针更改主调函数中的数据， 就不使用 const 关键字。
-用 const 声明全局变量，可以创建 const 变量、 const 数组和 const 结构
-多个文件间共享 const 数据时遵循两个规则：
-在一个文件中使用定义式声明，
-在其他文件中使用引用式声明（用 extern 关键字），即只声明不能赋值
-
-
-
- 注意： 在 C 语言中，const 定义的值可以采用指针间接赋值的方法，改变指针本身 const 定义的值
-]]></content>
-      <categories>
-        <category>C</category>
-      </categories>
-      <tags>
-        <tag>c</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>0 Code of Conduct</title>
     <url>/C/synced/C/0_code_of_conduct/</url>
     <content><![CDATA[
@@ -1920,6 +1875,51 @@ Windows 风格：大小写字母混用，单词连在一起,每个单词首字�
 建议 15.1 不使用与硬件或操作系统关系很大的语句,而使用建议的标准语句,以提高软件的可移植性和可重用性。
 建议 15.2 除非为了满足特殊需求,避免使用嵌入式汇编。
 参考：编码规范——华为篇
+]]></content>
+      <categories>
+        <category>C</category>
+      </categories>
+      <tags>
+        <tag>c</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>10 Const</title>
+    <url>/C/synced/C/10_const/</url>
+    <content><![CDATA[ 
+
+
+C90 新增两个限定符：const  volatile
+C99 新增一个限定符：restrict 
+C11 新增一个限定符：_Atmoic
+C 语言中，用 const 类型限定符声明的是变量，不是常量
+用于限定一个变量为只读,数值不能通过赋值或递增、递减来修改
+
+例子
+const float* pf;  pf 指向一个 float 类型的 const 值 
+pf 指向的值不能改变，指针本身可以改变
+
+
+float* const pt;   pt 是一个 const 指针
+pt 本身的值不能改变，但它所指向的值可以改变
+
+
+const float* const ptr; 表明 ptr 既不能指向别处， 它所指向的值也不能改变。
+ const 放在*左侧任意位置，限定了指针指向的数据不能改变；const 放在*的右侧， 限定了指针本身不能改变
+
+
+
+什么时候用？
+如果一个指针仅用于给函数访问值， 应将其声明为一个指向 const 限定类型的指针。 
+如果要用指针更改主调函数中的数据， 就不使用 const 关键字。
+用 const 声明全局变量，可以创建 const 变量、 const 数组和 const 结构
+多个文件间共享 const 数据时遵循两个规则：
+在一个文件中使用定义式声明，
+在其他文件中使用引用式声明（用 extern 关键字），即只声明不能赋值
+
+
+
+ 注意： 在 C 语言中，const 定义的值可以采用指针间接赋值的方法，改变指针本身 const 定义的值
 ]]></content>
       <categories>
         <category>C</category>
@@ -2237,20 +2237,6 @@ typedef a b;  给原类型 a 取一个别名为 b
       </tags>
   </entry>
   <entry>
-    <title>19 Cdecl</title>
-    <url>/C/synced/C/19_cdecl/</url>
-    <content><![CDATA[
-
-调用约定__cdecl、__stdcall 和__fastcall
-]]></content>
-      <categories>
-        <category>C</category>
-      </categories>
-      <tags>
-        <tag>c</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>18 Struct Bytealigned</title>
     <url>/C/synced/C/18_struct_bytealigned/</url>
     <content><![CDATA[
@@ -2327,6 +2313,20 @@ C 语言#pragma 预处理
 百度百科字长解释
 C 语言字节对齐
 
+]]></content>
+      <categories>
+        <category>C</category>
+      </categories>
+      <tags>
+        <tag>c</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>19 Cdecl</title>
+    <url>/C/synced/C/19_cdecl/</url>
+    <content><![CDATA[
+
+调用约定__cdecl、__stdcall 和__fastcall
 ]]></content>
       <categories>
         <category>C</category>
@@ -2716,20 +2716,6 @@ atoi (表示 ascii to integer)是把字符串转换成整型数的一个函数
       </tags>
   </entry>
   <entry>
-    <title>27 Thread Pool</title>
-    <url>/C/synced/C/27_thread_pool/</url>
-    <content><![CDATA[
-
-线程池原理及 C 语言实现线程池
-]]></content>
-      <categories>
-        <category>C</category>
-      </categories>
-      <tags>
-        <tag>c</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>26 Fprintf</title>
     <url>/C/synced/C/26_fprintf/</url>
     <content><![CDATA[
@@ -2763,6 +2749,20 @@ fprintf( )会根据参数 format 字符串来转换并格式化数据，然后�
     <content><![CDATA[
 
 attribute((packed))详解
+]]></content>
+      <categories>
+        <category>C</category>
+      </categories>
+      <tags>
+        <tag>c</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>27 Thread Pool</title>
+    <url>/C/synced/C/27_thread_pool/</url>
+    <content><![CDATA[
+
+线程池原理及 C 语言实现线程池
 ]]></content>
       <categories>
         <category>C</category>
@@ -3183,6 +3183,19 @@ sizeof 包含结尾的’\0’，strlen 不包含
       </tags>
   </entry>
   <entry>
+    <title>33 Register Auto</title>
+    <url>/C/synced/C/33_register_auto/</url>
+    <content><![CDATA[
+
+register、auto 关键字]]></content>
+      <categories>
+        <category>C</category>
+      </categories>
+      <tags>
+        <tag>c</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>32 Main</title>
     <url>/C/synced/C/32_main/</url>
     <content><![CDATA[
@@ -3198,19 +3211,6 @@ main()返回值
 函数的返回值如果等于 0，则代表程序正常退出，返回其它数字的含义则由系统决定，通常，返回非零代表程序异常退出。
 
 ]]></content>
-      <categories>
-        <category>C</category>
-      </categories>
-      <tags>
-        <tag>c</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>33 Register Auto</title>
-    <url>/C/synced/C/33_register_auto/</url>
-    <content><![CDATA[
-
-register、auto 关键字]]></content>
       <categories>
         <category>C</category>
       </categories>
@@ -3584,6 +3584,28 @@ int x;          // 对象定义，编译器为对象分配内存；此处对象�
       </tags>
   </entry>
   <entry>
+    <title>4 Debug</title>
+    <url>/C/synced/C/4_debug/</url>
+    <content><![CDATA[
+
+F8：step over 单步 遇到断点后，程序停止运行，按 F8 单步运行。
+F7：step into 进入 配合 F8 使用。单步调试 F8 时，如果某行调用其他模块的函数，在此行 F7，可以进入函数内部，如果是 F8则不会进入函数内容，直接单步到下一行。
+Alt+shift+F7：step into mycode, 个人理解 F8 和 F7 的综合。1、没遇到函数，和 F8一样；2、遇到函数会自动进入函数内部，和 F8 时按 F7 类似的
+shift+F8：跳出 调试过程中，F7 进入函数内后，shift+F8 跳出函数，会回到进入前调用函数的代码。不是函数地方 shift+F8 跳出
+F9：resume program 按翻译是重启程序 ，实际是 下个断点，当打多个断点是，F9 会到下一个断点
+
+（1）Step into：遇见函数调用语句，进入函数内部
+（2）Step over：遇见函数调用语句，但不进入函数内部，跳过该函数。调试时，如果不能确定这个函数是否有错，一般先跳过函数而不进入。
+（3）Step out：从当前的函数中跳出，程序流程执行函数调用语句的下一步。
+]]></content>
+      <categories>
+        <category>C</category>
+      </categories>
+      <tags>
+        <tag>c</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>43 Statistic Memory Usage</title>
     <url>/C/synced/C/43_statistic_memory_usage/</url>
     <content><![CDATA[
@@ -3606,28 +3628,6 @@ mallinfo()mallinfo()函数是 GNU C 库提供的一个函数，用于获取堆�
 如果你想获取整个进程的内存使用情况，包括堆内存以外的资源使用情况，例如最大常驻内存集和页面错误次数等，那么getrusage() 函数是一个更合适的选择。
 如果你主要关注堆内存的使用情况，例如总分配空间、空闲空间等，那么mallinfo()函数可能更适合你的需求。
 需要注意的是，mallinfo()函数是 GNU C 库特有的函数，在某些平台上可能不可用。另外，它仅适用于使用 GNU C库的程序。如果你的程序不使用 GNU C库，那么mallinfo()函数将不可用。在这种情况下，你可以考虑使用其他方法来获取堆内存的使用情况，如使用第三方内存分析工具或自定义统计代码。
-]]></content>
-      <categories>
-        <category>C</category>
-      </categories>
-      <tags>
-        <tag>c</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>4 Debug</title>
-    <url>/C/synced/C/4_debug/</url>
-    <content><![CDATA[
-
-F8：step over 单步 遇到断点后，程序停止运行，按 F8 单步运行。
-F7：step into 进入 配合 F8 使用。单步调试 F8 时，如果某行调用其他模块的函数，在此行 F7，可以进入函数内部，如果是 F8则不会进入函数内容，直接单步到下一行。
-Alt+shift+F7：step into mycode, 个人理解 F8 和 F7 的综合。1、没遇到函数，和 F8一样；2、遇到函数会自动进入函数内部，和 F8 时按 F7 类似的
-shift+F8：跳出 调试过程中，F7 进入函数内后，shift+F8 跳出函数，会回到进入前调用函数的代码。不是函数地方 shift+F8 跳出
-F9：resume program 按翻译是重启程序 ，实际是 下个断点，当打多个断点是，F9 会到下一个断点
-
-（1）Step into：遇见函数调用语句，进入函数内部
-（2）Step over：遇见函数调用语句，但不进入函数内部，跳过该函数。调试时，如果不能确定这个函数是否有错，一般先跳过函数而不进入。
-（3）Step out：从当前的函数中跳出，程序流程执行函数调用语句的下一步。
 ]]></content>
       <categories>
         <category>C</category>
@@ -4776,149 +4776,6 @@ modern C++ 讲解：http://www.modernescpp.com/index.php
       </tags>
   </entry>
   <entry>
-    <title>C17</title>
-    <url>/cpp/synced/Cpp/C17/</url>
-    <content><![CDATA[
-
-
-1. Introduction
-2. 语言核心特性
-2.1. 结构化绑定
-2.2. 类模板参数推导
-2.3. constexpr if
-2.4. 初始化语句 if 和 switch
-2.5. 内联变量
-2.6. 折叠表达式
-2.7. 嵌套命名空间定义
-2.8. __has_include 预处理表达式
-2.9. UTF-8 字符字面量
-2.10. 确保拷贝消除
-
-
-3. 标准库新组件
-3.1. std::optional&lt;T&gt;
-3.2. std::variant&lt;Types...&gt;
-3.3. std::any
-3.4. std::string_view
-3.5. std::filesystem
-3.6. 并行算法
-3.7. 其他重要特性
-
-
-4. References
-
-1. IntroductionC++17 的定位是“让 C++更简单、更统一、更强大”，它引入了大量提升开发效率的改进。C++17 并非像 C++11那样颠覆性的革新，而更像是对 C++11&#x2F;14 的完善和“查漏补缺”。它的核心思想可以概括为以下几点：
-
-简化日常编程：提供了更多“语法糖”，让常见的代码模式写起来更简洁、更安全（如结构化绑定、if初始化语句）。
-强化编译期计算：继续拓展constexpr的使用范围，让更多逻辑能在编译期完成（如constexpr if、constexpr lambda）。
-丰富标准库：引入了几个至关重要的新类型(std::optional, std::variant, std::any,std::string_view)和一套文件系统库。
-提升性能与效率：通过移动语义的优化、新的内存分配方式等，继续挖掘语言性能潜力。
-增强模板元编程：折叠表达式等特性让模板代码变得更简洁、更易读。
-
-C++17 是一个“实用性”极强的版本，它没有引入特别复杂的新概念，而是专注于解决实际开发中的痛点。通过引入optional,variant, string_view等工具，以及结构化绑定、constexpr if等语法糖，它让C++代码变得更安全、更高效、更易于编写和维护。
-作为一名 C++工程师，熟练掌握 C++17 特性是现代 C++开发的必备技能。建议在实践中逐步引入这些特性，它们将极大地提升你的代码质量和开发效率。
-下面，我们将按照分类逐个详细介绍这些新特性。
-2. 语言核心特性2.1. 结构化绑定目的：将一个复合类型（如std::pair, tuple, 结构体）的成员分解到多个独立的变量中。
-用法：
-#include &lt;iostream&gt;#include &lt;tuple&gt;#include &lt;map&gt;std::tuple&lt;int, double, std::string&gt; get_data() &#123;  return &#123;42, 3.14, &quot;Hello&quot;&#125;;&#125;struct Point &#123;  double x, y;&#125;;int main() &#123;  // 1. 绑定到 tuple  auto [id, value, name] = get_data();  std::cout &lt;&lt; id &lt;&lt; &quot;, &quot; &lt;&lt; value &lt;&lt; &quot;, &quot; &lt;&lt; name &lt;&lt; std::endl;  // 2. 绑定到结构体  Point p&#123;1.0, 2.0&#125;;  auto [x_coord, y_coord] = p; // x_coord = p.x, y_coord = p.y  std::cout &lt;&lt; x_coord &lt;&lt; &quot;, &quot; &lt;&lt; y_coord &lt;&lt; std::endl;  // 3. 在范围for循环中绑定到 map 的键值对 (非常实用!)  std::map&lt;int, std::string&gt; my_map = &#123;&#123;1, &quot;one&quot;&#125;, &#123;2, &quot;two&quot;&#125;&#125;;  for (const auto&amp; [key, val] : my_map) &#123; // 不再需要 .first 和 .second    std::cout &lt;&lt; key &lt;&lt; &quot;: &quot; &lt;&lt; val &lt;&lt; std::endl;  &#125;  return 0;&#125;
-
-2.2. 类模板参数推导目的：在构造类模板对象时，编译器可以根据构造函数参数自动推导模板参数，无需显式指定。
-用法：
-#include &lt;vector&gt;#include &lt;mutex&gt;int main() &#123;  // C++17 之前: std::vector&lt;int&gt; v = &#123;1, 2, 3&#125;;  std::vector v = &#123;1, 2, 3&#125;; // 自动推导为 std::vector&lt;int&gt;  // C++17 之前: std::pair&lt;int, double&gt; p(1, 3.14);  std::pair p(1, 3.14); // 自动推导为 std::pair&lt;int, double&gt;  // 对于锁，推导也非常方便  std::mutex mtx;  std::lock_guard lck(mtx); // 自动推导为 std::lock_guard&lt;std::mutex&gt;  // ... 临界区  return 0;&#125;
-注意：CTAD 需要类的构造函数能够提供足够的类型信息。你也可以通过提供推导指引来定制推导行为。
-2.3. constexpr if目的：在编译期进行条件判断，用于简化模板代码和生成不同的代码路径。被舍弃的分支不会产生任何代码。
-用法：
-#include &lt;iostream&gt;#include &lt;type_traits&gt;// 一个经典的模板问题：如何根据T是否为整数类型选择不同实现？template &lt;typename T&gt;auto print_type_info(const T&amp; t) &#123;  // 使用 constexpr if，代码非常清晰  if constexpr (std::is_integral_v&lt;T&gt;) &#123;    std::cout &lt;&lt; &quot;Integral: &quot; &lt;&lt; t &lt;&lt; std::endl;  &#125; else if constexpr (std::is_floating_point_v&lt;T&gt;) &#123;    std::cout &lt;&lt; &quot;Floating point: &quot; &lt;&lt; t &lt;&lt; std::endl;  &#125; else &#123;    std::cout &lt;&lt; &quot;Other type.&quot; &lt;&lt; std::endl;  &#125;  // 注意：不需要多个重载或 SFINAE 技巧！&#125;int main() &#123;  print_type_info(10);    // 输出 &quot;Integral: 10&quot;  print_type_info(3.14);  // 输出 &quot;Floating point: 3.14&quot;  print_type_info(&quot;abc&quot;); // 输出 &quot;Other type.&quot;  return 0;&#125;
-这是模板元编程的一大进步，极大地减少了std::enable_if等复杂技巧的使用。
-2.4. 初始化语句 if 和 switch目的：允许在if和switch的条件表达式前增加一条初始化语句，限制变量的作用域。
-用法：
-#include &lt;iostream&gt;#include &lt;map&gt;std::map&lt;int, std::string&gt; my_map = &#123;&#123;1, &quot;one&quot;&#125;&#125;;void check_and_use(int key) &#123;  // 初始化语句中声明变量，其作用域仅限于 if 和 else 块  if (auto it = my_map.find(key); it != my_map.end()) &#123;    std::cout &lt;&lt; &quot;Found: &quot; &lt;&lt; it-&gt;second &lt;&lt; std::endl;  &#125; else &#123;    std::cout &lt;&lt; &quot;Key &quot; &lt;&lt; key &lt;&lt; &quot; not found.&quot; &lt;&lt; std::endl;    // it 在这里仍然可见，但值是 end()  &#125;  // it 在这里不可见&#125;int main() &#123;  check_and_use(1);  check_and_use(2);  // 在 switch 中使用  switch (int status = get_status(); status) &#123;    case 0: std::cout &lt;&lt; &quot;OK&quot;; break;    case 1: std::cout &lt;&lt; &quot;Error&quot;; break;    default: std::cout &lt;&lt; &quot;Unknown&quot;; break;  &#125;  return 0;&#125;
-这提高了代码的封装性和安全性，避免了不必要的变量泄露到外部作用域。
-2.5. 内联变量目的：允许在头文件中定义（而不仅仅是声明）全局变量或静态成员变量，解决“头文件中定义constexpr变量”的ODR（单定义规则）问题。
-用法：
-// my_header.h#ifndef MY_HEADER_H#define MY_HEADER_H// C++17 之前，在头文件中定义全局变量会导致多重定义链接错误// 现在可以了！inline int global_counter = 0;class MyClass &#123;public:  // 静态成员变量可以直接在类内定义并初始化  static inline std::string class_name = &quot;MyClass&quot;;  static const inline int version = 1; // constexpr 成员默认是 inline 的&#125;;#endif
-这简化了单例模式（如 Meyers‘ Singleton）的实现，并且是定义全局编译时常量的推荐方式。
-2.6. 折叠表达式目的：简化对参数包的可变参数模板的展开操作，用更简洁的语法实现对参数包中所有元素进行二元运算。
-用法：
-#include &lt;iostream&gt;// 1. 计算所有参数的和 (二元折叠)template&lt;typename... Args&gt;auto sum(Args... args) &#123;  return (... + args); // 展开为 ((arg1 + arg2) + arg3) + ...&#125;// 2. 打印所有参数 (一元折叠)template&lt;typename... Args&gt;void print_all(Args&amp;&amp;... args) &#123;  (std::cout &lt;&lt; ... &lt;&lt; args) &lt;&lt; std::endl; // 折叠方向：(((cout &lt;&lt; a) &lt;&lt; b) &lt;&lt; c)&#125;// 3. 用逗号分隔调用函数 (利用逗号运算符)template&lt;typename... Args&gt;void call_all(Args... args) &#123;  (..., (std::cout &lt;&lt; args &lt;&lt; &quot; &quot;)); // 展开为 (void(cout&lt;&lt;a1&lt;&lt;&quot; &quot;), void(cout&lt;&lt;a2&lt;&lt;&quot; &quot;)), ...&#125;int main() &#123;  std::cout &lt;&lt; sum(1, 2, 3, 4, 5) &lt;&lt; std::endl; // 输出 15  print_all(1, &quot; hello &quot;, 3.14); // 输出 &quot;1 hello 3.14&quot;  call_all(10, 20, 30); // 输出 &quot;10 20 30 &quot;  return 0;&#125;
-折叠表达式让可变参数模板的代码变得异常简洁。
-2.7. 嵌套命名空间定义目的：简化嵌套命名空间的声明语法。
-用法：
-// C++17 之前namespace A &#123;  namespace B &#123;    namespace C &#123;      int var;    &#125;  &#125;&#125;// C++17 之后namespace A::B::C &#123;  int var;&#125;
-
-
-2.8. __has_include 预处理表达式目的：在编译期检查某个头文件是否可用，便于编写可移植代码。
-用法：
-#if __has_include(&lt;optional&gt;)  #include &lt;optional&gt;  #define HAVE_OPTIONAL 1#elif __has_include(&lt;experimental/optional&gt;)  #include &lt;experimental/optional&gt;  #define HAVE_OPTIONAL 1  // 可能需要别名 namespace std &#123; using std::experimental::optional; &#125;#else  #define HAVE_OPTIONAL 0#endif#if HAVE_OPTIONAL  std::optional&lt;int&gt; opt;#endif
-
-
-2.9. UTF-8 字符字面量目的：用u8前缀明确表示 UTF-8 编码的字符和字符串。
-用法：
-char8_t c = u8&#x27;a&#x27;; // C++17 引入了 char8_t 类型 (C++20 中完善)const char* utf8_str = u8&quot;UTF-8 字符串&quot;;
-
-
-2.10. 确保拷贝消除目的：在某些情况下（如按值返回纯右值），C++17 标准强制要求编译器进行拷贝消除，而不是可选的 RVO&#x2F;NRVO。
-用法：
-struct NonCopyable &#123;  NonCopyable() = default;  NonCopyable(const NonCopyable&amp;) = delete; // 禁止拷贝&#125;;NonCopyable create() &#123;  return NonCopyable&#123;&#125;; // 在 C++17 中合法，保证不会发生拷贝&#125;auto obj = create(); // 同样合法
-这意味着你可以安全地返回不可拷贝&#x2F;移动的类型。
-3. 标准库新组件3.1. std::optional&lt;T&gt;std::optional 是在 C++17 标准中引入的（定义在头文件  中）。
-
-它的设计思想借鉴自 Boost 库中的 boost::optional，在 C++17 标准化之前，很多项目就已经在使用 Boost 版本了。
-std::optional 用于表示一个”可能存在也可能不存在”的值，避免了用指针或特殊哨兵值（如 -1、nullptr）来表示”无值”状态的做法，
-
-用法：
-#include &lt;iostream&gt;#include &lt;optional&gt;std::optional&lt;int&gt; getValue(bool condition)&#123;  if (condition) &#123;    return 42;  &#125;  return std::nullopt;&#125;int main(int argc, char* argv[])&#123;  std::optional&lt;int&gt; result = getValue(false);  if (result.has_value()) &#123;    std::cout &lt;&lt; &quot;Value: &quot; &lt;&lt; result.value() &lt;&lt; std::endl;  &#125; else &#123;    std::cout &lt;&lt; &quot;No value returned.&quot; &lt;&lt; std::endl;    try &#123;      result.value();  // This will throw std::bad_optional_access exception    &#125; catch (const std::bad_optional_access&amp; e) &#123;      std::cout &lt;&lt; &quot;Exception caught: &quot; &lt;&lt; e.what() &lt;&lt; std::endl;    &#125;    // no value may set default value    int val = result.value_or(0);  // This will return 0 if result is empty    std::cout &lt;&lt; &quot;Value with default: &quot; &lt;&lt; val &lt;&lt; std::endl;  &#125;  return 0;&#125;
-
-用途： std::optional 主要用于表示”值可能不存在”的语义，比直接用指针、特殊哨兵值或抛异常更清晰、更安全。
-3.2. std::variant&lt;Types...&gt;目的：类型安全的联合体。可以持有指定类型集合中的任意一种类型的值。
-用法：
-#include &lt;iostream&gt;#include &lt;variant&gt;#include &lt;string&gt;int main()&#123;  std::variant&lt;int, double, std::string&gt; v;  v = 42;  std::cout &lt;&lt; std::get&lt;int&gt;(v) &lt;&lt; std::endl; // 通过类型获取  v = 3.14;  // std::cout &lt;&lt; std::get&lt;int&gt;(v) &lt;&lt; std::endl; // 错误！抛出 std::bad_variant_access  std::cout &lt;&lt; std::get&lt;double&gt;(v) &lt;&lt; std::endl;  v = &quot;hello&quot;;  std::cout &lt;&lt; std::get&lt;2&gt;(v) &lt;&lt; std::endl; // 通过索引获取  // 使用 visit 来访问 (最强大的功能)  std::visit([](auto&amp;&amp; arg) &#123;    using T = std::decay_t&lt;decltype(arg)&gt;;    if constexpr (std::is_same_v&lt;T, int&gt;) &#123;      std::cout &lt;&lt; &quot;int: &quot; &lt;&lt; arg &lt;&lt; std::endl;    &#125; else if constexpr (std::is_same_v&lt;T, double&gt;) &#123;      std::cout &lt;&lt; &quot;double: &quot; &lt;&lt; arg &lt;&lt; std::endl;    &#125; else if constexpr (std::is_same_v&lt;T, std::string&gt;) &#123;      std::cout &lt;&lt; &quot;string: &quot; &lt;&lt; arg &lt;&lt; std::endl;    &#125;  &#125;, v);  return 0;&#125;
-
-
-3.3. std::any目的：一个类型安全的void*。可以存储任意类型的值，并在运行时安全地检索。
-用法：
-#include &lt;iostream&gt;#include &lt;any&gt;#include &lt;string&gt;int main()&#123;  std::any a = 1;  std::cout &lt;&lt; std::any_cast&lt;int&gt;(a) &lt;&lt; std::endl; // 输出 1  a = std::string(&quot;hello&quot;);  std::cout &lt;&lt; std::any_cast&lt;std::string&gt;(a) &lt;&lt; std::endl; // 输出 &quot;hello&quot;  // 错误类型转换会抛出 std::bad_any_cast  try &#123;    std::cout &lt;&lt; std::any_cast&lt;int&gt;(a) &lt;&lt; std::endl;  &#125; catch (const std::bad_any_cast&amp; e) &#123;    std::cout &lt;&lt; &quot;Bad any cast: &quot; &lt;&lt; e.what() &lt;&lt; std::endl;  &#125;  // 检查类型  if (a.type() == typeid(std::string)) &#123;    std::cout &lt;&lt; &quot;a holds a string&quot; &lt;&lt; std::endl;  &#125;  return 0;&#125;
-对比：
-
-optional: 有值&#x2F;无值。
-variant: 多个已知类型中的一个。
-any: 任意一个未知类型。
-
-3.4. std::string_view目的：提供对字符串数据的只读、非占有式视图。避免了不必要的字符串拷贝，极大地提升了性能。
-用法：
-#include &lt;iostream&gt;#include &lt;string&gt;#include &lt;string_view&gt;// 接受 string_view 作为参数，高效且灵活void print_string(std::string_view sv)&#123;  std::cout &lt;&lt; sv &lt;&lt; std::endl;&#125;int main()&#123;  std::string str = &quot;Hello, World!&quot;;  const char* cstr = &quot;C-style string&quot;;  // 以下调用都无需创建新的 string 对象  print_string(str);                // 来自 std::string  print_string(cstr);               // 来自 C风格字符串  print_string(&quot;String literal&quot;);   // 来自字面量  print_string(std::string_view(str.c_str(), 5)); // 子串 &quot;Hello&quot;  // string_view 的常用操作  std::string_view sv = &quot;This is a string view&quot;;  std::cout &lt;&lt; &quot;Size: &quot; &lt;&lt; sv.size() &lt;&lt; std::endl;  std::cout &lt;&lt; &quot;Substr: &quot; &lt;&lt; sv.substr(5, 2) &lt;&lt; std::endl; // &quot;is&quot;  // **重要警告**: string_view 不管理生命周期！  // 它指向的原始字符串必须比 string_view 本身活得更久！  std::string_view dangerous_view;  &#123;    std::string temp = &quot;Temporary string&quot;;    dangerous_view = temp; // 错误！temp 即将被销毁！  &#125; // temp 被销毁，dangerous_view 成为悬垂视图  // std::cout &lt;&lt; dangerous_view &lt;&lt; std::endl; // 未定义行为！  return 0;&#125;
-最佳实践：在函数参数中，优先使用std::string_view代替const std::string&amp;或const char*，除非你需要修改字符串或保证以空字符结尾。
-3.5. std::filesystem目的：提供一套跨平台的文件和目录操作接口。
-用法：
-#include &lt;iostream&gt;#include &lt;filesystem&gt;namespace fs = std::filesystem;int main()&#123;  // 路径操作  fs::path p = &quot;/usr/local/bin/my_app&quot;;  std::cout &lt;&lt; &quot;Filename: &quot; &lt;&lt; p.filename() &lt;&lt; std::endl;   // &quot;my_app&quot;  std::cout &lt;&lt; &quot;Extension: &quot; &lt;&lt; p.extension() &lt;&lt; std::endl; // &quot;&quot;  std::cout &lt;&lt; &quot;Parent: &quot; &lt;&lt; p.parent_path() &lt;&lt; std::endl;  // &quot;/usr/local/bin&quot;  // 检查文件状态  if (fs::exists(p)) &#123;    std::cout &lt;&lt; &quot;File exists.&quot; &lt;&lt; std::endl;    if (fs::is_regular_file(p)) &#123;      std::cout &lt;&lt; &quot;Size: &quot; &lt;&lt; fs::file_size(p) &lt;&lt; &quot; bytes&quot; &lt;&lt; std::endl;    &#125;  &#125;  // 遍历目录  for (const auto&amp; entry : fs::directory_iterator(&quot;/tmp&quot;)) &#123;    std::cout &lt;&lt; entry.path() &lt;&lt; std::endl;  &#125;  // 创建目录和文件  fs::create_directories(&quot;/tmp/my_new_dir&quot;);  std::ofstream(&quot;/tmp/my_new_dir/file.txt&quot;) &lt;&lt; &quot;content&quot;;  // 拷贝、重命名、删除  fs::copy(&quot;/tmp/my_new_dir/file.txt&quot;, &quot;/tmp/backup.txt&quot;);  fs::rename(&quot;/tmp/backup.txt&quot;, &quot;/tmp/backup_renamed.txt&quot;);  fs::remove(&quot;/tmp/backup_renamed.txt&quot;);  return 0;&#125;
-
-
-3.6. 并行算法目的：为标准库中的许多算法（如std::sort, std::for_each, std::transform）提供并行执行版本。
-用法：
-#include &lt;iostream&gt;#include &lt;vector&gt;#include &lt;algorithm&gt;#include &lt;execution&gt; // 引入执行策略int main()&#123;  std::vector&lt;int&gt; data(1000000);  // 顺序执行 (默认)  std::sort(data.begin(), data.end());  // 并行执行  std::sort(std::execution::par, data.begin(), data.end());  // 向量化并行执行 (如果硬件支持)  std::sort(std::execution::par_unseq, data.begin(), data.end());  // 其他支持并行化的算法  std::for_each(std::execution::par, data.begin(), data.end(), [](int&amp; n) &#123;    n *= 2;  &#125;);  return 0;&#125;
-
-执行策略：
-
-seq： 顺序执行。
-par： 并行执行。
-par_unseq： 并行且向量化执行。
-
-3.7. 其他重要特性
-std::byte: 表示原生内存的类型，取代char或unsigned char进行位操作，更语义化。
-std::scoped_lock: 用于同时锁定多个互斥量而不死锁，比std::lock_guard更强大。
-std::shared_mutex &#x2F; std::shared_lock: 实现读写锁，允许多个读或一个写。
-splicing for maps and sets: 允许在无需拷贝&#x2F;移动元素的情况下，在同类容器之间移动节点。
-数学特殊函数: 如std::beta, std::legendre等。
-
-4. References]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>cpp</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C14</title>
     <url>/cpp/synced/Cpp/C14/</url>
     <content><![CDATA[
@@ -5100,6 +4957,149 @@ std::exchange
 std::make_unique
 
 ]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>cpp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C17</title>
+    <url>/cpp/synced/Cpp/C17/</url>
+    <content><![CDATA[
+
+
+1. Introduction
+2. 语言核心特性
+2.1. 结构化绑定
+2.2. 类模板参数推导
+2.3. constexpr if
+2.4. 初始化语句 if 和 switch
+2.5. 内联变量
+2.6. 折叠表达式
+2.7. 嵌套命名空间定义
+2.8. __has_include 预处理表达式
+2.9. UTF-8 字符字面量
+2.10. 确保拷贝消除
+
+
+3. 标准库新组件
+3.1. std::optional&lt;T&gt;
+3.2. std::variant&lt;Types...&gt;
+3.3. std::any
+3.4. std::string_view
+3.5. std::filesystem
+3.6. 并行算法
+3.7. 其他重要特性
+
+
+4. References
+
+1. IntroductionC++17 的定位是“让 C++更简单、更统一、更强大”，它引入了大量提升开发效率的改进。C++17 并非像 C++11那样颠覆性的革新，而更像是对 C++11&#x2F;14 的完善和“查漏补缺”。它的核心思想可以概括为以下几点：
+
+简化日常编程：提供了更多“语法糖”，让常见的代码模式写起来更简洁、更安全（如结构化绑定、if初始化语句）。
+强化编译期计算：继续拓展constexpr的使用范围，让更多逻辑能在编译期完成（如constexpr if、constexpr lambda）。
+丰富标准库：引入了几个至关重要的新类型(std::optional, std::variant, std::any,std::string_view)和一套文件系统库。
+提升性能与效率：通过移动语义的优化、新的内存分配方式等，继续挖掘语言性能潜力。
+增强模板元编程：折叠表达式等特性让模板代码变得更简洁、更易读。
+
+C++17 是一个“实用性”极强的版本，它没有引入特别复杂的新概念，而是专注于解决实际开发中的痛点。通过引入optional,variant, string_view等工具，以及结构化绑定、constexpr if等语法糖，它让C++代码变得更安全、更高效、更易于编写和维护。
+作为一名 C++工程师，熟练掌握 C++17 特性是现代 C++开发的必备技能。建议在实践中逐步引入这些特性，它们将极大地提升你的代码质量和开发效率。
+下面，我们将按照分类逐个详细介绍这些新特性。
+2. 语言核心特性2.1. 结构化绑定目的：将一个复合类型（如std::pair, tuple, 结构体）的成员分解到多个独立的变量中。
+用法：
+#include &lt;iostream&gt;#include &lt;tuple&gt;#include &lt;map&gt;std::tuple&lt;int, double, std::string&gt; get_data() &#123;  return &#123;42, 3.14, &quot;Hello&quot;&#125;;&#125;struct Point &#123;  double x, y;&#125;;int main() &#123;  // 1. 绑定到 tuple  auto [id, value, name] = get_data();  std::cout &lt;&lt; id &lt;&lt; &quot;, &quot; &lt;&lt; value &lt;&lt; &quot;, &quot; &lt;&lt; name &lt;&lt; std::endl;  // 2. 绑定到结构体  Point p&#123;1.0, 2.0&#125;;  auto [x_coord, y_coord] = p; // x_coord = p.x, y_coord = p.y  std::cout &lt;&lt; x_coord &lt;&lt; &quot;, &quot; &lt;&lt; y_coord &lt;&lt; std::endl;  // 3. 在范围for循环中绑定到 map 的键值对 (非常实用!)  std::map&lt;int, std::string&gt; my_map = &#123;&#123;1, &quot;one&quot;&#125;, &#123;2, &quot;two&quot;&#125;&#125;;  for (const auto&amp; [key, val] : my_map) &#123; // 不再需要 .first 和 .second    std::cout &lt;&lt; key &lt;&lt; &quot;: &quot; &lt;&lt; val &lt;&lt; std::endl;  &#125;  return 0;&#125;
+
+2.2. 类模板参数推导目的：在构造类模板对象时，编译器可以根据构造函数参数自动推导模板参数，无需显式指定。
+用法：
+#include &lt;vector&gt;#include &lt;mutex&gt;int main() &#123;  // C++17 之前: std::vector&lt;int&gt; v = &#123;1, 2, 3&#125;;  std::vector v = &#123;1, 2, 3&#125;; // 自动推导为 std::vector&lt;int&gt;  // C++17 之前: std::pair&lt;int, double&gt; p(1, 3.14);  std::pair p(1, 3.14); // 自动推导为 std::pair&lt;int, double&gt;  // 对于锁，推导也非常方便  std::mutex mtx;  std::lock_guard lck(mtx); // 自动推导为 std::lock_guard&lt;std::mutex&gt;  // ... 临界区  return 0;&#125;
+注意：CTAD 需要类的构造函数能够提供足够的类型信息。你也可以通过提供推导指引来定制推导行为。
+2.3. constexpr if目的：在编译期进行条件判断，用于简化模板代码和生成不同的代码路径。被舍弃的分支不会产生任何代码。
+用法：
+#include &lt;iostream&gt;#include &lt;type_traits&gt;// 一个经典的模板问题：如何根据T是否为整数类型选择不同实现？template &lt;typename T&gt;auto print_type_info(const T&amp; t) &#123;  // 使用 constexpr if，代码非常清晰  if constexpr (std::is_integral_v&lt;T&gt;) &#123;    std::cout &lt;&lt; &quot;Integral: &quot; &lt;&lt; t &lt;&lt; std::endl;  &#125; else if constexpr (std::is_floating_point_v&lt;T&gt;) &#123;    std::cout &lt;&lt; &quot;Floating point: &quot; &lt;&lt; t &lt;&lt; std::endl;  &#125; else &#123;    std::cout &lt;&lt; &quot;Other type.&quot; &lt;&lt; std::endl;  &#125;  // 注意：不需要多个重载或 SFINAE 技巧！&#125;int main() &#123;  print_type_info(10);    // 输出 &quot;Integral: 10&quot;  print_type_info(3.14);  // 输出 &quot;Floating point: 3.14&quot;  print_type_info(&quot;abc&quot;); // 输出 &quot;Other type.&quot;  return 0;&#125;
+这是模板元编程的一大进步，极大地减少了std::enable_if等复杂技巧的使用。
+2.4. 初始化语句 if 和 switch目的：允许在if和switch的条件表达式前增加一条初始化语句，限制变量的作用域。
+用法：
+#include &lt;iostream&gt;#include &lt;map&gt;std::map&lt;int, std::string&gt; my_map = &#123;&#123;1, &quot;one&quot;&#125;&#125;;void check_and_use(int key) &#123;  // 初始化语句中声明变量，其作用域仅限于 if 和 else 块  if (auto it = my_map.find(key); it != my_map.end()) &#123;    std::cout &lt;&lt; &quot;Found: &quot; &lt;&lt; it-&gt;second &lt;&lt; std::endl;  &#125; else &#123;    std::cout &lt;&lt; &quot;Key &quot; &lt;&lt; key &lt;&lt; &quot; not found.&quot; &lt;&lt; std::endl;    // it 在这里仍然可见，但值是 end()  &#125;  // it 在这里不可见&#125;int main() &#123;  check_and_use(1);  check_and_use(2);  // 在 switch 中使用  switch (int status = get_status(); status) &#123;    case 0: std::cout &lt;&lt; &quot;OK&quot;; break;    case 1: std::cout &lt;&lt; &quot;Error&quot;; break;    default: std::cout &lt;&lt; &quot;Unknown&quot;; break;  &#125;  return 0;&#125;
+这提高了代码的封装性和安全性，避免了不必要的变量泄露到外部作用域。
+2.5. 内联变量目的：允许在头文件中定义（而不仅仅是声明）全局变量或静态成员变量，解决“头文件中定义constexpr变量”的ODR（单定义规则）问题。
+用法：
+// my_header.h#ifndef MY_HEADER_H#define MY_HEADER_H// C++17 之前，在头文件中定义全局变量会导致多重定义链接错误// 现在可以了！inline int global_counter = 0;class MyClass &#123;public:  // 静态成员变量可以直接在类内定义并初始化  static inline std::string class_name = &quot;MyClass&quot;;  static const inline int version = 1; // constexpr 成员默认是 inline 的&#125;;#endif
+这简化了单例模式（如 Meyers‘ Singleton）的实现，并且是定义全局编译时常量的推荐方式。
+2.6. 折叠表达式目的：简化对参数包的可变参数模板的展开操作，用更简洁的语法实现对参数包中所有元素进行二元运算。
+用法：
+#include &lt;iostream&gt;// 1. 计算所有参数的和 (二元折叠)template&lt;typename... Args&gt;auto sum(Args... args) &#123;  return (... + args); // 展开为 ((arg1 + arg2) + arg3) + ...&#125;// 2. 打印所有参数 (一元折叠)template&lt;typename... Args&gt;void print_all(Args&amp;&amp;... args) &#123;  (std::cout &lt;&lt; ... &lt;&lt; args) &lt;&lt; std::endl; // 折叠方向：(((cout &lt;&lt; a) &lt;&lt; b) &lt;&lt; c)&#125;// 3. 用逗号分隔调用函数 (利用逗号运算符)template&lt;typename... Args&gt;void call_all(Args... args) &#123;  (..., (std::cout &lt;&lt; args &lt;&lt; &quot; &quot;)); // 展开为 (void(cout&lt;&lt;a1&lt;&lt;&quot; &quot;), void(cout&lt;&lt;a2&lt;&lt;&quot; &quot;)), ...&#125;int main() &#123;  std::cout &lt;&lt; sum(1, 2, 3, 4, 5) &lt;&lt; std::endl; // 输出 15  print_all(1, &quot; hello &quot;, 3.14); // 输出 &quot;1 hello 3.14&quot;  call_all(10, 20, 30); // 输出 &quot;10 20 30 &quot;  return 0;&#125;
+折叠表达式让可变参数模板的代码变得异常简洁。
+2.7. 嵌套命名空间定义目的：简化嵌套命名空间的声明语法。
+用法：
+// C++17 之前namespace A &#123;  namespace B &#123;    namespace C &#123;      int var;    &#125;  &#125;&#125;// C++17 之后namespace A::B::C &#123;  int var;&#125;
+
+
+2.8. __has_include 预处理表达式目的：在编译期检查某个头文件是否可用，便于编写可移植代码。
+用法：
+#if __has_include(&lt;optional&gt;)  #include &lt;optional&gt;  #define HAVE_OPTIONAL 1#elif __has_include(&lt;experimental/optional&gt;)  #include &lt;experimental/optional&gt;  #define HAVE_OPTIONAL 1  // 可能需要别名 namespace std &#123; using std::experimental::optional; &#125;#else  #define HAVE_OPTIONAL 0#endif#if HAVE_OPTIONAL  std::optional&lt;int&gt; opt;#endif
+
+
+2.9. UTF-8 字符字面量目的：用u8前缀明确表示 UTF-8 编码的字符和字符串。
+用法：
+char8_t c = u8&#x27;a&#x27;; // C++17 引入了 char8_t 类型 (C++20 中完善)const char* utf8_str = u8&quot;UTF-8 字符串&quot;;
+
+
+2.10. 确保拷贝消除目的：在某些情况下（如按值返回纯右值），C++17 标准强制要求编译器进行拷贝消除，而不是可选的 RVO&#x2F;NRVO。
+用法：
+struct NonCopyable &#123;  NonCopyable() = default;  NonCopyable(const NonCopyable&amp;) = delete; // 禁止拷贝&#125;;NonCopyable create() &#123;  return NonCopyable&#123;&#125;; // 在 C++17 中合法，保证不会发生拷贝&#125;auto obj = create(); // 同样合法
+这意味着你可以安全地返回不可拷贝&#x2F;移动的类型。
+3. 标准库新组件3.1. std::optional&lt;T&gt;std::optional 是在 C++17 标准中引入的（定义在头文件  中）。
+
+它的设计思想借鉴自 Boost 库中的 boost::optional，在 C++17 标准化之前，很多项目就已经在使用 Boost 版本了。
+std::optional 用于表示一个”可能存在也可能不存在”的值，避免了用指针或特殊哨兵值（如 -1、nullptr）来表示”无值”状态的做法，
+
+用法：
+#include &lt;iostream&gt;#include &lt;optional&gt;std::optional&lt;int&gt; getValue(bool condition)&#123;  if (condition) &#123;    return 42;  &#125;  return std::nullopt;&#125;int main(int argc, char* argv[])&#123;  std::optional&lt;int&gt; result = getValue(false);  if (result.has_value()) &#123;    std::cout &lt;&lt; &quot;Value: &quot; &lt;&lt; result.value() &lt;&lt; std::endl;  &#125; else &#123;    std::cout &lt;&lt; &quot;No value returned.&quot; &lt;&lt; std::endl;    try &#123;      result.value();  // This will throw std::bad_optional_access exception    &#125; catch (const std::bad_optional_access&amp; e) &#123;      std::cout &lt;&lt; &quot;Exception caught: &quot; &lt;&lt; e.what() &lt;&lt; std::endl;    &#125;    // no value may set default value    int val = result.value_or(0);  // This will return 0 if result is empty    std::cout &lt;&lt; &quot;Value with default: &quot; &lt;&lt; val &lt;&lt; std::endl;  &#125;  return 0;&#125;
+
+用途： std::optional 主要用于表示”值可能不存在”的语义，比直接用指针、特殊哨兵值或抛异常更清晰、更安全。
+3.2. std::variant&lt;Types...&gt;目的：类型安全的联合体。可以持有指定类型集合中的任意一种类型的值。
+用法：
+#include &lt;iostream&gt;#include &lt;variant&gt;#include &lt;string&gt;int main()&#123;  std::variant&lt;int, double, std::string&gt; v;  v = 42;  std::cout &lt;&lt; std::get&lt;int&gt;(v) &lt;&lt; std::endl; // 通过类型获取  v = 3.14;  // std::cout &lt;&lt; std::get&lt;int&gt;(v) &lt;&lt; std::endl; // 错误！抛出 std::bad_variant_access  std::cout &lt;&lt; std::get&lt;double&gt;(v) &lt;&lt; std::endl;  v = &quot;hello&quot;;  std::cout &lt;&lt; std::get&lt;2&gt;(v) &lt;&lt; std::endl; // 通过索引获取  // 使用 visit 来访问 (最强大的功能)  std::visit([](auto&amp;&amp; arg) &#123;    using T = std::decay_t&lt;decltype(arg)&gt;;    if constexpr (std::is_same_v&lt;T, int&gt;) &#123;      std::cout &lt;&lt; &quot;int: &quot; &lt;&lt; arg &lt;&lt; std::endl;    &#125; else if constexpr (std::is_same_v&lt;T, double&gt;) &#123;      std::cout &lt;&lt; &quot;double: &quot; &lt;&lt; arg &lt;&lt; std::endl;    &#125; else if constexpr (std::is_same_v&lt;T, std::string&gt;) &#123;      std::cout &lt;&lt; &quot;string: &quot; &lt;&lt; arg &lt;&lt; std::endl;    &#125;  &#125;, v);  return 0;&#125;
+
+
+3.3. std::any目的：一个类型安全的void*。可以存储任意类型的值，并在运行时安全地检索。
+用法：
+#include &lt;iostream&gt;#include &lt;any&gt;#include &lt;string&gt;int main()&#123;  std::any a = 1;  std::cout &lt;&lt; std::any_cast&lt;int&gt;(a) &lt;&lt; std::endl; // 输出 1  a = std::string(&quot;hello&quot;);  std::cout &lt;&lt; std::any_cast&lt;std::string&gt;(a) &lt;&lt; std::endl; // 输出 &quot;hello&quot;  // 错误类型转换会抛出 std::bad_any_cast  try &#123;    std::cout &lt;&lt; std::any_cast&lt;int&gt;(a) &lt;&lt; std::endl;  &#125; catch (const std::bad_any_cast&amp; e) &#123;    std::cout &lt;&lt; &quot;Bad any cast: &quot; &lt;&lt; e.what() &lt;&lt; std::endl;  &#125;  // 检查类型  if (a.type() == typeid(std::string)) &#123;    std::cout &lt;&lt; &quot;a holds a string&quot; &lt;&lt; std::endl;  &#125;  return 0;&#125;
+对比：
+
+optional: 有值&#x2F;无值。
+variant: 多个已知类型中的一个。
+any: 任意一个未知类型。
+
+3.4. std::string_view目的：提供对字符串数据的只读、非占有式视图。避免了不必要的字符串拷贝，极大地提升了性能。
+用法：
+#include &lt;iostream&gt;#include &lt;string&gt;#include &lt;string_view&gt;// 接受 string_view 作为参数，高效且灵活void print_string(std::string_view sv)&#123;  std::cout &lt;&lt; sv &lt;&lt; std::endl;&#125;int main()&#123;  std::string str = &quot;Hello, World!&quot;;  const char* cstr = &quot;C-style string&quot;;  // 以下调用都无需创建新的 string 对象  print_string(str);                // 来自 std::string  print_string(cstr);               // 来自 C风格字符串  print_string(&quot;String literal&quot;);   // 来自字面量  print_string(std::string_view(str.c_str(), 5)); // 子串 &quot;Hello&quot;  // string_view 的常用操作  std::string_view sv = &quot;This is a string view&quot;;  std::cout &lt;&lt; &quot;Size: &quot; &lt;&lt; sv.size() &lt;&lt; std::endl;  std::cout &lt;&lt; &quot;Substr: &quot; &lt;&lt; sv.substr(5, 2) &lt;&lt; std::endl; // &quot;is&quot;  // **重要警告**: string_view 不管理生命周期！  // 它指向的原始字符串必须比 string_view 本身活得更久！  std::string_view dangerous_view;  &#123;    std::string temp = &quot;Temporary string&quot;;    dangerous_view = temp; // 错误！temp 即将被销毁！  &#125; // temp 被销毁，dangerous_view 成为悬垂视图  // std::cout &lt;&lt; dangerous_view &lt;&lt; std::endl; // 未定义行为！  return 0;&#125;
+最佳实践：在函数参数中，优先使用std::string_view代替const std::string&amp;或const char*，除非你需要修改字符串或保证以空字符结尾。
+3.5. std::filesystem目的：提供一套跨平台的文件和目录操作接口。
+用法：
+#include &lt;iostream&gt;#include &lt;filesystem&gt;namespace fs = std::filesystem;int main()&#123;  // 路径操作  fs::path p = &quot;/usr/local/bin/my_app&quot;;  std::cout &lt;&lt; &quot;Filename: &quot; &lt;&lt; p.filename() &lt;&lt; std::endl;   // &quot;my_app&quot;  std::cout &lt;&lt; &quot;Extension: &quot; &lt;&lt; p.extension() &lt;&lt; std::endl; // &quot;&quot;  std::cout &lt;&lt; &quot;Parent: &quot; &lt;&lt; p.parent_path() &lt;&lt; std::endl;  // &quot;/usr/local/bin&quot;  // 检查文件状态  if (fs::exists(p)) &#123;    std::cout &lt;&lt; &quot;File exists.&quot; &lt;&lt; std::endl;    if (fs::is_regular_file(p)) &#123;      std::cout &lt;&lt; &quot;Size: &quot; &lt;&lt; fs::file_size(p) &lt;&lt; &quot; bytes&quot; &lt;&lt; std::endl;    &#125;  &#125;  // 遍历目录  for (const auto&amp; entry : fs::directory_iterator(&quot;/tmp&quot;)) &#123;    std::cout &lt;&lt; entry.path() &lt;&lt; std::endl;  &#125;  // 创建目录和文件  fs::create_directories(&quot;/tmp/my_new_dir&quot;);  std::ofstream(&quot;/tmp/my_new_dir/file.txt&quot;) &lt;&lt; &quot;content&quot;;  // 拷贝、重命名、删除  fs::copy(&quot;/tmp/my_new_dir/file.txt&quot;, &quot;/tmp/backup.txt&quot;);  fs::rename(&quot;/tmp/backup.txt&quot;, &quot;/tmp/backup_renamed.txt&quot;);  fs::remove(&quot;/tmp/backup_renamed.txt&quot;);  return 0;&#125;
+
+
+3.6. 并行算法目的：为标准库中的许多算法（如std::sort, std::for_each, std::transform）提供并行执行版本。
+用法：
+#include &lt;iostream&gt;#include &lt;vector&gt;#include &lt;algorithm&gt;#include &lt;execution&gt; // 引入执行策略int main()&#123;  std::vector&lt;int&gt; data(1000000);  // 顺序执行 (默认)  std::sort(data.begin(), data.end());  // 并行执行  std::sort(std::execution::par, data.begin(), data.end());  // 向量化并行执行 (如果硬件支持)  std::sort(std::execution::par_unseq, data.begin(), data.end());  // 其他支持并行化的算法  std::for_each(std::execution::par, data.begin(), data.end(), [](int&amp; n) &#123;    n *= 2;  &#125;);  return 0;&#125;
+
+执行策略：
+
+seq： 顺序执行。
+par： 并行执行。
+par_unseq： 并行且向量化执行。
+
+3.7. 其他重要特性
+std::byte: 表示原生内存的类型，取代char或unsigned char进行位操作，更语义化。
+std::scoped_lock: 用于同时锁定多个互斥量而不死锁，比std::lock_guard更强大。
+std::shared_mutex &#x2F; std::shared_lock: 实现读写锁，允许多个读或一个写。
+splicing for maps and sets: 允许在无需拷贝&#x2F;移动元素的情况下，在同类容器之间移动节点。
+数学特殊函数: 如std::beta, std::legendre等。
+
+4. References]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -10516,24 +10516,6 @@ export JAVA_HOME=/usr/local/java/jdk1.8.0_171export JRE_HOME=$&#123;JAVA_HOME&#1
       </tags>
   </entry>
   <entry>
-    <title>Buildroot</title>
-    <url>/GNU/synced/GNU/Buildroot/</url>
-    <content><![CDATA[
-
-IntroductionBuildroot 是一个开源的工具，主要用于为嵌入式 Linux 系统创建自定义的根文件系统（rootfilesystem）、内核映像和引导加载程序。它提供了一种简化的方式来构建适合特定硬件平台的 Linux 系统。
-References
-Buildroot 官方网站：提供了 Buildroot 的下载、文档和社区支持。
-Buildroot Gitlab 仓库: 包含 Buildroot 的源代码和开发历史。
-
-]]></content>
-      <categories>
-        <category>GNU</category>
-      </categories>
-      <tags>
-        <tag>gnu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ABI</title>
     <url>/GNU/synced/GNU/ABI/</url>
     <content><![CDATA[
@@ -10599,6 +10581,24 @@ ABI 不兼容的例子C++ ABI 问题：这是最常见的问题。GCC 在 5.1 �
 用 GCC 5.1 及以上版本编译的程序，如果链接到新的 libstdc++.so.6，无法与用 GCC 4.x 编译的、期望旧 ABI的第三方库一起工作。
 错误信息可能包含 undefined symbol: _ZNSt7__cxx1112...，这明确指向了新的 C++11 ABI（cxx11）。
 解决方案通常是：要么全部用新编译器重新编译所有组件，要么让第三方库提供兼容新旧 ABI 的版本。
+
+]]></content>
+      <categories>
+        <category>GNU</category>
+      </categories>
+      <tags>
+        <tag>gnu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Buildroot</title>
+    <url>/GNU/synced/GNU/Buildroot/</url>
+    <content><![CDATA[
+
+IntroductionBuildroot 是一个开源的工具，主要用于为嵌入式 Linux 系统创建自定义的根文件系统（rootfilesystem）、内核映像和引导加载程序。它提供了一种简化的方式来构建适合特定硬件平台的 Linux 系统。
+References
+Buildroot 官方网站：提供了 Buildroot 的下载、文档和社区支持。
+Buildroot Gitlab 仓库: 包含 Buildroot 的源代码和开发历史。
 
 ]]></content>
       <categories>
@@ -12319,6 +12319,23 @@ ReferencesGit 官网镜像
       </tags>
   </entry>
   <entry>
+    <title>Pipeline</title>
+    <url>/Git-SVN/synced/Git-SVN/Pipeline/</url>
+    <content><![CDATA[
+
+Git PipelineGitlab Pipeline Rules
+“Pipeline must succeed”：合并前 Pipeline 必须通过
+“Require approvals before merging”：合并需要审批
+一旦 MR 有审批记录，后续修改可自由触发 Pipeline。修改后提交 → 自动触发 Pipeline → 无需重新审批
+]]></content>
+      <categories>
+        <category>Git &amp; SVN</category>
+      </categories>
+      <tags>
+        <tag>git-svn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Internals</title>
     <url>/Git-SVN/synced/Git-SVN/Internals/</url>
     <content><![CDATA[
@@ -12444,23 +12461,6 @@ Git from the Bottom Up: 不仅解释了 Git 的数据模型，还解释了其实
 Git PAT 使用: Github 支持 personal access token 的用法。
 A successful Git branching model： Vincent Driessen 介绍 git 工作流。
 
-]]></content>
-      <categories>
-        <category>Git &amp; SVN</category>
-      </categories>
-      <tags>
-        <tag>git-svn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Pipeline</title>
-    <url>/Git-SVN/synced/Git-SVN/Pipeline/</url>
-    <content><![CDATA[
-
-Git PipelineGitlab Pipeline Rules
-“Pipeline must succeed”：合并前 Pipeline 必须通过
-“Require approvals before merging”：合并需要审批
-一旦 MR 有审批记录，后续修改可自由触发 Pipeline。修改后提交 → 自动触发 Pipeline → 无需重新审批
 ]]></content>
       <categories>
         <category>Git &amp; SVN</category>
@@ -14500,6 +14500,111 @@ Go 标准库-双向链表 (container&#x2F;list) 源码解析: https://blog.csdn.
       </tags>
   </entry>
   <entry>
+    <title>GoTest</title>
+    <url>/Go/synced/Go/GoTest/</url>
+    <content><![CDATA[
+
+1. Testing(测试)Go 语言的工具和标准库中集成了轻量级的测试功能，避免了强大但复杂的测试框架。测试库提供了一些基本构件，必要时可以用来构建复杂的测试构件。
+go test 命令是一个按照一定的约定和组织来测试代码的程序。 在包目录内， 所有以 _test.go 为后缀名的源文件在执行 go build 时不会被构建成包的一部分， 它们是 go test 测试的一部分。
+go test 命令执行原理
+
+go test 命令会遍历所有的 *_test.go 文件中符合上述命名规则的函数， 生成一个临时的 main 包用于调用相应的测试函数，接着构建并运行、 报告测试结果， 最后清理测试中生成的临时文件。
+
+1.1. 测试函数
+测试用例文件名必须以 _test.go 结尾，例如：socket_test.go
+
+在 *_test.go 文件中， 分为三种类型的函数： 测试函数、 基准测试 (benchmark) 函数、 示例函数。 一个测试函数是以Test 为函数名前缀的函数， 用于测试程序的一些逻辑行为是否正确，go test命令会调用这些测试函数并报告测试结果是 PASS 或 FAIL。 基准测试函数是以 Benchmark 为函数名前缀的函数，它们用于衡量一些函数的性能； go test 命令会多次运行基准函数以计算一个平均的执行时间。
+
+每个测试用例中必须导入 testing 包。
+import &quot;testing&quot;
+
+测试用例中的函数名必须以 Test 开头，可选的后缀名必须以大写字母开头 。常见的命名原则：Test + 被测试的函数名 。测试用例函数 TestSocket(t *testing.T) 的形参必须是*testing.T
+func TestSocket(t *testing.T) &#123; /* ..*/&#125;func TestSin(t *testing.T) &#123; /* ... */ &#125;func TestCos(t *testing.T) &#123; /* ... */ &#125;func TestLog(t *testing.T) &#123; /* ... */ &#125;
+
+其中 t 参数用于报告测试失败和附加的日志信息。
+
+一个测试用例文件中可以有多个测试用例函数，比如：TestAdd()、TestSub() 等。
+
+测试用例运行指令：
+// 若运行正确，则无日志；若运行错误，则有日志// go test 后面没有参数指定包，那么将默认采用当前目录对应的包go test// 无论运行是正确还是错误，都有日志输出// 参数 -v: 显示每个测试用例的结果和运行时间go test -v// 测试单个文件go test -v socket_test.go socket.go// 测试单个方法go test -v -test.run TestAdd// CPU 剖析数据标识了最耗 CPU 时间的函数。 在每个 CPU 上运行的线程在每隔几毫秒都会遇到// 操作系统的中断事件， 每次中断时都会记录一个剖析数据然后恢复正常的运行。go test -cpuprofile=cpu.out// 堆剖析则标识了最耗内存的语句。剖析库会记录调用内部内存分配的操作，// 平均每 512KB 的内存申请会触发一个剖析数据。go test -memprofile=mem.out// 阻塞剖析则记录阻塞 goroutine 最久的操作， 例如系统调用、 管道发送和接收，// 还有获取锁等。 每当 goroutine 被这些操作阻塞时， 剖析库都会记录相应的事件。go test -blockprofile=block.out
+
+若同时开启 CPU 剖析、堆剖析、阻塞剖析时，要当心， 因为某一项分析操作可能会影响其他项的分析结果 。
+
+当出现错误时，用 t.Fatalf 来格式化输出错误信息，并退出程序。
+
+t.Logf 可在测试用例中输出日志。
+
+测试用例函数，并没有放在 main 函数中，但用例程序也执行。因为在导入测试用例的包时，Golang 的测试框架中有 main开始执行，然后再加载 测试用例程序 xxx_test.go 和 业务程序 xxx.go。
+
+测试用例程序执行完全后，显示的结果是 PASS 或者 FAIL。其中：PASS 表示测试用例运行成功；FAIL表示测试用例执行失败。测试用例文件中的函数都执行成功，才显示PASS；若发现有一个执行不成功，也会显示 FAIL。
+
+
+1.2. 基准测试基准测试是测量一个程序在固定工作负载下的性能。 在 Go 语言中， 基准测试函数和普通测试函数写法类似， 但是以 Benchmark为前缀名， 并且带有一个 *testing.B 类型的参数； *testing.B参数除了提供和 *testing.T 类似的方法， 还有额外一些和性能测量相关的方法。 它还提供了一个整数 N，用于指定操作执行的循环次数。
+import &quot;testing&quot;// 循环中执行 N 次func BenchmarkSum(b *testing.B) &#123;  for i := 0; i &lt; b.N; i++ &#123;    Sum(&quot;A man, a plan, a canal: Panama&quot;)  &#125;&#125;
+
+运行基准测试：
+基准测试与普通的测试不同，默认情况下不运行任何基准测试。要运行基准测试，使用 -bench命令参数，该参数是一个正则表达式， 用于匹配要执行的基准测试函数的名字， 默认值是空的。 其中 . 模式将可以匹配所有基准测试函数 。
+// 匹配当前路径下所有的基准测试函数go test -bench=.goos: linuxgoarch: amd64pkg: test/productcpu: Intel(R) Core(TM) i5-10400H CPU @ 2.60GHzBenchmarkBuy-8...1000000000               0.0001251 ns/opPASSok      test/product    0.007s// 只运行某个基准函数got test -v -bench=&quot;基准函数名&quot;
+
+基准测试结果中 BenchmarkBuy-8，基准测试函数的后缀部分 8，表示运行时对应的 GOMAXPROCS 值， 这对于一些与并发相关的基准测试是重要的信息。
+-benchmem 命令行参数：提供每次操作分配内存的次数，以及总共分配内存的字节数。
+go test -bench=. -benchmemgoos: linuxgoarch: amd64pkg: test/wordcpu: Intel(R) Core(TM) i5-10400H CPU @ 2.60GHzBenchmarkIsPalindrome02-8        4092888               281.4 ns/op           248 B/op          5 allocs/opBenchmarkIsPalindrome03-8        4306605               277.4 ns/op           248 B/op          5 allocs/opBenchmarkIsPalindrome04-8        7649563               147.7 ns/op           128 B/op          1 allocs/opPASSok      test/word       4.225s
+
+优化后的 BenchmarkIsPalindrome04 函数从从之前的 5 次内存分配变成了一次内存分配 1 allocs/op。
+注：
+
+单位为 allocs/op 的值表示每次操作从堆上分配内存的次数。
+单位为 B/op 的值表示每次操作分配的字节数。
+
+比较型的基准测试就是普通程序代码。 它们通常是单参数的函数， 由几个不同数量级的基准测试函数调用， 就像这样：
+func benchmark(b *testing.B, size int) &#123; /* ... */ &#125;func Benchmark10(b *testing.B) &#123; benchmark(b, 10) &#125;func Benchmark100(b *testing.B) &#123; benchmark(b, 100) &#125;func Benchmark1000(b *testing.B) &#123; benchmark(b, 1000) &#125;
+
+通过函数参数来指定输入的大小， 但是参数变量对于每个具体的基准测试都是固定的。 要避免直接修改 b.N 来控制输入的大小。除非你将它作为一个固定大小的迭代计算输入， 否则基准测试的结果将毫无意义。
+1.3. Coverage(测试覆盖率)执行 go 的测试程序时，用 coverage 来统计测试用例的覆盖率。
+go test -v -run=Coverage example/word
+
+ 执行 example/word 路径下所有 go 测试用例，并统计测试用例的覆盖率。
+查看 测试用例覆盖攻击的使用方法，可用 go tool cover 命令。
+Usage of &#x27;go tool cover&#x27;:Given a coverage profile produced by &#x27;go test&#x27;:        go test -coverprofile=c.outOpen a web browser displaying annotated source code:        go tool cover -html=c.outWrite out an HTML file instead of launching a web browser:        go tool cover -html=c.out -o coverage.htmlDisplay coverage percentages to stdout for each function:        go tool cover -func=c.outFinally, to generate modified source code with coverage annotations(what go test -cover does):        go tool cover -mode=set -var=CoverageVariableName program.goFlags:  -V    print version and exit  -func string        output coverage profile information for each function  -html string        generate HTML representation of coverage profile  -mode string        coverage mode: set, count, atomic  -o string        file for output; default: stdout  -var string        name of coverage variable to generate (default &quot;GoCover&quot;)  Only one of -html, -func, or -mode may be set.
+
+go tool 命令运行 Go 工具链的底层可执行程序。 这些底层可执行程序放在  $GOROOT/pkg/tool/$&#123;GOOS&#125;_$&#123;GOARCH&#125; 目录。因为有 go build 命令的原因， 我们很少直接调用这些底层工具。
+现在我们可以用 -coverprofile 标志参数重新运行测试：
+go test -run=Coverage -coverprofile=c.out  example/word
+
+ -coverprofile 在测试代码中插入生成钩子来统计覆盖率数据。 也就是说， 在运行每个测试前，它将待测代码拷贝一份并做修改， 在每个词法块都会设置一个布尔标志变量. 当被修改后的被测试代码运行退出时，将统计日志数据写入 c.out 文件， 并打印一部分执行的语句的一个总结。（ 如果你需要的是摘要， 使用 go test -cover 。）
+为了收集数据， 我们运行了测试覆盖率工具， 打印了测试日志， 使用下面的命令，生成一个 HTML 报告， 然后在浏览器中打开  。
+go tool cover -html=c.out
+
+
+
+2. 为测试做设计
+测试编码规范
+测试编码流程
+测试编码工具
+测试平台的思考和构建
+
+坚持的原则：尽早测试，经常测试，自动测试。一旦代码写出来，就要尽早开始测试。
+2.0.1. 对代码阅读的思考
+在代码里把事情讲明白，让人能快速理解他人的代码，就能快速做出修改的决策。“猜测他人代码的逻辑用意”是很难受且困难的，他人的代码也会在这种场景下，产生被误读。
+一般阅读他人的代码时，可能有些没有必要的地方，别人要花很多的脑子猜“为什么是这样的？”
+代码写的原则是：简单、易理解、逻辑清晰。
+写代码前先理清基本的需求、设计以及实现的流程。
+不要面向需求编程，要面向业务模型编程。把变更的需求看成是业务模型的一个可变的参数，类似于函数的参数一样。
+注释要把问题讲清楚, 讲不清楚的日志等于没有
+
+3. References
+腾讯工作 13 年之所思所想，那些优秀程序员的共性特征
+腾讯 13 年，我所总结的 Code Review 终极大法
+
+]]></content>
+      <categories>
+        <category>Go</category>
+      </categories>
+      <tags>
+        <tag>go</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GoStandardLibrary</title>
     <url>/Go/synced/Go/GoStandardLibrary/</url>
     <content><![CDATA[
@@ -14609,111 +14714,6 @@ Go Standard library: https://pkg.go.dev/std
 Go 语言中文网：https://studygolang.com/pkgdoc
 Mastering GO 中文翻译：https://wskdsgcf.gitbook.io/mastering-go-zh-cn/
 Go 语言标准库 Example: https://books.studygolang.com/The-Golang-Standard-Library-by-Example/
-
-]]></content>
-      <categories>
-        <category>Go</category>
-      </categories>
-      <tags>
-        <tag>go</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GoTest</title>
-    <url>/Go/synced/Go/GoTest/</url>
-    <content><![CDATA[
-
-1. Testing(测试)Go 语言的工具和标准库中集成了轻量级的测试功能，避免了强大但复杂的测试框架。测试库提供了一些基本构件，必要时可以用来构建复杂的测试构件。
-go test 命令是一个按照一定的约定和组织来测试代码的程序。 在包目录内， 所有以 _test.go 为后缀名的源文件在执行 go build 时不会被构建成包的一部分， 它们是 go test 测试的一部分。
-go test 命令执行原理
-
-go test 命令会遍历所有的 *_test.go 文件中符合上述命名规则的函数， 生成一个临时的 main 包用于调用相应的测试函数，接着构建并运行、 报告测试结果， 最后清理测试中生成的临时文件。
-
-1.1. 测试函数
-测试用例文件名必须以 _test.go 结尾，例如：socket_test.go
-
-在 *_test.go 文件中， 分为三种类型的函数： 测试函数、 基准测试 (benchmark) 函数、 示例函数。 一个测试函数是以Test 为函数名前缀的函数， 用于测试程序的一些逻辑行为是否正确，go test命令会调用这些测试函数并报告测试结果是 PASS 或 FAIL。 基准测试函数是以 Benchmark 为函数名前缀的函数，它们用于衡量一些函数的性能； go test 命令会多次运行基准函数以计算一个平均的执行时间。
-
-每个测试用例中必须导入 testing 包。
-import &quot;testing&quot;
-
-测试用例中的函数名必须以 Test 开头，可选的后缀名必须以大写字母开头 。常见的命名原则：Test + 被测试的函数名 。测试用例函数 TestSocket(t *testing.T) 的形参必须是*testing.T
-func TestSocket(t *testing.T) &#123; /* ..*/&#125;func TestSin(t *testing.T) &#123; /* ... */ &#125;func TestCos(t *testing.T) &#123; /* ... */ &#125;func TestLog(t *testing.T) &#123; /* ... */ &#125;
-
-其中 t 参数用于报告测试失败和附加的日志信息。
-
-一个测试用例文件中可以有多个测试用例函数，比如：TestAdd()、TestSub() 等。
-
-测试用例运行指令：
-// 若运行正确，则无日志；若运行错误，则有日志// go test 后面没有参数指定包，那么将默认采用当前目录对应的包go test// 无论运行是正确还是错误，都有日志输出// 参数 -v: 显示每个测试用例的结果和运行时间go test -v// 测试单个文件go test -v socket_test.go socket.go// 测试单个方法go test -v -test.run TestAdd// CPU 剖析数据标识了最耗 CPU 时间的函数。 在每个 CPU 上运行的线程在每隔几毫秒都会遇到// 操作系统的中断事件， 每次中断时都会记录一个剖析数据然后恢复正常的运行。go test -cpuprofile=cpu.out// 堆剖析则标识了最耗内存的语句。剖析库会记录调用内部内存分配的操作，// 平均每 512KB 的内存申请会触发一个剖析数据。go test -memprofile=mem.out// 阻塞剖析则记录阻塞 goroutine 最久的操作， 例如系统调用、 管道发送和接收，// 还有获取锁等。 每当 goroutine 被这些操作阻塞时， 剖析库都会记录相应的事件。go test -blockprofile=block.out
-
-若同时开启 CPU 剖析、堆剖析、阻塞剖析时，要当心， 因为某一项分析操作可能会影响其他项的分析结果 。
-
-当出现错误时，用 t.Fatalf 来格式化输出错误信息，并退出程序。
-
-t.Logf 可在测试用例中输出日志。
-
-测试用例函数，并没有放在 main 函数中，但用例程序也执行。因为在导入测试用例的包时，Golang 的测试框架中有 main开始执行，然后再加载 测试用例程序 xxx_test.go 和 业务程序 xxx.go。
-
-测试用例程序执行完全后，显示的结果是 PASS 或者 FAIL。其中：PASS 表示测试用例运行成功；FAIL表示测试用例执行失败。测试用例文件中的函数都执行成功，才显示PASS；若发现有一个执行不成功，也会显示 FAIL。
-
-
-1.2. 基准测试基准测试是测量一个程序在固定工作负载下的性能。 在 Go 语言中， 基准测试函数和普通测试函数写法类似， 但是以 Benchmark为前缀名， 并且带有一个 *testing.B 类型的参数； *testing.B参数除了提供和 *testing.T 类似的方法， 还有额外一些和性能测量相关的方法。 它还提供了一个整数 N，用于指定操作执行的循环次数。
-import &quot;testing&quot;// 循环中执行 N 次func BenchmarkSum(b *testing.B) &#123;  for i := 0; i &lt; b.N; i++ &#123;    Sum(&quot;A man, a plan, a canal: Panama&quot;)  &#125;&#125;
-
-运行基准测试：
-基准测试与普通的测试不同，默认情况下不运行任何基准测试。要运行基准测试，使用 -bench命令参数，该参数是一个正则表达式， 用于匹配要执行的基准测试函数的名字， 默认值是空的。 其中 . 模式将可以匹配所有基准测试函数 。
-// 匹配当前路径下所有的基准测试函数go test -bench=.goos: linuxgoarch: amd64pkg: test/productcpu: Intel(R) Core(TM) i5-10400H CPU @ 2.60GHzBenchmarkBuy-8...1000000000               0.0001251 ns/opPASSok      test/product    0.007s// 只运行某个基准函数got test -v -bench=&quot;基准函数名&quot;
-
-基准测试结果中 BenchmarkBuy-8，基准测试函数的后缀部分 8，表示运行时对应的 GOMAXPROCS 值， 这对于一些与并发相关的基准测试是重要的信息。
--benchmem 命令行参数：提供每次操作分配内存的次数，以及总共分配内存的字节数。
-go test -bench=. -benchmemgoos: linuxgoarch: amd64pkg: test/wordcpu: Intel(R) Core(TM) i5-10400H CPU @ 2.60GHzBenchmarkIsPalindrome02-8        4092888               281.4 ns/op           248 B/op          5 allocs/opBenchmarkIsPalindrome03-8        4306605               277.4 ns/op           248 B/op          5 allocs/opBenchmarkIsPalindrome04-8        7649563               147.7 ns/op           128 B/op          1 allocs/opPASSok      test/word       4.225s
-
-优化后的 BenchmarkIsPalindrome04 函数从从之前的 5 次内存分配变成了一次内存分配 1 allocs/op。
-注：
-
-单位为 allocs/op 的值表示每次操作从堆上分配内存的次数。
-单位为 B/op 的值表示每次操作分配的字节数。
-
-比较型的基准测试就是普通程序代码。 它们通常是单参数的函数， 由几个不同数量级的基准测试函数调用， 就像这样：
-func benchmark(b *testing.B, size int) &#123; /* ... */ &#125;func Benchmark10(b *testing.B) &#123; benchmark(b, 10) &#125;func Benchmark100(b *testing.B) &#123; benchmark(b, 100) &#125;func Benchmark1000(b *testing.B) &#123; benchmark(b, 1000) &#125;
-
-通过函数参数来指定输入的大小， 但是参数变量对于每个具体的基准测试都是固定的。 要避免直接修改 b.N 来控制输入的大小。除非你将它作为一个固定大小的迭代计算输入， 否则基准测试的结果将毫无意义。
-1.3. Coverage(测试覆盖率)执行 go 的测试程序时，用 coverage 来统计测试用例的覆盖率。
-go test -v -run=Coverage example/word
-
- 执行 example/word 路径下所有 go 测试用例，并统计测试用例的覆盖率。
-查看 测试用例覆盖攻击的使用方法，可用 go tool cover 命令。
-Usage of &#x27;go tool cover&#x27;:Given a coverage profile produced by &#x27;go test&#x27;:        go test -coverprofile=c.outOpen a web browser displaying annotated source code:        go tool cover -html=c.outWrite out an HTML file instead of launching a web browser:        go tool cover -html=c.out -o coverage.htmlDisplay coverage percentages to stdout for each function:        go tool cover -func=c.outFinally, to generate modified source code with coverage annotations(what go test -cover does):        go tool cover -mode=set -var=CoverageVariableName program.goFlags:  -V    print version and exit  -func string        output coverage profile information for each function  -html string        generate HTML representation of coverage profile  -mode string        coverage mode: set, count, atomic  -o string        file for output; default: stdout  -var string        name of coverage variable to generate (default &quot;GoCover&quot;)  Only one of -html, -func, or -mode may be set.
-
-go tool 命令运行 Go 工具链的底层可执行程序。 这些底层可执行程序放在  $GOROOT/pkg/tool/$&#123;GOOS&#125;_$&#123;GOARCH&#125; 目录。因为有 go build 命令的原因， 我们很少直接调用这些底层工具。
-现在我们可以用 -coverprofile 标志参数重新运行测试：
-go test -run=Coverage -coverprofile=c.out  example/word
-
- -coverprofile 在测试代码中插入生成钩子来统计覆盖率数据。 也就是说， 在运行每个测试前，它将待测代码拷贝一份并做修改， 在每个词法块都会设置一个布尔标志变量. 当被修改后的被测试代码运行退出时，将统计日志数据写入 c.out 文件， 并打印一部分执行的语句的一个总结。（ 如果你需要的是摘要， 使用 go test -cover 。）
-为了收集数据， 我们运行了测试覆盖率工具， 打印了测试日志， 使用下面的命令，生成一个 HTML 报告， 然后在浏览器中打开  。
-go tool cover -html=c.out
-
-
-
-2. 为测试做设计
-测试编码规范
-测试编码流程
-测试编码工具
-测试平台的思考和构建
-
-坚持的原则：尽早测试，经常测试，自动测试。一旦代码写出来，就要尽早开始测试。
-2.0.1. 对代码阅读的思考
-在代码里把事情讲明白，让人能快速理解他人的代码，就能快速做出修改的决策。“猜测他人代码的逻辑用意”是很难受且困难的，他人的代码也会在这种场景下，产生被误读。
-一般阅读他人的代码时，可能有些没有必要的地方，别人要花很多的脑子猜“为什么是这样的？”
-代码写的原则是：简单、易理解、逻辑清晰。
-写代码前先理清基本的需求、设计以及实现的流程。
-不要面向需求编程，要面向业务模型编程。把变更的需求看成是业务模型的一个可变的参数，类似于函数的参数一样。
-注释要把问题讲清楚, 讲不清楚的日志等于没有
-
-3. References
-腾讯工作 13 年之所思所想，那些优秀程序员的共性特征
-腾讯 13 年，我所总结的 Code Review 终极大法
 
 ]]></content>
       <categories>
@@ -21402,43 +21402,6 @@ $0$
       </tags>
   </entry>
   <entry>
-    <title>Mongodb</title>
-    <url>/MongoDb/synced/MongoDb/Mongodb/</url>
-    <content><![CDATA[
-
-
-常见系统命令# 启动 mongod 进程sudo systemctl start mongod# 验证 MongoDB 是否已成功启动sudo systemctl status mongod# 设置 mongodb 为开机启动sudo systemctl enable mongod# 停止 mongodsudo systemctl stop mongod# 重启 mongod sudo systemctl restart mongod# 停止 mongodbsudo service mongod stop# 删除之前安装的所有 MongoDB 包sudo apt-get purge mongodb-org*# 删除 MongoDB 数据库和日志文件。sudo rm -r /var/log/mongodbsudo rm -r /var/lib/mongodb
-
-mongosh在与 mongod 相同的主机上启动 mongosh 会话。您可以在不使用任何命令行选项的情况下运行 mongosh，从而连接在本地主机上运行且默认端口号为 27017 的 mongod。
-# 本地连接（默认端口27017）mongo# 指定主机和端口mongo --host 127.0.0.1 --port 27017# 指定IP和port认证的连接mongo --host x.x.x.x --port xxxx -u username -p password --authenticationDatabase admin
-
-
-
-数据库查看命令# 查看所有数据库show dbs# 切换到指定数据库use database_name# 查看当前数据库db# 查看当前数据库的所有集合show collectionsshow tables# 查看集合中的数据db.yourCollectionName.find()db.collection_name.find().pretty()# 例如db.shadow.find(&#123;sn:&quot;xxxx&quot;,&quot;productName&quot;:&quot;aaa&quot;&#125;)# 查看数据库统计信息db.stats()
-
-
-查看配文件# 查看MongoDB配置文件cat /etc/mongod.conf# 查看数据目录cat /etc/mongod.conf | grep dbPath# 查看日志路径cat /etc/mongod.conf | grep logPath
-
-
-
-命令行工具# 查看实时性能统计mongostat# 指定间隔时间（每秒一次）mongostat 5# 查看每个集合的读写活动mongotop# 指定间隔时间mongotop 5
-
-
-
-References
-mongodb doc: https://www.mongodb.com/zh-cn/docs/
-MongoDB Shell: https://www.mongodb.com/zh-cn/docs/mongodb-shell/
-Ubuntu 社区版安装
-
-]]></content>
-      <categories>
-        <category>MongoDb</category>
-      </categories>
-      <tags>
-        <tag>mongodb</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Terms</title>
     <url>/Math/synced/Math/Terms/</url>
     <content><![CDATA[
@@ -22090,6 +22053,43 @@ QR 分解(QR factorization)：用于将矩阵分解为正交矩阵和上三角�
       </tags>
   </entry>
   <entry>
+    <title>Mongodb</title>
+    <url>/MongoDb/synced/MongoDb/Mongodb/</url>
+    <content><![CDATA[
+
+
+常见系统命令# 启动 mongod 进程sudo systemctl start mongod# 验证 MongoDB 是否已成功启动sudo systemctl status mongod# 设置 mongodb 为开机启动sudo systemctl enable mongod# 停止 mongodsudo systemctl stop mongod# 重启 mongod sudo systemctl restart mongod# 停止 mongodbsudo service mongod stop# 删除之前安装的所有 MongoDB 包sudo apt-get purge mongodb-org*# 删除 MongoDB 数据库和日志文件。sudo rm -r /var/log/mongodbsudo rm -r /var/lib/mongodb
+
+mongosh在与 mongod 相同的主机上启动 mongosh 会话。您可以在不使用任何命令行选项的情况下运行 mongosh，从而连接在本地主机上运行且默认端口号为 27017 的 mongod。
+# 本地连接（默认端口27017）mongo# 指定主机和端口mongo --host 127.0.0.1 --port 27017# 指定IP和port认证的连接mongo --host x.x.x.x --port xxxx -u username -p password --authenticationDatabase admin
+
+
+
+数据库查看命令# 查看所有数据库show dbs# 切换到指定数据库use database_name# 查看当前数据库db# 查看当前数据库的所有集合show collectionsshow tables# 查看集合中的数据db.yourCollectionName.find()db.collection_name.find().pretty()# 例如db.shadow.find(&#123;sn:&quot;xxxx&quot;,&quot;productName&quot;:&quot;aaa&quot;&#125;)# 查看数据库统计信息db.stats()
+
+
+查看配文件# 查看MongoDB配置文件cat /etc/mongod.conf# 查看数据目录cat /etc/mongod.conf | grep dbPath# 查看日志路径cat /etc/mongod.conf | grep logPath
+
+
+
+命令行工具# 查看实时性能统计mongostat# 指定间隔时间（每秒一次）mongostat 5# 查看每个集合的读写活动mongotop# 指定间隔时间mongotop 5
+
+
+
+References
+mongodb doc: https://www.mongodb.com/zh-cn/docs/
+MongoDB Shell: https://www.mongodb.com/zh-cn/docs/mongodb-shell/
+Ubuntu 社区版安装
+
+]]></content>
+      <categories>
+        <category>MongoDb</category>
+      </categories>
+      <tags>
+        <tag>mongodb</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ConnectPool</title>
     <url>/MySQL/synced/MySQL/ConnectPool/</url>
     <content><![CDATA[
@@ -22204,47 +22204,6 @@ MySQL API 使用详解
 自己动手实现数据库连接池：https://blog.csdn.net/deginch/article/details/70059409
 C&#x2F;C++数据库连接池项目：https://blog.51cto.com/BugMaker/5588483
 MySQL Connection Handling and Scaling
-
-]]></content>
-      <categories>
-        <category>MySQL</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MySQL API</title>
-    <url>/MySQL/synced/MySQL/MySQL-API/</url>
-    <content><![CDATA[
-
-c++ connect APImysql_affected_rows() 返回被最新的UPDATE, DELETE或INSERT查询影响的行数。mysql_close() 关闭一个服务器连接。mysql_connect() 连接一个MySQL服务器。该函数不推荐；使用mysql_real_connect()代替。mysql_change_user() 改变在一个打开的连接上的用户和数据库。mysql_create_db() 创建一个数据库。该函数不推荐；而使用SQL命令CREATE DATABASE。mysql_data_seek() 在一个查询结果集合中搜寻一任意行。mysql_debug() 用给定字符串做一个DBUG_PUSH。mysql_drop_db() 抛弃一个数据库。该函数不推荐；而使用SQL命令DROP DATABASE。mysql_dump_debug_info() 让服务器将调试信息写入日志文件。mysql_eof() 确定是否已经读到一个结果集合的最后一行。这功能被反对; mysql_errno()或mysql_error()可以相反被使用。mysql_errno() 返回最近被调用的MySQL函数的出错编号。mysql_error() 返回最近被调用的MySQL函数的出错消息。mysql_escape_string() 用在SQL语句中的字符串的转义特殊字符。mysql_fetch_field() 返回下一个表字段的类型。mysql_fetch_field_direct () 返回一个表字段的类型，给出一个字段编号。mysql_fetch_fields() 返回一个所有字段结构的数组。mysql_fetch_lengths() 返回当前行中所有列的长度。mysql_fetch_row() 从结果集合中取得下一行。mysql_field_seek() 把列光标放在一个指定的列上。mysql_field_count() 返回最近查询的结果列的数量。mysql_field_tell() 返回用于最后一个mysql_fetch_field()的字段光标的位置。mysql_free_result() 释放一个结果集合使用的内存。mysql_get_client_info() 返回客户版本信息。mysql_get_host_info() 返回一个描述连接的字符串。mysql_get_proto_info() 返回连接使用的协议版本。mysql_get_server_info() 返回服务器版本号。mysql_info() 返回关于最近执行得查询的信息。mysql_init() 获得或初始化一个MYSQL结构。mysql_insert_id() 返回有前一个查询为一个AUTO_INCREMENT列生成的ID。mysql_kill() 杀死一个给定的线程。mysql_list_dbs() 返回匹配一个简单的正则表达式的数据库名。mysql_list_fields() 返回匹配一个简单的正则表达式的列名。mysql_list_processes() 返回当前服务器线程的一张表。mysql_list_tables() 返回匹配一个简单的正则表达式的表名。mysql_num_fields() 返回一个结果集合重的列的数量。mysql_num_rows() 返回一个结果集合中的行的数量。mysql_options() 设置对mysql_connect()的连接选项。mysql_ping() 检查对服务器的连接是否正在工作，必要时重新连接。mysql_query() 执行指定为一个空结尾的字符串的SQL查询。mysql_real_connect() 连接一个MySQL服务器。mysql_real_query() 执行指定为带计数的字符串的SQL查询。mysql_reload() 告诉服务器重装授权表。mysql_row_seek() 搜索在结果集合中的行，使用从mysql_row_tell()返回的值。mysql_row_tell() 返回行光标位置。mysql_select_db() 连接一个数据库。mysql_shutdown() 关掉数据库服务器。mysql_stat() 返回作为字符串的服务器状态。mysql_store_result() 检索一个完整的结果集合给客户。mysql_thread_id() 返回当前线程的ID。mysql_use_result() 初始化一个一行一行地结果集合的检索。
-
-同步同步连接池维护的是短链接，
-
-connect_times 连接次数
-read_timeout
-write_timeout
-
-需要考虑连接池的伸缩性问题
-
-最小连接数：限制池的大小。
-最大连接数：限制打开的连接数量。
-
-同步连接池数量的初始大小如何设置？
-​	若 CPU 的核心数为 8 核，则数量为：从 2*n + 2 开始测试，直到找到最优的数。
-异步回调函数接收 DB 的返回值
-异步连接池维护的是长连接。
-怎样实现异步的连接
-同步连接池需要创建多个线程。
-异步连接不需要创建额外的线程，复用主线程、复用网络模块。
-
-创建一个非阻塞的连接
-接入数据库的协议。若数据库提供异步的接口，则只需要适配事件的框架就可以了。
-
-References
-max_connections
-MySQL 服务器最大连接数怎么设置才合理
 
 ]]></content>
       <categories>
@@ -23020,6 +22979,47 @@ https://dev.mysql.com/doc/relnotes/mysql/8.0/en/
       </tags>
   </entry>
   <entry>
+    <title>MySQL API</title>
+    <url>/MySQL/synced/MySQL/MySQL-API/</url>
+    <content><![CDATA[
+
+c++ connect APImysql_affected_rows() 返回被最新的UPDATE, DELETE或INSERT查询影响的行数。mysql_close() 关闭一个服务器连接。mysql_connect() 连接一个MySQL服务器。该函数不推荐；使用mysql_real_connect()代替。mysql_change_user() 改变在一个打开的连接上的用户和数据库。mysql_create_db() 创建一个数据库。该函数不推荐；而使用SQL命令CREATE DATABASE。mysql_data_seek() 在一个查询结果集合中搜寻一任意行。mysql_debug() 用给定字符串做一个DBUG_PUSH。mysql_drop_db() 抛弃一个数据库。该函数不推荐；而使用SQL命令DROP DATABASE。mysql_dump_debug_info() 让服务器将调试信息写入日志文件。mysql_eof() 确定是否已经读到一个结果集合的最后一行。这功能被反对; mysql_errno()或mysql_error()可以相反被使用。mysql_errno() 返回最近被调用的MySQL函数的出错编号。mysql_error() 返回最近被调用的MySQL函数的出错消息。mysql_escape_string() 用在SQL语句中的字符串的转义特殊字符。mysql_fetch_field() 返回下一个表字段的类型。mysql_fetch_field_direct () 返回一个表字段的类型，给出一个字段编号。mysql_fetch_fields() 返回一个所有字段结构的数组。mysql_fetch_lengths() 返回当前行中所有列的长度。mysql_fetch_row() 从结果集合中取得下一行。mysql_field_seek() 把列光标放在一个指定的列上。mysql_field_count() 返回最近查询的结果列的数量。mysql_field_tell() 返回用于最后一个mysql_fetch_field()的字段光标的位置。mysql_free_result() 释放一个结果集合使用的内存。mysql_get_client_info() 返回客户版本信息。mysql_get_host_info() 返回一个描述连接的字符串。mysql_get_proto_info() 返回连接使用的协议版本。mysql_get_server_info() 返回服务器版本号。mysql_info() 返回关于最近执行得查询的信息。mysql_init() 获得或初始化一个MYSQL结构。mysql_insert_id() 返回有前一个查询为一个AUTO_INCREMENT列生成的ID。mysql_kill() 杀死一个给定的线程。mysql_list_dbs() 返回匹配一个简单的正则表达式的数据库名。mysql_list_fields() 返回匹配一个简单的正则表达式的列名。mysql_list_processes() 返回当前服务器线程的一张表。mysql_list_tables() 返回匹配一个简单的正则表达式的表名。mysql_num_fields() 返回一个结果集合重的列的数量。mysql_num_rows() 返回一个结果集合中的行的数量。mysql_options() 设置对mysql_connect()的连接选项。mysql_ping() 检查对服务器的连接是否正在工作，必要时重新连接。mysql_query() 执行指定为一个空结尾的字符串的SQL查询。mysql_real_connect() 连接一个MySQL服务器。mysql_real_query() 执行指定为带计数的字符串的SQL查询。mysql_reload() 告诉服务器重装授权表。mysql_row_seek() 搜索在结果集合中的行，使用从mysql_row_tell()返回的值。mysql_row_tell() 返回行光标位置。mysql_select_db() 连接一个数据库。mysql_shutdown() 关掉数据库服务器。mysql_stat() 返回作为字符串的服务器状态。mysql_store_result() 检索一个完整的结果集合给客户。mysql_thread_id() 返回当前线程的ID。mysql_use_result() 初始化一个一行一行地结果集合的检索。
+
+同步同步连接池维护的是短链接，
+
+connect_times 连接次数
+read_timeout
+write_timeout
+
+需要考虑连接池的伸缩性问题
+
+最小连接数：限制池的大小。
+最大连接数：限制打开的连接数量。
+
+同步连接池数量的初始大小如何设置？
+​	若 CPU 的核心数为 8 核，则数量为：从 2*n + 2 开始测试，直到找到最优的数。
+异步回调函数接收 DB 的返回值
+异步连接池维护的是长连接。
+怎样实现异步的连接
+同步连接池需要创建多个线程。
+异步连接不需要创建额外的线程，复用主线程、复用网络模块。
+
+创建一个非阻塞的连接
+接入数据库的协议。若数据库提供异步的接口，则只需要适配事件的框架就可以了。
+
+References
+max_connections
+MySQL 服务器最大连接数怎么设置才合理
+
+]]></content>
+      <categories>
+        <category>MySQL</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Sql Optimization</title>
     <url>/MySQL/synced/MySQL/sql-optimization/</url>
     <content><![CDATA[
@@ -23161,22 +23161,6 @@ VoLTE: 长期演进语音承载 (Voice over Long Term Evolution)
       </tags>
   </entry>
   <entry>
-    <title>CustomTCPProtocol</title>
-    <url>/Network/synced/Network/CustomTCPProtocol/</url>
-    <content><![CDATA[
-
-基于 TCP 自定义协议References
-基于传输层 TCP 协议，自定义实现一个应用层协议：https://www.cnblogs.com/ssyfj/p/14016931.html
-
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>network</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HTTP</title>
     <url>/Network/synced/Network/HTTP/</url>
     <content><![CDATA[
@@ -23214,6 +23198,22 @@ http 协议下 cookie 是明文传递的，https 协议下 cookie 是密文传�
 
 
 6、cookie 依赖于 session
+
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>network</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CustomTCPProtocol</title>
+    <url>/Network/synced/Network/CustomTCPProtocol/</url>
+    <content><![CDATA[
+
+基于 TCP 自定义协议References
+基于传输层 TCP 协议，自定义实现一个应用层协议：https://www.cnblogs.com/ssyfj/p/14016931.html
 
 ]]></content>
       <categories>
@@ -25384,31 +25384,6 @@ CNI(Container Network Interface)
       </tags>
   </entry>
   <entry>
-    <title>Nodejs</title>
-    <url>/Node-Js/synced/NodeJs/Nodejs/</url>
-    <content><![CDATA[
-
-IntroduceNodejs 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。
-Nodejs 中的 JavaScript 运行环境
-
-How to study
-JavaScript 基础语法
-Node.js 内置 API 模块(fs, path, http)
-第三方库：express, mysql
-
-References
-Node.js official: http://nodejs.cn/learn/introduction-to-nodejs
-英文文章从原理讲解 Nodejs: https://www.sitepoint.com/asynchronous-programming-using-async-await-in-c
-
-]]></content>
-      <categories>
-        <category>Node Js</category>
-      </categories>
-      <tags>
-        <tag>nodejs</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Wireshark</title>
     <url>/Network/synced/Network/Wireshark/</url>
     <content><![CDATA[
@@ -25454,215 +25429,6 @@ Wiresharkbook: 书籍推荐网站
       </categories>
       <tags>
         <tag>network</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Npm</title>
-    <url>/Node-Js/synced/NodeJs/npm/</url>
-    <content><![CDATA[
-
-1. introducenpm(Node Package Manager) 是 Node.js 的标准包管理器。
-2. npm commandnpm install                              # 安装 package.json 中所有的 dependency npm -v                                   # 显示版本，检查npm 是否正确安装npm install express                      # 安装express模块npm install express@0.0.1                # 安装指定版本npm install -g express                   # 全局安装express模块npm uninstall &lt;package-name&gt;             # 全局卸载指定的 pckagenpm install &lt;package-name&gt; -D            # 安装包依赖到开发环境中，生产环境不会用到 npm install --save-prod xxx              # 安装包依赖到生产环境的本地工程中 npm list                                 # 列出已安装模块npm show &lt;package-name&gt;                  # 显示 package 信息npm update                               # 升级当前目录下的项目的所有 packagenpm update &lt;package-name&gt;                # 升级当前目录下的项目的指定 packagenpm update -g &lt;package-name&gt;             # 升级全局安装的 packagenpm install &lt;package-name&gt;@&lt;version&gt;     # 指定软件包的特定版本，方便进行版本控制
-
-packagepackage 是基于内置模块封装出来的，提供了更高级、更方便的 API，极大的提高了开发效率。
-# 快速创建 package.json 文件npm init -y 
-
-package.json 中的 dependencies 节点，专门记录使用 npm install 命令安装了哪些 package。
-3. package.json每个 JavaScript 项目（无论是 Node.js 还是浏览器应用程序）都可以被当作 npm 软件包，并且通过 package.json来描述项目和软件包信息。简单来说 package.json是管理需要安装的所有依赖文件。
-当运行 npm init 初始化 JavaScript&#x2F;Node.js 项目时，将生成 package.json 文件，文件内的内容由开发人员提供：
-
-name：JavaScript 项目或库的名称。
-version：项目的版本。通常，在应用程序开发中，由于没有必要对开源库进行版本控制，因此经常忽略这一块。但是，仍可以用它来定义版本。
-description：项目的描述。
-license：项目的许可证。
-scripts: 项目本地允许的命令行工具。
-
-4. package-lock.json该文件描述了 npm JavaScript 项目中使用的依赖项的确切版本。如果 package.json 是通用的描述性标签，则 package-lock.json是成分表。
-5. references
-npm official: https://www.npmjs.com
-nodejs of npm: https://nodejs.cn/en/learn/getting-started/an-introduction-to-the-npm-package-manager
-
-]]></content>
-      <categories>
-        <category>Node Js</category>
-      </categories>
-      <tags>
-        <tag>nodejs</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Xml</title>
-    <url>/Node-Js/synced/NodeJs/xml/</url>
-    <content><![CDATA[
-
-1. 概念什么是 XML？
-
-XML 一般是指可扩展标记语言，标准通用标记语言的子集，是一种用于标记电子文件使其具有结构性的标记语言。
-
- 开发中使用 XML 主要有以下两方面应用.
-
-XML 做为数据交换的载体，用于数据的存储与传输
-XML 做为配置文件
-
-2. 书写规范
-xml 必须有根元素(只有一个)
-xml 标签必须有关闭标签
-xml 标签对大小写敏感
-xml 的属性值须加引号
-特殊字符必须转义
-xml 中的标签名不能有空格
-空格&#x2F;回车&#x2F;制表符在 xml 中都是文本节点
-xml 必须正确地嵌套
-
-3. XML 文件的优点：
-XML 文档内容和结构完全分离。
-互操作性强。
-规范统一。
-支持多种编码。
-可扩展性强。
-
-4. 解析 XML 文件及优缺点一般有 DOM 解析和 SAX 解析。
-DOM 解析优缺点
-
-优点
-允许应用程序对数据和结构做出更改。
-访问是双向的，可以在任何时候在树中上下导航，获取和操作任意部分的数据。
-
-
-缺点
-通常需要加载整个 XML 文档来构造层次结构，消耗资源大。
-
-
-
-5. References
-菜鸟 Xml 教程
-
-]]></content>
-      <categories>
-        <category>Node Js</category>
-      </categories>
-      <tags>
-        <tag>nodejs</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Yaml</title>
-    <url>/Node-Js/synced/NodeJs/yaml/</url>
-    <content><![CDATA[
-
-References
-yaml 官方教程 
-yaml 语言教程
-
-]]></content>
-      <categories>
-        <category>Node Js</category>
-      </categories>
-      <tags>
-        <tag>nodejs</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ComputerSystemAProgramm&#39;sPerspective</title>
-    <url>/OS/synced/OS/ComputerSystemAProgramm&#39;sPerspective/</url>
-    <content><![CDATA[
-
-1. Thinking
-每一章节的内容至少阅读三遍，达到熟悉的程度。
-
-
-
-2. Program Structure &amp; Execution
-Northbridge(北桥)：为了协调 CPU、内存和高速的图形设备，人们设计了一个高速的北桥芯片，使它们之间高速的交换数据。
-
-Southbridge(南桥)：为了解决北桥既要处理高速设备又要处理低速的设备，人们设计了专门处理低速设备的南桥芯片，磁盘、USB、键盘、鼠标等设备都连接在南桥上。
-
-Relocation(重定位)：重新计算各个目标地址的的过程。
-
-
-2.1. 典型的计算机底层硬件组织架构
-CPU: central processing unit
-ALU: arithmetic&#x2F;logic unit
-PC: program counter
-USB:Universal Serial Bus
-DRAM: dynamic random access memory
-register file： a small storage device that consists of a collection of word-size registers, each with its ownuniquename.  
-
-
-buses(总线)
-总线是贯穿整个系统的一组电子导管，携带字节信息并负责在各个部件间传递。 
-被设计用来传输固定大小的字节块(fixed-size chunks of bytes)，也就是字(word)。
-word: 32 bit 的机器中为 4 bytes，64 bit 的机器中为 8 bytes
-
-
-I&#x2F;O Devices 
-I&#x2F;O 设备是系统与外部世界联系的通道。每一个 I&#x2F;O 设备都通过一个控制器或适配器与 I&#x2F;O 总线先连。
-适配器(adapter): 是一块插在主板插槽上的卡。
-控制器(controller)：是 I&#x2F;O 设备本身或系统的主控电路板上的芯片组。
-
-
-Main Memory(主存)
-主存是一个临时存储设备，在处理器执行程序时，用来存放程序和程序处理的数据。
-物理上， 主存是由一组动态随机存储(DRAM)芯片组成的；
-逻辑上来讲，存储器是一个线性的字节数组，每个地址都有其唯一的地址（数组索引）。
-
-
-Processor(处理器)
-central processing unit (CPU)，简称处理器，是执行存储在主存中指令的引擎。
-处理器的核心是一个大小为字(word-size)的寄存器，称为 program counter (PC)。任何时刻，PC都指向主存中的某条机器语言指令。
-从系统通电开始，直到系统断电，处理器一直在不断地执行程序计数器指向的指令，再更新程序计数器，使其指向下一条指令。处理器看上去是按照一个非常简单的指令执行模型来操作的，这个模型是由指令集架构决定的。在这个模型中，指令按照严格的顺序执行，而执行一条指令包含执行一系列的步骤。处理器从程序计数器指向的内存处读取指令，解释指令中的位(bit)，执行该指令指示的简单操作，然后更新程序计数器(PC)，使其指向下一条指令，而这条指令并不一定和在内存中刚刚执行的指令相邻。
-
-
-Load: Copy a byte or a word from main memory into a register, overwriting the previous contents of the register.
-Store: Copy a byte or a word from a register to a location in main memory, overwriting the previous contents ofthat location.
-Operate: Copy the contents of two registers to the ALU, perform an arithmeti coperation on the two words, andstore the result in a register, overwriting the previous contents of that register.
-Jump: Extract a word from the instruction itself and copy that word into the program counter (PC), overwritingthe previous value of the PC.
-
-
-
-2.2. 一个 hello 可执行程序的底层调用过程
-初始时，shell 程序执行它的指令，等待我们输人一个命令。在键盘上输人字符串 ./hello 后，shell 程序将字符逐一读入register，再把它存放到 memory 中。
-
-
-当在键盘上敲 enter 键时，shell 程序就知道我们已经结束了命令的输人。然后 shell 执行一系列指令来加载可执行的hello 文件，这些指令将 hello目标文件中的代码和数据从磁盘(disk)复制到主存(main memory)。数据包括最终会被输出的 hello,world \n字符串。利用直接存储器存取(direct memory access :DMA)技术，数据可以不通过处理器(processor)而直接从磁盘(disk)到达主存(main memory)。
-
-
-一旦目标文件 hello 中的代码和数据被加载到主存(main memory)，处理器就开始执行 hello 程序的 main程序中的机器语言指令。这些指令将 hello,world \n 字符串中的 bytes从主存复制到寄存器文件(register file)，再从寄存器文件中复制到显示设备，最终显示在屏幕上。
-
-
-2.3. cache(缓存)
-
-
-
-
-context switching: 操作系统通过处理器在进程间切换，来实现在同一时间上执行多个程序。
-The operating system performs this interleaving with a mechanism known as context switching. 
-
-
-context: 操作系统会跟踪进程运行时所需的所有状态信息，叫做上下文。包括的信息有以下部分：
-the current values of the PC
-the register file
-the contents of main memory
-
-
-
-当操作系统决定要把控制权从当前进程转移到某个新的进程时，就会进行上下文切换，即保存当前进程的上下文、恢复新进程的上下文，然后将控制权传递到新的进程，新进程就会从它上次停止的地方开始。
-3. References
-Computer Systems: A Programmer’s Perspective, 3&#x2F;E (CS:APP3e): 官方英文书籍网站。
-Lab Assignments: 书籍中实验的部分。
-https://fengmuzi2003.gitbook.io/csapp3e: CSAPP 重点解读
-18-613&#x2F;14-513: Computer Systems, Summer 2020 2020 学期新版讲义的网站，在 2016 学期的基础上增添了一些内容。
-15-213: Intro to Computer Systems, Spring 2016: CMU(卡耐基梅隆大学) 2016 年的 CS:APP 课程资源。包括在线视频、课件，资源不是最新的。
-15-213: Intro to Computer Systems, Spring 2016-video:  YouTube 上一个 UP 主上传的课程视频。
-2015 CMU 15-213 CSAPP 深入理解计算机系统 课程视频: B 站对该课程的翻译。
-深入理解计算机系统（英文版·第 3 版）: 豆瓣网对该书籍的评价。
-
-]]></content>
-      <categories>
-        <category>OS</category>
-      </categories>
-      <tags>
-        <tag>os</tag>
       </tags>
   </entry>
   <entry>
@@ -26228,6 +25994,240 @@ CentOS 7 源码编译安装 Nginx: https://www.cnblogs.com/stulzq/p/9291223.html
       </categories>
       <tags>
         <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nodejs</title>
+    <url>/Node-Js/synced/NodeJs/Nodejs/</url>
+    <content><![CDATA[
+
+IntroduceNodejs 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。
+Nodejs 中的 JavaScript 运行环境
+
+How to study
+JavaScript 基础语法
+Node.js 内置 API 模块(fs, path, http)
+第三方库：express, mysql
+
+References
+Node.js official: http://nodejs.cn/learn/introduction-to-nodejs
+英文文章从原理讲解 Nodejs: https://www.sitepoint.com/asynchronous-programming-using-async-await-in-c
+
+]]></content>
+      <categories>
+        <category>Node Js</category>
+      </categories>
+      <tags>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Npm</title>
+    <url>/Node-Js/synced/NodeJs/npm/</url>
+    <content><![CDATA[
+
+1. introducenpm(Node Package Manager) 是 Node.js 的标准包管理器。
+2. npm commandnpm install                              # 安装 package.json 中所有的 dependency npm -v                                   # 显示版本，检查npm 是否正确安装npm install express                      # 安装express模块npm install express@0.0.1                # 安装指定版本npm install -g express                   # 全局安装express模块npm uninstall &lt;package-name&gt;             # 全局卸载指定的 pckagenpm install &lt;package-name&gt; -D            # 安装包依赖到开发环境中，生产环境不会用到 npm install --save-prod xxx              # 安装包依赖到生产环境的本地工程中 npm list                                 # 列出已安装模块npm show &lt;package-name&gt;                  # 显示 package 信息npm update                               # 升级当前目录下的项目的所有 packagenpm update &lt;package-name&gt;                # 升级当前目录下的项目的指定 packagenpm update -g &lt;package-name&gt;             # 升级全局安装的 packagenpm install &lt;package-name&gt;@&lt;version&gt;     # 指定软件包的特定版本，方便进行版本控制
+
+packagepackage 是基于内置模块封装出来的，提供了更高级、更方便的 API，极大的提高了开发效率。
+# 快速创建 package.json 文件npm init -y 
+
+package.json 中的 dependencies 节点，专门记录使用 npm install 命令安装了哪些 package。
+3. package.json每个 JavaScript 项目（无论是 Node.js 还是浏览器应用程序）都可以被当作 npm 软件包，并且通过 package.json来描述项目和软件包信息。简单来说 package.json是管理需要安装的所有依赖文件。
+当运行 npm init 初始化 JavaScript&#x2F;Node.js 项目时，将生成 package.json 文件，文件内的内容由开发人员提供：
+
+name：JavaScript 项目或库的名称。
+version：项目的版本。通常，在应用程序开发中，由于没有必要对开源库进行版本控制，因此经常忽略这一块。但是，仍可以用它来定义版本。
+description：项目的描述。
+license：项目的许可证。
+scripts: 项目本地允许的命令行工具。
+
+4. package-lock.json该文件描述了 npm JavaScript 项目中使用的依赖项的确切版本。如果 package.json 是通用的描述性标签，则 package-lock.json是成分表。
+5. references
+npm official: https://www.npmjs.com
+nodejs of npm: https://nodejs.cn/en/learn/getting-started/an-introduction-to-the-npm-package-manager
+
+]]></content>
+      <categories>
+        <category>Node Js</category>
+      </categories>
+      <tags>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Xml</title>
+    <url>/Node-Js/synced/NodeJs/xml/</url>
+    <content><![CDATA[
+
+1. 概念什么是 XML？
+
+XML 一般是指可扩展标记语言，标准通用标记语言的子集，是一种用于标记电子文件使其具有结构性的标记语言。
+
+ 开发中使用 XML 主要有以下两方面应用.
+
+XML 做为数据交换的载体，用于数据的存储与传输
+XML 做为配置文件
+
+2. 书写规范
+xml 必须有根元素(只有一个)
+xml 标签必须有关闭标签
+xml 标签对大小写敏感
+xml 的属性值须加引号
+特殊字符必须转义
+xml 中的标签名不能有空格
+空格&#x2F;回车&#x2F;制表符在 xml 中都是文本节点
+xml 必须正确地嵌套
+
+3. XML 文件的优点：
+XML 文档内容和结构完全分离。
+互操作性强。
+规范统一。
+支持多种编码。
+可扩展性强。
+
+4. 解析 XML 文件及优缺点一般有 DOM 解析和 SAX 解析。
+DOM 解析优缺点
+
+优点
+允许应用程序对数据和结构做出更改。
+访问是双向的，可以在任何时候在树中上下导航，获取和操作任意部分的数据。
+
+
+缺点
+通常需要加载整个 XML 文档来构造层次结构，消耗资源大。
+
+
+
+5. References
+菜鸟 Xml 教程
+
+]]></content>
+      <categories>
+        <category>Node Js</category>
+      </categories>
+      <tags>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Yaml</title>
+    <url>/Node-Js/synced/NodeJs/yaml/</url>
+    <content><![CDATA[
+
+References
+yaml 官方教程 
+yaml 语言教程
+
+]]></content>
+      <categories>
+        <category>Node Js</category>
+      </categories>
+      <tags>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ComputerSystemAProgramm&#39;sPerspective</title>
+    <url>/OS/synced/OS/ComputerSystemAProgramm&#39;sPerspective/</url>
+    <content><![CDATA[
+
+1. Thinking
+每一章节的内容至少阅读三遍，达到熟悉的程度。
+
+
+
+2. Program Structure &amp; Execution
+Northbridge(北桥)：为了协调 CPU、内存和高速的图形设备，人们设计了一个高速的北桥芯片，使它们之间高速的交换数据。
+
+Southbridge(南桥)：为了解决北桥既要处理高速设备又要处理低速的设备，人们设计了专门处理低速设备的南桥芯片，磁盘、USB、键盘、鼠标等设备都连接在南桥上。
+
+Relocation(重定位)：重新计算各个目标地址的的过程。
+
+
+2.1. 典型的计算机底层硬件组织架构
+CPU: central processing unit
+ALU: arithmetic&#x2F;logic unit
+PC: program counter
+USB:Universal Serial Bus
+DRAM: dynamic random access memory
+register file： a small storage device that consists of a collection of word-size registers, each with its ownuniquename.  
+
+
+buses(总线)
+总线是贯穿整个系统的一组电子导管，携带字节信息并负责在各个部件间传递。 
+被设计用来传输固定大小的字节块(fixed-size chunks of bytes)，也就是字(word)。
+word: 32 bit 的机器中为 4 bytes，64 bit 的机器中为 8 bytes
+
+
+I&#x2F;O Devices 
+I&#x2F;O 设备是系统与外部世界联系的通道。每一个 I&#x2F;O 设备都通过一个控制器或适配器与 I&#x2F;O 总线先连。
+适配器(adapter): 是一块插在主板插槽上的卡。
+控制器(controller)：是 I&#x2F;O 设备本身或系统的主控电路板上的芯片组。
+
+
+Main Memory(主存)
+主存是一个临时存储设备，在处理器执行程序时，用来存放程序和程序处理的数据。
+物理上， 主存是由一组动态随机存储(DRAM)芯片组成的；
+逻辑上来讲，存储器是一个线性的字节数组，每个地址都有其唯一的地址（数组索引）。
+
+
+Processor(处理器)
+central processing unit (CPU)，简称处理器，是执行存储在主存中指令的引擎。
+处理器的核心是一个大小为字(word-size)的寄存器，称为 program counter (PC)。任何时刻，PC都指向主存中的某条机器语言指令。
+从系统通电开始，直到系统断电，处理器一直在不断地执行程序计数器指向的指令，再更新程序计数器，使其指向下一条指令。处理器看上去是按照一个非常简单的指令执行模型来操作的，这个模型是由指令集架构决定的。在这个模型中，指令按照严格的顺序执行，而执行一条指令包含执行一系列的步骤。处理器从程序计数器指向的内存处读取指令，解释指令中的位(bit)，执行该指令指示的简单操作，然后更新程序计数器(PC)，使其指向下一条指令，而这条指令并不一定和在内存中刚刚执行的指令相邻。
+
+
+Load: Copy a byte or a word from main memory into a register, overwriting the previous contents of the register.
+Store: Copy a byte or a word from a register to a location in main memory, overwriting the previous contents ofthat location.
+Operate: Copy the contents of two registers to the ALU, perform an arithmeti coperation on the two words, andstore the result in a register, overwriting the previous contents of that register.
+Jump: Extract a word from the instruction itself and copy that word into the program counter (PC), overwritingthe previous value of the PC.
+
+
+
+2.2. 一个 hello 可执行程序的底层调用过程
+初始时，shell 程序执行它的指令，等待我们输人一个命令。在键盘上输人字符串 ./hello 后，shell 程序将字符逐一读入register，再把它存放到 memory 中。
+
+
+当在键盘上敲 enter 键时，shell 程序就知道我们已经结束了命令的输人。然后 shell 执行一系列指令来加载可执行的hello 文件，这些指令将 hello目标文件中的代码和数据从磁盘(disk)复制到主存(main memory)。数据包括最终会被输出的 hello,world \n字符串。利用直接存储器存取(direct memory access :DMA)技术，数据可以不通过处理器(processor)而直接从磁盘(disk)到达主存(main memory)。
+
+
+一旦目标文件 hello 中的代码和数据被加载到主存(main memory)，处理器就开始执行 hello 程序的 main程序中的机器语言指令。这些指令将 hello,world \n 字符串中的 bytes从主存复制到寄存器文件(register file)，再从寄存器文件中复制到显示设备，最终显示在屏幕上。
+
+
+2.3. cache(缓存)
+
+
+
+
+context switching: 操作系统通过处理器在进程间切换，来实现在同一时间上执行多个程序。
+The operating system performs this interleaving with a mechanism known as context switching. 
+
+
+context: 操作系统会跟踪进程运行时所需的所有状态信息，叫做上下文。包括的信息有以下部分：
+the current values of the PC
+the register file
+the contents of main memory
+
+
+
+当操作系统决定要把控制权从当前进程转移到某个新的进程时，就会进行上下文切换，即保存当前进程的上下文、恢复新进程的上下文，然后将控制权传递到新的进程，新进程就会从它上次停止的地方开始。
+3. References
+Computer Systems: A Programmer’s Perspective, 3&#x2F;E (CS:APP3e): 官方英文书籍网站。
+Lab Assignments: 书籍中实验的部分。
+https://fengmuzi2003.gitbook.io/csapp3e: CSAPP 重点解读
+18-613&#x2F;14-513: Computer Systems, Summer 2020 2020 学期新版讲义的网站，在 2016 学期的基础上增添了一些内容。
+15-213: Intro to Computer Systems, Spring 2016: CMU(卡耐基梅隆大学) 2016 年的 CS:APP 课程资源。包括在线视频、课件，资源不是最新的。
+15-213: Intro to Computer Systems, Spring 2016-video:  YouTube 上一个 UP 主上传的课程视频。
+2015 CMU 15-213 CSAPP 深入理解计算机系统 课程视频: B 站对该课程的翻译。
+深入理解计算机系统（英文版·第 3 版）: 豆瓣网对该书籍的评价。
+
+]]></content>
+      <categories>
+        <category>OS</category>
+      </categories>
+      <tags>
+        <tag>os</tag>
       </tags>
   </entry>
   <entry>
@@ -27549,7 +27549,7 @@ SMTP 在 1982 年首次被定义在  RFC 821 ，在 2008 它被更新为扩展�
 2.1. EHLO（Extended hello）or  HELO（hello）这个命令用于说明自己是 SMTP 客户端身份，参数包含客户端的域名(domain)。其中 EHLO 是 SMTP 补充协议（ RFC 5321）中用于替换 HELO 命令的新命令，协议规定服务器支持 EHLO 命令的时候，尽量使用EHLO 命令，为了兼容以前的版本，要求服务器继续支持 HELO 命令。如果收到回复OK，说明发送者和接收者处于初始状态，所有的状态表和缓存区都被清零。
 2.2. MAIL这个命令的参数是发送者邮箱 ，参数中有 FROM关键字，这个命令会清空之前的发送者邮箱（the reverse-pathbuffer）、接收者邮箱（forward-pathbuffer）和邮件数据（the mail data buffer）。
 2.3. RCPT （recipient）用于指定一个邮件接收者，参数中有 TO 关键字，指定多个接收者通过重复使用这个命令。
-2.4. DATA这个命令没有参数，告诉服务器接着要发送邮件内容。邮件内容包含邮件标题项（message header section ）和邮件正文（message body），标题项（Header Fields ）是以项目名（field name）为行的起点，接着是冒号(“:”)，跟着是内容（fieldbody）以回车换行结束（CRLF），下面是标题项的例子From: &#66;&#111;&#x62;&#x40;&#x65;&#120;&#x61;&#x6d;&#112;&#x6c;&#x65;&#46;&#x63;&#x6f;&#x6d;To: &#65;&#x6c;&#x69;&#x63;&#101;&#64;&#x65;&#x78;&#97;&#109;&#112;&#108;&#x65;&#x2e;&#99;&#x6f;&#109;Cc: &#116;&#104;&#x65;&#98;&#x6f;&#x73;&#x73;&#x40;&#x65;&#120;&#97;&#109;&#112;&#x6c;&#101;&#x2e;&#99;&#x6f;&#x6d; 
+2.4. DATA这个命令没有参数，告诉服务器接着要发送邮件内容。邮件内容包含邮件标题项（message header section ）和邮件正文（message body），标题项（Header Fields ）是以项目名（field name）为行的起点，接着是冒号(“:”)，跟着是内容（fieldbody）以回车换行结束（CRLF），下面是标题项的例子From: &#x42;&#x6f;&#x62;&#64;&#101;&#120;&#97;&#x6d;&#x70;&#108;&#101;&#46;&#x63;&#111;&#109;To: &#65;&#x6c;&#x69;&#99;&#x65;&#64;&#x65;&#120;&#x61;&#109;&#x70;&#x6c;&#x65;&#46;&#99;&#x6f;&#x6d;Cc: &#116;&#104;&#x65;&#x62;&#x6f;&#115;&#x73;&#64;&#x65;&#x78;&#x61;&#x6d;&#112;&#108;&#x65;&#x2e;&#x63;&#x6f;&#x6d; 
 2.4.1. subject: subject其中 From、To、Cc、subject 就是项目名，冒号后是内容。邮件的标题区与正文区需要用一个空行隔开。两者共同组成 DATA命令的参数，正文区用只有一个点字符 . 的单行来结束。
 2.5. SEND初始化邮件事务，邮件数据被转发到一个或多个终端。
 2.6. SOML（SEND OR MAIL)初始化邮件事务，邮件数据被转发到一个或多个终端或邮箱。
@@ -28379,39 +28379,6 @@ Redis 集群配置：https://blog.csdn.net/aloneno/article/details/96370167
       </tags>
   </entry>
   <entry>
-    <title>RedisCluster</title>
-    <url>/Redis/synced/Redis/RedisCluster/</url>
-    <content><![CDATA[
-
-构建一个稳定、高性能 Redis 集群1️⃣数据怕丢失 -&gt; 持久化（RDB&#x2F;AOF）
-2️⃣恢复时间久 -&gt; 主从副本（副本随时可切）
-3️⃣故障手动切换慢 -&gt; 哨兵集群（自动切换）
-4️⃣读存在压力 -&gt; 扩容副本（读写分离）
-5️⃣写存在压力&#x2F;容量瓶颈 -&gt; 分片集群
-6️⃣分片集群社区方案 -&gt; Twemproxy、Codis（Redis 节点之间无通信，需要部署哨兵，可横向扩容）
-7️⃣分片集群官方方案 -&gt; Redis Cluster （Redis 节点之间 Gossip 协议，无需部署哨兵，可横向扩容）
-8️⃣业务侧升级困难 -&gt; Proxy + Redis Cluster（不侵入业务侧）
-Redis 架构演化之路
-
-
-
-
-
-
-
-
-
-
-
-]]></content>
-      <categories>
-        <category>Redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Redis</title>
     <url>/Redis/synced/Redis/Redis/</url>
     <content><![CDATA[
@@ -28996,6 +28963,39 @@ Redis LPUSH 命令详解教程-嗨客网: https://haicoder.net/redis/redis-lpush
       </tags>
   </entry>
   <entry>
+    <title>RedisCluster</title>
+    <url>/Redis/synced/Redis/RedisCluster/</url>
+    <content><![CDATA[
+
+构建一个稳定、高性能 Redis 集群1️⃣数据怕丢失 -&gt; 持久化（RDB&#x2F;AOF）
+2️⃣恢复时间久 -&gt; 主从副本（副本随时可切）
+3️⃣故障手动切换慢 -&gt; 哨兵集群（自动切换）
+4️⃣读存在压力 -&gt; 扩容副本（读写分离）
+5️⃣写存在压力&#x2F;容量瓶颈 -&gt; 分片集群
+6️⃣分片集群社区方案 -&gt; Twemproxy、Codis（Redis 节点之间无通信，需要部署哨兵，可横向扩容）
+7️⃣分片集群官方方案 -&gt; Redis Cluster （Redis 节点之间 Gossip 协议，无需部署哨兵，可横向扩容）
+8️⃣业务侧升级困难 -&gt; Proxy + Redis Cluster（不侵入业务侧）
+Redis 架构演化之路
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RedisSourceCode</title>
     <url>/Redis/synced/Redis/RedisSourceCode/</url>
     <content><![CDATA[
@@ -29170,6 +29170,25 @@ redis-cli --cluster del-node &lt;existing-node-ip&gt;:7000 &lt;node-id&gt;
       </categories>
       <tags>
         <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Camera</title>
+    <url>/Robotics/synced/Robotics/Camera/</url>
+    <content><![CDATA[
+
+1. Camera1.1. color camera彩色摄像头
+1.2. ir camera红外摄像头
+1.3. depth camera深度摄像头
+2. References
+奥比中光 orbbec_camera: https://www.orbbec.com.cn/index/Gemini330/info.html?cate=119&amp;id=157
+
+]]></content>
+      <categories>
+        <category>Robotics</category>
+      </categories>
+      <tags>
+        <tag>robotics</tag>
       </tags>
   </entry>
   <entry>
@@ -29832,25 +29851,6 @@ XML 定义： 行为树的结构可以用 XML 文件来定义，这使得树的�
 8. References
 BehaviorTree.CPP: https://www.behaviortree.dev/
 BT::TreeNode Class Reference:https://docs.ros.org/en/noetic/api/behaviortree_cpp/html/classBT_1_1TreeNode.html
-
-]]></content>
-      <categories>
-        <category>Robotics</category>
-      </categories>
-      <tags>
-        <tag>robotics</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Camera</title>
-    <url>/Robotics/synced/Robotics/Camera/</url>
-    <content><![CDATA[
-
-1. Camera1.1. color camera彩色摄像头
-1.2. ir camera红外摄像头
-1.3. depth camera深度摄像头
-2. References
-奥比中光 orbbec_camera: https://www.orbbec.com.cn/index/Gemini330/info.html?cate=119&amp;id=157
 
 ]]></content>
       <categories>
@@ -31572,48 +31572,6 @@ managed-life cycle nodes in ROS 2
       </tags>
   </entry>
   <entry>
-    <title>ROS2Interfaces</title>
-    <url>/Robotics/synced/Robotics/ROS2Interfaces/</url>
-    <content><![CDATA[
-
-1. Introduction在 ROS 2 中，消息（Messages）、服务（Services）和动作（Actions）是节点之间通信的基本机制。ROS 2 提供了丰富的标准消息类型，同时也支持用户定义自定义消息、服务和动作接口，以满足特定应用需求。
-查看本地已安装的所有 interfaces
-ros2 interface list
-
-
-2. std_msgs在工程中使用std_msgs的典型场景和示例：
-
-导入消息类型：在编写节点时，首先需要导入所需的std_msgs消息类型。
-发布消息：创建一个发布者，用于发布某种std_msgs类型的消息。
-订阅消息：创建一个订阅者，接收并处理某种std_msgs类型的消息。
-自定义消息组合：在自定义消息中，可以使用std_msgs中的基本类型作为组成部分。
-
-标准消息类型
-
-std_msgs
-sensor_msgs
-geometry_msgs
-nav_msgs
-actionlib_msgs
-
-自定义消息类型
-3. References
-Interface definition using .msg &#x2F; .srv &#x2F; .action files: https://design.ros2.org/articles/legacy_interface_definition.html
-About ROS 2 interfaces: https://docs.ros.org/en/foxy/Concepts/About-ROS-Interfaces.html
-common_interfaces: https://github.com/ros2/common_interfaces
-rcl_interfaces: https://github.com/ros2/rcl_interfaces
-std_msgs: https://docs.ros.org/en/humble/p/std_msgs/
-control_msgs: https://github.com/ros-controls/control_msgs
-
-]]></content>
-      <categories>
-        <category>Robotics</category>
-      </categories>
-      <tags>
-        <tag>robotics</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ROS2</title>
     <url>/Robotics/synced/Robotics/ROS2/</url>
     <content><![CDATA[
@@ -31976,17 +31934,35 @@ action 用于描述机器人的运动过程。比如：
 ✅ **可抢占(preempt)**：客户端可以随时取消正在执行的任务。
 ✅ 有进度反馈：服务端定期向客户端发送进度更新。
 ✅ 双向通信：客户端发送目标，服务端返回结果和反馈。
-✅ Action 可保存 goal 的状态，允许客户端查询当前 goal 的状态（如是否正在执行、是否已完成、是否被取消等）。这使得Action 非常适合需要监控和管理的复杂任务。
+✅ Action 可保存 goal 的状态，允许客户端查询当前 goal 的状态（如是否正在执行、是否已完成、是否被取消等）。这使得 Action 非常适合需要监控和管理的复杂任务。
 
-action通信接口的定义使用的是 .action 文件。
+action client: 作为任务委托方。负责发送目标、接收进度、获取结果、发起取消请求；action server: 作为任务执行方。负责接受或拒绝目标、执行任务、汇报进度、处理取消；
+一个 Action Server 可以接受多个 Client 的请求，也可以管理多个 Goal。但如何调度多个目标、是否允许同时执行，由具体 Server 的实现决定。
+5.3.1. 底层原理Action 最核心的设计：Action &#x3D; 3 个 Service + 2 个 Topic
+ROS 2 的 Action 底层并不是一种全新的传输协议，而是由 3 个 Service 和 2 个 Topic 组合实现的。
+为什么这样设计？
+因为：
+
+Service 擅长明确的请求和响应。
+Topic 擅长持续发布消息。
+Action 正好同时需要这两类能力。
+
+Action Server：负责管理 Goal 的生命周期和状态转换。Action Client：负责发送 Goal，并根据业务需要获取任务状态、进度和最终结果。
+总概括：
+
+Action 是管理长时间执行任务的一套通信机制。
+Goal、Result、Feedback 描述任务的输入、输出和进度。
+底层用 3 个 Service + 2 个 Topic 实现交互。
+每个 Goal 有独立 UUID 和生命周期状态机，支持异步执行、进度反馈和取消。
+
+5.3.2. 接口定义action通信接口的定义使用的是 .action 文件。
 xxx.action
 action definition
 &lt;request_type&gt; &lt;request_fieldname&gt;---&lt;response_type&gt; &lt;response_fieldname&gt;---&lt;feedback_type&gt; &lt;feedback_fieldname&gt;
 
 # goalbool enable---# resultbool finish---# feedbackint state
 
-使用场景
-
+5.3.3. 使用场景
 导航：机器人需要从当前位置移动到目标位置，可能需要几秒钟或更长时间。导航过程将走了多远的数据反馈给机器人的控制系统，以便调整路径，并在完成后返回结果。导航过程中，机器人可能会遇到障碍物或其他问题，客户端可以随时取消或者抢占导航任务。
 机械臂控制：机器人需要执行一个复杂的抓取动作，可能需要几秒钟或更长时间。
 任务执行：机器人需要执行一个复杂的任务，例如清扫房间，可能需要几分钟或更长时间。
@@ -32205,6 +32181,48 @@ OriginBot 智能机器人开源套件
 宇树具身智能
 Lumina 具身智能社区
 Github 开源的具身智能社区
+
+]]></content>
+      <categories>
+        <category>Robotics</category>
+      </categories>
+      <tags>
+        <tag>robotics</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ROS2Interfaces</title>
+    <url>/Robotics/synced/Robotics/ROS2Interfaces/</url>
+    <content><![CDATA[
+
+1. Introduction在 ROS 2 中，消息（Messages）、服务（Services）和动作（Actions）是节点之间通信的基本机制。ROS 2 提供了丰富的标准消息类型，同时也支持用户定义自定义消息、服务和动作接口，以满足特定应用需求。
+查看本地已安装的所有 interfaces
+ros2 interface list
+
+
+2. std_msgs在工程中使用std_msgs的典型场景和示例：
+
+导入消息类型：在编写节点时，首先需要导入所需的std_msgs消息类型。
+发布消息：创建一个发布者，用于发布某种std_msgs类型的消息。
+订阅消息：创建一个订阅者，接收并处理某种std_msgs类型的消息。
+自定义消息组合：在自定义消息中，可以使用std_msgs中的基本类型作为组成部分。
+
+标准消息类型
+
+std_msgs
+sensor_msgs
+geometry_msgs
+nav_msgs
+actionlib_msgs
+
+自定义消息类型
+3. References
+Interface definition using .msg &#x2F; .srv &#x2F; .action files: https://design.ros2.org/articles/legacy_interface_definition.html
+About ROS 2 interfaces: https://docs.ros.org/en/foxy/Concepts/About-ROS-Interfaces.html
+common_interfaces: https://github.com/ros2/common_interfaces
+rcl_interfaces: https://github.com/ros2/rcl_interfaces
+std_msgs: https://docs.ros.org/en/humble/p/std_msgs/
+control_msgs: https://github.com/ros-controls/control_msgs
 
 ]]></content>
       <categories>
@@ -36858,78 +36876,6 @@ Kubernetes： 适用于大规模、高可用性的生产环境。Kubernetes提�
       </tags>
   </entry>
   <entry>
-    <title>Compose</title>
-    <url>/Cloud-Native/Docker/synced/CloudNative/Docker/Compose/</url>
-    <content><![CDATA[
-
-1. Introduce2. Abbreviation
-
-
-缩写
-英文全称
-说明
-
-
-
-dev
-development
-开发
-
-
-sit
-System Integrate Test
-系统整合测试（内测）
-
-
-uat
-User Acceptance Test
-用户验收测试
-
-
-pet
-Performance Evaluation Test
-性能评估测试（压测）
-
-
-sim
-simulation
-仿真
-
-
-prd&#x2F;prod
-production
-产品&#x2F;正式&#x2F;生产
-
-
-2.1. Install1. 下载镜像sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose2. 添加可执行权限chmod +x /usr/local/bin/docker-compose3. 终端查看是否安装成功docker-compose --version
-
-配置 kafka
-KAFKA_ADVERTISED_HOST_NAME：广播主机名称，一般用IP指定KAFKA_ZOOKEEPER_CONNECT：Zookeeper连接地址，格式：zoo1：port1,zoo2:port2:/pathKAFKA_LISTENERS：Kafka启动所使用的的协议及端口KAFKA_ADVERTISED_LISTENERS：Kafka广播地址及端口，也就是告诉客户端，使用什么地址和端口能连接到Kafka，这个很重要，如果不指定，宿主机以外的客户端将无法连接到Kafka，比如我这里因为容器与宿主机做了端口映射，所以广播地址采用的是宿主机的地址及端口，告诉客户端只要连接到宿主机的指定端口就行了KAFKA_BROKER_ID：指定BrokerId，如果不指定，将会自己生成
-
-2.2. Docker Compose command命令行终端输入 docker compose --help 查看 docker compose 的用法。
-[root@dev-tdepoc-ap01 ~]# docker compose --helpUsage:  docker compose [OPTIONS] COMMANDDefine and run multi-container applications with Docker.Options:      --ansi string                Control when to print ANSI control characters (&quot;never&quot;|&quot;always&quot;|&quot;auto&quot;) (default &quot;auto&quot;)      --compatibility              Run compose in backward compatibility mode      --dry-run                    Execute command in dry run mode      --env-file stringArray       Specify an alternate environment file.  -f, --file stringArray           Compose configuration files      --parallel int               Control max parallelism, -1 for unlimited (default -1)      --profile stringArray        Specify a profile to enable      --progress string            Set type of progress output (auto, tty, plain, quiet) (default &quot;auto&quot;)      --project-directory string   Specify an alternate working directory                                   (default: the path of the, first specified, Compose file)  -p, --project-name string        Project nameCommands:  build       Build or rebuild services  config      Parse, resolve and render compose file in canonical format  cp          Copy files/folders between a service container and the local filesystem  create      Creates containers for a service.  down        Stop and remove containers, networks  events      Receive real time events from containers.  exec        Execute a command in a running container.  images      List images used by the created containers  kill        Force stop service containers.  logs        View output from containers  ls          List running compose projects  pause       Pause services  port        Print the public port for a port binding.  ps          List containers  pull        Pull service images  push        Push service images  restart     Restart service containers  rm          Removes stopped service containers  run         Run a one-off command on a service.  scale       Scale services  start       Start services  stop        Stop services  top         Display the running processes  unpause     Unpause services  up          Create and start containers  version     Show the Docker Compose version information  wait        Block until the first service container stops  watch       Watch build context for service and rebuild/refresh containers when files are updatedRun &#x27;docker compose COMMAND --help&#x27; for more information on a command.
-
-
-
-# 创建和启动容器，-d 表示：后台运行，detached 简称docker compose up -d# 删除实例docker compose down# 列出目前正在运行相关容器docker compose ps# 启动docker compose start# 停止docker composr stop# 重启docker compose restart# 容器运行时执行输入的命令# 登录到redis中 -a redis密码docker-compose exec redis redis-cli -a redis123# 登录到mysqldocker-compose exec  mysql  mysql -uroot -pMysql@root123
-
-
-
-3. References
-Docker Compose offical doc: https://docs.docker.com/compose/
-Compose 模板文件：https://yeasy.gitbook.io/docker_practice/compose/compose_file
-
-]]></content>
-      <categories>
-        <category>Cloud Native</category>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>cloudnative</tag>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Install</title>
     <url>/Cloud-Native/Docker/synced/CloudNative/Docker/Install/</url>
     <content><![CDATA[
@@ -37017,6 +36963,78 @@ cgroupfs-mount: https://github.com/tianon/cgroupfs-mount
       </tags>
   </entry>
   <entry>
+    <title>Compose</title>
+    <url>/Cloud-Native/Docker/synced/CloudNative/Docker/Compose/</url>
+    <content><![CDATA[
+
+1. Introduce2. Abbreviation
+
+
+缩写
+英文全称
+说明
+
+
+
+dev
+development
+开发
+
+
+sit
+System Integrate Test
+系统整合测试（内测）
+
+
+uat
+User Acceptance Test
+用户验收测试
+
+
+pet
+Performance Evaluation Test
+性能评估测试（压测）
+
+
+sim
+simulation
+仿真
+
+
+prd&#x2F;prod
+production
+产品&#x2F;正式&#x2F;生产
+
+
+2.1. Install1. 下载镜像sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose2. 添加可执行权限chmod +x /usr/local/bin/docker-compose3. 终端查看是否安装成功docker-compose --version
+
+配置 kafka
+KAFKA_ADVERTISED_HOST_NAME：广播主机名称，一般用IP指定KAFKA_ZOOKEEPER_CONNECT：Zookeeper连接地址，格式：zoo1：port1,zoo2:port2:/pathKAFKA_LISTENERS：Kafka启动所使用的的协议及端口KAFKA_ADVERTISED_LISTENERS：Kafka广播地址及端口，也就是告诉客户端，使用什么地址和端口能连接到Kafka，这个很重要，如果不指定，宿主机以外的客户端将无法连接到Kafka，比如我这里因为容器与宿主机做了端口映射，所以广播地址采用的是宿主机的地址及端口，告诉客户端只要连接到宿主机的指定端口就行了KAFKA_BROKER_ID：指定BrokerId，如果不指定，将会自己生成
+
+2.2. Docker Compose command命令行终端输入 docker compose --help 查看 docker compose 的用法。
+[root@dev-tdepoc-ap01 ~]# docker compose --helpUsage:  docker compose [OPTIONS] COMMANDDefine and run multi-container applications with Docker.Options:      --ansi string                Control when to print ANSI control characters (&quot;never&quot;|&quot;always&quot;|&quot;auto&quot;) (default &quot;auto&quot;)      --compatibility              Run compose in backward compatibility mode      --dry-run                    Execute command in dry run mode      --env-file stringArray       Specify an alternate environment file.  -f, --file stringArray           Compose configuration files      --parallel int               Control max parallelism, -1 for unlimited (default -1)      --profile stringArray        Specify a profile to enable      --progress string            Set type of progress output (auto, tty, plain, quiet) (default &quot;auto&quot;)      --project-directory string   Specify an alternate working directory                                   (default: the path of the, first specified, Compose file)  -p, --project-name string        Project nameCommands:  build       Build or rebuild services  config      Parse, resolve and render compose file in canonical format  cp          Copy files/folders between a service container and the local filesystem  create      Creates containers for a service.  down        Stop and remove containers, networks  events      Receive real time events from containers.  exec        Execute a command in a running container.  images      List images used by the created containers  kill        Force stop service containers.  logs        View output from containers  ls          List running compose projects  pause       Pause services  port        Print the public port for a port binding.  ps          List containers  pull        Pull service images  push        Push service images  restart     Restart service containers  rm          Removes stopped service containers  run         Run a one-off command on a service.  scale       Scale services  start       Start services  stop        Stop services  top         Display the running processes  unpause     Unpause services  up          Create and start containers  version     Show the Docker Compose version information  wait        Block until the first service container stops  watch       Watch build context for service and rebuild/refresh containers when files are updatedRun &#x27;docker compose COMMAND --help&#x27; for more information on a command.
+
+
+
+# 创建和启动容器，-d 表示：后台运行，detached 简称docker compose up -d# 删除实例docker compose down# 列出目前正在运行相关容器docker compose ps# 启动docker compose start# 停止docker composr stop# 重启docker compose restart# 容器运行时执行输入的命令# 登录到redis中 -a redis密码docker-compose exec redis redis-cli -a redis123# 登录到mysqldocker-compose exec  mysql  mysql -uroot -pMysql@root123
+
+
+
+3. References
+Docker Compose offical doc: https://docs.docker.com/compose/
+Compose 模板文件：https://yeasy.gitbook.io/docker_practice/compose/compose_file
+
+]]></content>
+      <categories>
+        <category>Cloud Native</category>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>cloudnative</tag>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Internal</title>
     <url>/Cloud-Native/Docker/synced/CloudNative/Docker/Internal/</url>
     <content><![CDATA[
@@ -37079,32 +37097,6 @@ Docker Internals: http://docker-saigon.github.io/post/Docker-Internals/
       <tags>
         <tag>cloudnative</tag>
         <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Jenkins</title>
-    <url>/Cloud-Native/Jenkins/synced/CloudNative/Jenkins/Jenkins/</url>
-    <content><![CDATA[
-
-
-JenkinsJenkins 是一款开源 CI&amp;CD 软件，用于自动化各种任务，包括构建、测试和部署软件。
-
-CI&#x2F;CD持续集成、自动部署流程
-
-开发人员将代码 push 到 gitlab 中，触发 jenkins 的自动 pull 拉取代码，通过 maven 编译、打包，然后通过执行 shell 脚本使docker 构建镜像并 push 到私服（或者阿里云）仓库，此操作完成后jenkins 服务器上再执行 SSH 命令登录到部署服务器，docker 从仓库（私服）拉取镜像，启动容器。整个操作流程完成。
-References
-【Linux】Docker 搭建 Jenkins: https://open.alipay.com/portal/forum/post/125401045
-https://www.cnblogs.com/kevinwan/p/16007379.html
-微服务从代码到 k8s 部署应有尽有大结局(k8s 部署)：https://www.cnblogs.com/kevinwan/p/16007379.html
-
-]]></content>
-      <categories>
-        <category>Cloud Native</category>
-        <category>Jenkins</category>
-      </categories>
-      <tags>
-        <tag>cloudnative</tag>
-        <tag>jenkins</tag>
       </tags>
   </entry>
   <entry>
@@ -37580,21 +37572,29 @@ docker 镜像瘦身&amp;优化: https://lailin.xyz/post/51252.html
       </tags>
   </entry>
   <entry>
-    <title>Internals</title>
-    <url>/Cloud-Native/Kubernetes/synced/CloudNative/Kubernetes/Internals/</url>
+    <title>Jenkins</title>
+    <url>/Cloud-Native/Jenkins/synced/CloudNative/Jenkins/Jenkins/</url>
     <content><![CDATA[
 
-源码分析References
-云计算 K8s 系列—- K8s controller：https://kingjcy.github.io/post/cloud/paas/base/kubernetes/k8s-controller
+
+JenkinsJenkins 是一款开源 CI&amp;CD 软件，用于自动化各种任务，包括构建、测试和部署软件。
+
+CI&#x2F;CD持续集成、自动部署流程
+
+开发人员将代码 push 到 gitlab 中，触发 jenkins 的自动 pull 拉取代码，通过 maven 编译、打包，然后通过执行 shell 脚本使docker 构建镜像并 push 到私服（或者阿里云）仓库，此操作完成后jenkins 服务器上再执行 SSH 命令登录到部署服务器，docker 从仓库（私服）拉取镜像，启动容器。整个操作流程完成。
+References
+【Linux】Docker 搭建 Jenkins: https://open.alipay.com/portal/forum/post/125401045
+https://www.cnblogs.com/kevinwan/p/16007379.html
+微服务从代码到 k8s 部署应有尽有大结局(k8s 部署)：https://www.cnblogs.com/kevinwan/p/16007379.html
 
 ]]></content>
       <categories>
         <category>Cloud Native</category>
-        <category>Kubernetes</category>
+        <category>Jenkins</category>
       </categories>
       <tags>
         <tag>cloudnative</tag>
-        <tag>kubernetes</tag>
+        <tag>jenkins</tag>
       </tags>
   </entry>
   <entry>
@@ -37715,6 +37715,24 @@ Kafka 入门知识
       </tags>
   </entry>
   <entry>
+    <title>Internals</title>
+    <url>/Cloud-Native/Kubernetes/synced/CloudNative/Kubernetes/Internals/</url>
+    <content><![CDATA[
+
+源码分析References
+云计算 K8s 系列—- K8s controller：https://kingjcy.github.io/post/cloud/paas/base/kubernetes/k8s-controller
+
+]]></content>
+      <categories>
+        <category>Cloud Native</category>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>cloudnative</tag>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Etcd</title>
     <url>/Cloud-Native/Kubernetes/synced/CloudNative/Kubernetes/etcd/</url>
     <content><![CDATA[
@@ -37735,91 +37753,6 @@ Store
       <tags>
         <tag>cloudnative</tag>
         <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Protobuf</title>
-    <url>/Cloud-Native/Probobuf/synced/CloudNative/Probobuf/protobuf/</url>
-    <content><![CDATA[
-
-
-概念标识号在消息体的定义中，每个字段都必须有一个唯一的标识号，标识号是  $0- 2^{29}-1$ 范围内的一个整数。
-消息类型基本类型枚举类型序列化与反序列化三种流（stream）
-字节流（byte stream）
-文件流（file stream）
-字符串流（string stream）
-
-protobuf 中定义服务
-v2 和 v3 主要区别
-删除原始值字段的字段存在逻辑
-删除 required 字段
-删除 optional 字段，默认就是
-删除 default 字段
-删除扩展特性，新增 Any 类型来替代它
-删除 unknown 字段的支持
-新增 JSON Mapping
-新增 Map 类型的支持
-修复 enum 的 unknown 类型
-repeated 默认使用 packed 编码
-引入了新的语言实现（C＃，JavaScript，Ruby，Objective-C）
-
-以上是日常涉及的常见功能，如果还想详细了解可阅读 Protobuf Version 3.0.0
-Protobuf 适用场景思考方向：使用这个协议会产生什么影响。
-
-网络带宽
-吞吐量
-响应速度
-传输效率
-存储成本
-
-处理大数据包局限
-内存占用：在反序列化大型 Protobuf 数据包时，需要将整个数据包加载到内存中。这可能导致内存占用较高，因此在处理非常大的数据包时，可能需要考虑分块处理或其他优化策略。
-消息大小限制：Protobuf 有一个默认的消息大小限制（默认为 64MB），超过该限制的数据包将无法正常处理。可以通过调整配置或使用流式处理来解决此问题，但需要注意潜在的影响。
-
-推荐风格
-文件(Files)
-
-文件名使用小写下划线的命名风格，例如 lower_snake_case.proto
-每行不超过 80 字符
-使用 2 个空格缩进
-
-
-包(Packages)
-
-包名应该和目录结构对应，例如文件在my/package/目录下，包名应为 my.package
-
-
-消息和字段(Messages &amp; Fields)
-
-消息名使用首字母大写驼峰风格(CamelCase)，例如message StudentRequest &#123; ... &#125;
-字段名使用小写下划线的风格，例如 string status_code = 1
-枚举类型，枚举名使用首字母大写驼峰风格，例如 enum FooBar，枚举值使用全大写下划线隔开的风格(CAPITALS_WITH_UNDERSCORES )，例如 FOO_DEFAULT&#x3D;1
-
-
-服务(Services)
-
-RPC 服务名和方法名，均使用首字母大写驼峰风格。
-例如：service FooService&#123; rpc GetSomething() &#125;
-
-
-
-
-References
-Google 官网教程：https://developers.google.com/protocol-buffers
-Github 地址：https://github.com/protocolbuffers/protobuf
-Protocol Buffers V3 中文语法指南：https://www.liwenzhou.com/posts/Go/Protobuf3-language-guide-zh/
-Github Google APIs: https://github.com/googleapis/googleapis/tree/master
-Google APIs: https://google.aip.dev/general
-
-思考：编译器中的类型是如何在内存中存储的，不同的类型是怎样区分的？
-]]></content>
-      <categories>
-        <category>Cloud Native</category>
-        <category>Probobuf</category>
-      </categories>
-      <tags>
-        <tag>cloudnative</tag>
-        <tag>probobuf</tag>
       </tags>
   </entry>
   <entry>
@@ -38192,6 +38125,91 @@ Kubernetes 简明教程: https://lailin.xyz/post/k8s-tutorials.html
       </tags>
   </entry>
   <entry>
+    <title>Protobuf</title>
+    <url>/Cloud-Native/Probobuf/synced/CloudNative/Probobuf/protobuf/</url>
+    <content><![CDATA[
+
+
+概念标识号在消息体的定义中，每个字段都必须有一个唯一的标识号，标识号是  $0- 2^{29}-1$ 范围内的一个整数。
+消息类型基本类型枚举类型序列化与反序列化三种流（stream）
+字节流（byte stream）
+文件流（file stream）
+字符串流（string stream）
+
+protobuf 中定义服务
+v2 和 v3 主要区别
+删除原始值字段的字段存在逻辑
+删除 required 字段
+删除 optional 字段，默认就是
+删除 default 字段
+删除扩展特性，新增 Any 类型来替代它
+删除 unknown 字段的支持
+新增 JSON Mapping
+新增 Map 类型的支持
+修复 enum 的 unknown 类型
+repeated 默认使用 packed 编码
+引入了新的语言实现（C＃，JavaScript，Ruby，Objective-C）
+
+以上是日常涉及的常见功能，如果还想详细了解可阅读 Protobuf Version 3.0.0
+Protobuf 适用场景思考方向：使用这个协议会产生什么影响。
+
+网络带宽
+吞吐量
+响应速度
+传输效率
+存储成本
+
+处理大数据包局限
+内存占用：在反序列化大型 Protobuf 数据包时，需要将整个数据包加载到内存中。这可能导致内存占用较高，因此在处理非常大的数据包时，可能需要考虑分块处理或其他优化策略。
+消息大小限制：Protobuf 有一个默认的消息大小限制（默认为 64MB），超过该限制的数据包将无法正常处理。可以通过调整配置或使用流式处理来解决此问题，但需要注意潜在的影响。
+
+推荐风格
+文件(Files)
+
+文件名使用小写下划线的命名风格，例如 lower_snake_case.proto
+每行不超过 80 字符
+使用 2 个空格缩进
+
+
+包(Packages)
+
+包名应该和目录结构对应，例如文件在my/package/目录下，包名应为 my.package
+
+
+消息和字段(Messages &amp; Fields)
+
+消息名使用首字母大写驼峰风格(CamelCase)，例如message StudentRequest &#123; ... &#125;
+字段名使用小写下划线的风格，例如 string status_code = 1
+枚举类型，枚举名使用首字母大写驼峰风格，例如 enum FooBar，枚举值使用全大写下划线隔开的风格(CAPITALS_WITH_UNDERSCORES )，例如 FOO_DEFAULT&#x3D;1
+
+
+服务(Services)
+
+RPC 服务名和方法名，均使用首字母大写驼峰风格。
+例如：service FooService&#123; rpc GetSomething() &#125;
+
+
+
+
+References
+Google 官网教程：https://developers.google.com/protocol-buffers
+Github 地址：https://github.com/protocolbuffers/protobuf
+Protocol Buffers V3 中文语法指南：https://www.liwenzhou.com/posts/Go/Protobuf3-language-guide-zh/
+Github Google APIs: https://github.com/googleapis/googleapis/tree/master
+Google APIs: https://google.aip.dev/general
+
+思考：编译器中的类型是如何在内存中存储的，不同的类型是怎样区分的？
+]]></content>
+      <categories>
+        <category>Cloud Native</category>
+        <category>Probobuf</category>
+      </categories>
+      <tags>
+        <tag>cloudnative</tag>
+        <tag>probobuf</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RocketMQ</title>
     <url>/Cloud-Native/RocketMQ/synced/CloudNative/RocketMQ/RocketMQ/</url>
     <content><![CDATA[
@@ -38211,6 +38229,86 @@ ConsumeQueue 中的元素内容
       <tags>
         <tag>cloudnative</tag>
         <tag>rocketmq</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Install</title>
+    <url>/Cloud-Native/Zookeeper/synced/CloudNative/Zookeeper/Install/</url>
+    <content><![CDATA[
+zookeeper 的安装部署安装zookeeper 有两种运行模式：集群模式和单机模式。
+下载 zookeeper 安装包：http://apache.fayea.com/zookeeper/
+下载完成，通过 tar -zxvf 解压。
+单机环境安装一般情况下，在开发测试环境，没有这么多资源的情况，而且也不需要特别好的稳定性的前提下，我们可以使用单机部署。
+初次使用 zookeeper，需要将 conf 目录下的 zoo_sample.cfg 文件 copy 一份重命名为 zoo.cfg 修改 dataDir 目录，dataDir表示日志文件存放的路径。
+集群环境安装在 zookeeper 集群中，各个节点总共有三种角色，分别是：leader\follower\observer 集群模式，采用模拟 3 台机器来搭建zookeeper 集群。分别复制安装包到三台机器上并解压，同时 copy 一份zoo.cfg。
+
+修改配置文件
+server.1&#x3D;IP1:2888:3888【2888:访问 zookeeper 的端口，3888:重新选举 leader 的端口】
+server.2&#x3D;IP2:2888:3888
+server.3&#x3D;IP3:2888:3888
+其格式为：server.A&#x3D;B:C:D
+A:是一个数字，表示这个是第几号服务器
+B:是这个服务器的 IP 地址
+C:表示的是这个服务器于集群中的 Leader 服务器交换信息的端口
+D:表示的是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新Leader。而这个端口就是用来执行选举时服务器相互通信的端口。如果是伪集群的配置方式，由于 B 都是一样，所以不同的Zookeeper实例通信端口号不能一样，所以要给他们分配不同的端口号。
+在集群模式下，集群中每台机器都需要感知到整个集群是由哪几台机器组成的，在配置文件中，按照格式server.id&#x3D;host:prot:port，每一行代表一个机器配置。id：指的是 serverID，用来标识机器在集群中的机器序号。
+
+新建 dataDir 目录，设置 myid
+在每台 zookeeper 机器上，都需要在数据目录（dataDir）下创建一个 myid 文件，该文件只有一行内容，对应每台机器的ServerID 数字。比如：server.1 的 myid 文件内容就是1.【必须确保每个服务器的 myid 文件中的数字不同，并且和自己所在机器的 zoo.cfg 中 server.id 的 id 值一致，id的范围是 1-255】
+
+启动 zookeeper。
+
+
+Docker Compose 部署参考在https://hub.docker.com中搜索zookeeper在镜像介绍中又使用docker镜像安装单机和集群环境的详细说明。
+docker 机器上新建文件：stack.yml，将项目内容复制到 yml 文件中。
+services:  zoo1:    image: zookeeper    restart: always    hostname: zoo1    ports:      - 2181:2181    environment:      ZOO_MY_ID: 1      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181  zoo2:    image: zookeeper    restart: always    hostname: zoo2    ports:      - 2182:2181    environment:      ZOO_MY_ID: 2      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zoo3:2888:3888;2181  zoo3:    image: zookeeper    restart: always    hostname: zoo3    ports:      - 2183:2181    environment:      ZOO_MY_ID: 3      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
+
+然后使用命令 docker-compose -f stack.yml up
+如果没有安装 docker-compose 参考 docker 的官方文档：https://docs.docker.com/compose/install/
+等待启动完成后使用：.&#x2F;zkCli.sh -server 宿主机 IP:2181 即可登录。
+常用命令启动 ZK 服务: 
+bin&#x2F;zkServer.sh start 
+查看 ZK 服务状态: 
+bin&#x2F;zkServer.sh status 
+停止 ZK 服务: 
+bin&#x2F;zkServer.sh stop 
+重启 ZK 服务: 
+bin&#x2F;zkServer.sh restart 
+连接服务器 
+zkCli.sh -timeout 0 -r -server ip:port 
+单机安装创建目录
+mkdir -p /usr/local/soft/zookeepercd /usr/local/soft/zookeeper
+
+下载解压
+wget https://archive.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gztar -zxvf zookeeper-3.4.9.tar.gzcd zookeeper-3.4.9mkdir datamkdir logs
+
+修改配置文件
+cd confcp zoo_sample.cfg zoo.cfg
+
+修改 zoo.cfg
+# 数据文件夹dataDir=/usr/local/services/zookeeper/zookeeper-3.4.9/data# 日志文件夹dataLogDir=/usr/local/services/zookeeper/zookeeper-3.4.9/logs
+
+配置环境变量
+vim /etc/profile
+
+在尾部追加
+# zk envexport ZOOKEEPER_HOME=/usr/local/soft/zookeeper/zookeeper-3.4.9/export PATH=$ZOOKEEPER_HOME/bin:$PATHexport PATH
+
+编译生效
+source /etc/profile
+
+启动 ZK
+cd ../binzkServer.sh start
+
+查看状态
+zkServer.sh status]]></content>
+      <categories>
+        <category>Cloud Native</category>
+        <category>Zookeeper</category>
+      </categories>
+      <tags>
+        <tag>cloudnative</tag>
+        <tag>zookeeper</tag>
       </tags>
   </entry>
   <entry>
@@ -38365,86 +38463,6 @@ Centos7 离线安装 zookeeper 并设置服务开机自启 实践笔记
       </tags>
   </entry>
   <entry>
-    <title>Install</title>
-    <url>/Cloud-Native/Zookeeper/synced/CloudNative/Zookeeper/Install/</url>
-    <content><![CDATA[
-zookeeper 的安装部署安装zookeeper 有两种运行模式：集群模式和单机模式。
-下载 zookeeper 安装包：http://apache.fayea.com/zookeeper/
-下载完成，通过 tar -zxvf 解压。
-单机环境安装一般情况下，在开发测试环境，没有这么多资源的情况，而且也不需要特别好的稳定性的前提下，我们可以使用单机部署。
-初次使用 zookeeper，需要将 conf 目录下的 zoo_sample.cfg 文件 copy 一份重命名为 zoo.cfg 修改 dataDir 目录，dataDir表示日志文件存放的路径。
-集群环境安装在 zookeeper 集群中，各个节点总共有三种角色，分别是：leader\follower\observer 集群模式，采用模拟 3 台机器来搭建zookeeper 集群。分别复制安装包到三台机器上并解压，同时 copy 一份zoo.cfg。
-
-修改配置文件
-server.1&#x3D;IP1:2888:3888【2888:访问 zookeeper 的端口，3888:重新选举 leader 的端口】
-server.2&#x3D;IP2:2888:3888
-server.3&#x3D;IP3:2888:3888
-其格式为：server.A&#x3D;B:C:D
-A:是一个数字，表示这个是第几号服务器
-B:是这个服务器的 IP 地址
-C:表示的是这个服务器于集群中的 Leader 服务器交换信息的端口
-D:表示的是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新Leader。而这个端口就是用来执行选举时服务器相互通信的端口。如果是伪集群的配置方式，由于 B 都是一样，所以不同的Zookeeper实例通信端口号不能一样，所以要给他们分配不同的端口号。
-在集群模式下，集群中每台机器都需要感知到整个集群是由哪几台机器组成的，在配置文件中，按照格式server.id&#x3D;host:prot:port，每一行代表一个机器配置。id：指的是 serverID，用来标识机器在集群中的机器序号。
-
-新建 dataDir 目录，设置 myid
-在每台 zookeeper 机器上，都需要在数据目录（dataDir）下创建一个 myid 文件，该文件只有一行内容，对应每台机器的ServerID 数字。比如：server.1 的 myid 文件内容就是1.【必须确保每个服务器的 myid 文件中的数字不同，并且和自己所在机器的 zoo.cfg 中 server.id 的 id 值一致，id的范围是 1-255】
-
-启动 zookeeper。
-
-
-Docker Compose 部署参考在https://hub.docker.com中搜索zookeeper在镜像介绍中又使用docker镜像安装单机和集群环境的详细说明。
-docker 机器上新建文件：stack.yml，将项目内容复制到 yml 文件中。
-services:  zoo1:    image: zookeeper    restart: always    hostname: zoo1    ports:      - 2181:2181    environment:      ZOO_MY_ID: 1      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181  zoo2:    image: zookeeper    restart: always    hostname: zoo2    ports:      - 2182:2181    environment:      ZOO_MY_ID: 2      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zoo3:2888:3888;2181  zoo3:    image: zookeeper    restart: always    hostname: zoo3    ports:      - 2183:2181    environment:      ZOO_MY_ID: 3      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
-
-然后使用命令 docker-compose -f stack.yml up
-如果没有安装 docker-compose 参考 docker 的官方文档：https://docs.docker.com/compose/install/
-等待启动完成后使用：.&#x2F;zkCli.sh -server 宿主机 IP:2181 即可登录。
-常用命令启动 ZK 服务: 
-bin&#x2F;zkServer.sh start 
-查看 ZK 服务状态: 
-bin&#x2F;zkServer.sh status 
-停止 ZK 服务: 
-bin&#x2F;zkServer.sh stop 
-重启 ZK 服务: 
-bin&#x2F;zkServer.sh restart 
-连接服务器 
-zkCli.sh -timeout 0 -r -server ip:port 
-单机安装创建目录
-mkdir -p /usr/local/soft/zookeepercd /usr/local/soft/zookeeper
-
-下载解压
-wget https://archive.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gztar -zxvf zookeeper-3.4.9.tar.gzcd zookeeper-3.4.9mkdir datamkdir logs
-
-修改配置文件
-cd confcp zoo_sample.cfg zoo.cfg
-
-修改 zoo.cfg
-# 数据文件夹dataDir=/usr/local/services/zookeeper/zookeeper-3.4.9/data# 日志文件夹dataLogDir=/usr/local/services/zookeeper/zookeeper-3.4.9/logs
-
-配置环境变量
-vim /etc/profile
-
-在尾部追加
-# zk envexport ZOOKEEPER_HOME=/usr/local/soft/zookeeper/zookeeper-3.4.9/export PATH=$ZOOKEEPER_HOME/bin:$PATHexport PATH
-
-编译生效
-source /etc/profile
-
-启动 ZK
-cd ../binzkServer.sh start
-
-查看状态
-zkServer.sh status]]></content>
-      <categories>
-        <category>Cloud Native</category>
-        <category>Zookeeper</category>
-      </categories>
-      <tags>
-        <tag>cloudnative</tag>
-        <tag>zookeeper</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Balancer</title>
     <url>/Cloud-Native/gRPC/synced/CloudNative/gRPC/Balancer/</url>
     <content><![CDATA[
@@ -38503,12 +38521,12 @@ Reference
       </tags>
   </entry>
   <entry>
-    <title>Keepalive</title>
-    <url>/Cloud-Native/gRPC/synced/CloudNative/gRPC/Keepalive/</url>
+    <title>LoadBalance</title>
+    <url>/Cloud-Native/gRPC/synced/CloudNative/gRPC/LoadBalance/</url>
     <content><![CDATA[
 
 References
-gRPC 客户端长连接机制实现及 keepalive 分析：https://pandaychen.github.io/2020/09/01/GRPC-CLIENT-CONN-LASTING/
+基于 gRPC 的注册发现与负载均衡的原理和实战: https://talkgo.org/t/topic/1460
 
 ]]></content>
       <categories>
@@ -38521,12 +38539,12 @@ gRPC 客户端长连接机制实现及 keepalive 分析：https://pandaychen.git
       </tags>
   </entry>
   <entry>
-    <title>LoadBalance</title>
-    <url>/Cloud-Native/gRPC/synced/CloudNative/gRPC/LoadBalance/</url>
+    <title>Keepalive</title>
+    <url>/Cloud-Native/gRPC/synced/CloudNative/gRPC/Keepalive/</url>
     <content><![CDATA[
 
 References
-基于 gRPC 的注册发现与负载均衡的原理和实战: https://talkgo.org/t/topic/1460
+gRPC 客户端长连接机制实现及 keepalive 分析：https://pandaychen.github.io/2020/09/01/GRPC-CLIENT-CONN-LASTING/
 
 ]]></content>
       <categories>
@@ -39122,6 +39140,56 @@ CSDN Go 语言—函数返回局部变量地址：https://blog.csdn.net/li_10135
       </tags>
   </entry>
   <entry>
+    <title>Viper</title>
+    <url>/Go/Framework/synced/Go/Framework/Viper/</url>
+    <content><![CDATA[
+
+1. IntroductionViper 是适用于 Go 应用程序的完整配置解决方案。它被设计用于在应用程序中工作，并且可以处理所有类型的配置需求和格式。
+它支持以下特性：
+
+设置默认值
+从JSON、TOML、YAML、HCL、envfile和Java properties格式的配置文件读取配置信息
+实时监控和重新读取配置文件（可选）
+从环境变量中读取
+从远程配置系统（etcd 或 Consul）读取并监控配置变化
+从命令行参数读取配置
+从 buffer 读取配置
+显式配置值
+
+2. Why Choose Viper?在构建现代应用程序时，你无需担心配置文件格式；你想要专注于构建出色的软件。Viper 的出现就是为了在这方面帮助你的。
+Viper 能够为你执行下列操作：
+
+查找、加载和反序列化JSON、TOML、YAML、HCL、INI、envfile和Java properties格式的配置文件。
+提供一种机制为你的不同配置选项设置默认值。
+提供一种机制来通过命令行参数覆盖指定选项的值。
+提供别名系统，以便在不破坏现有代码的情况下轻松重命名参数。
+当用户提供了与默认值相同的命令行或配置文件时，可以很容易地分辨出它们之间的区别。
+
+Viper 会按照下面的优先级。每个项目的优先级都高于它下面的项目:
+
+显示调用Set设置值
+命令行参数（flag）
+环境变量
+配置文件
+key&#x2F;value 存储
+默认值
+
+重要： 目前 Viper 配置的键（Key）是大小写不敏感的。目前正在讨论是否将这一选项设为可选。
+3. References
+Github：https://github.com/spf13/viper
+Go 语言配置管理神器——Viper 中文教程：https://www.liwenzhou.com/posts/Go/viper/
+
+]]></content>
+      <categories>
+        <category>Go</category>
+        <category>Framework</category>
+      </categories>
+      <tags>
+        <tag>go</tag>
+        <tag>framework</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Gin</title>
     <url>/Go/Framework/synced/Go/Framework/Gin/</url>
     <content><![CDATA[
@@ -39183,56 +39251,6 @@ official web: https://gin-gonic.com/
 Go packages: https://pkg.go.dev/github.com/gin-gonic/gin
 official example: https://github.com/gin-gonic/examples
 gin 框架源码解析：https://www.liwenzhou.com/posts/Go/gin-sourcecode/
-
-]]></content>
-      <categories>
-        <category>Go</category>
-        <category>Framework</category>
-      </categories>
-      <tags>
-        <tag>go</tag>
-        <tag>framework</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Viper</title>
-    <url>/Go/Framework/synced/Go/Framework/Viper/</url>
-    <content><![CDATA[
-
-1. IntroductionViper 是适用于 Go 应用程序的完整配置解决方案。它被设计用于在应用程序中工作，并且可以处理所有类型的配置需求和格式。
-它支持以下特性：
-
-设置默认值
-从JSON、TOML、YAML、HCL、envfile和Java properties格式的配置文件读取配置信息
-实时监控和重新读取配置文件（可选）
-从环境变量中读取
-从远程配置系统（etcd 或 Consul）读取并监控配置变化
-从命令行参数读取配置
-从 buffer 读取配置
-显式配置值
-
-2. Why Choose Viper?在构建现代应用程序时，你无需担心配置文件格式；你想要专注于构建出色的软件。Viper 的出现就是为了在这方面帮助你的。
-Viper 能够为你执行下列操作：
-
-查找、加载和反序列化JSON、TOML、YAML、HCL、INI、envfile和Java properties格式的配置文件。
-提供一种机制为你的不同配置选项设置默认值。
-提供一种机制来通过命令行参数覆盖指定选项的值。
-提供别名系统，以便在不破坏现有代码的情况下轻松重命名参数。
-当用户提供了与默认值相同的命令行或配置文件时，可以很容易地分辨出它们之间的区别。
-
-Viper 会按照下面的优先级。每个项目的优先级都高于它下面的项目:
-
-显示调用Set设置值
-命令行参数（flag）
-环境变量
-配置文件
-key&#x2F;value 存储
-默认值
-
-重要： 目前 Viper 配置的键（Key）是大小写不敏感的。目前正在讨论是否将这一选项设为可选。
-3. References
-Github：https://github.com/spf13/viper
-Go 语言配置管理神器——Viper 中文教程：https://www.liwenzhou.com/posts/Go/viper/
 
 ]]></content>
       <categories>
@@ -39323,28 +39341,6 @@ class Solution &#123;public:  vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nu
       </tags>
   </entry>
   <entry>
-    <title>146 LRU</title>
-    <url>/Interview/Algorithm/synced/Interview/Algorithm/146_LRU/</url>
-    <content><![CDATA[
-
-题目请你设计并实现一个满足  LRU (最近最少使用) 缓存 约束的数据结构。实现 LRUCache 类：LRUCache(int capacity) 以 正整数 作为容量 capacity 初始化 LRU 缓存int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。void put(int key, int value) 如果关键字 key 已经存在，则变更其数据值 value ；如果不存在，则向缓存中插入该组 key-value 。如果插入操作导致关键字数量超过 capacity ，则应该 逐出 最久未使用的关键字。函数 get 和 put 必须以 O(1) 的平均时间复杂度运行。示例：输入[&quot;LRUCache&quot;, &quot;put&quot;, &quot;put&quot;, &quot;get&quot;, &quot;put&quot;, &quot;get&quot;, &quot;put&quot;, &quot;get&quot;, &quot;get&quot;, &quot;get&quot;][[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]输出[null, null, null, 1, null, -1, null, -1, 3, 4]解释LRUCache lRUCache = new LRUCache(2);lRUCache.put(1, 1); // 缓存是 &#123;1=1&#125;lRUCache.put(2, 2); // 缓存是 &#123;1=1, 2=2&#125;lRUCache.get(1);    // 返回 1lRUCache.put(3, 3); // 该操作会使得关键字 2 作废，缓存是 &#123;1=1, 3=3&#125;lRUCache.get(2);    // 返回 -1 (未找到)lRUCache.put(4, 4); // 该操作会使得关键字 1 作废，缓存是 &#123;4=4, 3=3&#125;lRUCache.get(1);    // 返回 -1 (未找到)lRUCache.get(3);    // 返回 3lRUCache.get(4);    // 返回 4
-
-
-LRU 原理LRU 缓存的核心是当缓存满的时候，要淘汰最久未使用的那个元素。而每次访问一个元素的时候，不管是 get 还是put，都要把这个元素标记为最近使用的。这就要求我们能快速地找到哪个元素是最久未使用的，并且在每次访问时调整顺序。
-那通常 LRU 的实现方式是使用哈希表加双向链表。哈希表可以提供O(1)的查询速度，而双向链表可以维护元素的访问顺序。每次访问一个元素，不管是 get 还是put，都要把这个元素移动到链表的头部（表示最近使用过）。当缓存满了需要删除元素时，就删除链表的尾部元素，也就是最久未使用的那个。
-所以，我需要构造一个双向链表的结构，每个节点保存 key 和 value。哈希表的键是key，对应的值是链表中的节点指针。这样，当需要 get 一个 key 的时候，通过哈希表快速找到对应的节点，然后把这个节点移动到链表头部。put的时候，如果 key 存在，同样需要移动节点到头部并更新 value。如果不存在，就新建节点添加到头部，并检查容量是否超过，超过的话删除尾部节点，并在哈希表中也删除对应的项
-实现golangimport &quot;container/list&quot;type LRUCache struct &#123;  capacity int  cache    map[int]*list.Element  list     *list.List&#125;type entry struct &#123;  key   int  value int&#125;func Constructor(capacity int) LRUCache &#123;  return LRUCache&#123;    capacity: capacity,    cache:    make(map[int]*list.Element),    list:     list.New(),  &#125;&#125;func (this *LRUCache) Get(key int) int &#123;  if elem, ok := this.cache[key]; ok &#123;    this.list.MoveToFront(elem)    return elem.Value.(*entry).value  &#125;  return -1&#125;func (this *LRUCache) Put(key int, value int) &#123;  if elem, ok := this.cache[key]; ok &#123;    elem.Value.(*entry).value = value    this.list.MoveToFront(elem)  &#125; else &#123;    if this.list.Len() &gt;= this.capacity &#123;      // Remove the least recently used entry      tail := this.list.Back()      if tail != nil &#123;        delete(this.cache, tail.Value.(*entry).key)        this.list.Remove(tail)      &#125;    &#125;    // Add new entry to the front    newEntry := &amp;entry&#123;key: key, value: value&#125;    elem := this.list.PushFront(newEntry)    this.cache[key] = elem  &#125;&#125;
-]]></content>
-      <categories>
-        <category>Interview</category>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>algorithm</tag>
-        <tag>interview</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>15 Three Sum</title>
     <url>/Interview/Algorithm/synced/Interview/Algorithm/15-three-sum/</url>
     <content><![CDATA[
@@ -39366,6 +39362,28 @@ LRU 原理LRU 缓存的核心是当缓存满的时候，要淘汰最久未使用
 参考
 Terry 解三数之和的思路
 
+]]></content>
+      <categories>
+        <category>Interview</category>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>interview</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>146 LRU</title>
+    <url>/Interview/Algorithm/synced/Interview/Algorithm/146_LRU/</url>
+    <content><![CDATA[
+
+题目请你设计并实现一个满足  LRU (最近最少使用) 缓存 约束的数据结构。实现 LRUCache 类：LRUCache(int capacity) 以 正整数 作为容量 capacity 初始化 LRU 缓存int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。void put(int key, int value) 如果关键字 key 已经存在，则变更其数据值 value ；如果不存在，则向缓存中插入该组 key-value 。如果插入操作导致关键字数量超过 capacity ，则应该 逐出 最久未使用的关键字。函数 get 和 put 必须以 O(1) 的平均时间复杂度运行。示例：输入[&quot;LRUCache&quot;, &quot;put&quot;, &quot;put&quot;, &quot;get&quot;, &quot;put&quot;, &quot;get&quot;, &quot;put&quot;, &quot;get&quot;, &quot;get&quot;, &quot;get&quot;][[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]输出[null, null, null, 1, null, -1, null, -1, 3, 4]解释LRUCache lRUCache = new LRUCache(2);lRUCache.put(1, 1); // 缓存是 &#123;1=1&#125;lRUCache.put(2, 2); // 缓存是 &#123;1=1, 2=2&#125;lRUCache.get(1);    // 返回 1lRUCache.put(3, 3); // 该操作会使得关键字 2 作废，缓存是 &#123;1=1, 3=3&#125;lRUCache.get(2);    // 返回 -1 (未找到)lRUCache.put(4, 4); // 该操作会使得关键字 1 作废，缓存是 &#123;4=4, 3=3&#125;lRUCache.get(1);    // 返回 -1 (未找到)lRUCache.get(3);    // 返回 3lRUCache.get(4);    // 返回 4
+
+
+LRU 原理LRU 缓存的核心是当缓存满的时候，要淘汰最久未使用的那个元素。而每次访问一个元素的时候，不管是 get 还是put，都要把这个元素标记为最近使用的。这就要求我们能快速地找到哪个元素是最久未使用的，并且在每次访问时调整顺序。
+那通常 LRU 的实现方式是使用哈希表加双向链表。哈希表可以提供O(1)的查询速度，而双向链表可以维护元素的访问顺序。每次访问一个元素，不管是 get 还是put，都要把这个元素移动到链表的头部（表示最近使用过）。当缓存满了需要删除元素时，就删除链表的尾部元素，也就是最久未使用的那个。
+所以，我需要构造一个双向链表的结构，每个节点保存 key 和 value。哈希表的键是key，对应的值是链表中的节点指针。这样，当需要 get 一个 key 的时候，通过哈希表快速找到对应的节点，然后把这个节点移动到链表头部。put的时候，如果 key 存在，同样需要移动节点到头部并更新 value。如果不存在，就新建节点添加到头部，并检查容量是否超过，超过的话删除尾部节点，并在哈希表中也删除对应的项
+实现golangimport &quot;container/list&quot;type LRUCache struct &#123;  capacity int  cache    map[int]*list.Element  list     *list.List&#125;type entry struct &#123;  key   int  value int&#125;func Constructor(capacity int) LRUCache &#123;  return LRUCache&#123;    capacity: capacity,    cache:    make(map[int]*list.Element),    list:     list.New(),  &#125;&#125;func (this *LRUCache) Get(key int) int &#123;  if elem, ok := this.cache[key]; ok &#123;    this.list.MoveToFront(elem)    return elem.Value.(*entry).value  &#125;  return -1&#125;func (this *LRUCache) Put(key int, value int) &#123;  if elem, ok := this.cache[key]; ok &#123;    elem.Value.(*entry).value = value    this.list.MoveToFront(elem)  &#125; else &#123;    if this.list.Len() &gt;= this.capacity &#123;      // Remove the least recently used entry      tail := this.list.Back()      if tail != nil &#123;        delete(this.cache, tail.Value.(*entry).key)        this.list.Remove(tail)      &#125;    &#125;    // Add new entry to the front    newEntry := &amp;entry&#123;key: key, value: value&#125;    elem := this.list.PushFront(newEntry)    this.cache[key] = elem  &#125;&#125;
 ]]></content>
       <categories>
         <category>Interview</category>
@@ -41785,6 +41803,25 @@ MySQL 故障诊断：MySQL 占用 CPU 过高问题定位及优化
       </tags>
   </entry>
   <entry>
+    <title>Sftp</title>
+    <url>/Linux/FAQ/synced/Linux/FAQ/sftp/</url>
+    <content><![CDATA[
+
+References
+sftp 使用: https://www.jb51.net/LINUXjishu/348693.html
+https://www.myfreax.com/how-to-use-linux-sftp-command-to-transfer-files
+
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>FAQ</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>faq</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Open Files</title>
     <url>/Linux/FAQ/synced/Linux/FAQ/open-files/</url>
     <content><![CDATA[
@@ -41842,25 +41879,6 @@ Linux 下 PAM 模块学习总结
 Linux 下设置最大文件打开数 nofile 及 nr_open、file-max
 Linux - 修改系统的 max open files、max user processes 
 一台 Linux 服务器最多能支撑多少个 TCP 连接？ 从底层原理去解释。
-
-]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>FAQ</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>faq</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Sftp</title>
-    <url>/Linux/FAQ/synced/Linux/FAQ/sftp/</url>
-    <content><![CDATA[
-
-References
-sftp 使用: https://www.jb51.net/LINUXjishu/348693.html
-https://www.myfreax.com/how-to-use-linux-sftp-command-to-transfer-files
 
 ]]></content>
       <categories>
@@ -43102,6 +43120,22 @@ Operating System Concepts Ninth Edition: 操作系统概念第九版英文版在
       </tags>
   </entry>
   <entry>
+    <title>README</title>
+    <url>/Embedded/F407xx/00-uc-cos-iii-template/synced/Embedded/F407xx/00-uc-cos-iii-template/README/</url>
+    <content><![CDATA[F407ZGT6 系列搭载 uC&#x2F;OS-III 实时操作系统。外部晶振为 8MHz.
+]]></content>
+      <categories>
+        <category>Embedded</category>
+        <category>F407xx</category>
+        <category>00-uc-cos-iii-template</category>
+      </categories>
+      <tags>
+        <tag>embedded</tag>
+        <tag>00-uc-cos-iii-template</tag>
+        <tag>f407xx</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>26 Concurrency and Threads</title>
     <url>/OS/Operating-System-Three-Easy-Pieces/Concurrency/synced/OS/Operating-System-Three-Easy-Pieces/Concurrency/26-Concurrency-and-Threads/</url>
     <content><![CDATA[
@@ -43201,22 +43235,6 @@ pthread cond wait() 调用线程进入休眠，让调用者在睡眠时释放锁
         <tag>os</tag>
         <tag>operating-system-three-easy-pieces</tag>
         <tag>concurrency</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>README</title>
-    <url>/Embedded/F407xx/00-uc-cos-iii-template/synced/Embedded/F407xx/00-uc-cos-iii-template/README/</url>
-    <content><![CDATA[F407ZGT6 系列搭载 uC&#x2F;OS-III 实时操作系统。外部晶振为 8MHz.
-]]></content>
-      <categories>
-        <category>Embedded</category>
-        <category>F407xx</category>
-        <category>00-uc-cos-iii-template</category>
-      </categories>
-      <tags>
-        <tag>embedded</tag>
-        <tag>00-uc-cos-iii-template</tag>
-        <tag>f407xx</tag>
       </tags>
   </entry>
   <entry>
@@ -44363,6 +44381,72 @@ background thread(后台线程)也称为交换守护进程(swap daemon)或页守
       </tags>
   </entry>
   <entry>
+    <title>22 Swapping Policies</title>
+    <url>/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/22-Swapping-Policies/</url>
+    <content><![CDATA[
+
+问题(crux of the problem)
+OS 如何决定从内存中踢出哪个页？
+
+Cache Management
+AMAT(average memory access time): 内存平均访问时间
+$T_M$：the cost of accessing memory
+$T_D$：the cost of accessing disk
+$P_Miss$：the probability of not finding the data in the cache (a miss)$$AMAT &#x3D; T_M + (P_Miss · T_D)$$
+
+
+
+The Optimal Replacement Policy(最优替换策略)
+最优替换策略的结果：使总体未命中 TLB 的数量最少。
+最优替换策略只能作为理想的策略作为比较，在实际中很难实现。
+3 种缓存未命中的类型
+compulsory miss：强制性未命中
+capacity miss：容量未命中
+conflict miss：冲突未命中
+
+
+采用 FIFO 和 Random 策略都可能会踢出重要的 page，这个 page 也许会马上被引用。
+
+基于历史信息的算法去实现一些策略
+LRU(Least-Recently-Used)：最少最近使用
+
+LFU(Least-Frequently-Used): 最不经常使用
+
+MFU(Most-Frequently-Used): 最经常使用
+
+MRU(Most-Recently-Used): 最近使用
+
+时间局部性(temporal locality)：近期访问的页可能会在不久的将来再次被访问。
+
+空间局部性(spatial locality): 如果 page P 被访问，可能围绕它的 page 也会被访问。
+
+使用位(use bit)，也叫引用位(reference bit)
+
+修改位(modified bit)，也叫脏位(dirty bit)
+
+如何实现 LRU 替换策略？
+
+OS 利用 use bit 来实现 Approximating LRU。OS 中的所有 page 都放在一个 circular list 中，开始时，时钟指针(clockhand)指向某个特定的 page，当进行 pagereplacement 时，OS 检查当前指向的 page 的 use bit 是 0 还是 1；若是 1，则 OS 指向的 page最近被使用，不适合被替换，然后将当前 page 的 use bit 设置为0，时钟指针递增到下一个 page，一直持续找到一个 use bit 为 0 的 page；若是 0，则 OS 指向的 page最近没有被使用，可以进行替换。
+
+
+采用时钟算法(clock algorithm)不是实现近似 LRU 的唯一方法。只要任何周期性的清除 use bit，然后通过区分 use bit 是 0还是 1 来判断该替换哪个 page。
+
+加入 dirty bit 后的时钟算法。扫描没有被使用又没有被修改的 page 首先踢出(evict)，若没有找到这种page，在查找被修改过且没有被使用的 page。
+
+
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Operating-System-Three-Easy-Pieces</category>
+        <category>Virtualization</category>
+      </categories>
+      <tags>
+        <tag>os</tag>
+        <tag>operating-system-three-easy-pieces</tag>
+        <tag>virtualization</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>23 Virtual Memory Systems</title>
     <url>/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/23-Virtual-Memory-Systems/</url>
     <content><![CDATA[
@@ -44440,72 +44524,6 @@ spectreattack.com
 
 
 KPTI(kernel page table isolation): 内核页表隔离
-
-
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Operating-System-Three-Easy-Pieces</category>
-        <category>Virtualization</category>
-      </categories>
-      <tags>
-        <tag>os</tag>
-        <tag>operating-system-three-easy-pieces</tag>
-        <tag>virtualization</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>22 Swapping Policies</title>
-    <url>/OS/Operating-System-Three-Easy-Pieces/Virtualization/synced/OS/Operating-System-Three-Easy-Pieces/Virtualization/22-Swapping-Policies/</url>
-    <content><![CDATA[
-
-问题(crux of the problem)
-OS 如何决定从内存中踢出哪个页？
-
-Cache Management
-AMAT(average memory access time): 内存平均访问时间
-$T_M$：the cost of accessing memory
-$T_D$：the cost of accessing disk
-$P_Miss$：the probability of not finding the data in the cache (a miss)$$AMAT &#x3D; T_M + (P_Miss · T_D)$$
-
-
-
-The Optimal Replacement Policy(最优替换策略)
-最优替换策略的结果：使总体未命中 TLB 的数量最少。
-最优替换策略只能作为理想的策略作为比较，在实际中很难实现。
-3 种缓存未命中的类型
-compulsory miss：强制性未命中
-capacity miss：容量未命中
-conflict miss：冲突未命中
-
-
-采用 FIFO 和 Random 策略都可能会踢出重要的 page，这个 page 也许会马上被引用。
-
-基于历史信息的算法去实现一些策略
-LRU(Least-Recently-Used)：最少最近使用
-
-LFU(Least-Frequently-Used): 最不经常使用
-
-MFU(Most-Frequently-Used): 最经常使用
-
-MRU(Most-Recently-Used): 最近使用
-
-时间局部性(temporal locality)：近期访问的页可能会在不久的将来再次被访问。
-
-空间局部性(spatial locality): 如果 page P 被访问，可能围绕它的 page 也会被访问。
-
-使用位(use bit)，也叫引用位(reference bit)
-
-修改位(modified bit)，也叫脏位(dirty bit)
-
-如何实现 LRU 替换策略？
-
-OS 利用 use bit 来实现 Approximating LRU。OS 中的所有 page 都放在一个 circular list 中，开始时，时钟指针(clockhand)指向某个特定的 page，当进行 pagereplacement 时，OS 检查当前指向的 page 的 use bit 是 0 还是 1；若是 1，则 OS 指向的 page最近被使用，不适合被替换，然后将当前 page 的 use bit 设置为0，时钟指针递增到下一个 page，一直持续找到一个 use bit 为 0 的 page；若是 0，则 OS 指向的 page最近没有被使用，可以进行替换。
-
-
-采用时钟算法(clock algorithm)不是实现近似 LRU 的唯一方法。只要任何周期性的清除 use bit，然后通过区分 use bit 是 0还是 1 来判断该替换哪个 page。
-
-加入 dirty bit 后的时钟算法。扫描没有被使用又没有被修改的 page 首先踢出(evict)，若没有找到这种page，在查找被修改过且没有被使用的 page。
 
 
 ]]></content>
