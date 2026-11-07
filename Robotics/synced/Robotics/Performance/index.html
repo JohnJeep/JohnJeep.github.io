@@ -1,0 +1,428 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Performance | Learning Computer Science Journey</title><meta name="author" content="John Jeep"><meta name="copyright" content="John Jeep"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f8fbff"><meta name="description" content="1. Robotics Performance Optimization对机器人系统中的性能优化是一个关键的研究领域，涉及多个方面，包括硬件设计、软件算法、控制策略以及系统集成。本文将探讨如何通过不同的方法和技术来提升机器人系统的整体性能。 可以从以下几个方面来优化机器人系统的性能：  ROS2 框架性能 Linux 系统性能 DDS 通信性能 内存性能  对 ROS2 C++ 开发者，建议重">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Performance">
+<meta property="og:url" content="https://johnjeep.github.io/Robotics/synced/Robotics/Performance/">
+<meta property="og:site_name" content="Learning Computer Science Journey">
+<meta property="og:description" content="1. Robotics Performance Optimization对机器人系统中的性能优化是一个关键的研究领域，涉及多个方面，包括硬件设计、软件算法、控制策略以及系统集成。本文将探讨如何通过不同的方法和技术来提升机器人系统的整体性能。 可以从以下几个方面来优化机器人系统的性能：  ROS2 框架性能 Linux 系统性能 DDS 通信性能 内存性能  对 ROS2 C++ 开发者，建议重">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://johnjeep.github.io/img/cover-hardware.jpg">
+<meta property="article:published_time" content="2026-11-07T03:33:02.000Z">
+<meta property="article:modified_time" content="2026-11-07T09:32:14.000Z">
+<meta property="article:author" content="John Jeep">
+<meta property="article:tag" content="robotics">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://johnjeep.github.io/img/cover-hardware.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Performance",
+  "url": "https://johnjeep.github.io/Robotics/synced/Robotics/Performance/",
+  "image": "https://johnjeep.github.io/img/cover-hardware.jpg",
+  "datePublished": "2026-11-07T03:33:02.000Z",
+  "dateModified": "2026-11-07T09:32:14.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Jeep",
+      "url": "https://johnjeep.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://johnjeep.github.io/Robotics/synced/Robotics/Performance/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        try {
+          const data = { value }
+
+          if (ttl != null) {
+            data.expiry = Date.now() + ttl * 86400000
+          }
+
+          localStorage.setItem(key, JSON.stringify(data))
+        } catch (e) {
+          console.error(e)
+        }
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#f8fbff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const start = 6
+              const end = 18
+              const isNight =
+                start < end
+                    ? hour < start || hour >= end
+                    : hour >= start || hour < end
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: John Jeep","link":"链接: ","source":"来源: Learning Computer Science Journey","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Performance',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Learning Computer Science Journey" type="application/atom+xml">
+</head><body><div class="bg-animation" id="web_bg" style="background-color: #f5f7fa;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">345</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">67</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/cover-hardware.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Learning Computer Science Journey</span></a><a class="nav-page-title" href="/"><span class="site-name">Performance</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/start-here/"><i class="fa-fw fas fa-route"></i><span> 开始阅读</span></a></div><div class="menus_item"><a class="site-page" href="/columns/"><i class="fa-fw fas fa-layer-group"></i><span> 专栏</span></a></div><div class="menus_item"><a class="site-page" href="/featured/"><i class="fa-fw fas fa-star"></i><span> 精选</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Performance</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-11-07T03:33:02.000Z" title="发表于 2026-11-07 11:33:02">2026-11-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-11-07T09:32:14.000Z" title="更新于 2026-11-07 17:32:14">2026-11-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Robotics/">Robotics</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">886</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4 分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;此文章已超过 &quot;,&quot;messageNext&quot;:&quot; 天未更新，内容可能已过时，请注意甄别。&quot;,&quot;postUpdate&quot;:&quot;2026-11-07 17:32:14&quot;}" hidden></div><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><!--
+ * @Author: JohnJeep
+ * @Date: 2026-11-07 11:33:02
+ * @LastEditors: JohnJeep
+ * @LastEditTime: 2026-11-07 17:32:14
+ * @Description: optimizing the performance of robotics systems
+ * Copyright (c) 2026 by John Jeep, All Rights Reserved.
+-->
+
+<h1 id="1-Robotics-Performance-Optimization"><a href="#1-Robotics-Performance-Optimization" class="headerlink" title="1. Robotics Performance Optimization"></a>1. Robotics Performance Optimization</h1><p>对机器人系统中的性能优化是一个关键的研究领域，涉及多个方面，包括硬件设计、软件算法、控制策略以及系统集成。本文将探讨如何通过不同的方法和技术来提升机器人系统的整体性能。</p>
+<p>可以从以下几个方面来优化机器人系统的性能：</p>
+<ul>
+<li>ROS2 框架性能</li>
+<li>Linux 系统性能</li>
+<li>DDS 通信性能</li>
+<li>内存性能</li>
+</ul>
+<p>对 ROS2 C++ 开发者，建议重点掌握以下几个工具的使用：</p>
+<ul>
+<li>ros2_tracing：分析 ROS2 内部的执行流程、Callback 延迟、Executor 调度。</li>
+<li>perf：分析 CPU 性能瓶颈、线程调度和函数热点。</li>
+<li>gperftools：分析 C++ 函数 CPU 消耗和堆内存分配。</li>
+<li>heaptrack：分析内存申请、释放、分配热点。</li>
+<li>performance_test：测试 ROS2&#x2F;DDS 的消息延迟与吞吐量。</li>
+</ul>
+<p>性能分析全景，从整体到局部的思想。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/synced/Robotics/figures/ros2_performance.png" alt="alt text"></p>
+<p>常用工具详细对比</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>解决的问题</th>
+<th>推荐程度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ros2_tracing &#x2F; LTTng</td>
+<td>Callback 执行时间、Executor 调度、ROS2 内部事件</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>perf</td>
+<td>CPU 热点、调用栈、调度行为</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>gperftools</td>
+<td>C&#x2F;C++ CPU 和堆内存分析</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>heaptrack</td>
+<td>内存分配热点、潜在泄漏</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>CARET</td>
+<td>多节点消息链路、端到端延迟分析</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>performance_test</td>
+<td>DDS&#x2F;ROS2 延迟、吞吐量对比</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>ros2 topic hz&#x2F;bw</td>
+<td>Topic 发布频率、接收吞吐量</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>Valgrind &#x2F; ASan</td>
+<td>内存越界、非法访问、泄漏</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>Wireshark</td>
+<td>RTPS&#x2F;DDS 网络报文分析</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>bpftrace &#x2F; eBPF</td>
+<td>内核事件、调度、系统调用、网络问题</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>docker stats &#x2F; pidstat</td>
+<td>CPU、内存、线程资源监控</td>
+<td>★★★★★</td>
+</tr>
+</tbody></table>
+<p>这里的星级是按日常 ROS2 C++ 开发的实用性给出的主观建议，而不是工具性能排名。</p>
+<h1 id="2-ROS2-tracing"><a href="#2-ROS2-tracing" class="headerlink" title="2. ROS2_tracing"></a>2. ROS2_tracing</h1><p>ROS2 tracing 是 ROS2 官方提供的性能分析工具，基于 LTTng（Linux Trace Toolkit Next Generation）实现。它可以帮助开发者深入了解 ROS2 系统内部的执行流程，包括 Callback 的执行时间、Executor 的调度行为以及节点间的通信延迟等。</p>
+<p>下面是 ROS2 tracing 的一个示意图，展示了如何通过 tracing 工具来分析 ROS2 系统的性能瓶颈。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/synced/Robotics/figures/ros2_tracing.png" alt="alt text"></p>
+<p>有下面几个部分组成：</p>
+<ul>
+<li>tracetools：用于启动和管理跟踪会话的命令行工具。</li>
+<li>tracetools_launch：用于在 ROS2 launch 文件中集成跟踪功能的工具。</li>
+<li>tracetools_read：用于读取和解析跟踪数据的工具。</li>
+<li>tracetools_analysis：用于分析和可视化跟踪数据的工具。</li>
+<li>tracetools_test：用于测试和验证跟踪功能的工具。</li>
+<li>tracetools_tracepoints：用于在 ROS2 代码中插入 tracepoints 的工具。</li>
+<li>ros2trace：用于启动和管理 ROS2 tracing 的命令行工具。</li>
+</ul>
+<h2 id="2-1-如何使用"><a href="#2-1-如何使用" class="headerlink" title="2.1. 如何使用"></a>2.1. 如何使用</h2><p>以 ROS2 Jazzy 为例，检查 Tracepoint 支持：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /opt/ros/jazzy/setup.bash</span><br><span class="line"></span><br><span class="line">ros2 run tracetools status</span><br></pre></td></tr></table></figure>
+
+<p>安装跟踪工具。若尚未安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ros-jazzy-tracetools  ros-jazzy-ros2trace</span><br></pre></td></tr></table></figure>
+
+<p>启动 Trace 会话：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 trace</span><br></pre></td></tr></table></figure>
+<p>随后在另一个终端启动目标 ROS2 节点，复现性能问题，最后结束跟踪。</p>
+<p>对于需要多次启停的实验，也可以使用具名会话：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ros2 trace start my_session</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在另一个终端运行 ROS2 程序</span></span><br><span class="line"></span><br><span class="line">ros2 trace stop my_session</span><br></pre></td></tr></table></figure>
+<p>采集到的数据可以借助 tracetools_analysis 或 Trace Compass 等工具进行分析。某些复杂的 Executor 等待时间分析还需要结合额外 Tracepoint 或内核调度事件，而不能只依靠默认事件。</p>
+<h1 id="3-References"><a href="#3-References" class="headerlink" title="3. References"></a>3. References</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ros2/ros2_tracing">ROS2 Tracing</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io">John Jeep</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://johnjeep.github.io/Robotics/synced/Robotics/Performance/">https://johnjeep.github.io/Robotics/synced/Robotics/Performance/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://johnjeep.github.io" target="_blank">Learning Computer Science Journey</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/robotics/">robotics</a></div><div class="post-share"><div class="social-share" data-image="/img/cover-hardware.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Shell/synced/Shell/zsh/" title="Zsh"><img class="cover" src="/img/cover-code.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Zsh</div></div><div class="info-2"><div class="info-item-1"> Linux 下安装 oh-my-zsh 与常用插件一、前置准备查看系统中是否有下面三个软件 123zsh --versiongit --versioncurl --version  若有，则不用安装；若没有，输入下面的操作进行安装。 macOS:系统自带 zsh(Catalina 之后默认 shell),只需确认 git: 12zsh --versiongit --version   # 没有的话会提示安装 Xcode Comm...</div></div></div></a><a class="pagination-related" href="/Robotics/synced/Robotics/ROS2Internal/" title="ROS2Internal"><img class="cover" src="/img/cover-systems.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">ROS2Internal</div></div><div class="info-2"><div class="info-item-1">  ROS2 Internal核心模块    模块(仓库) 模块名称 主要功能    ros2/ros2 元仓库 汇总 ROS 2 工作空间配置和子仓库依赖清单（.repos 文件）。   ros2/rcl ROS Client Library (C语言实现层) ROS 2 客户端库的核心 C 语言实现，向下封装中间件接口，向上提供基础通信功能。   ros2/rclcpp ROS Client Library (C++ API)...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Robotics/synced/Robotics/Embodied/" title="Embodied"><img class="cover" src="/img/cover-hardware.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-15</div><div class="info-item-2">Embodied</div></div><div class="info-2"><div class="info-item-1">  1. Embodied Intelligence(具身智能)机器人学主要依赖于数学、物理、机械工程、电子工程、计算机科学，还涉及哲学、心理学、生物学等领域。 机器人的核心是运动—受控制的编程运动。 机器人学研究的是怎样综合运用机械装置、传感器、启动器和计算机来实现人类某些方面的功能。 1.1. 机器人形态 移动机器人 工业机器人：比如机械臂。注重实时和可靠性 人形机器人：多模态融合 轮足机器人 巡航机器人  1.2. 线性代数...</div></div></div></a><a class="pagination-related" href="/Robotics/synced/Robotics/Moveit/" title="Moveit"><img class="cover" src="/img/cover-network.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-17</div><div class="info-item-2">Moveit</div></div><div class="info-2"><div class="info-item-1">  1. IntroductionMoveIt 是 ROS 中最高层、最强大的机器人“运动规划与操作”框架。它负责“想”，让机器人知道如何去完成一个复杂的动作。  详细解释：  角色定位： 它是机器人的 “大脑” 和 “导航系统” 。你告诉它一个高级目标，比如“把那个红色的积木抓起来放到盒子里”，MoveIt 会为你解决一系列复杂问题： 运动规划： 计算出机械臂从 A 点移动到 B 点而不发生碰撞的路径。 逆运动学： 将末端执行器...</div></div></div></a><a class="pagination-related" href="/Robotics/synced/Robotics/NodeLifecycle/" title="NodeLifecycle"><img class="cover" src="/img/cover-network.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-03</div><div class="info-item-2">NodeLifecycle</div></div><div class="info-2"><div class="info-item-1">   核心思想：状态机  ROS2 的 Node Lifecycle 将节点的生命周期建模为一个有限状态机。这意味着节点在任何时刻都处于一个明确定义的状态，并且只能在特定条件下从一个状态转换到另一个状态。 好的，作为一名专业的机器人开发工程师，我很乐意为你深入解释 ROS2 的 Node Lifecycle。这是一个在 ROS2中提升系统可靠性和健壮性的核心概念。 1. 为什么需要 Node Lifecycle？想象一下在复杂的机...</div></div></div></a><a class="pagination-related" href="/Robotics/synced/Robotics/ROS2Msgs/" title="ROS2Msgs"><img class="cover" src="/img/cover-systems.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-03-09</div><div class="info-item-2">ROS2Msgs</div></div><div class="info-2"><div class="info-item-1">  1. Introduction在 ROS 2 中，消息（Messages）、服务（Services）和动作（Actions）是节点之间通信的基本机制。ROS 2 提供了丰富的标准消息类型，同时也支持用户定义自定义消息、服务和动作接口，以满足特定应用需求。 查看本地已安装的所有 interfaces 1ros2 interface list   2. std_msgs在工程中使用std_msgs的典型场景和示例：  导入消息类型...</div></div></div></a><a class="pagination-related" href="/Robotics/synced/Robotics/Lidar/" title="Lidar"><img class="cover" src="/img/cover-hardware.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-16</div><div class="info-item-2">Lidar</div></div><div class="info-2"><div class="info-item-1">  Introduction Lidar消息包格式RViz2 与激光雷达交互激光雷达与避障</div></div></div></a><a class="pagination-related" href="/Robotics/synced/Robotics/ROS2/" title="ROS2"><img class="cover" src="/img/cover-algo.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-17</div><div class="info-item-2">ROS2</div></div><div class="info-2"><div class="info-item-1">  1. ROS2 Introduction机器人已经广泛应用于各种领域，例如自动驾驶、移动机器人、操作机器人、信息机器人等。 机器人系统是很多复杂算法模块的集合，如障碍物检测、行为决策、智能控制、环境识别等。任何机器人平台的软件堆栈都需要多种软件工具，如硬件驱动程序、网络模块、通信架构和多种机器人算法。 ROS 就是一个强大的机器人编程框架，可以简化机器人应用开发。 ROS不仅仅是一个中间件，而且用于机器人导航，感知，控制，运动...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Jeep</div><div class="author-info-description">Systematic notes on C/C++, architecture, distributed systems, and engineering practice.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">345</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">67</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JohnJeep/Learning-CS-Journey"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/JohnJeep" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss" style="color: #ff6600;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>新读者入口</b><br><a href="/start-here/">10分钟快速了解本站</a><br><a href="/featured/">查看精选文章</a><br><a href="/atom.xml">订阅 RSS</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Robotics-Performance-Optimization"><span class="toc-number">1.</span> <span class="toc-text">1. Robotics Performance Optimization</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-ROS2-tracing"><span class="toc-number">2.</span> <span class="toc-text">2. ROS2_tracing</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 如何使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-References"><span class="toc-number">3.</span> <span class="toc-text">3. References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/Shell/synced/Shell/zsh/" title="Zsh"><img src="/img/cover-code.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zsh"/></a><div class="content"><a class="title" href="/Shell/synced/Shell/zsh/" title="Zsh">Zsh</a><time datetime="2026-11-07T08:50:40.000Z" title="发表于 2026-11-07 16:50:40">2026-11-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Performance/" title="Performance"><img src="/img/cover-hardware.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Performance"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Performance/" title="Performance">Performance</a><time datetime="2026-11-07T03:33:02.000Z" title="发表于 2026-11-07 11:33:02">2026-11-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/ROS2Internal/" title="ROS2Internal"><img src="/img/cover-systems.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ROS2Internal"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/ROS2Internal/" title="ROS2Internal">ROS2Internal</a><time datetime="2026-11-02T02:38:59.000Z" title="发表于 2026-11-02 10:38:59">2026-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Encoder/" title="Encoder"><img src="/img/cover-network.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Encoder"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Encoder/" title="Encoder">Encoder</a><time datetime="2026-08-24T00:26:27.000Z" title="发表于 2026-08-24 08:26:27">2026-08-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Servo/" title="Servo"><img src="/img/cover-code.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Servo"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Servo/" title="Servo">Servo</a><time datetime="2026-08-24T00:06:57.000Z" title="发表于 2026-08-24 08:06:57">2026-08-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/IMU/" title="IMU"><img src="/img/cover-algo.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IMU"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/IMU/" title="IMU">IMU</a><time datetime="2026-08-16T08:48:44.000Z" title="发表于 2026-08-16 16:48:44">2026-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Robotics/synced/Robotics/Lidar/" title="Lidar"><img src="/img/cover-hardware.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lidar"/></a><div class="content"><a class="title" href="/Robotics/synced/Robotics/Lidar/" title="Lidar">Lidar</a><time datetime="2026-08-16T08:45:44.000Z" title="发表于 2026-08-16 16:45:44">2026-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/GNU/synced/GNU/Buildroot/" title="Buildroot"><img src="/img/cover-network.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Buildroot"/></a><div class="content"><a class="title" href="/GNU/synced/GNU/Buildroot/" title="Buildroot">Buildroot</a><time datetime="2026-07-19T15:39:30.000Z" title="发表于 2026-07-19 23:39:30">2026-07-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By John Jeep</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-strict":0,"data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"top","data-lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'JohnJeep/Learning-CS-Journey',
+      'data-repo-id': 'MDEwOlJlcG9zaXRvcnkyMDU1NTI2MTQ=',
+      'data-category-id': 'DIC_kwDODEB75s4C7Mts',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script defer src="/js/home-dynamic.js"></script><script defer src="/js/blog-utils.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
